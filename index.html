@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/font.css">
+    <link rel="stylesheet" href="css/all.css">
+    <link rel="stylesheet" href="css/signin.css">
+    <link rel="stylesheet" href="css/alert.css">
+    <title>HR-Payroll - Login</title>
+</head>
+<body>
+    <div class="container">
+        <div class="form-box">
+            <h1 id="title">System Login</h1> 
+            <div id="notifications"></div>
+            <input type="hidden" name="userid" id="userid">
+            <div class="mainform">
+                <form >
+                    <div class="input-group">
+                        <div class="input-field">
+                            <i class="fad fa-user"></i>
+                            <input type="text" name="username" id="username" placeholder="Username" autocomplete="off">
+                        </div>
+
+                        <div class="input-field">
+                            <i class="fad fa-lock"></i>
+                            <input type="password" name="password" id="password" placeholder="Password" autocomplete="off">
+                        </div>
+
+                        <p id="forgotpassword">Forgot your password? <a href="#" id="forgotpasswordlink">Click Here!</a></p>
+                    </div>
+                    <div class="btn-field"> 
+                        <button type="button" id="signin" >Sign in</button>
+                        <!-- <button type="button" id="signup">Sign up</button> -->
+                    </div>  
+                    <!-- <div class="btn-field fullwidth">
+                        <button type="button"  id="watchguide">Watch Video Tutorial</button>
+                    </div> -->
+                </form>
+            </div>
+
+            <div class="forgotpasswordform" id="forgotpasswordform" style="display:none">
+                <form >
+                    <div class="input-group">
+                       
+                        <div class="input-field">
+                            <i class="fad fa-user"></i>
+                            <input type="text" name="forgotpasswordusername" id="forgotpasswordusername" placeholder="ID or Birth Certificate Number" autocomplete="off">
+                        </div>
+                        <!-- <p>Forgot your password? <a href="#">Click Here!</a></p> -->
+                    </div>
+                </form>
+                <div class="btn-field"> 
+                    <button type="button" id="resetpassword">Reset Password</button>
+                    <button type="button" id="restpasswordsignin" class="disabled">Sign in</button>
+                </div>
+            </div>
+
+            <div class="changepassword" style="display:none">
+                <form >
+                    <div class="input-group">
+                        <div class="input-field">
+                            <i class="fad fa-lock"></i>
+                            <input type="password" name="oldpassword" id="oldpassword" placeholder="Your current password" autocomplete="off">
+                        </div>
+
+                        <div class="input-field">
+                            <i class="fad fa-lock"></i>
+                            <input type="password" name="newpassword" id="newpassword" placeholder="Your new password" autocomplete="off">
+                        </div>
+
+                        <div class="input-field">
+                            <i class="fad fa-lock"></i>
+                            <input type="password" name="confirmnewpassword" id="confirmnewpassword" placeholder="Confirm new password" autocomplete="off">
+                        </div>
+
+                        <!-- <p>Forgot your password? <a href="#">Click Here!</a></p> -->
+                    </div>
+                </form>
+                <div class="btn-field"> 
+                    <button type="button" id="changepassword">Change Password</button>
+                    <button type="button" id="changepasswordsignin" class="disabled">Sign in</button>
+                </div>
+            </div>
+
+            <!-- <div id="playtutorial" style="display:none">
+                <form>
+                    <div class="videoplayer"></div>
+                </form>
+                <div class="btn-field fullwidth"> 
+                    <button type="button" id="backtologin">Back To Login</button>
+                </div>
+            </div> -->
+            
+        </div>
+    </div>
+
+</body>
+<script src="js/jquery-3.6.1.js"></script>
+<script src="js/alert.js"></script>
+<script src="js/functions.js"></script>
+<script src="js/index.js"></script>
+</html>

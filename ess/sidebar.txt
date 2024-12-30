@@ -1,0 +1,71 @@
+<div class="sidebar">
+
+    <div class="sidebar-brand">
+        <h2>
+            <span><i class="fas fa-warehouse"></span></i>ESS Portal
+        </h2>
+    </div>
+
+    <div class="sidebar-menu">
+        <ul>
+            <li>
+                <a href="dashboard.php" class='validation' data-id=48 id="dashboard">
+                    <span><i class="fal fa-tachometer"></i></span>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="payslips.php" class='validation' data-id=2 id="payslips">
+                    <span><i class="fal fa-house-user"></i></span>
+                    <span>Payslips</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="p9cards.php" class='validation' data-id=2 id="p9cards">
+                    <span><i class="fal fa-users"></i></span>
+                    <span>P9 Card</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="leaves.php" class='validation' data-id=49  id="leaves">
+                    <span><i class="fal fa-money-check-edit-alt"></i></span>
+                    <span>Leaves</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="grievances.php" class='validation' data-id=55 id="grievances">
+                    <span><i class="fal fa-envelope-open-dollar"></i></span>
+                    <span>Grievances</span>
+                </a>
+            </li>
+
+             <li>
+                <a href="notices.php" id="notices" class='validation' data-id=14>
+                    <span><i class="fal fa-receipt"></i></span>
+                    <span>Notices</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="profile.php" id="profile" class='validation' data-id=14>
+                    <span><i class="fal fa-users"></i></span>
+                    <span>Profile</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="../controllers/useroperations.php?logoutuser" id="logoutuser">
+                    <span><i class="fal fa-sign-out-alt"></i></span>
+                    <span>Logout</span>
+                </a>
+            </li>
+
+        </ul>
+    </div> 
+
+</div>
+

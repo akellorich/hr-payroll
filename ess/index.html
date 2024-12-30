@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/font.css">
+    <link rel="stylesheet" href="../css/all.css">
+    <link rel="stylesheet" href="../css/signin.css">
+    <link rel="stylesheet" href="../css/alert.css">
+    <title>Rentwise Employee - Login</title>
+</head>
+<body>
+    <div class="container">
+        <div class="form-box">
+            <h1 id="title">Sign up</h1>
+
+            
+            <div id="notifications"></div>
+            <input type="hidden" name="userid" id="userid">
+            <div class="mainform">
+                <form >
+                    <div class="input-group">
+                        <div class="input-field" id="emailfields">
+                            <i class="fad fa-envelope"></i>
+                            <input type="text" name="email" id="email" placeholder="Email Address">
+                        </div>
+
+                        <div class="input-field" id="mobilefields">
+                            <i class="fad fa-mobile-android"></i>
+                            <input type="text" name="mobile" id="mobile" placeholder="Mobile Number">
+                        </div>
+                        
+                        <div class="input-field">
+                            <i class="fad fa-user"></i>
+                            <input type="text" name="username" id="username" placeholder="Payroll Number">
+                        </div>
+
+                        <div class="input-field">
+                            <i class="fad fa-lock"></i>
+                            <input type="password" name="password" id="password" placeholder="Password">
+                        </div>
+                        <p>Forgot your password? <a href="#" id="forgotpasswordlink">Click Here!</a></p>
+                    </div>
+                </form>
+                <div class="btn-field"> 
+                    <button type="button" id="signin" class="disabled">Sign in</button>
+                    <button type="button" id="signup">Sign up</button>
+                </div>
+            </div>
+
+            <div class="forgotpasswordform" id="forgotpasswordform" style="display:none">
+                <form >
+                    <div class="input-group">
+                       
+                        <div class="input-field">
+                            <i class="fad fa-user"></i>
+                            <input type="text" name="forgotpasswordusername" id="forgotpasswordusername" placeholder="Payroll Number">
+                        </div>
+                        <!-- <p>Forgot your password? <a href="#">Click Here!</a></p> -->
+                    </div>
+                </form>
+                <div class="btn-field"> 
+                    <button type="button" id="resetpassword">Reset Password</button>
+                    <button type="button" id="restpasswordsignin" class="disabled">Sign in</button>
+                </div>
+            </div>
+
+            <div class="changepassword" style="display:none">
+                <form >
+                    <div class="input-group">
+                        
+                        <div class="input-field">
+                            <i class="fad fa-lock"></i>
+                            <input type="password" name="oldpassword" id="oldpassword" placeholder="Your current password">
+                        </div>
+
+                        <div class="input-field">
+                            <i class="fad fa-lock"></i>
+                            <input type="password" name="newpassword" id="newpassword" placeholder="Your new password">
+                        </div>
+
+                        <div class="input-field">
+                            <i class="fad fa-lock"></i>
+                            <input type="password" name="confirmnewpassword" id="confirmnewpassword" placeholder="Confirm new password">
+                        </div>
+
+                        <!-- <p>Forgot your password? <a href="#">Click Here!</a></p> -->
+                    </div>
+                </form>
+                <div class="btn-field"> 
+                    <button type="button" id="changepassword">Change Password</button>
+                    <button type="button" id="changepasswordsignin" class="disabled">Sign in</button>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</body>
+<script src="../js/jquery-3.6.1.js"></script>
+<script src="../js/alert.js"></script>
+<script src="../js/functions.js"></script>
+<script src="../js/index.ess.js"></script>
+</html>
