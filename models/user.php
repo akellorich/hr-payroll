@@ -25,28 +25,29 @@
             }         
         }
 
-        function saveUser($userid,$username,$salt,$password,$firstname,$middlename,$lastname,$mobile,$email,$systemadmin,$accountactive,$changepasswordonlogon,$institutionid){
+        function saveUser($userid,$username,$password,$salt,$firstname,$middlename,$lastname,$mobile,$email,$systemadmin,$accountactive,$changepasswordonlogon){
             // check username
             if($this->checkUser($userid,'username',$username)){
-                return ["status"=>"exists","message"=>"Sorry, the username is already in use."];
+                return ["status"=>"exists","message"=>"Sorry, the username is already in use.",'category'=>'username'];
             }else if ($this->checkUser($userid,'email',$email)){
                //check email 
-                return ["status"=>"exists","message"=> "Sorry, the email address is already in use."];
+                return ["status"=>"exists","message"=> "Sorry, the email address is already in use.",'category'=>'email'];
             }else if ($this->checkUser($userid,'mobile',$mobile)){
                 // check mobile
-                return ["status"=>"exists","message"=> "Sorry, the mobile phone number is already in use."];
+                return ["status"=>"exists","message"=> "Sorry, the mobile phone number is already in use.",'category'=>'mobile'];
             }else{
-                $sql="CALL  sp_saveuser({$userid},'{$password}','{$salt}',{$systemadmin},'{$username}','{$firstname}','{$middlename}','{$lastname}','{$email}','{$mobile}',{$changepasswordonlogon},{$accountactive},{$_SESSION['userid']},{$institutionid},'{$this->platform}')";
+                $password=hash('SHA256',$password.$salt);
+                $sql="CALL  sp_saveuser({$userid},'{$password}','{$salt}',{$systemadmin},'{$username}','{$firstname}','{$middlename}','{$lastname}','{$email}','{$mobile}',{$changepasswordonlogon},{$accountactive},{$_SESSION['userid']},'{$this->platform}')";
                 // echo $sql."<br/>";
                 $rst=$this->getData($sql);   
-                //echo $sql."<br/>";
+                //echo $sql."<br/>";.
                 // $row=$rst->fetch(PDO::FETCH_ASSOC);
                 do{
                     $row = $rst->fetch(); 
                     if(array_key_exists("userid", $row)){
-                        return ["status"=>"success",$row['userid']];
+                        return ["status"=>"success","userid"=>$row['userid']];
                     }
-                } while ($rst->nextRowset());        
+                }while ($rst->nextRowset());        
             }
         }
     
@@ -203,17 +204,18 @@
             return ["status"=>"success","message"=>"user privilege saved successfully"];
         }
 
-        function checkUserPrivilege($objectid){
+        function checkUserPrivilege($objectcode){
             $userid=$_SESSION['userid'];
-            $sql="CALL sp_validateuserprivilege({$userid},{$objectid})";
+            $sql="CALL sp_validateuserprivilege({$userid},'{$objectcode}')";
             $rst=$this->connect()->query($sql);
             if($rst->rowCount()){
-                $row=$rst->fetch();
-                if ($row['allowed']==1){
-                    return 1;
-                }else{
-                    return 0;
-                }
+                return $rst->fetch()['allowed'];
+                // return $row['allowed'];
+                // if ($row['allowed']==1){
+                //     return 1;
+                // }else{
+                //     return 0;
+                // }
             }else{
                 return 0;
             }

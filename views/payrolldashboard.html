@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payroll Processing Dashboard</title>
+  <!-- Bootstrap 4 CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Font Awesome 5 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <!-- ApexCharts CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts@3.28.0/dist/apexcharts.min.css">
+  <style>
+    :root {
+      --disability: #9c27b0;    /* Purple for disability */
+      --tax: #00bcd4;           /* Teal for tax */
+      --newhire: #4caf50;       /* Green for new hires */
+      --exit: #ff9800;          /* Orange for exits */
+      --remittance: #f44336;    /* Red for remittances */
+      --alert: #2196f3;         /* Blue for alerts */
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8f9fc;
+      font-size: 0.85rem;
+    }
+    .dashboard-card {
+      border: none;
+      border-radius: 0.3rem;
+      box-shadow: 0 0.1rem 0.3rem rgba(0,0,0,0.03);
+    }
+    .card-header {
+      background-color: #f8f9fc;
+      border-bottom: 1px solid #e3e6f0;
+      font-weight: 600;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      padding: 0.75rem 1.25rem;
+    }
+    .kpi-card {
+      border-left: 0.3rem solid;
+      transition: all 0.3s;
+    }
+    .kpi-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0.3rem 0.6rem rgba(0,0,0,0.05);
+    }
+    .kpi-value {
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+    .kpi-title {
+      font-size: 0.7rem;
+      color: #6c757d;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .chart-container {
+      min-height: 240px;
+    }
+    .table-sm td, .table-sm th {
+      padding: 0.4rem;
+      font-size: 0.75rem;
+    }
+    .table thead th {
+      font-size: 0.7rem;
+    }
+    .status-badge {
+      font-size: 0.6rem;
+      font-weight: 600;
+      padding: 0.2rem 0.4rem;
+      border-radius: 0.2rem;
+    }
+    .badge-pending {
+      background-color: #fff3cd;
+      color: #856404;
+    }
+    .badge-overdue {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+    .badge-completed {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    .btn-action {
+      font-size: 0.65rem;
+      padding: 0.25rem 0.5rem;
+    }
+    h6 {
+      font-size: 0.8rem;
+    }
+    
+    /* Icon-matched border colors */
+    .border-disability { border-left-color: var(--disability) !important; }
+    .border-tax { border-left-color: var(--tax) !important; }
+    .border-newhire { border-left-color: var(--newhire) !important; }
+    .border-exit { border-left-color: var(--exit) !important; }
+    .border-remittance { border-left-color: var(--remittance) !important; }
+    .border-alert { border-left-color: var(--alert) !important; }
+    
+    /* Icon colors */
+    .icon-disability { color: var(--disability) !important; }
+    .icon-tax { color: var(--tax) !important; }
+    .icon-newhire { color: var(--newhire) !important; }
+    .icon-exit { color: var(--exit) !important; }
+    .icon-remittance { color: var(--remittance) !important; }
+    .icon-alert { color: var(--alert) !important; }
+  </style>
+</head>
+<body>
+  <div class="container-fluid py-2">
+    
+    <!-- Row 1: Key Metrics Cards -->
+    <div class="row mb-3">
+      <!-- Employees with Disability (Purple) -->
+      <div class="col-xl-3 col-md-6 mb-3">
+        <div class="card kpi-card h-100 border-disability">
+          <div class="card-body py-2">
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <div class="kpi-title">Employees with Disability</div>
+                <div class="kpi-value icon-disability">18</div>
+                <div class="small text-muted mt-1">5% of workforce</div>
+              </div>
+              <div class="icon-disability">
+                <i class="fas fa-wheelchair fa-2x opacity-75"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Fixed Tax Employees (Teal) -->
+      <div class="col-xl-3 col-md-6 mb-3">
+        <div class="card kpi-card h-100 border-tax">
+          <div class="card-body py-2">
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <div class="kpi-title">Fixed Tax Employees</div>
+                <div class="kpi-value icon-tax">24</div>
+                <div class="small text-muted mt-1">2 new this month</div>
+              </div>
+              <div class="icon-tax">
+                <i class="fas fa-file-invoice-dollar fa-2x opacity-75"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- New Entrants (Green) -->
+      <div class="col-xl-3 col-md-6 mb-3">
+        <div class="card kpi-card h-100 border-newhire">
+          <div class="card-body py-2">
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <div class="kpi-title">New Entrants</div>
+                <div class="kpi-value icon-newhire">9</div>
+                <div class="small text-muted mt-1">+3 from last month</div>
+              </div>
+              <div class="icon-newhire">
+                <i class="fas fa-user-plus fa-2x opacity-75"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Employee Exits (Orange) -->
+      <div class="col-xl-3 col-md-6 mb-3">
+        <div class="card kpi-card h-100 border-exit">
+          <div class="card-body py-2">
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <div class="kpi-title">Employee Exits</div>
+                <div class="kpi-value icon-exit">5</div>
+                <div class="small text-muted mt-1">2 pending clearance</div>
+              </div>
+              <div class="icon-exit">
+                <i class="fas fa-user-minus fa-2x opacity-75"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 2: Charts -->
+    <div class="row mb-3">
+      <div class="col-lg-6 mb-3">
+        <div class="card dashboard-card h-100 border-disability">
+          <div class="card-header">
+            <h6 class="m-0 font-weight-bold text-primary">Payroll Summary (Last 6 Months)</h6>
+          </div>
+          <div class="card-body p-2">
+            <div id="payrollSummaryChart" class="chart-container"></div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-6 mb-3">
+        <div class="card dashboard-card h-100 border-exit">
+          <div class="card-header">
+            <h6 class="m-0 font-weight-bold text-primary">Employee Exit Reasons</h6>
+          </div>
+          <div class="card-body p-2">
+            <div id="exitReasonsChart" class="chart-container"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 3: Employee Special Categories -->
+    <div class="row mb-3">
+      <div class="col-lg-6 mb-3">
+        <div class="card dashboard-card h-100 border-disability">
+          <div class="card-header d-flex justify-content-between align-items-center py-2">
+            <h6 class="m-0 font-weight-bold text-primary">Employees with Disabilities</h6>
+            <span class="badge badge-primary badge-pill" style="font-size: 0.6rem; background-color: var(--disability)">18 Records</span>
+          </div>
+          <div class="card-body p-2">
+            <div class="table-responsive">
+              <table class="table table-sm table-hover mb-0">
+                <thead class="thead-light">
+                  <tr>
+                    <th>Employee</th>
+                    <th>Department</th>
+                    <th>Disability Type</th>
+                    <th>Tax Relief</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>John Mwangi</td>
+                    <td>IT</td>
+                    <td>Visual</td>
+                    <td class="text-success">KES 2,500</td>
+                  </tr>
+                  <tr>
+                    <td>Susan Kariuki</td>
+                    <td>Finance</td>
+                    <td>Physical</td>
+                    <td class="text-success">KES 3,000</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-6 mb-3">
+        <div class="card dashboard-card h-100 border-tax">
+          <div class="card-header d-flex justify-content-between align-items-center py-2">
+            <h6 class="m-0 font-weight-bold text-primary">Fixed Tax Employees</h6>
+            <span class="badge badge-info badge-pill" style="font-size: 0.6rem; background-color: var(--tax)">24 Records</span>
+          </div>
+          <div class="card-body p-2">
+            <div class="table-responsive">
+              <table class="table table-sm table-hover mb-0">
+                <thead class="thead-light">
+                  <tr>
+                    <th>Employee</th>
+                    <th>Tax ID</th>
+                    <th>Fixed Rate</th>
+                    <th>Effective Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>David Omondi</td>
+                    <td>A00234567X</td>
+                    <td>25%</td>
+                    <td>01/01/2024</td>
+                  </tr>
+                  <tr>
+                    <td>Grace Wambui</td>
+                    <td>A00123456Y</td>
+                    <td>30%</td>
+                    <td>15/03/2024</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 4: Payroll Movement -->
+    <div class="row mb-3">
+      <div class="col-lg-6 mb-3">
+        <div class="card dashboard-card h-100 border-newhire">
+          <div class="card-header d-flex justify-content-between align-items-center py-2">
+            <h6 class="m-0 font-weight-bold text-primary">New Entrants (This Month)</h6>
+            <span class="badge badge-success badge-pill" style="font-size: 0.6rem; background-color: var(--newhire)">9 Records</span>
+          </div>
+          <div class="card-body p-2">
+            <div class="table-responsive">
+              <table class="table table-sm table-hover mb-0">
+                <thead class="thead-light">
+                  <tr>
+                    <th>Employee</th>
+                    <th>Start Date</th>
+                    <th>Position</th>
+                    <th>Salary</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Brian Kimani</td>
+                    <td>02/05/2024</td>
+                    <td>Developer</td>
+                    <td>KES 120,000</td>
+                  </tr>
+                  <tr>
+                    <td>Lucy Njeri</td>
+                    <td>15/05/2024</td>
+                    <td>Accountant</td>
+                    <td>KES 150,000</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-6 mb-3">
+        <div class="card dashboard-card h-100 border-exit">
+          <div class="card-header d-flex justify-content-between align-items-center py-2">
+            <h6 class="m-0 font-weight-bold text-primary">Employee Exits (This Month)</h6>
+            <span class="badge badge-warning badge-pill" style="font-size: 0.6rem; background-color: var(--exit)">5 Records</span>
+          </div>
+          <div class="card-body p-2">
+            <div class="table-responsive">
+              <table class="table table-sm table-hover mb-0">
+                <thead class="thead-light">
+                  <tr>
+                    <th>Employee</th>
+                    <th>Exit Date</th>
+                    <th>Reason</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>James Mutua</td>
+                    <td>05/05/2024</td>
+                    <td>Resignation</td>
+                    <td><span class="status-badge badge-completed">Final pay done</span></td>
+                  </tr>
+                  <tr>
+                    <td>Mary Wanjiku</td>
+                    <td>18/05/2024</td>
+                    <td>Retirement</td>
+                    <td><span class="status-badge badge-pending">Pension processing</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 5: Compliance -->
+    <div class="row">
+      <div class="col-lg-6 mb-3">
+        <div class="card dashboard-card h-100 border-remittance">
+          <div class="card-header d-flex justify-content-between align-items-center py-2">
+            <h6 class="m-0 font-weight-bold text-primary">Outstanding Remittances</h6>
+            <span class="badge badge-danger badge-pill" style="font-size: 0.6rem; background-color: var(--remittance)">3 Overdue</span>
+          </div>
+          <div class="card-body p-2">
+            <div class="table-responsive">
+              <table class="table table-sm table-hover mb-0">
+                <thead class="thead-light">
+                  <tr>
+                    <th>Type</th>
+                    <th>Amount</th>
+                    <th>Due Date</th>
+                    <th>Days Overdue</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>PAYE (May)</td>
+                    <td>KES 245,780</td>
+                    <td>09/05/2024</td>
+                    <td>6</td>
+                    <td><span class="status-badge badge-overdue">URGENT</span></td>
+                  </tr>
+                  <tr>
+                    <td>NSSF (May)</td>
+                    <td>KES 187,650</td>
+                    <td>15/05/2024</td>
+                    <td>0</td>
+                    <td><span class="status-badge badge-pending">Due today</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-6 mb-3">
+        <div class="card dashboard-card h-100 border-alert">
+          <div class="card-header d-flex justify-content-between align-items-center py-2">
+            <h6 class="m-0 font-weight-bold text-primary">Payroll Alerts</h6>
+            <span class="badge badge-primary badge-pill" style="font-size: 0.6rem; background-color: var(--alert)">4 Actions</span>
+          </div>
+          <div class="card-body p-2">
+            <div class="table-responsive">
+              <table class="table table-sm table-hover mb-0">
+                <thead class="thead-light">
+                  <tr>
+                    <th>Alert Type</th>
+                    <th>Description</th>
+                    <th>Due Date</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><i class="fas fa-exclamation-triangle icon-remittance mr-1"></i>Statutory</td>
+                    <td>PAYE payment overdue</td>
+                    <td>09/05/2024</td>
+                    <td><button class="btn btn-sm btn-danger btn-action">Pay Now</button></td>
+                  </tr>
+                  <tr>
+                    <td><i class="fas fa-user-clock icon-exit mr-1"></i>Exit</td>
+                    <td>Final payment pending</td>
+                    <td>20/05/2024</td>
+                    <td><button class="btn btn-sm btn-warning btn-action">Process</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- jQuery, Popper.js, Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- ApexCharts JS -->
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      
+      // Payroll Summary Chart
+      var payrollOptions = {
+        series: [{
+          name: 'Gross Pay',
+          data: [12.4, 13.1, 12.8, 13.5, 14.2, 14.8]
+        }, {
+          name: 'Deductions',
+          data: [4.2, 4.5, 4.3, 4.8, 5.1, 5.4]
+        }, {
+          name: 'Net Pay',
+          data: [8.2, 8.6, 8.5, 8.7, 9.1, 9.4]
+        }],
+        chart: {
+          type: 'bar',
+          height: '100%',
+          stacked: false,
+          toolbar: { show: false }
+        },
+        colors: ['#4e73df', '#f6c23e', '#1cc88a'],
+        plotOptions: {
+          bar: {
+            horizontal: false,
+            columnWidth: '55%',
+          },
+        },
+        dataLabels: { enabled: false },
+        stroke: { show: true, width: 2, colors: ['transparent'] },
+        xaxis: {
+          categories: ['Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May'],
+          labels: { style: { fontSize: '10px' } }
+        },
+        yaxis: {
+          title: { text: 'KES (Millions)' },
+          labels: {
+            style: { fontSize: '10px' },
+            formatter: function(value) {
+              return "KES " + value + "M";
+            }
+          }
+        },
+        legend: { 
+          position: 'bottom',
+          fontSize: '10px'
+        },
+        tooltip: {
+          y: {
+            formatter: function(value) {
+              return "KES " + value + "M";
+            }
+          }
+        }
+      };
+      var payrollChart = new ApexCharts(document.querySelector("#payrollSummaryChart"), payrollOptions);
+      payrollChart.render();
+
+      // Exit Reasons Donut Chart
+      var exitOptions = {
+        series: [15, 8, 5, 3, 2],
+        chart: {
+          type: 'donut',
+          height: '100%'
+        },
+        labels: ['Resignation', 'Retirement', 'Contract End', 'Dismissal', 'Other'],
+        colors: ['#4e73df', '#1cc88a', '#f6c23e', '#e74a3b', '#858796'],
+        plotOptions: {
+          pie: {
+            donut: {
+              labels: {
+                show: true,
+                total: {
+                  show: true,
+                  label: 'Total Exits',
+                  formatter: function () {
+                    return '33'
+                  }
+                }
+              }
+            }
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        legend: { 
+          position: 'bottom',
+          fontSize: '10px'
+        },
+        responsive: [{
+          breakpoint: 480,
+          options: {
+            chart: { width: 200 },
+            legend: { position: 'bottom' }
+          }
+        }]
+      };
+      var exitChart = new ApexCharts(document.querySelector("#exitReasonsChart"), exitOptions);
+      exitChart.render();
+    });
+  </script>
+</body>
+</html>

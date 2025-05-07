@@ -1,9 +1,9 @@
 <?php
     require_once("db.php");
     use PHPMailer\PHPMailer\PHPMailer;
-    require_once("../plugins/phpmailer/PHPMailer.php");
-    require_once("../plugins/phpmailer/SMTP.php");
-    require_once("../plugins/phpmailer/Exception.php");
+    require_once(__DIR__."/../plugins/phpmailer/PHPMailer.php");
+    require_once(__DIR__."/../plugins/phpmailer/SMTP.php");
+    require_once(__DIR__."/../plugins/phpmailer/Exception.php");
 
     class mail extends db{
         private $smtpserver;
@@ -11,7 +11,7 @@
         private $smtpsecurity;
         private $username;
         private $password;
-
+        
         public function __construct(){
            
         }
@@ -19,14 +19,13 @@
         public function sendEmail($recipient,$subject,$message,$sender,$attachment='',$stringattachment='',$filename=''){
             
             $mail= new PHPMailer();
-
-            $sql="CALL sp_getemailconfiguration()";
+            $sql="CALL sp_getemailconfiguration({$this->constituencyid})";
             $row=$this->getData($sql)->fetch(PDO::FETCH_ASSOC);
-            $this->smtpserver=$row['smtpserver'];
-            $this->smtpport=$row['smtpport'];
-            $this->username=$row['emailaddress'];
-            $this->password=$row['password'];
-            $this->smtpsecurity=$row['usessl']==1?'ssl':'tls';
+                $this->smtpserver=$row['smtpserver'];
+                $this->smtpport=$row['smtpport'];
+                $this->username=$row['emailaddress'];
+                $this->password=$row['password'];
+                $this->smtpsecurity=$row['usessl']==1?'ssl':'tls';
 
             $mail->isSMTP();
             $mail->Host=$this->smtpserver;
@@ -43,7 +42,14 @@
             $mail->Body=$message;
             
             if($attachment!=""){
-                $mail->AddAttachment($attachment);
+                if(is_array($attachment)){
+                    foreach($attachment as $attached){
+                        $mail->AddAttachment($attached);
+                    }
+                }else{
+                    $mail->AddAttachment($attachment);
+                } 
+                // $mail->AddAttachment($attachment);
             }
 
             if($stringattachment!=""){
@@ -51,9 +57,9 @@
             }
 
             if($mail->send()){
-                return "success";
+                return ["status"=>"success"];
             }else{
-                return $mail->ErrorInfo;
+                return ["status"=>"error","message"=>$mail->ErrorInfo];
             }
         }
 
@@ -66,6 +72,16 @@
             $sql="CALL `sp_saveemailconfiguration`('{$emailaddress}','{$emailpassword}','{$smtpserver}',{$smtpport},{$usessl})";
             $this->getData($sql);
             return "success";
+        }
+
+        function queueemail($module,$emailfrom,$emailto,$emailsubject,$emailmessage,$attachment=""){
+            $emailfrom=str_replace("'","''",$emailfrom);
+            $emailsubject=str_replace("'","''",$emailsubject);
+            $emailmessage=str_replace("'","''",$emailmessage);
+            $sql="CALL `sp_saveemailschedule`('{$module}','{$emailfrom}','{$emailto}','{$emailsubject}','{$emailmessage}','{$attachment}',{$_SESSION['userid']})";
+            // echo $sql;
+            $this->getData($sql);
+            return ["status"=>"success","message"=>"email added to queue successfully"];
         }
     }
 ?>

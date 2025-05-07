@@ -18,8 +18,9 @@
             $religionid,$salutationid,$iddocumentid,$iddocreferenceno,$iddocexpirydate,$dateofbirth,$gender,$pinno,$nssfno,
             $nhifno,$disabled,$disabilitytype,$disabilitydescription,$onpayroll,$fixedpaye, $employmentstatus,$positionid,$jobgroupid,$notchid,
             $bankbranchid,$accountnumber,$employmentdate, $separationdate,$separationreason,$physicaladdress,$postaladdress,$town,
-            $postalcode,$mobile,$emailaddress,$alternativemobile,$alternativeemailaddress,$generatestaffno,$disabilitycertificateno){
-            if($this->checkemployee($employeeid,'id document',$iddocumentid,$iddocreferenceno)){
+            $postalcode,$mobile,$emailaddress,$alternativemobile,$alternativeemailaddress,$generatestaffno,$disabilitycertificateno,
+            $unitid,$sectionid,$shiftid){
+            if($this->checkemployee($employeeid,'id document',$iddocumentid,$iddocreferenceno,$unitid,$sectionid,$shiftid)){
                 return ["status"=>"exists","message"=>"id doc no exists"];
             }else if($generatestaffno==0 && $this->checkemployee($employeeid,'staff no',$iddocumentid,$staffno)){
                 return ["status"=>"exists","message"=>"staff no exists"];
@@ -45,7 +46,8 @@
                 {$religionid},{$salutationid},{$iddocumentid},'{$iddocreferenceno}','{$iddocexpirydate}','{$dateofbirth}','{$gender}','{$pinno}','{$nssfno}',
                '{$nhifno}',{$disabled},'{$disabilitytype}','{$disabilitydescription}',{$onpayroll},{$fixedpaye},'{$employmentstatus}',{$positionid},{$jobgroupid},{$notchid},
                 {$bankbranchid},'{$accountnumber}','{$employmentdate}','{$separationdate}','{$separationreason}','{$physicaladdress}','{$postaladdress}','{$town}',
-                '{$postalcode}','{$mobile}','{$emailaddress}','{$alternativemobile}','{$alternativeemailaddress}',{$generatestaffno},'{$disabilitycertificateno}',{$this->userid},'{$this->platform}')";
+                '{$postalcode}','{$mobile}','{$emailaddress}','{$alternativemobile}','{$alternativeemailaddress}',{$generatestaffno},'{$disabilitycertificateno}',
+                {$unitid},{$sectionid},{$shiftid},{$this->userid},'{$this->platform}')";
 
                 // mysql will return multiple recordset during editing storing data in current and original values variables 
                 // that are retuned as resultset internally
@@ -523,6 +525,17 @@
         function getdepartmentactiveemployees($departmentid){
             $sql="CALL `sp_getdepartmentactiveemployees`({$departmentid})";
             return $this->getJSON($sql);
+        }
+
+        function filterstaffbyunitdepartmentsection($unitid,$departmentid,$sectionid){
+            $sql="CALL `sp_filterstaffbyunitdeparmentsection`({$unitid},{$departmentid},{$sectionid})";
+            return $this->getJSON($sql);
+        }
+
+        function savestaffshift($employeeid,$shiftid){
+            $sql="CALL `sp_changestaffshift`($employeeid,$shiftid,'{$this->platform}',{$this->userid})";
+            $this->getData($sql);
+            return ["status"=>"success","message"=>"staff shift adjusted successfully"];
         }
     }
 

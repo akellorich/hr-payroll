@@ -97,6 +97,10 @@
         $relieverid=$_POST['relieverid'];
         $supervisorid=$_POST['supervisorid'];
         $narration=$_POST['narration'];
+        $halfdayapplication=$_POST['halfdayapplication'];
+        $shifthalf=$_POST['shifthalf'];
+        $starttime=$_POST['starttime'];
+        $endtime=$_POST['endtime'];
         $leavename=$leave->getleavename($leavetypeid);
         // check if upload file is sent and upload
         if(isset($_FILES['attachment']['tmp_name'])){
@@ -109,7 +113,7 @@
         }
 
         $applicationresponse=$leave->saveleaveapplication($applicationid,$employeeid,$leavetypeid,$startdate,$enddate,$daystaken,
-        $relieverid,$supervisorid,$narration,$attachment);
+        $relieverid,$supervisorid,$narration,$attachment,$halfdayapplication,$shifthalf,$starttime,$endtime);
         // check if response is success and mail the employee for notification and supervisor for approval
         // echo json_encode($applicationresponse).PHP_EOL;
         if($applicationresponse['status']=="success"){

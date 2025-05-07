@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HR & Payroll Dashboard</title>
+  <!-- Bootstrap 4 CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Font Awesome 5 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <!-- Poppins Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <!-- ApexCharts CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts@3.28.0/dist/apexcharts.min.css">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f5f7fb;
+      font-size: 0.875rem;
+    }
+    .dashboard-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 15px 0;
+      margin-bottom: 20px;
+      border-radius: 0;
+    }
+    .card {
+      border: none;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      margin-bottom: 20px;
+      height: 100%;
+    }
+    .card-body {
+      padding: 15px;
+    }
+    .kpi-card {
+      border-left: 3px solid;
+    }
+    .kpi-card .card-icon {
+      font-size: 24px;
+      opacity: 0.8;
+    }
+    .kpi-card .card-value {
+      font-size: 1.25rem;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+    .kpi-card .card-title {
+      font-size: 0.75rem;
+      color: #6c757d;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 5px;
+    }
+    .chart-container {
+      position: relative;
+      height: 250px;
+    }
+    .table-responsive {
+      border-radius: 8px;
+    }
+    .table {
+      font-size: 0.8125rem;
+      margin-bottom: 0;
+    }
+    .table th {
+      background-color: #f8f9fa;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.6875rem;
+      letter-spacing: 0.5px;
+      padding: 10px;
+    }
+    .table td {
+      padding: 8px 10px;
+      vertical-align: middle;
+    }
+    .badge-pill {
+      padding: 4px 8px;
+      font-size: 0.6875rem;
+    }
+    .status-badge {
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 0.6875rem;
+      font-weight: 500;
+    }
+    .card-title {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+    .card-title i {
+      margin-right: 6px;
+    }
+    .trend-indicator {
+      font-size: 0.6875rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard-header">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-8">
+          <h4 class="mb-0"><i class="fas fa-tachometer-alt mr-2"></i> HR & Payroll Dashboard</h4>
+        </div>
+        <div class="col-md-4 text-right">
+          <span class="badge badge-light mr-2"><i class="fas fa-calendar-day mr-1"></i> <span id="current-date"></span></span>
+          <span class="badge badge-light"><i class="fas fa-clock mr-1"></i> <span id="current-time"></span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- KPI Cards -->
+    <div class="row">
+      <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+        <div class="card kpi-card" style="border-left-color: #4e73df;">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <div>
+                <div class="card-title">Employees</div>
+                <div class="card-value">256</div>
+                <div class="trend-indicator text-success"><i class="fas fa-caret-up mr-1"></i> 5.2%</div>
+              </div>
+              <div class="card-icon text-primary">
+                <i class="fas fa-users"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+        <div class="card kpi-card" style="border-left-color: #1cc88a;">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <div>
+                <div class="card-title">Net Payroll</div>
+                <div class="card-value">KES 2.4M</div>
+                <div class="trend-indicator text-success"><i class="fas fa-caret-up mr-1"></i> 8.3%</div>
+              </div>
+              <div class="card-icon text-success">
+                <i class="fas fa-money-bill-wave"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+        <div class="card kpi-card" style="border-left-color: #f6c23e;">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <div>
+                <div class="card-title">Expiring Contracts</div>
+                <div class="card-value">8</div>
+                <div class="trend-indicator text-danger"><i class="fas fa-caret-down mr-1"></i> 2</div>
+              </div>
+              <div class="card-icon text-warning">
+                <i class="fas fa-file-contract"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+        <div class="card kpi-card" style="border-left-color: #e74a3b;">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <div>
+                <div class="card-title">Due Submissions</div>
+                <div class="card-value">3</div>
+                <div class="trend-indicator text-danger"><i class="fas fa-clock mr-1"></i> 2 days</div>
+              </div>
+              <div class="card-icon text-danger">
+                <i class="fas fa-exclamation-triangle"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+        <div class="card kpi-card" style="border-left-color: #36b9cc;">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <div>
+                <div class="card-title">On Leave</div>
+                <div class="card-value">12</div>
+                <div class="trend-indicator text-info"><i class="fas fa-calendar-week mr-1"></i> 5 Annual</div>
+              </div>
+              <div class="card-icon text-info">
+                <i class="fas fa-umbrella-beach"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+        <div class="card kpi-card" style="border-left-color: #858796;">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <div>
+                <div class="card-title">Absent Today</div>
+                <div class="card-value">5</div>
+                <div class="trend-indicator text-danger"><i class="fas fa-bell mr-1"></i> 2 Unexcused</div>
+              </div>
+              <div class="card-icon text-secondary">
+                <i class="fas fa-user-slash"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+        <div class="card kpi-card" style="border-left-color: #5a5c69;">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <div>
+                <div class="card-title">Inactive</div>
+                <div class="card-value">3</div>
+                <div class="trend-indicator text-warning"><i class="fas fa-exclamation-circle mr-1"></i> Review</div>
+              </div>
+              <div class="card-icon text-dark">
+                <i class="fas fa-user-clock"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+        <div class="card kpi-card" style="border-left-color: #f8f9fc;">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <div>
+                <div class="card-title">Disciplinary Cases</div>
+                <div class="card-value">4</div>
+                <div class="trend-indicator text-warning"><i class="fas fa-hourglass-half mr-1"></i> 2 Pending</div>
+              </div>
+              <div class="card-icon text-gray">
+                <i class="fas fa-gavel"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="row">
+      <div class="col-lg-6 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title"><i class="fas fa-chart-pie text-primary"></i> Employee Distribution</h5>
+            <div class="chart-container">
+              <div id="employeeDistChart"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title"><i class="fas fa-chart-line text-success"></i> Payroll Trend</h5>
+            <div class="chart-container">
+              <div id="payrollTrendChart"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title"><i class="fas fa-calendar-alt text-warning"></i> Contract Expiry</h5>
+            <div class="chart-container">
+              <div id="contractExpiryChart"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title"><i class="fas fa-chart-bar text-info"></i> Attendance</h5>
+            <div class="chart-container">
+              <div id="attendanceChart"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tables Section -->
+    <div class="row">
+      <div class="col-lg-6 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title"><i class="fas fa-file-contract text-warning"></i> Contract Expirations</h5>
+            <div class="table-responsive">
+              <table class="table table-sm table-hover">
+                <thead class="thead-light">
+                  <tr>
+                    <th>Employee</th>
+                    <th>Position</th>
+                    <th>Expiry</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>John Doe</td>
+                    <td>Technician</td>
+                    <td>20/05/25</td>
+                    <td><span class="badge badge-warning badge-pill">15d</span></td>
+                  </tr>
+                  <tr>
+                    <td>Jane Smith</td>
+                    <td>HR Officer</td>
+                    <td>22/05/25</td>
+                    <td><span class="badge badge-warning badge-pill">17d</span></td>
+                  </tr>
+                  <tr>
+                    <td>Michael Brown</td>
+                    <td>Accountant</td>
+                    <td>05/06/25</td>
+                    <td><span class="badge badge-info badge-pill">31d</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title"><i class="fas fa-user-clock text-info"></i> Today's Attendance</h5>
+            <div class="table-responsive">
+              <table class="table table-sm table-hover">
+                <thead class="thead-light">
+                  <tr>
+                    <th>Employee</th>
+                    <th>Status</th>
+                    <th>In/Out</th>
+                    <th>Hours</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>John Doe</td>
+                    <td><span class="badge badge-success badge-pill">Present</span></td>
+                    <td>08:15/17:00</td>
+                    <td>8.75</td>
+                  </tr>
+                  <tr>
+                    <td>Jane Smith</td>
+                    <td><span class="badge badge-warning badge-pill">Late</span></td>
+                    <td>09:05/17:30</td>
+                    <td>8.42</td>
+                  </tr>
+                  <tr>
+                    <td>Sarah Johnson</td>
+                    <td><span class="badge badge-primary badge-pill">Leave</span></td>
+                    <td>-/-</td>
+                    <td>-</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title"><i class="fas fa-gavel text-danger"></i> Disciplinary Cases</h5>
+            <div class="table-responsive">
+              <table class="table table-sm table-hover">
+                <thead class="thead-light">
+                  <tr>
+                    <th>Employee</th>
+                    <th>Case</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>David Wilson</td>
+                    <td>Unauthorized absence</td>
+                    <td>15/04/25</td>
+                    <td><span class="badge badge-danger badge-pill">Open</span></td>
+                  </tr>
+                  <tr>
+                    <td>Lisa Wong</td>
+                    <td>Policy violation</td>
+                    <td>02/05/25</td>
+                    <td><span class="badge badge-warning badge-pill">Investigation</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title"><i class="fas fa-file-invoice-dollar text-success"></i> Recent Payments</h5>
+            <div class="table-responsive">
+              <table class="table table-sm table-hover">
+                <thead class="thead-light">
+                  <tr>
+                    <th>Employee</th>
+                    <th>Month</th>
+                    <th>Net</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>John Doe</td>
+                    <td>May 2025</td>
+                    <td>KES 98,500</td>
+                    <td><span class="badge badge-success badge-pill">Paid</span></td>
+                  </tr>
+                  <tr>
+                    <td>Jane Smith</td>
+                    <td>May 2025</td>
+                    <td>KES 125,200</td>
+                    <td><span class="badge badge-success badge-pill">Paid</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- jQuery, Popper.js, Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- ApexCharts JS -->
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  
+  <script>
+    // Current date and time
+    function updateDateTime() {
+      const now = new Date();
+      document.getElementById('current-date').textContent = now.toLocaleDateString('en-US', { 
+        weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' 
+      });
+      document.getElementById('current-time').textContent = now.toLocaleTimeString('en-US', {
+        hour: '2-digit', minute: '2-digit'
+      });
+    }
+    updateDateTime();
+    setInterval(updateDateTime, 60000);
+
+    // Employee Distribution Chart
+    var employeeDistOptions = {
+      series: [50, 100, 60, 46],
+      chart: {
+        type: 'donut',
+        height: '100%'
+      },
+      labels: ['Admin', 'Tech', 'HR', 'Finance'],
+      colors: ['#4e73df', '#1cc88a', '#f6c23e', '#e74a3b'],
+      responsive: [{
+        breakpoint: 480,
+        options: {
+          chart: {
+            width: 200
+          }
+        }
+      }],
+      plotOptions: {
+        pie: {
+          donut: {
+            labels: {
+              show: true,
+              total: {
+                show: true,
+                label: 'Total',
+                formatter: function () {
+                  return '256';
+                }
+              }
+            }
+          }
+        }
+      },
+      dataLabels: {
+        enabled: false
+      },
+      legend: {
+        position: 'bottom'
+      }
+    };
+    var employeeDistChart = new ApexCharts(document.querySelector("#employeeDistChart"), employeeDistOptions);
+    employeeDistChart.render();
+
+    // Payroll Trend Chart
+    var payrollTrendOptions = {
+      series: [{
+        name: 'Gross Salary',
+        data: [2.4, 2.6, 2.7, 2.8, 2.9]
+      }, {
+        name: 'Deductions',
+        data: [0.6, 0.65, 0.7, 0.68, 0.72]
+      }, {
+        name: 'Net Salary',
+        data: [1.8, 1.95, 2.0, 2.12, 2.18]
+      }],
+      chart: {
+        type: 'line',
+        height: '100%',
+        zoom: {
+          enabled: false
+        }
+      },
+      colors: ['#4e73df', '#f6c23e', '#1cc88a'],
+      dataLabels: {
+        enabled: false
+      },
+      stroke: {
+        curve: 'smooth',
+        width: 2
+      },
+      xaxis: {
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+      },
+      yaxis: {
+        labels: {
+          formatter: function(value) {
+            return "KES " + value + "M";
+          }
+        }
+      },
+      tooltip: {
+        y: {
+          formatter: function(value) {
+            return "KES " + value + "M";
+          }
+        }
+      },
+      legend: {
+        position: 'bottom'
+      }
+    };
+    var payrollTrendChart = new ApexCharts(document.querySelector("#payrollTrendChart"), payrollTrendOptions);
+    payrollTrendChart.render();
+
+    // Contract Expiry Chart
+    var contractExpiryOptions = {
+      series: [{
+        name: 'Contracts',
+        data: [5, 8, 3, 4, 6, 2, 5, 7, 4, 3, 2, 1]
+      }],
+      chart: {
+        type: 'bar',
+        height: '100%'
+      },
+      colors: ['#f6c23e'],
+      plotOptions: {
+        bar: {
+          borderRadius: 4,
+          horizontal: false,
+        }
+      },
+      dataLabels: {
+        enabled: false
+      },
+      xaxis: {
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+      },
+      yaxis: {
+        title: {
+          text: 'Contracts'
+        }
+      }
+    };
+    var contractExpiryChart = new ApexCharts(document.querySelector("#contractExpiryChart"), contractExpiryOptions);
+    contractExpiryChart.render();
+
+    // Attendance Chart
+    var attendanceOptions = {
+      series: [{
+        name: 'Present',
+        data: [120, 118, 125, 130, 122, 115, 110]
+      }, {
+        name: 'Late',
+        data: [5, 7, 3, 8, 4, 6, 9]
+      }, {
+        name: 'Absent',
+        data: [3, 2, 4, 1, 5, 3, 2]
+      }],
+      chart: {
+        type: 'bar',
+        height: '100%',
+        stacked: true
+      },
+      colors: ['#1cc88a', '#f6c23e', '#e74a3b'],
+      plotOptions: {
+        bar: {
+          horizontal: false,
+          columnWidth: '55%',
+        },
+      },
+      dataLabels: {
+        enabled: false
+      },
+      stroke: {
+        show: true,
+        width: 1,
+        colors: ['transparent']
+      },
+      xaxis: {
+        categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      },
+      legend: {
+        position: 'bottom'
+      }
+    };
+    var attendanceChart = new ApexCharts(document.querySelector("#attendanceChart"), attendanceOptions);
+    attendanceChart.render();
+  </script>
+</body>
+</html>

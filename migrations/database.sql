@@ -16,6 +16,183 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/`hrpayroll` /*!40100 DEFAULT CHARACTER S
 
 USE `hrpayroll`;
 
+/*Table structure for table `absentismaudittrail` */
+
+DROP TABLE IF EXISTS `absentismaudittrail`;
+
+CREATE TABLE `absentismaudittrail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `date` datetime DEFAULT NULL,
+  `absentdates` varchar(100) DEFAULT NULL,
+  `employeeid` int(11) DEFAULT NULL,
+  `shiftid` int(11) DEFAULT NULL,
+  `unitid` int(11) DEFAULT NULL,
+  `departmentid` int(11) DEFAULT NULL,
+  `sectionid` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `absentismaudittrail` */
+
+insert  into `absentismaudittrail`(`id`,`date`,`absentdates`,`employeeid`,`shiftid`,`unitid`,`departmentid`,`sectionid`) values 
+(61,'2025-02-16 00:00:00','13-Feb-2025,14-Feb-2025,15-Feb-2025',1,10,4,13,2),
+(62,'2025-02-16 00:00:00','13-Feb-2025,14-Feb-2025,15-Feb-2025',2,10,4,2,1),
+(63,'2025-02-16 00:00:00','13-Feb-2025,14-Feb-2025,15-Feb-2025',3,10,4,13,1),
+(64,'2025-02-16 00:00:00','13-Feb-2025,14-Feb-2025,15-Feb-2025',4,10,4,1,2),
+(65,'2025-02-16 00:00:00','13-Feb-2025,14-Feb-2025,15-Feb-2025',5,10,4,1,2),
+(66,'2025-02-16 00:00:00','13-Feb-2025,14-Feb-2025,15-Feb-2025',6,10,4,1,1),
+(67,'2025-02-16 00:00:00','13-Feb-2025,14-Feb-2025,15-Feb-2025',7,10,4,1,1),
+(68,'2025-02-16 00:00:00','13-Feb-2025,14-Feb-2025,15-Feb-2025',8,10,4,12,2),
+(69,'2025-02-16 00:00:00','13-Feb-2025,14-Feb-2025,15-Feb-2025',9,10,4,12,2),
+(70,'2025-02-16 00:00:00','13-Feb-2025,14-Feb-2025,15-Feb-2025',10,10,1,13,2),
+(71,'2025-02-16 00:00:00','13-Feb-2025,14-Feb-2025,15-Feb-2025',11,10,4,12,1);
+
+/*Table structure for table `attendance` */
+
+DROP TABLE IF EXISTS `attendance`;
+
+CREATE TABLE `attendance` (
+  `attendanceid` int(11) NOT NULL AUTO_INCREMENT,
+  `date` date DEFAULT NULL,
+  `dateadded` datetime DEFAULT NULL,
+  `addedby` int(11) DEFAULT NULL,
+  `status` varchar(50) DEFAULT 'pending',
+  PRIMARY KEY (`attendanceid`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `attendance` */
+
+insert  into `attendance`(`attendanceid`,`date`,`dateadded`,`addedby`,`status`) values 
+(1,'2025-02-02','2025-02-02 18:34:58',5,'pending'),
+(2,'2025-02-11','2025-02-11 20:21:50',5,'pending'),
+(3,'2025-03-03','2025-03-16 12:57:34',5,'pending'),
+(4,'2025-04-09','2025-04-09 15:02:35',5,'pending'),
+(5,'2025-04-30','2025-04-30 12:14:55',5,'pending');
+
+/*Table structure for table `attendanceemployees` */
+
+DROP TABLE IF EXISTS `attendanceemployees`;
+
+CREATE TABLE `attendanceemployees` (
+  `employeeattendanceid` int(11) NOT NULL AUTO_INCREMENT,
+  `attendanceid` int(11) DEFAULT NULL,
+  `employeeid` int(11) DEFAULT NULL,
+  `unitid` int(11) DEFAULT NULL,
+  `shiftid` int(11) DEFAULT NULL,
+  `departmentid` int(11) DEFAULT NULL,
+  `sectionid` int(11) DEFAULT NULL,
+  `clockin` time DEFAULT NULL,
+  `clockout` time DEFAULT NULL,
+  PRIMARY KEY (`employeeattendanceid`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `attendanceemployees` */
+
+insert  into `attendanceemployees`(`employeeattendanceid`,`attendanceid`,`employeeid`,`unitid`,`shiftid`,`departmentid`,`sectionid`,`clockin`,`clockout`) values 
+(1,1,8,4,10,1,1,'07:22:00','17:14:00'),
+(2,1,11,4,10,1,1,NULL,'17:55:00'),
+(3,1,4,4,10,1,1,'07:46:00',NULL),
+(4,1,2,4,10,1,1,NULL,'18:41:00'),
+(5,1,10,1,10,1,1,'08:17:00',NULL),
+(6,2,8,4,10,1,1,'07:22:00','17:14:00'),
+(7,2,11,4,10,1,1,NULL,'17:55:00'),
+(8,2,4,4,10,1,1,'07:46:00',NULL),
+(9,2,2,4,10,1,1,'08:12:00','18:41:00'),
+(10,2,10,1,10,1,1,'08:17:00','18:17:00'),
+(11,4,8,4,10,NULL,NULL,'07:22:00','17:14:00'),
+(12,4,11,4,10,NULL,NULL,'07:27:00','17:55:00'),
+(13,4,4,4,10,NULL,NULL,'07:46:00','17:42:00'),
+(14,4,2,4,10,NULL,NULL,'08:12:00','18:41:00'),
+(15,4,10,1,10,NULL,NULL,'08:17:00','18:17:00'),
+(16,5,8,4,10,NULL,NULL,'07:22:00','17:14:00'),
+(17,5,11,4,10,NULL,NULL,'07:27:00','17:55:00'),
+(18,5,4,4,10,NULL,NULL,'07:46:00','17:42:00'),
+(19,5,2,4,10,NULL,NULL,'08:12:00','18:41:00'),
+(20,5,10,1,10,NULL,NULL,'08:17:00','18:17:00');
+
+/*Table structure for table `attendancesettings` */
+
+DROP TABLE IF EXISTS `attendancesettings`;
+
+CREATE TABLE `attendancesettings` (
+  `clockinallowance` int(11) DEFAULT NULL,
+  `clockoutallowance` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `attendancesettings` */
+
+insert  into `attendancesettings`(`clockinallowance`,`clockoutallowance`) values 
+(15,15);
+
+/*Table structure for table `attendancesheet` */
+
+DROP TABLE IF EXISTS `attendancesheet`;
+
+CREATE TABLE `attendancesheet` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `attendanceid` int(11) DEFAULT NULL,
+  `date` date DEFAULT NULL,
+  `employeeid` int(11) DEFAULT NULL,
+  `unitid` int(11) DEFAULT NULL,
+  `departmentid` int(11) DEFAULT NULL,
+  `sectionid` int(11) DEFAULT NULL,
+  `shiftid` int(11) DEFAULT NULL,
+  `clockin` time DEFAULT NULL,
+  `clockout` time DEFAULT NULL,
+  `leaveapplicationid` int(11) DEFAULT NULL,
+  `overtime` decimal(18,3) DEFAULT NULL,
+  `losthours` decimal(18,3) DEFAULT NULL,
+  `dateadded` datetime DEFAULT NULL,
+  `addedby` int(11) DEFAULT NULL,
+  `status` varchar(50) DEFAULT 'pending',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `attendancesheet` */
+
+insert  into `attendancesheet`(`id`,`attendanceid`,`date`,`employeeid`,`unitid`,`departmentid`,`sectionid`,`shiftid`,`clockin`,`clockout`,`leaveapplicationid`,`overtime`,`losthours`,`dateadded`,`addedby`,`status`) values 
+(1,0,'2025-02-01',6,4,1,1,10,'07:10:00','17:20:00',0,0.330,0.000,'2025-02-14 11:23:07',5,'pending'),
+(2,0,'2025-02-01',8,4,12,2,10,'07:00:00','17:25:00',0,0.420,0.000,'2025-02-14 11:23:07',5,'pending'),
+(3,0,'2025-02-01',10,1,13,2,10,'07:00:00','17:25:00',0,0.420,0.000,'2025-02-14 11:23:07',5,'pending'),
+(4,2,'2025-02-11',6,4,1,1,10,'07:34:00','17:25:00',0,0.420,0.570,'2025-02-24 18:30:02',5,'pending'),
+(6,3,'2025-03-03',2,4,2,1,10,NULL,NULL,1,0.000,0.000,'2025-03-16 13:36:15',5,'pending'),
+(7,3,'2025-03-03',6,4,1,1,10,NULL,NULL,2,0.000,0.000,'2025-03-16 13:36:15',5,'pending'),
+(8,3,'2025-03-03',8,4,12,2,10,NULL,NULL,3,0.000,0.000,'2025-03-16 13:36:16',5,'pending'),
+(9,3,'2025-03-03',10,1,13,2,10,NULL,NULL,4,0.000,0.000,'2025-03-16 13:36:16',5,'pending'),
+(10,3,'2025-03-03',1,4,13,2,10,NULL,NULL,5,0.000,0.000,'2025-03-16 13:36:16',5,'pending'),
+(11,3,'2025-03-03',4,4,1,2,10,NULL,NULL,6,0.000,0.000,'2025-03-16 13:36:17',5,'pending'),
+(12,3,'2025-03-03',5,4,1,2,10,NULL,NULL,7,0.000,0.000,'2025-03-16 13:36:17',5,'pending'),
+(13,3,'2025-03-03',9,4,12,2,10,NULL,NULL,8,0.000,0.000,'2025-03-16 13:36:17',5,'pending'),
+(14,3,'2025-03-03',7,4,1,1,10,NULL,NULL,9,0.000,0.000,'2025-03-16 13:36:18',5,'pending'),
+(15,3,'2025-03-03',11,4,12,1,10,NULL,NULL,10,0.000,0.000,'2025-03-16 13:36:18',5,'pending'),
+(16,3,'2025-03-03',3,4,13,1,10,NULL,NULL,11,0.000,0.000,'2025-03-16 13:37:39',5,'pending');
+
+/*Table structure for table `attendanceunits` */
+
+DROP TABLE IF EXISTS `attendanceunits`;
+
+CREATE TABLE `attendanceunits` (
+  `attendanceunitid` int(11) NOT NULL AUTO_INCREMENT,
+  `attendanceid` int(11) DEFAULT NULL,
+  `unitid` int(11) DEFAULT NULL,
+  `status` varchar(50) DEFAULT NULL,
+  `datelocked` datetime DEFAULT NULL,
+  `lockedby` int(11) DEFAULT NULL,
+  PRIMARY KEY (`attendanceunitid`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `attendanceunits` */
+
+insert  into `attendanceunits`(`attendanceunitid`,`attendanceid`,`unitid`,`status`,`datelocked`,`lockedby`) values 
+(1,1,1,'locked','2025-02-03 15:10:09',5),
+(2,1,4,'locked','2025-02-03 15:11:13',5),
+(3,2,4,'locked','2025-02-12 13:04:00',5),
+(4,2,1,'locked','2025-02-12 13:04:00',5),
+(5,4,4,'locked','2025-04-09 15:02:51',5),
+(6,4,1,'locked','2025-04-09 15:02:51',5),
+(7,5,4,'locked','2025-04-30 12:15:13',5),
+(8,5,1,'locked','2025-04-30 12:15:13',5);
+
 /*Table structure for table `audittrail` */
 
 DROP TABLE IF EXISTS `audittrail`;
@@ -31,7 +208,7 @@ CREATE TABLE `audittrail` (
   `updatedvalues` mediumtext DEFAULT NULL,
   `branchid` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10657 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12142 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `audittrail` */
 
@@ -59,7 +236,1488 @@ insert  into `audittrail`(`id`,`timestamp`,`userid`,`operation`,`narration`,`pla
 (10653,'2024-12-29 14:18:26',5,'insert','Created shift detail for 9 - Night Shift, shift type night for weekday Friday','{\"browser\":\"Chrome\",\"browser_version\":\"131.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
 (10654,'2024-12-29 14:18:26',5,'insert','Created shift detail for 9 - Night Shift, shift type night for weekday Saturday','{\"browser\":\"Chrome\",\"browser_version\":\"131.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
 (10655,'2024-12-29 14:18:26',5,'insert','Created shift detail for 9 - Night Shift, shift type night for weekday Sunday','{\"browser\":\"Chrome\",\"browser_version\":\"131.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
-(10656,'2024-12-30 08:31:07',5,'update','Updated employee details for id :1 staff no:NT0001 names:Richard Onyango Akelo','{\"browser\":\"Chrome\",\"browser_version\":\"131.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','{\"employeeid\": 1, \"staffno\": \"NT0001\", \"firstname\": \"Richard\", \"middlename\": \"Onyango\", \"lastname\": \"Akelo\", \"termid\": 4, \"categoryid\": 2, \"departmentid\": 10, \"religionid\": 1, \"salutationid\": 1, \"iddocumentid\": 1, \"iddocreferenceno\": \"23657524\", \"iddocexpirydate\": \"0000-00-00\", \"dateofbirth\": \"1983-01-11\", \"gender\": \"male\", \"pinno\": \"A00389875\", \"nssfno\": \"7487854\", \"nhifno\": \"N9879347\", \"disabled\": 0, \"disabilitytype\": \"none\", \"disabilitydescription\": \"\", \"disabilitycertificateno\": \"\", \"onpayroll\": 0, \"fixedpaye\": 0, \"status\": \"active\", \"positionid\": 6, \"jobgroupid\": 10, \"notchid\": 8, \"bankbranchid\": 3, \"bankaccountnumber\": \"0250190497310\", \"employmentdate\": \"2009-06-17\", \"separationdate\": null, \"separationreason\": null, \"physicaladdress\": \"Kandisi, Ongata Rongai, Opp SGR\", \"postaladdress\": \"52428\", \"town\": \"Nairobi\", \"postalcode\": \"00200\", \"mobile\": \"0727709772\", \"emailaddress\": \"akellorich@gmail.com\", \"alternativemobile\": \"\", \"alternativeemailaddress\": \"\", \"dateadded\": \"2024-06-15 13:32:58\", \"addedby\": 5}','{\"employeeid\": 1, \"staffno\": \"NT0001\", \"firstname\": \"Richard\", \"middlename\": \"Onyango\", \"lastname\": \"Akelo\", \"termid\": 5, \"categoryid\": 2, \"departmentid\": 10, \"religionid\": 1, \"salutationid\": 1, \"iddocumentid\": 1, \"iddocreferenceno\": \"23657524\", \"iddocexpirydate\": \"0000-00-00\", \"dateofbirth\": \"1983-01-11\", \"gender\": \"male\", \"pinno\": \"A00389875\", \"nssfno\": \"7487854\", \"nhifno\": \"N9879347\", \"disabled\": 0, \"disabilitytype\": \"none\", \"disabilitydescription\": \"\", \"disabilitycertificateno\": \"\", \"onpayroll\": 0, \"fixedpaye\": 0, \"status\": \"active\", \"positionid\": 6, \"jobgroupid\": 10, \"notchid\": 8, \"bankbranchid\": 3, \"bankaccountnumber\": \"0250190497310\", \"employmentdate\": \"2009-06-17\", \"separationdate\": null, \"separationreason\": null, \"physicaladdress\": \"Kandisi, Ongata Rongai, Opp SGR\", \"postaladdress\": \"52428\", \"town\": \"Nairobi\", \"postalcode\": \"00200\", \"mobile\": \"0727709772\", \"emailaddress\": \"akellorich@gmail.com\", \"alternativemobile\": \"\", \"alternativeemailaddress\": \"\", \"dateadded\": \"2024-06-15 13:32:58\", \"addedby\": 5}',NULL);
+(10656,'2024-12-30 08:31:07',5,'update','Updated employee details for id :1 staff no:NT0001 names:Richard Onyango Akelo','{\"browser\":\"Chrome\",\"browser_version\":\"131.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','{\"employeeid\": 1, \"staffno\": \"NT0001\", \"firstname\": \"Richard\", \"middlename\": \"Onyango\", \"lastname\": \"Akelo\", \"termid\": 4, \"categoryid\": 2, \"departmentid\": 10, \"religionid\": 1, \"salutationid\": 1, \"iddocumentid\": 1, \"iddocreferenceno\": \"23657524\", \"iddocexpirydate\": \"0000-00-00\", \"dateofbirth\": \"1983-01-11\", \"gender\": \"male\", \"pinno\": \"A00389875\", \"nssfno\": \"7487854\", \"nhifno\": \"N9879347\", \"disabled\": 0, \"disabilitytype\": \"none\", \"disabilitydescription\": \"\", \"disabilitycertificateno\": \"\", \"onpayroll\": 0, \"fixedpaye\": 0, \"status\": \"active\", \"positionid\": 6, \"jobgroupid\": 10, \"notchid\": 8, \"bankbranchid\": 3, \"bankaccountnumber\": \"0250190497310\", \"employmentdate\": \"2009-06-17\", \"separationdate\": null, \"separationreason\": null, \"physicaladdress\": \"Kandisi, Ongata Rongai, Opp SGR\", \"postaladdress\": \"52428\", \"town\": \"Nairobi\", \"postalcode\": \"00200\", \"mobile\": \"0727709772\", \"emailaddress\": \"akellorich@gmail.com\", \"alternativemobile\": \"\", \"alternativeemailaddress\": \"\", \"dateadded\": \"2024-06-15 13:32:58\", \"addedby\": 5}','{\"employeeid\": 1, \"staffno\": \"NT0001\", \"firstname\": \"Richard\", \"middlename\": \"Onyango\", \"lastname\": \"Akelo\", \"termid\": 5, \"categoryid\": 2, \"departmentid\": 10, \"religionid\": 1, \"salutationid\": 1, \"iddocumentid\": 1, \"iddocreferenceno\": \"23657524\", \"iddocexpirydate\": \"0000-00-00\", \"dateofbirth\": \"1983-01-11\", \"gender\": \"male\", \"pinno\": \"A00389875\", \"nssfno\": \"7487854\", \"nhifno\": \"N9879347\", \"disabled\": 0, \"disabilitytype\": \"none\", \"disabilitydescription\": \"\", \"disabilitycertificateno\": \"\", \"onpayroll\": 0, \"fixedpaye\": 0, \"status\": \"active\", \"positionid\": 6, \"jobgroupid\": 10, \"notchid\": 8, \"bankbranchid\": 3, \"bankaccountnumber\": \"0250190497310\", \"employmentdate\": \"2009-06-17\", \"separationdate\": null, \"separationreason\": null, \"physicaladdress\": \"Kandisi, Ongata Rongai, Opp SGR\", \"postaladdress\": \"52428\", \"town\": \"Nairobi\", \"postalcode\": \"00200\", \"mobile\": \"0727709772\", \"emailaddress\": \"akellorich@gmail.com\", \"alternativemobile\": \"\", \"alternativeemailaddress\": \"\", \"dateadded\": \"2024-06-15 13:32:58\", \"addedby\": 5}',NULL),
+(10657,'2025-01-25 14:10:31',5,'insert','Created leave application  id:17 for Employee Id: 6 Staff #: AC0002 Names: Richard Onyango  Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"131.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10658,'2025-01-25 14:11:26',5,'insert','Approved leave application of leave, id 17 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"131.0.0.0\",','','',NULL),
+(10659,'2025-01-25 14:11:46',5,'insert','Approved leave application of leave, id 17 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"131.0.0.0\",','','',NULL),
+(10660,'2025-01-25 14:11:57',5,'insert','Approved leave application of leave, id 17 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"131.0.0.0\",','','',NULL),
+(10661,'2025-01-29 11:48:31',5,'insert','Created new unit id:1 name:Mombasa 01','{\"browser\":\"Chrome\",\"browser_version\":\"132.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10662,'2025-01-29 12:00:47',5,'insert','Created new unit id:2 name:Mtwapa 01','{\"browser\":\"Chrome\",\"browser_version\":\"132.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10663,'2025-01-29 12:01:01',5,'insert','Created new unit id:3 name:Mtawapa 02','{\"browser\":\"Chrome\",\"browser_version\":\"132.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10664,'2025-01-29 13:17:52',5,'update','Updated unit details for id :3 name:Mtwapa 02','{\"browser\":\"Chrome\",\"browser_version\":\"132.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','{\"unitid\": 3, \"unitname\": \"Mtawapa 02\", \"unitcode\": \"003\", \"dateadded\": \"2025-01-29 12:01:01\", \"addedby\": 5, \"deleted\": 0, \"datedeleted\": null, \"deletedby\": null}','{\"unitid\": 3, \"unitname\": \"Mtwapa 02\", \"unitcode\": \"003\", \"dateadded\": \"2025-01-29 12:01:01\", \"addedby\": 5, \"deleted\": 0, \"datedeleted\": null, \"deletedby\": null}',NULL),
+(10665,'2025-01-29 13:27:17',5,'insert','Created new unit id:4 name:Changamwe','{\"browser\":\"Chrome\",\"browser_version\":\"132.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10666,'2025-01-29 13:27:25',5,'insert','Created new unit id:5 name:Miritini','{\"browser\":\"Chrome\",\"browser_version\":\"132.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10667,'2025-01-29 17:46:14',5,'Insert','Created a new department id:13 name: Sewing','{\"browser\":\"Chrome\",\"browser_version\":\"132.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}',NULL,NULL,NULL),
+(10668,'2025-01-29 18:00:41',5,'insert','Created a new section id:1 name:Line 01','{\"browser\":\"Chrome\",\"browser_version\":\"132.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10669,'2025-01-29 18:03:28',5,'insert','Created a new section id:2 name:Line 02','{\"browser\":\"Chrome\",\"browser_version\":\"132.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10670,'2025-01-30 12:23:07',5,'Delete','Deleted shift id 7 name: Day Shift','{\"browser\":\"Chrome\",\"browser_version\":\"132.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10671,'2025-01-30 12:23:36',5,'Delete','Deleted shift id 7 name: Day Shift','{\"browser\":\"Chrome\",\"browser_version\":\"132.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10672,'2025-01-30 12:30:49',5,'insert','Created new shift id:10 name:General Day Shift type:day','{\"browser\":\"Chrome\",\"browser_version\":\"132.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10673,'2025-01-30 14:43:27',5,'update','Updated employee details for id :10 staff no:AC0004 names:Daniel Middle Boy','{\"browser\":\"Chrome\",\"browser_version\":\"132.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','{\"employeeid\": 10, \"staffno\": \"AC0004\", \"firstname\": \"Daniel\", \"middlename\": \"Middle\", \"lastname\": \"Boy\", \"termid\": 4, \"categoryid\": 1, \"departmentid\": 12, \"religionid\": 1, \"salutationid\": 1, \"iddocumentid\": 1, \"iddocreferenceno\": \"39654412\", \"iddocexpirydate\": \"0000-00-00\", \"dateofbirth\": \"1979-10-09\", \"gender\": \"male\", \"pinno\": \"A0123456\", \"nssfno\": \"98087696\", \"nhifno\": \"9808765\", \"disabled\": 0, \"disabilitytype\": \"none\", \"disabilitydescription\": \"\", \"disabilitycertificateno\": \"\", \"onpayroll\": 1, \"fixedpaye\": 0, \"status\": \"active\", \"positionid\": 9, \"jobgroupid\": 8, \"notchid\": 14, \"bankbranchid\": 675, \"bankaccountnumber\": \"0001232525154\", \"employmentdate\": \"2024-10-16\", \"separationdate\": null, \"separationreason\": null, \"physicaladdress\": \"Embakasi\", \"postaladdress\": \"00501\", \"town\": \"Nairobi\", \"postalcode\": \"00100\", \"mobile\": \"0725162888\", \"emailaddress\": \"cthis999@gmail.com\", \"alternativemobile\": \"\", \"alternativeemailaddress\": \"\", \"dateadded\": \"2024-10-16 14:18:58\", \"addedby\": 5, \"unitid\": null, \"shiftid\": null, \"sectionid\": null}','{\"employeeid\": 10, \"staffno\": \"AC0004\", \"firstname\": \"Daniel\", \"middlename\": \"Middle\", \"lastname\": \"Boy\", \"termid\": 4, \"categoryid\": 1, \"departmentid\": 13, \"religionid\": 1, \"salutationid\": 1, \"iddocumentid\": 1, \"iddocreferenceno\": \"39654412\", \"iddocexpirydate\": \"0000-00-00\", \"dateofbirth\": \"1979-10-09\", \"gender\": \"male\", \"pinno\": \"A0123456\", \"nssfno\": \"98087696\", \"nhifno\": \"9808765\", \"disabled\": 0, \"disabilitytype\": \"none\", \"disabilitydescription\": \"\", \"disabilitycertificateno\": \"\", \"onpayroll\": 1, \"fixedpaye\": 0, \"status\": \"active\", \"positionid\": 9, \"jobgroupid\": 8, \"notchid\": 14, \"bankbranchid\": 675, \"bankaccountnumber\": \"0001232525154\", \"employmentdate\": \"2024-10-16\", \"separationdate\": null, \"separationreason\": null, \"physicaladdress\": \"Embakasi\", \"postaladdress\": \"00501\", \"town\": \"Nairobi\", \"postalcode\": \"00100\", \"mobile\": \"0725162888\", \"emailaddress\": \"cthis999@gmail.com\", \"alternativemobile\": \"\", \"alternativeemailaddress\": \"\", \"dateadded\": \"2024-10-16 14:18:58\", \"addedby\": 5, \"unitid\": 1, \"shiftid\": 10, \"sectionid\": 2}',NULL),
+(10674,'2025-01-30 14:44:04',5,'update','Updated employee details for id :3 staff no:TST001 names:James Marsden Cain','{\"browser\":\"Chrome\",\"browser_version\":\"132.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','{\"employeeid\": 3, \"staffno\": \"TST001\", \"firstname\": \"James\", \"middlename\": \"Marsden\", \"lastname\": \"Cain\", \"termid\": 4, \"categoryid\": 1, \"departmentid\": 2, \"religionid\": 1, \"salutationid\": 2, \"iddocumentid\": 1, \"iddocreferenceno\": \"34876747\", \"iddocexpirydate\": \"0000-00-00\", \"dateofbirth\": \"2005-06-01\", \"gender\": \"male\", \"pinno\": \"A743657534HY\", \"nssfno\": \"2638764J\", \"nhifno\": \"N27979287U\", \"disabled\": 1, \"disabilitytype\": \"permanent\", \"disabilitydescription\": \"Clubfoot\", \"disabilitycertificateno\": \"85796767\", \"onpayroll\": 1, \"fixedpaye\": 0, \"status\": \"active\", \"positionid\": 1, \"jobgroupid\": 10, \"notchid\": 4, \"bankbranchid\": 3, \"bankaccountnumber\": \"0111250456897\", \"employmentdate\": \"2018-01-01\", \"separationdate\": null, \"separationreason\": null, \"physicaladdress\": \"New York\", \"postaladdress\": \"99832\", \"town\": \"New York\", \"postalcode\": \"801210\", \"mobile\": \"0734556674\", \"emailaddress\": \"akellorich1@gmail.com\", \"alternativemobile\": \"\", \"alternativeemailaddress\": \"\", \"dateadded\": \"2024-06-15 13:50:28\", \"addedby\": 5, \"unitid\": null, \"shiftid\": null, \"sectionid\": null}','{\"employeeid\": 3, \"staffno\": \"TST001\", \"firstname\": \"James\", \"middlename\": \"Marsden\", \"lastname\": \"Cain\", \"termid\": 4, \"categoryid\": 1, \"departmentid\": 13, \"religionid\": 1, \"salutationid\": 2, \"iddocumentid\": 1, \"iddocreferenceno\": \"34876747\", \"iddocexpirydate\": \"0000-00-00\", \"dateofbirth\": \"2005-06-01\", \"gender\": \"male\", \"pinno\": \"A743657534HY\", \"nssfno\": \"2638764J\", \"nhifno\": \"N27979287U\", \"disabled\": 1, \"disabilitytype\": \"permanent\", \"disabilitydescription\": \"Clubfoot\", \"disabilitycertificateno\": \"85796767\", \"onpayroll\": 1, \"fixedpaye\": 0, \"status\": \"active\", \"positionid\": 1, \"jobgroupid\": 10, \"notchid\": 4, \"bankbranchid\": 17, \"bankaccountnumber\": \"0111250456897\", \"employmentdate\": \"2018-01-01\", \"separationdate\": null, \"separationreason\": null, \"physicaladdress\": \"New York\", \"postaladdress\": \"99832\", \"town\": \"New York\", \"postalcode\": \"801210\", \"mobile\": \"0734556674\", \"emailaddress\": \"akellorich1@mail.com\", \"alternativemobile\": \"\", \"alternativeemailaddress\": \"\", \"dateadded\": \"2024-06-15 13:50:28\", \"addedby\": 5, \"unitid\": 4, \"shiftid\": 10, \"sectionid\": 1}',NULL),
+(10675,'2025-01-30 14:44:29',5,'update','Updated employee details for id :1 staff no:NT0001 names:Richard Onyango Akelo','{\"browser\":\"Chrome\",\"browser_version\":\"132.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','{\"employeeid\": 1, \"staffno\": \"NT0001\", \"firstname\": \"Richard\", \"middlename\": \"Onyango\", \"lastname\": \"Akelo\", \"termid\": 5, \"categoryid\": 2, \"departmentid\": 10, \"religionid\": 1, \"salutationid\": 1, \"iddocumentid\": 1, \"iddocreferenceno\": \"23657524\", \"iddocexpirydate\": \"0000-00-00\", \"dateofbirth\": \"1983-01-11\", \"gender\": \"male\", \"pinno\": \"A00389875\", \"nssfno\": \"7487854\", \"nhifno\": \"N9879347\", \"disabled\": 0, \"disabilitytype\": \"none\", \"disabilitydescription\": \"\", \"disabilitycertificateno\": \"\", \"onpayroll\": 0, \"fixedpaye\": 0, \"status\": \"active\", \"positionid\": 6, \"jobgroupid\": 10, \"notchid\": 8, \"bankbranchid\": 3, \"bankaccountnumber\": \"0250190497310\", \"employmentdate\": \"2009-06-17\", \"separationdate\": null, \"separationreason\": null, \"physicaladdress\": \"Kandisi, Ongata Rongai, Opp SGR\", \"postaladdress\": \"52428\", \"town\": \"Nairobi\", \"postalcode\": \"00200\", \"mobile\": \"0727709772\", \"emailaddress\": \"akellorich@gmail.com\", \"alternativemobile\": \"\", \"alternativeemailaddress\": \"\", \"dateadded\": \"2024-06-15 13:32:58\", \"addedby\": 5, \"unitid\": null, \"shiftid\": null, \"sectionid\": null}','{\"employeeid\": 1, \"staffno\": \"NT0001\", \"firstname\": \"Richard\", \"middlename\": \"Onyango\", \"lastname\": \"Akelo\", \"termid\": 5, \"categoryid\": 2, \"departmentid\": 13, \"religionid\": 1, \"salutationid\": 1, \"iddocumentid\": 1, \"iddocreferenceno\": \"23657524\", \"iddocexpirydate\": \"0000-00-00\", \"dateofbirth\": \"1983-01-11\", \"gender\": \"male\", \"pinno\": \"A00389875\", \"nssfno\": \"7487854\", \"nhifno\": \"N9879347\", \"disabled\": 0, \"disabilitytype\": \"none\", \"disabilitydescription\": \"\", \"disabilitycertificateno\": \"\", \"onpayroll\": 0, \"fixedpaye\": 0, \"status\": \"active\", \"positionid\": 6, \"jobgroupid\": 10, \"notchid\": 8, \"bankbranchid\": 3, \"bankaccountnumber\": \"0250190497310\", \"employmentdate\": \"2009-06-17\", \"separationdate\": null, \"separationreason\": null, \"physicaladdress\": \"Kandisi, Ongata Rongai, Opp SGR\", \"postaladdress\": \"52428\", \"town\": \"Nairobi\", \"postalcode\": \"00200\", \"mobile\": \"0727709772\", \"emailaddress\": \"akellorich@gmail.com\", \"alternativemobile\": \"\", \"alternativeemailaddress\": \"\", \"dateadded\": \"2024-06-15 13:32:58\", \"addedby\": 5, \"unitid\": 4, \"shiftid\": 10, \"sectionid\": 2}',NULL),
+(10676,'2025-01-30 15:41:12',5,'update','Changed shift for employee James Marsden Cain payroll#:TST001 to Night Shift','{\"browser\":\"Chrome\",\"browser_version\":\"132.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10677,'2025-01-30 15:41:12',5,'update','Changed shift for employee Richard Onyango Akelo payroll#:NT0001 to Night Shift','{\"browser\":\"Chrome\",\"browser_version\":\"132.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10678,'2025-01-30 16:31:36',5,'update','Changed shift for employee James Marsden Cain payroll#:TST001 to General Day Shift','{\"browser\":\"Chrome\",\"browser_version\":\"132.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10679,'2025-01-30 16:31:36',5,'update','Changed shift for employee Richard Onyango Akelo payroll#:NT0001 to General Day Shift','{\"browser\":\"Chrome\",\"browser_version\":\"132.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10682,'2025-01-30 16:48:24',5,'insert','Created new overtime requisition number:OTR00001 id:3','{\"browser\":\"Chrome\",\"browser_version\":\"132.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10683,'2025-01-30 18:05:17',5,'insert','Created new overtime requisition number:OTR00002 id:4','{\"browser\":\"Chrome\",\"browser_version\":\"132.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10684,'2025-01-30 18:08:34',5,'insert','Created new overtime requisition number:OTR00003 id:5','{\"browser\":\"Chrome\",\"browser_version\":\"132.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10685,'2025-01-30 18:21:08',5,'insert','Created new overtime requisition number:OTR00001 id:6','{\"browser\":\"Chrome\",\"browser_version\":\"132.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10686,'2025-01-30 18:26:14',5,'insert','Created new overtime requisition number:OTR00002 id:7','{\"browser\":\"Chrome\",\"browser_version\":\"132.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10687,'2025-01-30 18:30:24',5,'insert','Created new overtime requisition number:OTR00003 id:8','{\"browser\":\"Chrome\",\"browser_version\":\"132.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10688,'2025-01-30 18:31:47',5,'insert','Created new overtime requisition number:OTR00004 id:9','{\"browser\":\"Chrome\",\"browser_version\":\"132.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10689,'2025-01-30 18:43:26',5,'insert','Created new overtime requisition number:OTR00005 id:10','{\"browser\":\"Chrome\",\"browser_version\":\"132.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10690,'2025-01-30 18:53:17',5,'insert','Created new overtime requisition number:OTR00006 id:11','{\"browser\":\"Chrome\",\"browser_version\":\"132.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10691,'2025-01-30 18:55:55',5,'insert','Created new overtime requisition number:OTR00007 id:12','{\"browser\":\"Chrome\",\"browser_version\":\"132.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10692,'2025-01-30 18:57:22',5,'insert','Created new overtime requisition number:OTR00008 id:13','{\"browser\":\"Chrome\",\"browser_version\":\"132.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10693,'2025-01-30 18:59:40',5,'insert','Created new overtime requisition number:OTR00009 id:14','{\"browser\":\"Chrome\",\"browser_version\":\"132.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10694,'2025-01-30 19:02:01',5,'insert','Created new overtime requisition number:OTR00010 id:15','{\"browser\":\"Chrome\",\"browser_version\":\"132.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10695,'2025-02-02 08:28:38',5,'insert','Created new overtime requisition number:OTR00011 id:16','{\"browser\":\"Chrome\",\"browser_version\":\"132.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10696,'2025-02-02 08:32:07',5,'insert','Created new overtime requisition number:OTR00012 id:17','{\"browser\":\"Chrome\",\"browser_version\":\"132.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10697,'2025-02-02 18:34:58',5,'insert',NULL,'{\"browser\":\"Chrome\",\"browser_version\":\"132.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10698,'2025-02-03 15:10:09',5,'insert','Locked unit id1 name:Mombasa 01 from attendance data importation','{\"browser\":\"Chrome\",\"browser_version\":\"132.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10699,'2025-02-03 15:11:13',5,'insert','Locked unit id4 name:Changamwe from attendance data importation','{\"browser\":\"Chrome\",\"browser_version\":\"132.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10700,'2025-02-11 20:21:50',5,'insert','Imported attendance records for 11-Feb-2025','{\"browser\":\"Chrome\",\"browser_version\":\"132.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10701,'2025-02-12 13:04:00',5,'insert','Locked unit id4 name:Changamwe from attendance data importation','{\"browser\":\"Chrome\",\"browser_version\":\"132.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10702,'2025-02-12 13:04:00',5,'insert','Locked unit id1 name:Mombasa 01 from attendance data importation','{\"browser\":\"Chrome\",\"browser_version\":\"132.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10703,'2025-02-12 18:50:27',5,'insert','Created leave application  id:18 for Employee Id: 6 Staff #: AC0002 Names: Richard Onyango  Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"132.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10704,'2025-02-12 18:51:22',5,'insert','Approved leave application of leave, id 18 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"132.0.0.0\",','','',NULL),
+(10705,'2025-02-12 18:51:32',5,'insert','Approved leave application of leave, id 18 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"132.0.0.0\",','','',NULL),
+(10706,'2025-02-12 18:52:03',5,'insert','Approved leave application of leave, id 18 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"132.0.0.0\",','','',NULL),
+(10707,'2025-02-21 18:15:34',5,'insert','Created leave application  id:19 for Employee Id: 6 Staff #: AC0002 Names: Richard Onyango  Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"133.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10708,'2025-02-23 16:53:15',5,'insert','Created leave application  id:20 for Employee Id: 6 Staff #: AC0002 Names: Richard Onyango  Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"133.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10709,'2025-02-23 17:23:04',5,'insert','Created leave application  id:21 for Employee Id: 1 Staff #: NT0001 Names: Richard Onyango Akelo Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"133.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10710,'2025-02-23 17:26:20',5,'insert','Created leave application  id:22 for Employee Id: 3 Staff #: TST001 Names: James Marsden Cain Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"133.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10711,'2025-02-23 17:33:36',5,'insert','Created leave application  id:23 for Employee Id: 5 Staff #: NT0003 Names: Marion Jones Mayers Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"133.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10712,'2025-02-23 18:10:33',5,'insert','Created leave application  id:24 for Employee Id: 6 Staff #: AC0002 Names: Richard Onyango  Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"133.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10713,'2025-02-23 18:10:38',5,'insert','Created leave application  id:25 for Employee Id: 1 Staff #: NT0001 Names: Richard Onyango Akelo Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"133.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10714,'2025-02-23 18:12:02',5,'insert','Created leave application  id:26 for Employee Id: 6 Staff #: AC0002 Names: Richard Onyango  Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"133.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10715,'2025-02-23 18:12:03',5,'insert','Approved leave application of leave, id 26 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"133.0.0.0\",','','',NULL),
+(10716,'2025-02-23 18:12:03',5,'insert','Approved leave application of leave, id 26 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"133.0.0.0\",','','',NULL),
+(10717,'2025-02-23 18:12:03',5,'insert','Approved leave application of leave, id 26 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"133.0.0.0\",','','',NULL),
+(10718,'2025-02-23 18:12:08',5,'update','Updated leave details for id :26 for Employee Id: 1 Staff #: NT0001 Names: Richard Onyango Akelo Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"133.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','{\"applicationid\": 26, \"employeeid\": 6, \"leavetypeid\": 2, \"startdate\": \"2025-02-11\", \"enddate\": \"2025-02-11\", \"daystaken\": 1.00, \"attachment\": \"\", \"narration\": \"Machines broke down\", \"status\": \"Approved\", \"addedby\": 5, \"dateadded\": \"2025-02-23 18:12:02\", \"deleted\": 0, \"datedeleted\": null, \"deletedby\": null, \"relieverid\": 5, \"supervisorid\": 5, \"approvalflowid\": 1, \"halfdayapplication\": 1, \"shifthalf\": 1, \"starttime\": \"07:00:00\", \"endtime\": \"12:00:00\"}','{\"applicationid\": 26, \"employeeid\": 1, \"leavetypeid\": 2, \"startdate\": \"2025-02-11\", \"enddate\": \"2025-02-11\", \"daystaken\": 1.00, \"attachment\": \"\", \"narration\": \"Machines broke down\", \"status\": \"Approved\", \"addedby\": 5, \"dateadded\": \"2025-02-23 18:12:02\", \"deleted\": 0, \"datedeleted\": null, \"deletedby\": null, \"relieverid\": 5, \"supervisorid\": 5, \"approvalflowid\": 1, \"halfdayapplication\": 1, \"shifthalf\": 1, \"starttime\": \"07:00:00\", \"endtime\": \"12:00:00\"}',NULL),
+(10719,'2025-02-23 18:12:08',5,'insert','Approved leave application of leave, id 26 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"133.0.0.0\",','','',NULL),
+(10720,'2025-02-23 18:12:13',5,'insert','Approved leave application of leave, id 26 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"133.0.0.0\",','','',NULL),
+(10721,'2025-02-23 18:12:17',5,'insert','Approved leave application of leave, id 26 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"133.0.0.0\",','','',NULL),
+(10722,'2025-02-23 18:12:22',5,'update','Updated leave details for id :26 for Employee Id: 5 Staff #: NT0003 Names: Marion Jones Mayers Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"133.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','{\"applicationid\": 26, \"employeeid\": 1, \"leavetypeid\": 2, \"startdate\": \"2025-02-11\", \"enddate\": \"2025-02-11\", \"daystaken\": 1.00, \"attachment\": \"\", \"narration\": \"Machines broke down\", \"status\": \"Approved\", \"addedby\": 5, \"dateadded\": \"2025-02-23 18:12:02\", \"deleted\": 0, \"datedeleted\": null, \"deletedby\": null, \"relieverid\": 5, \"supervisorid\": 5, \"approvalflowid\": 1, \"halfdayapplication\": 1, \"shifthalf\": 1, \"starttime\": \"07:00:00\", \"endtime\": \"12:00:00\"}','{\"applicationid\": 26, \"employeeid\": 5, \"leavetypeid\": 2, \"startdate\": \"2025-02-11\", \"enddate\": \"2025-02-11\", \"daystaken\": 1.00, \"attachment\": \"\", \"narration\": \"Machines broke down\", \"status\": \"Approved\", \"addedby\": 5, \"dateadded\": \"2025-02-23 18:12:02\", \"deleted\": 0, \"datedeleted\": null, \"deletedby\": null, \"relieverid\": 5, \"supervisorid\": 5, \"approvalflowid\": 1, \"halfdayapplication\": 1, \"shifthalf\": 1, \"starttime\": \"07:00:00\", \"endtime\": \"12:00:00\"}',NULL),
+(10723,'2025-02-23 18:12:22',5,'insert','Approved leave application of leave, id 26 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"133.0.0.0\",','','',NULL),
+(10724,'2025-02-23 18:12:27',5,'insert','Approved leave application of leave, id 26 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"133.0.0.0\",','','',NULL),
+(10725,'2025-02-23 18:12:31',5,'insert','Approved leave application of leave, id 26 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"133.0.0.0\",','','',NULL),
+(10726,'2025-02-23 18:12:37',5,'insert','Approved leave application of leave, id 26 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"133.0.0.0\",','','',NULL),
+(10727,'2025-02-23 18:12:43',5,'insert','Approved leave application of leave, id 26 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"133.0.0.0\",','','',NULL),
+(10728,'2025-02-23 18:12:49',5,'insert','Approved leave application of leave, id 26 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"133.0.0.0\",','','',NULL),
+(10729,'2025-02-24 18:27:33',5,'update','Closed payroll period December 2024 id: 10','{\"browser\":\"Chrome\",\"browser_version\":\"133.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10730,'2025-02-24 18:27:38',5,'insert','Processed payroll for January 2025 id: 11','{\"browser\":\"Chrome\",\"browser_version\":\"133.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10733,'2025-03-13 15:14:05',5,'insert','Created leave application  id:29 for Employee Id: 2 Staff #: AC0001 Names: Martin Lawrence Jameson Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10734,'2025-03-13 15:14:05',5,'insert','Approved leave application of leave, id 29 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10735,'2025-03-13 15:14:05',5,'insert','Approved leave application of leave, id 29 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10736,'2025-03-13 15:14:05',5,'insert','Approved leave application of leave, id 29 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10737,'2025-03-13 15:14:10',5,'update','Updated leave details for id :29 for Employee Id: 6 Staff #: AC0002 Names: Richard Onyango  Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','{\"applicationid\": 29, \"employeeid\": 2, \"leavetypeid\": 2, \"startdate\": \"2025-02-03\", \"enddate\": \"2025-02-03\", \"daystaken\": 1.00, \"attachment\": \"\", \"narration\": \"Machines broke down, hence no work could be done\", \"status\": \"Approved\", \"addedby\": 5, \"dateadded\": \"2025-03-13 15:14:05\", \"deleted\": 0, \"datedeleted\": null, \"deletedby\": null, \"relieverid\": 5, \"supervisorid\": 5, \"approvalflowid\": 1, \"halfdayapplication\": 1, \"shifthalf\": 1, \"starttime\": \"07:00:00\", \"endtime\": \"12:00:00\"}','{\"applicationid\": 29, \"employeeid\": 6, \"leavetypeid\": 2, \"startdate\": \"2025-02-03\", \"enddate\": \"2025-02-03\", \"daystaken\": 1.00, \"attachment\": \"\", \"narration\": \"Machines broke down, hence no work could be done\", \"status\": \"Approved\", \"addedby\": 5, \"dateadded\": \"2025-03-13 15:14:05\", \"deleted\": 0, \"datedeleted\": null, \"deletedby\": null, \"relieverid\": 5, \"supervisorid\": 5, \"approvalflowid\": 1, \"halfdayapplication\": 1, \"shifthalf\": 1, \"starttime\": \"07:00:00\", \"endtime\": \"12:00:00\"}',NULL),
+(10738,'2025-03-13 15:14:10',5,'insert','Approved leave application of leave, id 29 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10739,'2025-03-13 15:14:15',5,'insert','Approved leave application of leave, id 29 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10740,'2025-03-13 15:14:20',5,'insert','Approved leave application of leave, id 29 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10741,'2025-03-13 15:14:25',5,'update','Updated leave details for id :29 for Employee Id: 8 Staff #: AC0003 Names: Sam Mosabi Mungeli Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','{\"applicationid\": 29, \"employeeid\": 6, \"leavetypeid\": 2, \"startdate\": \"2025-02-03\", \"enddate\": \"2025-02-03\", \"daystaken\": 1.00, \"attachment\": \"\", \"narration\": \"Machines broke down, hence no work could be done\", \"status\": \"Approved\", \"addedby\": 5, \"dateadded\": \"2025-03-13 15:14:05\", \"deleted\": 0, \"datedeleted\": null, \"deletedby\": null, \"relieverid\": 5, \"supervisorid\": 5, \"approvalflowid\": 1, \"halfdayapplication\": 1, \"shifthalf\": 1, \"starttime\": \"07:00:00\", \"endtime\": \"12:00:00\"}','{\"applicationid\": 29, \"employeeid\": 8, \"leavetypeid\": 2, \"startdate\": \"2025-02-03\", \"enddate\": \"2025-02-03\", \"daystaken\": 1.00, \"attachment\": \"\", \"narration\": \"Machines broke down, hence no work could be done\", \"status\": \"Approved\", \"addedby\": 5, \"dateadded\": \"2025-03-13 15:14:05\", \"deleted\": 0, \"datedeleted\": null, \"deletedby\": null, \"relieverid\": 5, \"supervisorid\": 5, \"approvalflowid\": 1, \"halfdayapplication\": 1, \"shifthalf\": 1, \"starttime\": \"07:00:00\", \"endtime\": \"12:00:00\"}',NULL),
+(10742,'2025-03-13 15:14:25',5,'insert','Approved leave application of leave, id 29 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10743,'2025-03-13 15:14:30',5,'insert','Approved leave application of leave, id 29 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10744,'2025-03-13 15:14:35',5,'insert','Approved leave application of leave, id 29 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10745,'2025-03-13 15:14:40',5,'insert','Approved leave application of leave, id 29 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10746,'2025-03-13 15:14:45',5,'insert','Approved leave application of leave, id 29 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10747,'2025-03-13 15:14:50',5,'insert','Approved leave application of leave, id 29 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10748,'2025-03-13 19:45:17',5,'insert','Created leave application  id:30 for Employee Id: 2 Staff #: AC0001 Names: Martin Lawrence Jameson Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10749,'2025-03-13 19:45:17',5,'insert','Approved leave application of leave, id 30 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10750,'2025-03-13 19:45:17',5,'insert','Approved leave application of leave, id 30 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10751,'2025-03-13 19:45:17',5,'insert','Approved leave application of leave, id 30 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10752,'2025-03-13 19:46:43',5,'insert','Created leave application  id:31 for Employee Id: 6 Staff #: AC0002 Names: Richard Onyango  Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10753,'2025-03-13 19:46:43',5,'insert','Approved leave application of leave, id 31 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10754,'2025-03-13 19:46:43',5,'insert','Approved leave application of leave, id 31 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10755,'2025-03-13 19:46:43',5,'insert','Approved leave application of leave, id 31 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10756,'2025-03-13 19:47:39',5,'insert','Created leave application  id:32 for Employee Id: 10 Staff #: AC0004 Names: Daniel Middle Boy Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10757,'2025-03-13 19:47:39',5,'insert','Approved leave application of leave, id 32 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10758,'2025-03-13 19:47:39',5,'insert','Approved leave application of leave, id 32 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10759,'2025-03-13 19:47:39',5,'insert','Approved leave application of leave, id 32 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10760,'2025-03-13 19:53:09',5,'insert','Created leave application  id:33 for Employee Id: 1 Staff #: NT0001 Names: Richard Onyango Akelo Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10761,'2025-03-13 19:53:09',5,'insert','Approved leave application of leave, id 33 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10762,'2025-03-13 19:53:09',5,'insert','Approved leave application of leave, id 33 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10763,'2025-03-13 19:53:09',5,'insert','Approved leave application of leave, id 33 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10764,'2025-03-14 08:40:35',5,'insert','Created leave application  id:34 for Employee Id: 11 Staff #: TST0001 Names: John Kamau Ndirangu Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10765,'2025-03-14 08:40:35',5,'insert','Approved leave application of leave, id 34 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10766,'2025-03-14 08:40:35',5,'insert','Approved leave application of leave, id 34 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10767,'2025-03-14 08:40:35',5,'insert','Approved leave application of leave, id 34 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10768,'2025-03-14 08:40:51',5,'insert','Created leave application  id:35 for Employee Id: 3 Staff #: TST001 Names: James Marsden Cain Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10769,'2025-03-14 08:40:51',5,'insert','Approved leave application of leave, id 35 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10770,'2025-03-14 08:40:52',5,'insert','Approved leave application of leave, id 35 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10771,'2025-03-14 08:40:52',5,'insert','Approved leave application of leave, id 35 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10772,'2025-03-14 08:43:03',5,'insert','Created leave application  id:36 for Employee Id: 11 Staff #: TST0001 Names: John Kamau Ndirangu Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10773,'2025-03-14 08:43:03',5,'insert','Approved leave application of leave, id 36 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10774,'2025-03-14 08:43:03',5,'insert','Approved leave application of leave, id 36 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10775,'2025-03-14 08:43:03',5,'insert','Approved leave application of leave, id 36 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10776,'2025-03-14 08:47:34',5,'insert','Created leave application  id:37 for Employee Id: 3 Staff #: TST001 Names: James Marsden Cain Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10777,'2025-03-14 08:47:34',5,'insert','Approved leave application of leave, id 37 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10778,'2025-03-14 08:47:34',5,'insert','Approved leave application of leave, id 37 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10779,'2025-03-14 08:47:34',5,'insert','Approved leave application of leave, id 37 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10780,'2025-03-16 12:02:04',5,'insert','Created leave application  id:38 for Employee Id: 2 Staff #: AC0001 Names: Martin Lawrence Jameson Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(10781,'2025-03-16 12:02:04',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10782,'2025-03-16 12:02:04',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10783,'2025-03-16 12:02:04',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10784,'2025-03-16 12:02:04',5,'update','Updated leave details for id :38 for Employee Id: 6 Staff #: AC0002 Names: Richard Onyango  Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','{\"applicationid\": 38, \"employeeid\": 2, \"leavetypeid\": 2, \"startdate\": \"2025-02-03\", \"enddate\": \"2025-02-03\", \"daystaken\": 0.50, \"attachment\": \"\", \"narration\": \"Machines broke down and production was halted\", \"status\": \"Approved\", \"addedby\": 5, \"dateadded\": \"2025-03-16 12:02:04\", \"deleted\": 0, \"datedeleted\": null, \"deletedby\": null, \"relieverid\": 5, \"supervisorid\": 5, \"approvalflowid\": 1, \"halfdayapplication\": 1, \"shifthalf\": 1, \"starttime\": \"07:00:00\", \"endtime\": \"12:00:00\"}','{\"applicationid\": 38, \"employeeid\": 6, \"leavetypeid\": 2, \"startdate\": \"2025-02-03\", \"enddate\": \"2025-02-03\", \"daystaken\": 0.50, \"attachment\": \"\", \"narration\": \"Machines broke down and production was halted\", \"status\": \"Approved\", \"addedby\": 5, \"dateadded\": \"2025-03-16 12:02:04\", \"deleted\": 0, \"datedeleted\": null, \"deletedby\": null, \"relieverid\": 5, \"supervisorid\": 5, \"approvalflowid\": 1, \"halfdayapplication\": 1, \"shifthalf\": 1, \"starttime\": \"07:00:00\", \"endtime\": \"12:00:00\"}',NULL),
+(10785,'2025-03-16 12:02:04',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10786,'2025-03-16 12:02:04',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10787,'2025-03-16 12:02:04',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10788,'2025-03-16 12:02:04',5,'update','Updated leave details for id :38 for Employee Id: 8 Staff #: AC0003 Names: Sam Mosabi Mungeli Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','{\"applicationid\": 38, \"employeeid\": 6, \"leavetypeid\": 2, \"startdate\": \"2025-02-03\", \"enddate\": \"2025-02-03\", \"daystaken\": 0.50, \"attachment\": \"\", \"narration\": \"Machines broke down and production was halted\", \"status\": \"Approved\", \"addedby\": 5, \"dateadded\": \"2025-03-16 12:02:04\", \"deleted\": 0, \"datedeleted\": null, \"deletedby\": null, \"relieverid\": 5, \"supervisorid\": 5, \"approvalflowid\": 1, \"halfdayapplication\": 1, \"shifthalf\": 1, \"starttime\": \"07:00:00\", \"endtime\": \"12:00:00\"}','{\"applicationid\": 38, \"employeeid\": 8, \"leavetypeid\": 2, \"startdate\": \"2025-02-03\", \"enddate\": \"2025-02-03\", \"daystaken\": 0.50, \"attachment\": \"\", \"narration\": \"Machines broke down and production was halted\", \"status\": \"Approved\", \"addedby\": 5, \"dateadded\": \"2025-03-16 12:02:04\", \"deleted\": 0, \"datedeleted\": null, \"deletedby\": null, \"relieverid\": 5, \"supervisorid\": 5, \"approvalflowid\": 1, \"halfdayapplication\": 1, \"shifthalf\": 1, \"starttime\": \"07:00:00\", \"endtime\": \"12:00:00\"}',NULL),
+(10789,'2025-03-16 12:02:04',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10790,'2025-03-16 12:02:04',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10791,'2025-03-16 12:02:05',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10792,'2025-03-16 12:02:05',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10793,'2025-03-16 12:02:05',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10794,'2025-03-16 12:02:05',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10795,'2025-03-16 12:02:05',5,'update','Updated leave details for id :38 for Employee Id: 10 Staff #: AC0004 Names: Daniel Middle Boy Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','{\"applicationid\": 38, \"employeeid\": 8, \"leavetypeid\": 2, \"startdate\": \"2025-02-03\", \"enddate\": \"2025-02-03\", \"daystaken\": 0.50, \"attachment\": \"\", \"narration\": \"Machines broke down and production was halted\", \"status\": \"Approved\", \"addedby\": 5, \"dateadded\": \"2025-03-16 12:02:04\", \"deleted\": 0, \"datedeleted\": null, \"deletedby\": null, \"relieverid\": 5, \"supervisorid\": 5, \"approvalflowid\": 1, \"halfdayapplication\": 1, \"shifthalf\": 1, \"starttime\": \"07:00:00\", \"endtime\": \"12:00:00\"}','{\"applicationid\": 38, \"employeeid\": 10, \"leavetypeid\": 2, \"startdate\": \"2025-02-03\", \"enddate\": \"2025-02-03\", \"daystaken\": 0.50, \"attachment\": \"\", \"narration\": \"Machines broke down and production was halted\", \"status\": \"Approved\", \"addedby\": 5, \"dateadded\": \"2025-03-16 12:02:04\", \"deleted\": 0, \"datedeleted\": null, \"deletedby\": null, \"relieverid\": 5, \"supervisorid\": 5, \"approvalflowid\": 1, \"halfdayapplication\": 1, \"shifthalf\": 1, \"starttime\": \"07:00:00\", \"endtime\": \"12:00:00\"}',NULL),
+(10796,'2025-03-16 12:02:05',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10797,'2025-03-16 12:02:05',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10798,'2025-03-16 12:02:05',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10799,'2025-03-16 12:02:06',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10800,'2025-03-16 12:02:06',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10801,'2025-03-16 12:02:06',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10802,'2025-03-16 12:02:06',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10803,'2025-03-16 12:02:06',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10804,'2025-03-16 12:02:06',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10805,'2025-03-16 12:02:06',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10806,'2025-03-16 12:02:07',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10807,'2025-03-16 12:02:07',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10808,'2025-03-16 12:02:07',5,'update','Updated leave details for id :38 for Employee Id: 1 Staff #: NT0001 Names: Richard Onyango Akelo Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','{\"applicationid\": 38, \"employeeid\": 10, \"leavetypeid\": 2, \"startdate\": \"2025-02-03\", \"enddate\": \"2025-02-03\", \"daystaken\": 0.50, \"attachment\": \"\", \"narration\": \"Machines broke down and production was halted\", \"status\": \"Approved\", \"addedby\": 5, \"dateadded\": \"2025-03-16 12:02:04\", \"deleted\": 0, \"datedeleted\": null, \"deletedby\": null, \"relieverid\": 5, \"supervisorid\": 5, \"approvalflowid\": 1, \"halfdayapplication\": 1, \"shifthalf\": 1, \"starttime\": \"07:00:00\", \"endtime\": \"12:00:00\"}','{\"applicationid\": 38, \"employeeid\": 1, \"leavetypeid\": 2, \"startdate\": \"2025-02-03\", \"enddate\": \"2025-02-03\", \"daystaken\": 0.50, \"attachment\": \"\", \"narration\": \"Machines broke down and production was halted\", \"status\": \"Approved\", \"addedby\": 5, \"dateadded\": \"2025-03-16 12:02:04\", \"deleted\": 0, \"datedeleted\": null, \"deletedby\": null, \"relieverid\": 5, \"supervisorid\": 5, \"approvalflowid\": 1, \"halfdayapplication\": 1, \"shifthalf\": 1, \"starttime\": \"07:00:00\", \"endtime\": \"12:00:00\"}',NULL),
+(10809,'2025-03-16 12:02:07',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10810,'2025-03-16 12:02:07',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10811,'2025-03-16 12:02:07',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10812,'2025-03-16 12:02:07',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10813,'2025-03-16 12:02:07',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10814,'2025-03-16 12:02:08',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10815,'2025-03-16 12:02:08',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10816,'2025-03-16 12:02:08',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10817,'2025-03-16 12:02:08',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10818,'2025-03-16 12:02:08',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10819,'2025-03-16 12:02:08',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10820,'2025-03-16 12:02:08',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10821,'2025-03-16 12:02:09',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10822,'2025-03-16 12:02:09',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10823,'2025-03-16 12:02:09',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10824,'2025-03-16 12:02:09',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10825,'2025-03-16 12:02:09',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10826,'2025-03-16 12:02:09',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10827,'2025-03-16 12:02:10',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10828,'2025-03-16 12:02:10',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10829,'2025-03-16 12:02:10',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10830,'2025-03-16 12:02:10',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10831,'2025-03-16 12:02:10',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10832,'2025-03-16 12:02:10',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10833,'2025-03-16 12:02:10',5,'update','Updated leave details for id :38 for Employee Id: 4 Staff #: NT0002 Names: Patrice Lumumba Emery Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','{\"applicationid\": 38, \"employeeid\": 1, \"leavetypeid\": 2, \"startdate\": \"2025-02-03\", \"enddate\": \"2025-02-03\", \"daystaken\": 0.50, \"attachment\": \"\", \"narration\": \"Machines broke down and production was halted\", \"status\": \"Approved\", \"addedby\": 5, \"dateadded\": \"2025-03-16 12:02:04\", \"deleted\": 0, \"datedeleted\": null, \"deletedby\": null, \"relieverid\": 5, \"supervisorid\": 5, \"approvalflowid\": 1, \"halfdayapplication\": 1, \"shifthalf\": 1, \"starttime\": \"07:00:00\", \"endtime\": \"12:00:00\"}','{\"applicationid\": 38, \"employeeid\": 4, \"leavetypeid\": 2, \"startdate\": \"2025-02-03\", \"enddate\": \"2025-02-03\", \"daystaken\": 0.50, \"attachment\": \"\", \"narration\": \"Machines broke down and production was halted\", \"status\": \"Approved\", \"addedby\": 5, \"dateadded\": \"2025-03-16 12:02:04\", \"deleted\": 0, \"datedeleted\": null, \"deletedby\": null, \"relieverid\": 5, \"supervisorid\": 5, \"approvalflowid\": 1, \"halfdayapplication\": 1, \"shifthalf\": 1, \"starttime\": \"07:00:00\", \"endtime\": \"12:00:00\"}',NULL),
+(10834,'2025-03-16 12:02:10',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10835,'2025-03-16 12:02:11',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10836,'2025-03-16 12:02:11',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10837,'2025-03-16 12:02:11',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10838,'2025-03-16 12:02:11',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10839,'2025-03-16 12:02:11',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10840,'2025-03-16 12:02:11',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10841,'2025-03-16 12:02:11',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10842,'2025-03-16 12:02:12',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10843,'2025-03-16 12:02:12',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10844,'2025-03-16 12:02:12',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10845,'2025-03-16 12:02:12',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10846,'2025-03-16 12:02:12',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10847,'2025-03-16 12:02:12',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10848,'2025-03-16 12:02:12',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10849,'2025-03-16 12:02:13',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10850,'2025-03-16 12:02:13',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10851,'2025-03-16 12:02:13',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10852,'2025-03-16 12:02:13',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10853,'2025-03-16 12:02:13',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10854,'2025-03-16 12:02:13',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10855,'2025-03-16 12:02:14',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10856,'2025-03-16 12:02:14',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10857,'2025-03-16 12:02:14',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10858,'2025-03-16 12:02:14',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10859,'2025-03-16 12:02:14',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10860,'2025-03-16 12:02:14',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10861,'2025-03-16 12:02:14',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10862,'2025-03-16 12:02:14',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10863,'2025-03-16 12:02:14',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10864,'2025-03-16 12:02:15',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10865,'2025-03-16 12:02:15',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10866,'2025-03-16 12:02:15',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10867,'2025-03-16 12:02:15',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10868,'2025-03-16 12:02:15',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10869,'2025-03-16 12:02:15',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10870,'2025-03-16 12:02:15',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10871,'2025-03-16 12:02:16',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10872,'2025-03-16 12:02:16',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10873,'2025-03-16 12:02:16',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10874,'2025-03-16 12:02:16',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10875,'2025-03-16 12:02:16',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10876,'2025-03-16 12:02:16',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10877,'2025-03-16 12:02:16',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10878,'2025-03-16 12:02:17',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10879,'2025-03-16 12:02:17',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10880,'2025-03-16 12:02:17',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10881,'2025-03-16 12:02:17',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10882,'2025-03-16 12:02:17',5,'update','Updated leave details for id :38 for Employee Id: 5 Staff #: NT0003 Names: Marion Jones Mayers Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','{\"applicationid\": 38, \"employeeid\": 4, \"leavetypeid\": 2, \"startdate\": \"2025-02-03\", \"enddate\": \"2025-02-03\", \"daystaken\": 0.50, \"attachment\": \"\", \"narration\": \"Machines broke down and production was halted\", \"status\": \"Approved\", \"addedby\": 5, \"dateadded\": \"2025-03-16 12:02:04\", \"deleted\": 0, \"datedeleted\": null, \"deletedby\": null, \"relieverid\": 5, \"supervisorid\": 5, \"approvalflowid\": 1, \"halfdayapplication\": 1, \"shifthalf\": 1, \"starttime\": \"07:00:00\", \"endtime\": \"12:00:00\"}','{\"applicationid\": 38, \"employeeid\": 5, \"leavetypeid\": 2, \"startdate\": \"2025-02-03\", \"enddate\": \"2025-02-03\", \"daystaken\": 0.50, \"attachment\": \"\", \"narration\": \"Machines broke down and production was halted\", \"status\": \"Approved\", \"addedby\": 5, \"dateadded\": \"2025-03-16 12:02:04\", \"deleted\": 0, \"datedeleted\": null, \"deletedby\": null, \"relieverid\": 5, \"supervisorid\": 5, \"approvalflowid\": 1, \"halfdayapplication\": 1, \"shifthalf\": 1, \"starttime\": \"07:00:00\", \"endtime\": \"12:00:00\"}',NULL),
+(10883,'2025-03-16 12:02:17',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10884,'2025-03-16 12:02:17',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10885,'2025-03-16 12:02:17',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10886,'2025-03-16 12:02:18',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10887,'2025-03-16 12:02:18',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10888,'2025-03-16 12:02:18',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10889,'2025-03-16 12:02:18',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10890,'2025-03-16 12:02:18',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10891,'2025-03-16 12:02:18',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10892,'2025-03-16 12:02:18',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10893,'2025-03-16 12:02:19',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10894,'2025-03-16 12:02:19',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10895,'2025-03-16 12:02:19',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10896,'2025-03-16 12:02:19',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10897,'2025-03-16 12:02:19',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10898,'2025-03-16 12:02:19',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10899,'2025-03-16 12:02:19',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10900,'2025-03-16 12:02:19',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10901,'2025-03-16 12:02:20',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10902,'2025-03-16 12:02:20',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10903,'2025-03-16 12:02:20',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10904,'2025-03-16 12:02:20',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10905,'2025-03-16 12:02:20',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10906,'2025-03-16 12:02:20',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10907,'2025-03-16 12:02:20',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10908,'2025-03-16 12:02:21',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10909,'2025-03-16 12:02:21',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10910,'2025-03-16 12:02:21',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10911,'2025-03-16 12:02:21',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10912,'2025-03-16 12:02:21',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10913,'2025-03-16 12:02:21',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10914,'2025-03-16 12:02:21',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10915,'2025-03-16 12:02:21',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10916,'2025-03-16 12:02:22',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10917,'2025-03-16 12:02:22',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10918,'2025-03-16 12:02:22',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10919,'2025-03-16 12:02:22',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10920,'2025-03-16 12:02:22',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10921,'2025-03-16 12:02:22',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10922,'2025-03-16 12:02:22',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10923,'2025-03-16 12:02:23',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10924,'2025-03-16 12:02:23',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10925,'2025-03-16 12:02:23',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10926,'2025-03-16 12:02:23',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10927,'2025-03-16 12:02:23',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10928,'2025-03-16 12:02:23',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10929,'2025-03-16 12:02:23',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10930,'2025-03-16 12:02:23',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10931,'2025-03-16 12:02:24',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10932,'2025-03-16 12:02:24',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10933,'2025-03-16 12:02:24',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10934,'2025-03-16 12:02:24',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10935,'2025-03-16 12:02:24',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10936,'2025-03-16 12:02:24',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10937,'2025-03-16 12:02:24',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10938,'2025-03-16 12:02:25',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10939,'2025-03-16 12:02:25',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10940,'2025-03-16 12:02:25',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10941,'2025-03-16 12:02:25',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10942,'2025-03-16 12:02:25',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10943,'2025-03-16 12:02:25',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10944,'2025-03-16 12:02:25',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10945,'2025-03-16 12:02:25',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10946,'2025-03-16 12:02:25',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10947,'2025-03-16 12:02:26',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10948,'2025-03-16 12:02:26',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10949,'2025-03-16 12:02:26',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10950,'2025-03-16 12:02:26',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10951,'2025-03-16 12:02:26',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10952,'2025-03-16 12:02:26',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10953,'2025-03-16 12:02:26',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10954,'2025-03-16 12:02:27',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10955,'2025-03-16 12:02:27',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10956,'2025-03-16 12:02:27',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10957,'2025-03-16 12:02:27',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10958,'2025-03-16 12:02:27',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10959,'2025-03-16 12:02:27',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10960,'2025-03-16 12:02:27',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10961,'2025-03-16 12:02:28',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10962,'2025-03-16 12:02:28',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10963,'2025-03-16 12:02:28',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10964,'2025-03-16 12:02:28',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10965,'2025-03-16 12:02:28',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10966,'2025-03-16 12:02:28',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10967,'2025-03-16 12:02:28',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10968,'2025-03-16 12:02:29',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10969,'2025-03-16 12:02:29',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10970,'2025-03-16 12:02:29',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10971,'2025-03-16 12:02:29',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10972,'2025-03-16 12:02:29',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10973,'2025-03-16 12:02:29',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10974,'2025-03-16 12:02:29',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10975,'2025-03-16 12:02:30',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10976,'2025-03-16 12:02:30',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10977,'2025-03-16 12:02:30',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10978,'2025-03-16 12:02:30',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10979,'2025-03-16 12:02:30',5,'update','Updated leave details for id :38 for Employee Id: 9 Staff #: NT0004 Names: Robert Mugabe Snr Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','{\"applicationid\": 38, \"employeeid\": 5, \"leavetypeid\": 2, \"startdate\": \"2025-02-03\", \"enddate\": \"2025-02-03\", \"daystaken\": 0.50, \"attachment\": \"\", \"narration\": \"Machines broke down and production was halted\", \"status\": \"Approved\", \"addedby\": 5, \"dateadded\": \"2025-03-16 12:02:04\", \"deleted\": 0, \"datedeleted\": null, \"deletedby\": null, \"relieverid\": 5, \"supervisorid\": 5, \"approvalflowid\": 1, \"halfdayapplication\": 1, \"shifthalf\": 1, \"starttime\": \"07:00:00\", \"endtime\": \"12:00:00\"}','{\"applicationid\": 38, \"employeeid\": 9, \"leavetypeid\": 2, \"startdate\": \"2025-02-03\", \"enddate\": \"2025-02-03\", \"daystaken\": 0.50, \"attachment\": \"\", \"narration\": \"Machines broke down and production was halted\", \"status\": \"Approved\", \"addedby\": 5, \"dateadded\": \"2025-03-16 12:02:04\", \"deleted\": 0, \"datedeleted\": null, \"deletedby\": null, \"relieverid\": 5, \"supervisorid\": 5, \"approvalflowid\": 1, \"halfdayapplication\": 1, \"shifthalf\": 1, \"starttime\": \"07:00:00\", \"endtime\": \"12:00:00\"}',NULL),
+(10980,'2025-03-16 12:02:30',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10981,'2025-03-16 12:02:30',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10982,'2025-03-16 12:02:30',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10983,'2025-03-16 12:02:31',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10984,'2025-03-16 12:02:31',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10985,'2025-03-16 12:02:31',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10986,'2025-03-16 12:02:31',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10987,'2025-03-16 12:02:31',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10988,'2025-03-16 12:02:31',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10989,'2025-03-16 12:02:31',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10990,'2025-03-16 12:02:32',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10991,'2025-03-16 12:02:32',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10992,'2025-03-16 12:02:32',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10993,'2025-03-16 12:02:32',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10994,'2025-03-16 12:02:32',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10995,'2025-03-16 12:02:32',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10996,'2025-03-16 12:02:32',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10997,'2025-03-16 12:02:33',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10998,'2025-03-16 12:02:33',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(10999,'2025-03-16 12:02:33',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11000,'2025-03-16 12:02:33',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11001,'2025-03-16 12:02:33',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11002,'2025-03-16 12:02:33',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11003,'2025-03-16 12:02:33',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11004,'2025-03-16 12:02:34',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11005,'2025-03-16 12:02:34',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11006,'2025-03-16 12:02:34',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11007,'2025-03-16 12:02:34',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11008,'2025-03-16 12:02:34',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11009,'2025-03-16 12:02:34',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11010,'2025-03-16 12:02:34',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11011,'2025-03-16 12:02:34',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11012,'2025-03-16 12:02:34',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11013,'2025-03-16 12:02:35',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11014,'2025-03-16 12:02:35',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11015,'2025-03-16 12:02:35',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11016,'2025-03-16 12:02:35',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11017,'2025-03-16 12:02:35',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11018,'2025-03-16 12:02:35',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11019,'2025-03-16 12:02:35',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11020,'2025-03-16 12:02:36',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11021,'2025-03-16 12:02:36',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11022,'2025-03-16 12:02:36',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11023,'2025-03-16 12:02:36',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11024,'2025-03-16 12:02:36',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11025,'2025-03-16 12:02:36',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11026,'2025-03-16 12:02:36',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11027,'2025-03-16 12:02:37',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11028,'2025-03-16 12:02:37',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11029,'2025-03-16 12:02:37',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11030,'2025-03-16 12:02:37',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11031,'2025-03-16 12:02:37',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11032,'2025-03-16 12:02:37',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11033,'2025-03-16 12:02:37',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11034,'2025-03-16 12:02:38',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11035,'2025-03-16 12:02:38',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11036,'2025-03-16 12:02:38',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11037,'2025-03-16 12:02:38',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11038,'2025-03-16 12:02:38',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11039,'2025-03-16 12:02:38',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11040,'2025-03-16 12:02:38',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11041,'2025-03-16 12:02:39',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11042,'2025-03-16 12:02:39',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11043,'2025-03-16 12:02:39',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11044,'2025-03-16 12:02:39',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11045,'2025-03-16 12:02:39',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11046,'2025-03-16 12:02:39',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11047,'2025-03-16 12:02:39',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11048,'2025-03-16 12:02:40',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11049,'2025-03-16 12:02:40',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11050,'2025-03-16 12:02:40',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11051,'2025-03-16 12:02:40',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11052,'2025-03-16 12:02:40',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11053,'2025-03-16 12:02:40',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11054,'2025-03-16 12:02:40',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11055,'2025-03-16 12:02:40',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11056,'2025-03-16 12:02:41',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11057,'2025-03-16 12:02:41',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11058,'2025-03-16 12:02:41',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11059,'2025-03-16 12:02:41',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11060,'2025-03-16 12:02:41',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11061,'2025-03-16 12:02:41',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11062,'2025-03-16 12:02:41',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11063,'2025-03-16 12:02:42',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11064,'2025-03-16 12:02:42',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11065,'2025-03-16 12:02:42',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11066,'2025-03-16 12:02:42',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11067,'2025-03-16 12:02:42',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11068,'2025-03-16 12:02:42',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11069,'2025-03-16 12:02:42',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11070,'2025-03-16 12:02:42',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11071,'2025-03-16 12:02:43',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11072,'2025-03-16 12:02:43',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11073,'2025-03-16 12:02:43',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11074,'2025-03-16 12:02:43',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11075,'2025-03-16 12:02:43',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11076,'2025-03-16 12:02:43',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11077,'2025-03-16 12:02:43',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11078,'2025-03-16 12:02:44',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11079,'2025-03-16 12:02:44',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11080,'2025-03-16 12:02:44',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11081,'2025-03-16 12:02:44',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11082,'2025-03-16 12:02:44',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11083,'2025-03-16 12:02:44',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11084,'2025-03-16 12:02:44',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11085,'2025-03-16 12:02:45',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11086,'2025-03-16 12:02:45',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11087,'2025-03-16 12:02:45',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11088,'2025-03-16 12:02:45',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11089,'2025-03-16 12:02:45',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11090,'2025-03-16 12:02:45',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11091,'2025-03-16 12:02:45',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11092,'2025-03-16 12:02:46',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11093,'2025-03-16 12:02:46',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11094,'2025-03-16 12:02:46',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11095,'2025-03-16 12:02:46',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11096,'2025-03-16 12:02:46',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11097,'2025-03-16 12:02:46',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11098,'2025-03-16 12:02:46',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11099,'2025-03-16 12:02:46',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11100,'2025-03-16 12:02:47',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11101,'2025-03-16 12:02:47',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11102,'2025-03-16 12:02:47',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11103,'2025-03-16 12:02:47',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11104,'2025-03-16 12:02:47',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11105,'2025-03-16 12:02:47',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11106,'2025-03-16 12:02:48',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11107,'2025-03-16 12:02:48',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11108,'2025-03-16 12:02:48',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11109,'2025-03-16 12:02:48',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11110,'2025-03-16 12:02:48',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11111,'2025-03-16 12:02:48',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11112,'2025-03-16 12:02:48',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11113,'2025-03-16 12:02:49',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11114,'2025-03-16 12:02:49',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11115,'2025-03-16 12:02:49',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11116,'2025-03-16 12:02:49',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11117,'2025-03-16 12:02:49',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11118,'2025-03-16 12:02:49',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11119,'2025-03-16 12:02:49',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11120,'2025-03-16 12:02:49',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11121,'2025-03-16 12:02:50',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11122,'2025-03-16 12:02:50',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11123,'2025-03-16 12:02:50',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11124,'2025-03-16 12:02:50',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11125,'2025-03-16 12:02:50',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11126,'2025-03-16 12:02:50',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11127,'2025-03-16 12:02:50',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11128,'2025-03-16 12:02:51',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11129,'2025-03-16 12:02:51',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11130,'2025-03-16 12:02:51',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11131,'2025-03-16 12:02:51',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11132,'2025-03-16 12:02:51',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11133,'2025-03-16 12:02:51',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11134,'2025-03-16 12:02:51',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11135,'2025-03-16 12:02:52',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11136,'2025-03-16 12:02:52',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11137,'2025-03-16 12:02:52',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11138,'2025-03-16 12:02:52',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11139,'2025-03-16 12:02:52',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11140,'2025-03-16 12:02:52',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11141,'2025-03-16 12:02:52',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11142,'2025-03-16 12:02:53',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11143,'2025-03-16 12:02:53',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11144,'2025-03-16 12:02:53',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11145,'2025-03-16 12:02:53',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11146,'2025-03-16 12:02:53',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11147,'2025-03-16 12:02:53',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11148,'2025-03-16 12:02:53',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11149,'2025-03-16 12:02:54',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11150,'2025-03-16 12:02:54',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11151,'2025-03-16 12:02:54',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11152,'2025-03-16 12:02:54',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11153,'2025-03-16 12:02:54',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11154,'2025-03-16 12:02:54',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11155,'2025-03-16 12:02:54',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11156,'2025-03-16 12:02:55',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11157,'2025-03-16 12:02:55',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11158,'2025-03-16 12:02:55',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11159,'2025-03-16 12:02:55',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11160,'2025-03-16 12:02:55',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11161,'2025-03-16 12:02:55',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11162,'2025-03-16 12:02:55',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11163,'2025-03-16 12:02:55',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11164,'2025-03-16 12:02:56',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11165,'2025-03-16 12:02:56',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11166,'2025-03-16 12:02:56',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11167,'2025-03-16 12:02:56',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11168,'2025-03-16 12:02:56',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11169,'2025-03-16 12:02:56',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11170,'2025-03-16 12:02:56',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11171,'2025-03-16 12:02:57',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11172,'2025-03-16 12:02:57',5,'update','Updated leave details for id :38 for Employee Id: 7 Staff #: ST0321 Names: Leila Charles Achieng Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','{\"applicationid\": 38, \"employeeid\": 9, \"leavetypeid\": 2, \"startdate\": \"2025-02-03\", \"enddate\": \"2025-02-03\", \"daystaken\": 0.50, \"attachment\": \"\", \"narration\": \"Machines broke down and production was halted\", \"status\": \"Approved\", \"addedby\": 5, \"dateadded\": \"2025-03-16 12:02:04\", \"deleted\": 0, \"datedeleted\": null, \"deletedby\": null, \"relieverid\": 5, \"supervisorid\": 5, \"approvalflowid\": 1, \"halfdayapplication\": 1, \"shifthalf\": 1, \"starttime\": \"07:00:00\", \"endtime\": \"12:00:00\"}','{\"applicationid\": 38, \"employeeid\": 7, \"leavetypeid\": 2, \"startdate\": \"2025-02-03\", \"enddate\": \"2025-02-03\", \"daystaken\": 0.50, \"attachment\": \"\", \"narration\": \"Machines broke down and production was halted\", \"status\": \"Approved\", \"addedby\": 5, \"dateadded\": \"2025-03-16 12:02:04\", \"deleted\": 0, \"datedeleted\": null, \"deletedby\": null, \"relieverid\": 5, \"supervisorid\": 5, \"approvalflowid\": 1, \"halfdayapplication\": 1, \"shifthalf\": 1, \"starttime\": \"07:00:00\", \"endtime\": \"12:00:00\"}',NULL),
+(11173,'2025-03-16 12:02:57',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11174,'2025-03-16 12:02:57',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11175,'2025-03-16 12:02:57',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11176,'2025-03-16 12:02:57',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11177,'2025-03-16 12:02:57',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11178,'2025-03-16 12:02:57',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11179,'2025-03-16 12:02:58',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11180,'2025-03-16 12:02:58',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11181,'2025-03-16 12:02:58',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11182,'2025-03-16 12:02:58',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11183,'2025-03-16 12:02:58',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11184,'2025-03-16 12:02:58',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11185,'2025-03-16 12:02:58',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11186,'2025-03-16 12:02:59',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11187,'2025-03-16 12:02:59',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11188,'2025-03-16 12:02:59',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11189,'2025-03-16 12:02:59',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11190,'2025-03-16 12:02:59',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11191,'2025-03-16 12:02:59',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11192,'2025-03-16 12:02:59',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11193,'2025-03-16 12:03:00',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11194,'2025-03-16 12:03:00',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11195,'2025-03-16 12:03:00',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11196,'2025-03-16 12:03:00',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11197,'2025-03-16 12:03:00',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11198,'2025-03-16 12:03:00',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11199,'2025-03-16 12:03:00',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11200,'2025-03-16 12:03:00',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11201,'2025-03-16 12:03:01',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11202,'2025-03-16 12:03:01',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11203,'2025-03-16 12:03:01',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11204,'2025-03-16 12:03:01',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11205,'2025-03-16 12:03:01',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11206,'2025-03-16 12:03:01',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11207,'2025-03-16 12:03:01',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11208,'2025-03-16 12:03:02',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11209,'2025-03-16 12:03:02',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11210,'2025-03-16 12:03:02',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11211,'2025-03-16 12:03:02',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11212,'2025-03-16 12:03:02',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11213,'2025-03-16 12:03:02',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11214,'2025-03-16 12:03:02',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11215,'2025-03-16 12:03:02',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11216,'2025-03-16 12:03:03',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11217,'2025-03-16 12:03:03',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11218,'2025-03-16 12:03:03',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11219,'2025-03-16 12:03:03',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11220,'2025-03-16 12:03:03',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11221,'2025-03-16 12:03:03',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11222,'2025-03-16 12:03:04',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11223,'2025-03-16 12:03:04',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11224,'2025-03-16 12:03:04',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11225,'2025-03-16 12:03:04',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11226,'2025-03-16 12:03:04',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11227,'2025-03-16 12:03:04',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11228,'2025-03-16 12:03:04',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11229,'2025-03-16 12:03:05',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11230,'2025-03-16 12:03:05',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11231,'2025-03-16 12:03:05',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11232,'2025-03-16 12:03:05',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11233,'2025-03-16 12:03:05',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11234,'2025-03-16 12:03:05',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11235,'2025-03-16 12:03:05',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11236,'2025-03-16 12:03:05',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11237,'2025-03-16 12:03:05',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11238,'2025-03-16 12:03:06',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11239,'2025-03-16 12:03:06',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11240,'2025-03-16 12:03:06',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11241,'2025-03-16 12:03:06',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11242,'2025-03-16 12:03:06',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11243,'2025-03-16 12:03:06',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11244,'2025-03-16 12:03:06',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11245,'2025-03-16 12:03:07',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11246,'2025-03-16 12:03:07',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11247,'2025-03-16 12:03:07',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11248,'2025-03-16 12:03:07',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11249,'2025-03-16 12:03:07',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11250,'2025-03-16 12:03:07',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11251,'2025-03-16 12:03:08',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11252,'2025-03-16 12:03:08',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11253,'2025-03-16 12:03:08',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11254,'2025-03-16 12:03:08',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11255,'2025-03-16 12:03:08',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11256,'2025-03-16 12:03:08',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11257,'2025-03-16 12:03:08',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11258,'2025-03-16 12:03:08',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11259,'2025-03-16 12:03:09',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11260,'2025-03-16 12:03:09',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11261,'2025-03-16 12:03:09',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11262,'2025-03-16 12:03:09',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11263,'2025-03-16 12:03:09',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11264,'2025-03-16 12:03:09',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11265,'2025-03-16 12:03:10',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11266,'2025-03-16 12:03:10',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11267,'2025-03-16 12:03:10',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11268,'2025-03-16 12:03:10',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11269,'2025-03-16 12:03:10',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11270,'2025-03-16 12:03:10',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11271,'2025-03-16 12:03:10',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11272,'2025-03-16 12:03:11',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11273,'2025-03-16 12:03:11',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11274,'2025-03-16 12:03:11',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11275,'2025-03-16 12:03:11',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11276,'2025-03-16 12:03:11',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11277,'2025-03-16 12:03:11',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11278,'2025-03-16 12:03:11',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11279,'2025-03-16 12:03:12',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11280,'2025-03-16 12:03:12',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11281,'2025-03-16 12:03:12',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11282,'2025-03-16 12:03:12',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11283,'2025-03-16 12:03:12',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11284,'2025-03-16 12:03:12',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11285,'2025-03-16 12:03:12',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11286,'2025-03-16 12:03:13',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11287,'2025-03-16 12:03:13',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11288,'2025-03-16 12:03:13',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11289,'2025-03-16 12:03:13',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11290,'2025-03-16 12:03:13',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11291,'2025-03-16 12:03:13',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11292,'2025-03-16 12:03:13',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11293,'2025-03-16 12:03:14',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11294,'2025-03-16 12:03:14',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11295,'2025-03-16 12:03:14',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11296,'2025-03-16 12:03:14',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11297,'2025-03-16 12:03:14',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11298,'2025-03-16 12:03:14',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11299,'2025-03-16 12:03:14',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11300,'2025-03-16 12:03:15',5,'insert','Approved leave application of leave, id 38 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11301,'2025-03-16 12:03:15',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11302,'2025-03-16 12:03:15',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11303,'2025-03-16 12:03:15',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11304,'2025-03-16 12:03:15',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11305,'2025-03-16 12:03:15',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11306,'2025-03-16 12:03:15',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11307,'2025-03-16 12:03:15',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11308,'2025-03-16 12:03:16',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11309,'2025-03-16 12:03:16',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11310,'2025-03-16 12:03:16',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11311,'2025-03-16 12:03:16',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11312,'2025-03-16 12:03:16',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11313,'2025-03-16 12:03:16',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11314,'2025-03-16 12:03:16',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11315,'2025-03-16 12:03:16',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11316,'2025-03-16 12:03:17',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11317,'2025-03-16 12:03:17',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11318,'2025-03-16 12:03:17',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11319,'2025-03-16 12:03:17',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11320,'2025-03-16 12:03:17',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11321,'2025-03-16 12:03:17',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11322,'2025-03-16 12:03:17',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11323,'2025-03-16 12:03:18',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11324,'2025-03-16 12:03:18',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11325,'2025-03-16 12:03:18',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11326,'2025-03-16 12:03:18',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11327,'2025-03-16 12:03:18',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11328,'2025-03-16 12:03:18',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11329,'2025-03-16 12:03:18',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11330,'2025-03-16 12:03:19',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11331,'2025-03-16 12:03:19',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11332,'2025-03-16 12:03:19',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11333,'2025-03-16 12:03:19',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11334,'2025-03-16 12:03:19',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11335,'2025-03-16 12:03:19',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11336,'2025-03-16 12:03:19',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11337,'2025-03-16 12:03:20',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11338,'2025-03-16 12:03:20',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11339,'2025-03-16 12:03:20',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11340,'2025-03-16 12:03:20',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11341,'2025-03-16 12:03:20',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11342,'2025-03-16 12:03:20',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11343,'2025-03-16 12:03:20',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11344,'2025-03-16 12:03:21',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11345,'2025-03-16 12:03:21',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11346,'2025-03-16 12:03:21',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11347,'2025-03-16 12:03:21',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11348,'2025-03-16 12:03:21',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11349,'2025-03-16 12:03:21',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11350,'2025-03-16 12:03:21',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11351,'2025-03-16 12:03:22',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11352,'2025-03-16 12:03:22',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11353,'2025-03-16 12:03:22',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11354,'2025-03-16 12:03:22',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11355,'2025-03-16 12:03:22',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11356,'2025-03-16 12:03:22',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11357,'2025-03-16 12:03:22',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11358,'2025-03-16 12:03:23',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11359,'2025-03-16 12:03:23',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11360,'2025-03-16 12:03:23',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11361,'2025-03-16 12:03:23',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11362,'2025-03-16 12:03:23',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11363,'2025-03-16 12:03:23',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11364,'2025-03-16 12:03:23',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11365,'2025-03-16 12:03:24',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11366,'2025-03-16 12:03:24',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11367,'2025-03-16 12:03:24',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11368,'2025-03-16 12:03:24',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11369,'2025-03-16 12:03:24',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11370,'2025-03-16 12:03:24',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11371,'2025-03-16 12:03:24',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11372,'2025-03-16 12:03:25',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11373,'2025-03-16 12:03:25',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11374,'2025-03-16 12:03:25',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11375,'2025-03-16 12:03:25',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11376,'2025-03-16 12:03:25',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11377,'2025-03-16 12:03:25',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11378,'2025-03-16 12:03:25',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11379,'2025-03-16 12:03:26',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11380,'2025-03-16 12:03:26',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11381,'2025-03-16 12:03:26',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11382,'2025-03-16 12:03:26',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11383,'2025-03-16 12:03:26',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11384,'2025-03-16 12:03:26',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11385,'2025-03-16 12:03:26',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11386,'2025-03-16 12:03:27',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11387,'2025-03-16 12:03:27',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11388,'2025-03-16 12:03:27',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11389,'2025-03-16 12:03:27',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11390,'2025-03-16 12:03:27',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11391,'2025-03-16 12:03:27',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11392,'2025-03-16 12:03:27',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11393,'2025-03-16 12:03:28',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11394,'2025-03-16 12:03:28',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11395,'2025-03-16 12:03:28',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11396,'2025-03-16 12:03:28',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11397,'2025-03-16 12:03:28',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11398,'2025-03-16 12:03:28',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11399,'2025-03-16 12:03:28',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11400,'2025-03-16 12:03:29',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11401,'2025-03-16 12:03:29',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11402,'2025-03-16 12:03:29',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11403,'2025-03-16 12:03:29',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11404,'2025-03-16 12:03:29',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11405,'2025-03-16 12:03:29',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11406,'2025-03-16 12:03:29',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11407,'2025-03-16 12:03:30',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11408,'2025-03-16 12:03:30',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11409,'2025-03-16 12:03:30',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11410,'2025-03-16 12:03:30',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11411,'2025-03-16 12:03:30',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11412,'2025-03-16 12:03:30',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11413,'2025-03-16 12:03:30',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11414,'2025-03-16 12:03:31',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11415,'2025-03-16 12:03:31',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11416,'2025-03-16 12:03:31',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11417,'2025-03-16 12:03:31',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11418,'2025-03-16 12:03:31',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11419,'2025-03-16 12:03:31',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11420,'2025-03-16 12:03:31',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11421,'2025-03-16 12:03:31',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11422,'2025-03-16 12:03:31',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11423,'2025-03-16 12:03:31',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11424,'2025-03-16 12:03:32',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11425,'2025-03-16 12:03:32',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11426,'2025-03-16 12:03:32',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11427,'2025-03-16 12:03:32',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11428,'2025-03-16 12:03:32',5,'insert','Approved leave application of leave, id 38 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11429,'2025-03-16 12:03:32',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11430,'2025-03-16 12:03:32',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11431,'2025-03-16 12:03:33',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11432,'2025-03-16 12:03:33',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11433,'2025-03-16 12:03:33',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11434,'2025-03-16 12:03:33',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11435,'2025-03-16 12:03:33',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11436,'2025-03-16 12:03:33',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11437,'2025-03-16 12:03:33',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11438,'2025-03-16 12:03:34',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11439,'2025-03-16 12:03:34',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11440,'2025-03-16 12:03:34',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11441,'2025-03-16 12:03:34',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11442,'2025-03-16 12:03:34',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11443,'2025-03-16 12:03:34',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11444,'2025-03-16 12:03:34',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11445,'2025-03-16 12:03:35',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11446,'2025-03-16 12:03:35',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11447,'2025-03-16 12:03:35',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11448,'2025-03-16 12:03:35',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11449,'2025-03-16 12:03:35',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11450,'2025-03-16 12:03:35',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11451,'2025-03-16 12:03:35',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11452,'2025-03-16 12:03:36',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11453,'2025-03-16 12:03:36',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11454,'2025-03-16 12:03:36',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11455,'2025-03-16 12:03:36',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11456,'2025-03-16 12:03:36',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11457,'2025-03-16 12:03:36',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11458,'2025-03-16 12:03:36',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11459,'2025-03-16 12:03:37',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11460,'2025-03-16 12:03:37',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11461,'2025-03-16 12:03:37',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11462,'2025-03-16 12:03:37',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11463,'2025-03-16 12:03:37',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11464,'2025-03-16 12:03:37',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11465,'2025-03-16 12:03:37',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11466,'2025-03-16 12:03:38',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11467,'2025-03-16 12:03:38',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11468,'2025-03-16 12:03:38',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11469,'2025-03-16 12:03:38',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11470,'2025-03-16 12:03:38',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11471,'2025-03-16 12:03:38',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11472,'2025-03-16 12:03:38',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11473,'2025-03-16 12:03:39',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11474,'2025-03-16 12:03:39',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11475,'2025-03-16 12:03:39',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11476,'2025-03-16 12:03:39',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11477,'2025-03-16 12:03:39',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11478,'2025-03-16 12:03:39',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11479,'2025-03-16 12:03:39',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11480,'2025-03-16 12:03:39',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11481,'2025-03-16 12:03:40',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11482,'2025-03-16 12:03:40',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11483,'2025-03-16 12:03:40',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11484,'2025-03-16 12:03:40',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11485,'2025-03-16 12:03:40',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11486,'2025-03-16 12:03:40',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11487,'2025-03-16 12:03:40',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11488,'2025-03-16 12:03:40',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11489,'2025-03-16 12:03:41',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11490,'2025-03-16 12:03:41',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11491,'2025-03-16 12:03:41',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11492,'2025-03-16 12:03:41',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11493,'2025-03-16 12:03:41',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11494,'2025-03-16 12:03:41',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11495,'2025-03-16 12:03:41',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11496,'2025-03-16 12:03:42',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11497,'2025-03-16 12:03:42',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11498,'2025-03-16 12:03:42',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11499,'2025-03-16 12:03:42',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11500,'2025-03-16 12:03:42',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11501,'2025-03-16 12:03:42',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11502,'2025-03-16 12:03:42',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11503,'2025-03-16 12:03:42',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11504,'2025-03-16 12:03:43',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11505,'2025-03-16 12:03:43',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11506,'2025-03-16 12:03:43',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11507,'2025-03-16 12:03:43',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11508,'2025-03-16 12:03:43',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11509,'2025-03-16 12:03:43',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11510,'2025-03-16 12:03:43',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11511,'2025-03-16 12:03:44',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11512,'2025-03-16 12:03:44',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11513,'2025-03-16 12:03:44',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11514,'2025-03-16 12:03:44',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11515,'2025-03-16 12:03:44',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11516,'2025-03-16 12:03:44',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11517,'2025-03-16 12:03:44',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11518,'2025-03-16 12:03:45',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11519,'2025-03-16 12:03:45',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11520,'2025-03-16 12:03:45',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11521,'2025-03-16 12:03:45',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11522,'2025-03-16 12:03:45',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11523,'2025-03-16 12:03:45',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11524,'2025-03-16 12:03:45',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11525,'2025-03-16 12:03:45',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11526,'2025-03-16 12:03:46',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11527,'2025-03-16 12:03:46',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11528,'2025-03-16 12:03:46',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11529,'2025-03-16 12:03:46',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11530,'2025-03-16 12:03:46',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11531,'2025-03-16 12:03:46',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11532,'2025-03-16 12:03:46',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11533,'2025-03-16 12:03:47',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11534,'2025-03-16 12:03:47',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11535,'2025-03-16 12:03:47',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11536,'2025-03-16 12:03:47',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11537,'2025-03-16 12:03:47',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11538,'2025-03-16 12:03:47',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11539,'2025-03-16 12:03:47',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11540,'2025-03-16 12:03:48',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11541,'2025-03-16 12:03:48',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11542,'2025-03-16 12:03:48',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11543,'2025-03-16 12:03:48',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11544,'2025-03-16 12:03:48',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11545,'2025-03-16 12:03:48',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11546,'2025-03-16 12:03:48',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11547,'2025-03-16 12:03:49',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11548,'2025-03-16 12:03:49',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11549,'2025-03-16 12:03:49',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11550,'2025-03-16 12:03:49',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11551,'2025-03-16 12:03:49',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11552,'2025-03-16 12:03:49',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11553,'2025-03-16 12:03:49',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11554,'2025-03-16 12:03:50',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11555,'2025-03-16 12:03:50',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11556,'2025-03-16 12:03:50',5,'insert','Approved leave application of leave, id 38 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11557,'2025-03-16 12:11:41',5,'insert','Created leave application  id:39 for Employee Id: 2 Staff #: AC0001 Names: Martin Lawrence Jameson Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(11558,'2025-03-16 12:11:41',5,'insert','Approved leave application of leave, id 39 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11559,'2025-03-16 12:11:41',5,'insert','Approved leave application of leave, id 39 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11560,'2025-03-16 12:11:41',5,'insert','Approved leave application of leave, id 39 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11561,'2025-03-16 12:11:41',5,'update','Updated leave details for id :39 for Employee Id: 6 Staff #: AC0002 Names: Richard Onyango  Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','{\"applicationid\": 39, \"employeeid\": 2, \"leavetypeid\": 2, \"startdate\": \"2025-03-03\", \"enddate\": \"2025-03-03\", \"daystaken\": 0.50, \"attachment\": \"\", \"narration\": \"This is a test\", \"status\": \"Approved\", \"addedby\": 5, \"dateadded\": \"2025-03-16 12:11:41\", \"deleted\": 0, \"datedeleted\": null, \"deletedby\": null, \"relieverid\": 5, \"supervisorid\": 5, \"approvalflowid\": 1, \"halfdayapplication\": 1, \"shifthalf\": 1, \"starttime\": \"07:00:00\", \"endtime\": \"12:00:00\"}','{\"applicationid\": 39, \"employeeid\": 6, \"leavetypeid\": 2, \"startdate\": \"2025-03-03\", \"enddate\": \"2025-03-03\", \"daystaken\": 0.50, \"attachment\": \"\", \"narration\": \"This is a test\", \"status\": \"Approved\", \"addedby\": 5, \"dateadded\": \"2025-03-16 12:11:41\", \"deleted\": 0, \"datedeleted\": null, \"deletedby\": null, \"relieverid\": 5, \"supervisorid\": 5, \"approvalflowid\": 1, \"halfdayapplication\": 1, \"shifthalf\": 1, \"starttime\": \"07:00:00\", \"endtime\": \"12:00:00\"}',NULL),
+(11562,'2025-03-16 12:11:41',5,'insert','Approved leave application of leave, id 39 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11563,'2025-03-16 12:11:41',5,'insert','Approved leave application of leave, id 39 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11564,'2025-03-16 12:11:41',5,'insert','Approved leave application of leave, id 39 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11565,'2025-03-16 12:14:13',5,'insert','Created leave application  id:40 for Employee Id: 2 Staff #: AC0001 Names: Martin Lawrence Jameson Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(11566,'2025-03-16 12:14:13',5,'insert','Approved leave application of leave, id 40 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11567,'2025-03-16 12:14:13',5,'insert','Approved leave application of leave, id 40 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11568,'2025-03-16 12:14:13',5,'insert','Approved leave application of leave, id 40 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11569,'2025-03-16 12:15:26',5,'insert','Created leave application  id:41 for Employee Id: 8 Staff #: AC0003 Names: Sam Mosabi Mungeli Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(11570,'2025-03-16 12:15:26',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11571,'2025-03-16 12:15:26',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11572,'2025-03-16 12:15:27',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11573,'2025-03-16 12:15:27',5,'update','Updated leave details for id :41 for Employee Id: 10 Staff #: AC0004 Names: Daniel Middle Boy Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','{\"applicationid\": 41, \"employeeid\": 8, \"leavetypeid\": 2, \"startdate\": \"2025-03-03\", \"enddate\": \"2025-03-03\", \"daystaken\": 0.50, \"attachment\": \"\", \"narration\": \"This is a test\", \"status\": \"Approved\", \"addedby\": 5, \"dateadded\": \"2025-03-16 12:15:26\", \"deleted\": 0, \"datedeleted\": null, \"deletedby\": null, \"relieverid\": 5, \"supervisorid\": 5, \"approvalflowid\": 1, \"halfdayapplication\": 1, \"shifthalf\": 1, \"starttime\": \"07:00:00\", \"endtime\": \"12:00:00\"}','{\"applicationid\": 41, \"employeeid\": 10, \"leavetypeid\": 2, \"startdate\": \"2025-03-03\", \"enddate\": \"2025-03-03\", \"daystaken\": 0.50, \"attachment\": \"\", \"narration\": \"This is a test\", \"status\": \"Approved\", \"addedby\": 5, \"dateadded\": \"2025-03-16 12:15:26\", \"deleted\": 0, \"datedeleted\": null, \"deletedby\": null, \"relieverid\": 5, \"supervisorid\": 5, \"approvalflowid\": 1, \"halfdayapplication\": 1, \"shifthalf\": 1, \"starttime\": \"07:00:00\", \"endtime\": \"12:00:00\"}',NULL),
+(11574,'2025-03-16 12:15:27',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11575,'2025-03-16 12:15:27',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11576,'2025-03-16 12:15:27',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11577,'2025-03-16 12:15:27',5,'update','Updated leave details for id :41 for Employee Id: 1 Staff #: NT0001 Names: Richard Onyango Akelo Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','{\"applicationid\": 41, \"employeeid\": 10, \"leavetypeid\": 2, \"startdate\": \"2025-03-03\", \"enddate\": \"2025-03-03\", \"daystaken\": 0.50, \"attachment\": \"\", \"narration\": \"This is a test\", \"status\": \"Approved\", \"addedby\": 5, \"dateadded\": \"2025-03-16 12:15:26\", \"deleted\": 0, \"datedeleted\": null, \"deletedby\": null, \"relieverid\": 5, \"supervisorid\": 5, \"approvalflowid\": 1, \"halfdayapplication\": 1, \"shifthalf\": 1, \"starttime\": \"07:00:00\", \"endtime\": \"12:00:00\"}','{\"applicationid\": 41, \"employeeid\": 1, \"leavetypeid\": 2, \"startdate\": \"2025-03-03\", \"enddate\": \"2025-03-03\", \"daystaken\": 0.50, \"attachment\": \"\", \"narration\": \"This is a test\", \"status\": \"Approved\", \"addedby\": 5, \"dateadded\": \"2025-03-16 12:15:26\", \"deleted\": 0, \"datedeleted\": null, \"deletedby\": null, \"relieverid\": 5, \"supervisorid\": 5, \"approvalflowid\": 1, \"halfdayapplication\": 1, \"shifthalf\": 1, \"starttime\": \"07:00:00\", \"endtime\": \"12:00:00\"}',NULL),
+(11578,'2025-03-16 12:15:27',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11579,'2025-03-16 12:15:27',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11580,'2025-03-16 12:15:28',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11581,'2025-03-16 12:15:28',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11582,'2025-03-16 12:15:28',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11583,'2025-03-16 12:15:28',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11584,'2025-03-16 12:15:28',5,'update','Updated leave details for id :41 for Employee Id: 4 Staff #: NT0002 Names: Patrice Lumumba Emery Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','{\"applicationid\": 41, \"employeeid\": 1, \"leavetypeid\": 2, \"startdate\": \"2025-03-03\", \"enddate\": \"2025-03-03\", \"daystaken\": 0.50, \"attachment\": \"\", \"narration\": \"This is a test\", \"status\": \"Approved\", \"addedby\": 5, \"dateadded\": \"2025-03-16 12:15:26\", \"deleted\": 0, \"datedeleted\": null, \"deletedby\": null, \"relieverid\": 5, \"supervisorid\": 5, \"approvalflowid\": 1, \"halfdayapplication\": 1, \"shifthalf\": 1, \"starttime\": \"07:00:00\", \"endtime\": \"12:00:00\"}','{\"applicationid\": 41, \"employeeid\": 4, \"leavetypeid\": 2, \"startdate\": \"2025-03-03\", \"enddate\": \"2025-03-03\", \"daystaken\": 0.50, \"attachment\": \"\", \"narration\": \"This is a test\", \"status\": \"Approved\", \"addedby\": 5, \"dateadded\": \"2025-03-16 12:15:26\", \"deleted\": 0, \"datedeleted\": null, \"deletedby\": null, \"relieverid\": 5, \"supervisorid\": 5, \"approvalflowid\": 1, \"halfdayapplication\": 1, \"shifthalf\": 1, \"starttime\": \"07:00:00\", \"endtime\": \"12:00:00\"}',NULL),
+(11585,'2025-03-16 12:15:28',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11586,'2025-03-16 12:15:28',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11587,'2025-03-16 12:15:28',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11588,'2025-03-16 12:15:29',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11589,'2025-03-16 12:15:29',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11590,'2025-03-16 12:15:29',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11591,'2025-03-16 12:15:29',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11592,'2025-03-16 12:15:29',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11593,'2025-03-16 12:15:29',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11594,'2025-03-16 12:15:29',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11595,'2025-03-16 12:15:30',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11596,'2025-03-16 12:15:30',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11597,'2025-03-16 12:15:30',5,'update','Updated leave details for id :41 for Employee Id: 5 Staff #: NT0003 Names: Marion Jones Mayers Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','{\"applicationid\": 41, \"employeeid\": 4, \"leavetypeid\": 2, \"startdate\": \"2025-03-03\", \"enddate\": \"2025-03-03\", \"daystaken\": 0.50, \"attachment\": \"\", \"narration\": \"This is a test\", \"status\": \"Approved\", \"addedby\": 5, \"dateadded\": \"2025-03-16 12:15:26\", \"deleted\": 0, \"datedeleted\": null, \"deletedby\": null, \"relieverid\": 5, \"supervisorid\": 5, \"approvalflowid\": 1, \"halfdayapplication\": 1, \"shifthalf\": 1, \"starttime\": \"07:00:00\", \"endtime\": \"12:00:00\"}','{\"applicationid\": 41, \"employeeid\": 5, \"leavetypeid\": 2, \"startdate\": \"2025-03-03\", \"enddate\": \"2025-03-03\", \"daystaken\": 0.50, \"attachment\": \"\", \"narration\": \"This is a test\", \"status\": \"Approved\", \"addedby\": 5, \"dateadded\": \"2025-03-16 12:15:26\", \"deleted\": 0, \"datedeleted\": null, \"deletedby\": null, \"relieverid\": 5, \"supervisorid\": 5, \"approvalflowid\": 1, \"halfdayapplication\": 1, \"shifthalf\": 1, \"starttime\": \"07:00:00\", \"endtime\": \"12:00:00\"}',NULL),
+(11598,'2025-03-16 12:15:30',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11599,'2025-03-16 12:15:30',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11600,'2025-03-16 12:15:30',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11601,'2025-03-16 12:15:30',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11602,'2025-03-16 12:15:31',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11603,'2025-03-16 12:15:31',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11604,'2025-03-16 12:15:31',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11605,'2025-03-16 12:15:31',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11606,'2025-03-16 12:15:31',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11607,'2025-03-16 12:15:31',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11608,'2025-03-16 12:15:31',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11609,'2025-03-16 12:15:32',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11610,'2025-03-16 12:15:32',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11611,'2025-03-16 12:15:32',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11612,'2025-03-16 12:15:32',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11613,'2025-03-16 12:15:32',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11614,'2025-03-16 12:15:32',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11615,'2025-03-16 12:15:32',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11616,'2025-03-16 12:15:32',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11617,'2025-03-16 12:15:33',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11618,'2025-03-16 12:15:33',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11619,'2025-03-16 12:15:33',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11620,'2025-03-16 12:15:33',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11621,'2025-03-16 12:15:33',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11622,'2025-03-16 12:15:33',5,'update','Updated leave details for id :41 for Employee Id: 9 Staff #: NT0004 Names: Robert Mugabe Snr Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','{\"applicationid\": 41, \"employeeid\": 5, \"leavetypeid\": 2, \"startdate\": \"2025-03-03\", \"enddate\": \"2025-03-03\", \"daystaken\": 0.50, \"attachment\": \"\", \"narration\": \"This is a test\", \"status\": \"Approved\", \"addedby\": 5, \"dateadded\": \"2025-03-16 12:15:26\", \"deleted\": 0, \"datedeleted\": null, \"deletedby\": null, \"relieverid\": 5, \"supervisorid\": 5, \"approvalflowid\": 1, \"halfdayapplication\": 1, \"shifthalf\": 1, \"starttime\": \"07:00:00\", \"endtime\": \"12:00:00\"}','{\"applicationid\": 41, \"employeeid\": 9, \"leavetypeid\": 2, \"startdate\": \"2025-03-03\", \"enddate\": \"2025-03-03\", \"daystaken\": 0.50, \"attachment\": \"\", \"narration\": \"This is a test\", \"status\": \"Approved\", \"addedby\": 5, \"dateadded\": \"2025-03-16 12:15:26\", \"deleted\": 0, \"datedeleted\": null, \"deletedby\": null, \"relieverid\": 5, \"supervisorid\": 5, \"approvalflowid\": 1, \"halfdayapplication\": 1, \"shifthalf\": 1, \"starttime\": \"07:00:00\", \"endtime\": \"12:00:00\"}',NULL),
+(11623,'2025-03-16 12:15:33',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11624,'2025-03-16 12:15:33',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11625,'2025-03-16 12:15:34',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11626,'2025-03-16 12:15:34',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11627,'2025-03-16 12:15:34',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11628,'2025-03-16 12:15:34',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11629,'2025-03-16 12:15:34',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11630,'2025-03-16 12:15:34',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11631,'2025-03-16 12:15:34',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11632,'2025-03-16 12:15:35',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11633,'2025-03-16 12:15:35',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11634,'2025-03-16 12:15:35',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11635,'2025-03-16 12:15:35',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11636,'2025-03-16 12:15:35',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11637,'2025-03-16 12:15:35',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11638,'2025-03-16 12:15:35',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11639,'2025-03-16 12:15:36',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11640,'2025-03-16 12:15:36',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11641,'2025-03-16 12:15:36',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11642,'2025-03-16 12:15:36',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11643,'2025-03-16 12:15:36',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11644,'2025-03-16 12:15:36',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11645,'2025-03-16 12:15:36',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11646,'2025-03-16 12:15:37',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11647,'2025-03-16 12:15:37',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11648,'2025-03-16 12:15:37',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11649,'2025-03-16 12:15:37',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11650,'2025-03-16 12:15:37',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11651,'2025-03-16 12:15:37',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11652,'2025-03-16 12:15:37',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11653,'2025-03-16 12:15:38',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11654,'2025-03-16 12:15:38',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11655,'2025-03-16 12:15:38',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11656,'2025-03-16 12:15:38',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11657,'2025-03-16 12:15:38',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11658,'2025-03-16 12:15:38',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11659,'2025-03-16 12:15:38',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11660,'2025-03-16 12:15:38',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11661,'2025-03-16 12:15:39',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11662,'2025-03-16 12:15:39',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11663,'2025-03-16 12:15:39',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11664,'2025-03-16 12:15:39',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11665,'2025-03-16 12:15:39',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11666,'2025-03-16 12:15:39',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11667,'2025-03-16 12:15:40',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11668,'2025-03-16 12:15:40',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11669,'2025-03-16 12:15:40',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11670,'2025-03-16 12:15:40',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11671,'2025-03-16 12:15:40',5,'update','Updated leave details for id :41 for Employee Id: 7 Staff #: ST0321 Names: Leila Charles Achieng Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','{\"applicationid\": 41, \"employeeid\": 9, \"leavetypeid\": 2, \"startdate\": \"2025-03-03\", \"enddate\": \"2025-03-03\", \"daystaken\": 0.50, \"attachment\": \"\", \"narration\": \"This is a test\", \"status\": \"Approved\", \"addedby\": 5, \"dateadded\": \"2025-03-16 12:15:26\", \"deleted\": 0, \"datedeleted\": null, \"deletedby\": null, \"relieverid\": 5, \"supervisorid\": 5, \"approvalflowid\": 1, \"halfdayapplication\": 1, \"shifthalf\": 1, \"starttime\": \"07:00:00\", \"endtime\": \"12:00:00\"}','{\"applicationid\": 41, \"employeeid\": 7, \"leavetypeid\": 2, \"startdate\": \"2025-03-03\", \"enddate\": \"2025-03-03\", \"daystaken\": 0.50, \"attachment\": \"\", \"narration\": \"This is a test\", \"status\": \"Approved\", \"addedby\": 5, \"dateadded\": \"2025-03-16 12:15:26\", \"deleted\": 0, \"datedeleted\": null, \"deletedby\": null, \"relieverid\": 5, \"supervisorid\": 5, \"approvalflowid\": 1, \"halfdayapplication\": 1, \"shifthalf\": 1, \"starttime\": \"07:00:00\", \"endtime\": \"12:00:00\"}',NULL),
+(11672,'2025-03-16 12:15:40',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11673,'2025-03-16 12:15:40',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11674,'2025-03-16 12:15:40',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11675,'2025-03-16 12:15:41',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11676,'2025-03-16 12:15:41',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11677,'2025-03-16 12:15:41',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11678,'2025-03-16 12:15:41',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11679,'2025-03-16 12:15:41',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11680,'2025-03-16 12:15:41',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11681,'2025-03-16 12:15:41',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11682,'2025-03-16 12:15:42',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11683,'2025-03-16 12:15:42',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11684,'2025-03-16 12:15:42',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11685,'2025-03-16 12:15:42',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11686,'2025-03-16 12:15:42',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11687,'2025-03-16 12:15:42',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11688,'2025-03-16 12:15:42',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11689,'2025-03-16 12:15:43',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11690,'2025-03-16 12:15:43',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11691,'2025-03-16 12:15:43',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11692,'2025-03-16 12:15:43',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11693,'2025-03-16 12:15:43',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11694,'2025-03-16 12:15:43',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11695,'2025-03-16 12:15:43',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11696,'2025-03-16 12:15:43',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11697,'2025-03-16 12:15:44',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11698,'2025-03-16 12:15:44',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11699,'2025-03-16 12:15:44',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11700,'2025-03-16 12:15:44',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11701,'2025-03-16 12:15:44',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11702,'2025-03-16 12:15:44',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11703,'2025-03-16 12:15:44',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11704,'2025-03-16 12:15:44',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11705,'2025-03-16 12:15:44',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11706,'2025-03-16 12:15:44',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11707,'2025-03-16 12:15:45',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11708,'2025-03-16 12:15:45',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11709,'2025-03-16 12:15:45',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11710,'2025-03-16 12:15:45',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11711,'2025-03-16 12:15:45',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11712,'2025-03-16 12:15:45',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11713,'2025-03-16 12:15:45',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11714,'2025-03-16 12:15:46',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11715,'2025-03-16 12:15:46',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11716,'2025-03-16 12:15:46',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11717,'2025-03-16 12:15:46',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11718,'2025-03-16 12:15:46',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11719,'2025-03-16 12:15:46',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11720,'2025-03-16 12:15:46',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11721,'2025-03-16 12:15:47',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11722,'2025-03-16 12:15:47',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11723,'2025-03-16 12:15:47',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11724,'2025-03-16 12:15:47',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11725,'2025-03-16 12:15:47',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11726,'2025-03-16 12:15:47',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11727,'2025-03-16 12:15:47',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11728,'2025-03-16 12:15:48',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11729,'2025-03-16 12:15:48',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11730,'2025-03-16 12:15:48',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11731,'2025-03-16 12:15:48',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11732,'2025-03-16 12:15:48',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11733,'2025-03-16 12:15:48',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11734,'2025-03-16 12:15:48',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11735,'2025-03-16 12:15:49',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11736,'2025-03-16 12:15:49',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11737,'2025-03-16 12:15:49',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11738,'2025-03-16 12:15:49',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11739,'2025-03-16 12:15:49',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11740,'2025-03-16 12:15:49',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11741,'2025-03-16 12:15:49',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11742,'2025-03-16 12:15:50',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11743,'2025-03-16 12:15:50',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11744,'2025-03-16 12:15:50',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11745,'2025-03-16 12:15:50',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11746,'2025-03-16 12:15:50',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11747,'2025-03-16 12:15:50',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11748,'2025-03-16 12:15:50',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11749,'2025-03-16 12:15:51',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11750,'2025-03-16 12:15:51',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11751,'2025-03-16 12:15:51',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11752,'2025-03-16 12:15:51',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11753,'2025-03-16 12:15:51',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11754,'2025-03-16 12:15:51',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11755,'2025-03-16 12:15:51',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11756,'2025-03-16 12:15:51',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11757,'2025-03-16 12:15:52',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11758,'2025-03-16 12:15:52',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11759,'2025-03-16 12:15:52',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11760,'2025-03-16 12:15:52',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11761,'2025-03-16 12:15:52',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11762,'2025-03-16 12:15:52',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11763,'2025-03-16 12:15:53',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11764,'2025-03-16 12:15:53',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11765,'2025-03-16 12:15:53',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11766,'2025-03-16 12:15:53',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11767,'2025-03-16 12:15:53',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11768,'2025-03-16 12:15:53',5,'update','Updated leave details for id :41 for Employee Id: 11 Staff #: TST0001 Names: John Kamau Ndirangu Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','{\"applicationid\": 41, \"employeeid\": 7, \"leavetypeid\": 2, \"startdate\": \"2025-03-03\", \"enddate\": \"2025-03-03\", \"daystaken\": 0.50, \"attachment\": \"\", \"narration\": \"This is a test\", \"status\": \"Approved\", \"addedby\": 5, \"dateadded\": \"2025-03-16 12:15:26\", \"deleted\": 0, \"datedeleted\": null, \"deletedby\": null, \"relieverid\": 5, \"supervisorid\": 5, \"approvalflowid\": 1, \"halfdayapplication\": 1, \"shifthalf\": 1, \"starttime\": \"07:00:00\", \"endtime\": \"12:00:00\"}','{\"applicationid\": 41, \"employeeid\": 11, \"leavetypeid\": 2, \"startdate\": \"2025-03-03\", \"enddate\": \"2025-03-03\", \"daystaken\": 0.50, \"attachment\": \"\", \"narration\": \"This is a test\", \"status\": \"Approved\", \"addedby\": 5, \"dateadded\": \"2025-03-16 12:15:26\", \"deleted\": 0, \"datedeleted\": null, \"deletedby\": null, \"relieverid\": 5, \"supervisorid\": 5, \"approvalflowid\": 1, \"halfdayapplication\": 1, \"shifthalf\": 1, \"starttime\": \"07:00:00\", \"endtime\": \"12:00:00\"}',NULL),
+(11769,'2025-03-16 12:15:53',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11770,'2025-03-16 12:15:54',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11771,'2025-03-16 12:15:54',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11772,'2025-03-16 12:15:54',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11773,'2025-03-16 12:15:54',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11774,'2025-03-16 12:15:54',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11775,'2025-03-16 12:15:54',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11776,'2025-03-16 12:15:54',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11777,'2025-03-16 12:15:54',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11778,'2025-03-16 12:15:55',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11779,'2025-03-16 12:15:55',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11780,'2025-03-16 12:15:55',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11781,'2025-03-16 12:15:55',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11782,'2025-03-16 12:15:55',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11783,'2025-03-16 12:15:55',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11784,'2025-03-16 12:15:55',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11785,'2025-03-16 12:15:56',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11786,'2025-03-16 12:15:56',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11787,'2025-03-16 12:15:56',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11788,'2025-03-16 12:15:56',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11789,'2025-03-16 12:15:56',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11790,'2025-03-16 12:15:56',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11791,'2025-03-16 12:15:56',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11792,'2025-03-16 12:15:57',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11793,'2025-03-16 12:15:57',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11794,'2025-03-16 12:15:57',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11795,'2025-03-16 12:15:57',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11796,'2025-03-16 12:15:57',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11797,'2025-03-16 12:15:57',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11798,'2025-03-16 12:15:57',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11799,'2025-03-16 12:15:58',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11800,'2025-03-16 12:15:58',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11801,'2025-03-16 12:15:58',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11802,'2025-03-16 12:15:58',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11803,'2025-03-16 12:15:58',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11804,'2025-03-16 12:15:58',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11805,'2025-03-16 12:15:58',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11806,'2025-03-16 12:15:58',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11807,'2025-03-16 12:15:58',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11808,'2025-03-16 12:15:59',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11809,'2025-03-16 12:15:59',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11810,'2025-03-16 12:15:59',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11811,'2025-03-16 12:15:59',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11812,'2025-03-16 12:15:59',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11813,'2025-03-16 12:15:59',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11814,'2025-03-16 12:15:59',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11815,'2025-03-16 12:16:00',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11816,'2025-03-16 12:16:00',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11817,'2025-03-16 12:16:00',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11818,'2025-03-16 12:16:00',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11819,'2025-03-16 12:16:00',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11820,'2025-03-16 12:16:00',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11821,'2025-03-16 12:16:00',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11822,'2025-03-16 12:16:01',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11823,'2025-03-16 12:16:01',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11824,'2025-03-16 12:16:01',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11825,'2025-03-16 12:16:01',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11826,'2025-03-16 12:16:01',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11827,'2025-03-16 12:16:01',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11828,'2025-03-16 12:16:01',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11829,'2025-03-16 12:16:02',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11830,'2025-03-16 12:16:02',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11831,'2025-03-16 12:16:02',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11832,'2025-03-16 12:16:02',5,'insert','Approved leave application of leave, id 41 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11833,'2025-03-16 12:16:02',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11834,'2025-03-16 12:16:02',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11835,'2025-03-16 12:16:02',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11836,'2025-03-16 12:16:03',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11837,'2025-03-16 12:16:03',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11838,'2025-03-16 12:16:03',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11839,'2025-03-16 12:16:03',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11840,'2025-03-16 12:16:03',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11841,'2025-03-16 12:16:03',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11842,'2025-03-16 12:16:04',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11843,'2025-03-16 12:16:04',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11844,'2025-03-16 12:16:04',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11845,'2025-03-16 12:16:04',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11846,'2025-03-16 12:16:04',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11847,'2025-03-16 12:16:04',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11848,'2025-03-16 12:16:04',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11849,'2025-03-16 12:16:05',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11850,'2025-03-16 12:16:05',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11851,'2025-03-16 12:16:05',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11852,'2025-03-16 12:16:05',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11853,'2025-03-16 12:16:05',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11854,'2025-03-16 12:16:05',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11855,'2025-03-16 12:16:05',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11856,'2025-03-16 12:16:06',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11857,'2025-03-16 12:16:06',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11858,'2025-03-16 12:16:06',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11859,'2025-03-16 12:16:06',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11860,'2025-03-16 12:16:06',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11861,'2025-03-16 12:16:06',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11862,'2025-03-16 12:16:07',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11863,'2025-03-16 12:16:07',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11864,'2025-03-16 12:16:07',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11865,'2025-03-16 12:16:07',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11866,'2025-03-16 12:16:07',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11867,'2025-03-16 12:16:07',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11868,'2025-03-16 12:16:07',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11869,'2025-03-16 12:16:07',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11870,'2025-03-16 12:16:07',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11871,'2025-03-16 12:16:08',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11872,'2025-03-16 12:16:08',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11873,'2025-03-16 12:16:08',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11874,'2025-03-16 12:16:08',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11875,'2025-03-16 12:16:08',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11876,'2025-03-16 12:16:08',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11877,'2025-03-16 12:16:09',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11878,'2025-03-16 12:16:09',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11879,'2025-03-16 12:16:09',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11880,'2025-03-16 12:16:09',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11881,'2025-03-16 12:16:09',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11882,'2025-03-16 12:16:09',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11883,'2025-03-16 12:16:09',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11884,'2025-03-16 12:16:10',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11885,'2025-03-16 12:16:10',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11886,'2025-03-16 12:16:10',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11887,'2025-03-16 12:16:10',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11888,'2025-03-16 12:16:10',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11889,'2025-03-16 12:16:10',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11890,'2025-03-16 12:16:10',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11891,'2025-03-16 12:16:11',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11892,'2025-03-16 12:16:11',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11893,'2025-03-16 12:16:11',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11894,'2025-03-16 12:16:11',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11895,'2025-03-16 12:16:11',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11896,'2025-03-16 12:16:11',5,'insert','Approved leave application of leave, id 41 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11897,'2025-03-16 12:16:11',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11898,'2025-03-16 12:16:12',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11899,'2025-03-16 12:16:12',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11900,'2025-03-16 12:16:12',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11901,'2025-03-16 12:16:12',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11902,'2025-03-16 12:16:12',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11903,'2025-03-16 12:16:12',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11904,'2025-03-16 12:16:13',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11905,'2025-03-16 12:16:13',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11906,'2025-03-16 12:16:13',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11907,'2025-03-16 12:16:13',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11908,'2025-03-16 12:16:13',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11909,'2025-03-16 12:16:13',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11910,'2025-03-16 12:16:13',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11911,'2025-03-16 12:16:14',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11912,'2025-03-16 12:16:14',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11913,'2025-03-16 12:16:14',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11914,'2025-03-16 12:16:14',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11915,'2025-03-16 12:16:14',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11916,'2025-03-16 12:16:14',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11917,'2025-03-16 12:16:14',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11918,'2025-03-16 12:16:15',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11919,'2025-03-16 12:16:15',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11920,'2025-03-16 12:16:15',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11921,'2025-03-16 12:16:15',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11922,'2025-03-16 12:16:15',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11923,'2025-03-16 12:16:15',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11924,'2025-03-16 12:16:15',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11925,'2025-03-16 12:16:16',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11926,'2025-03-16 12:16:16',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11927,'2025-03-16 12:16:16',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11928,'2025-03-16 12:16:16',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11929,'2025-03-16 12:16:16',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11930,'2025-03-16 12:16:16',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11931,'2025-03-16 12:16:16',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11932,'2025-03-16 12:16:17',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11933,'2025-03-16 12:16:17',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11934,'2025-03-16 12:16:17',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11935,'2025-03-16 12:16:17',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11936,'2025-03-16 12:16:17',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11937,'2025-03-16 12:16:17',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11938,'2025-03-16 12:16:18',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11939,'2025-03-16 12:16:18',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11940,'2025-03-16 12:16:18',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11941,'2025-03-16 12:16:18',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11942,'2025-03-16 12:16:18',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11943,'2025-03-16 12:16:18',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11944,'2025-03-16 12:16:19',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11945,'2025-03-16 12:16:19',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11946,'2025-03-16 12:16:19',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11947,'2025-03-16 12:16:19',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11948,'2025-03-16 12:16:19',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11949,'2025-03-16 12:16:19',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11950,'2025-03-16 12:16:19',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11951,'2025-03-16 12:16:20',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11952,'2025-03-16 12:16:20',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11953,'2025-03-16 12:16:20',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11954,'2025-03-16 12:16:20',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11955,'2025-03-16 12:16:20',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11956,'2025-03-16 12:16:20',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11957,'2025-03-16 12:16:20',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11958,'2025-03-16 12:16:21',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11959,'2025-03-16 12:16:21',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11960,'2025-03-16 12:16:21',5,'insert','Approved leave application of leave, id 41 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11961,'2025-03-16 12:27:31',5,'insert','Created leave application  id:42 for Employee Id: 2 Staff #: AC0001 Names: Martin Lawrence Jameson Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(11962,'2025-03-16 12:27:31',5,'insert','Approved leave application of leave, id 42 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11963,'2025-03-16 12:27:31',5,'insert','Approved leave application of leave, id 42 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11964,'2025-03-16 12:27:31',5,'insert','Approved leave application of leave, id 42 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11965,'2025-03-16 12:27:31',5,'update','Updated leave details for id :42 for Employee Id: 6 Staff #: AC0002 Names: Richard Onyango  Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','{\"applicationid\": 42, \"employeeid\": 2, \"leavetypeid\": 2, \"startdate\": \"2025-03-03\", \"enddate\": \"2025-03-03\", \"daystaken\": 0.50, \"attachment\": \"\", \"narration\": \"This is a test\", \"status\": \"Approved\", \"addedby\": 5, \"dateadded\": \"2025-03-16 12:27:31\", \"deleted\": 0, \"datedeleted\": null, \"deletedby\": null, \"relieverid\": 5, \"supervisorid\": 5, \"approvalflowid\": 1, \"halfdayapplication\": 1, \"shifthalf\": 1, \"starttime\": \"07:00:00\", \"endtime\": \"12:00:00\"}','{\"applicationid\": 42, \"employeeid\": 6, \"leavetypeid\": 2, \"startdate\": \"2025-03-03\", \"enddate\": \"2025-03-03\", \"daystaken\": 0.50, \"attachment\": \"\", \"narration\": \"This is a test\", \"status\": \"Approved\", \"addedby\": 5, \"dateadded\": \"2025-03-16 12:27:31\", \"deleted\": 0, \"datedeleted\": null, \"deletedby\": null, \"relieverid\": 5, \"supervisorid\": 5, \"approvalflowid\": 1, \"halfdayapplication\": 1, \"shifthalf\": 1, \"starttime\": \"07:00:00\", \"endtime\": \"12:00:00\"}',NULL),
+(11966,'2025-03-16 12:27:31',5,'insert','Approved leave application of leave, id 42 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11967,'2025-03-16 12:27:31',5,'insert','Approved leave application of leave, id 42 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11968,'2025-03-16 12:27:31',5,'insert','Approved leave application of leave, id 42 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11969,'2025-03-16 12:36:31',5,'insert','Created leave application  id:43 for Employee Id: 2 Staff #: AC0001 Names: Martin Lawrence Jameson Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(11970,'2025-03-16 12:36:31',5,'insert','Approved leave application of leave, id 43 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11971,'2025-03-16 12:36:31',5,'insert','Approved leave application of leave, id 43 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11972,'2025-03-16 12:36:31',5,'insert','Approved leave application of leave, id 43 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11973,'2025-03-16 12:36:31',5,'insert','Created leave application  id:44 for Employee Id: 6 Staff #: AC0002 Names: Richard Onyango  Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(11974,'2025-03-16 12:36:31',5,'insert','Approved leave application of leave, id 44 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11975,'2025-03-16 12:36:32',5,'insert','Approved leave application of leave, id 44 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11976,'2025-03-16 12:36:32',5,'insert','Approved leave application of leave, id 44 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11977,'2025-03-16 12:36:32',5,'insert','Created leave application  id:45 for Employee Id: 8 Staff #: AC0003 Names: Sam Mosabi Mungeli Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(11978,'2025-03-16 12:36:32',5,'insert','Approved leave application of leave, id 45 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11979,'2025-03-16 12:36:32',5,'insert','Approved leave application of leave, id 45 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11980,'2025-03-16 12:36:32',5,'insert','Approved leave application of leave, id 45 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11981,'2025-03-16 12:39:42',5,'insert','Created leave application  id:1 for Employee Id: 2 Staff #: AC0001 Names: Martin Lawrence Jameson Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(11982,'2025-03-16 12:39:42',5,'insert','Approved leave application of leave, id 1 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11983,'2025-03-16 12:39:42',5,'insert','Approved leave application of leave, id 1 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11984,'2025-03-16 12:39:42',5,'insert','Approved leave application of leave, id 1 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11985,'2025-03-16 12:39:42',5,'insert','Created leave application  id:2 for Employee Id: 6 Staff #: AC0002 Names: Richard Onyango  Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(11986,'2025-03-16 12:39:42',5,'insert','Approved leave application of leave, id 2 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11987,'2025-03-16 12:39:43',5,'insert','Approved leave application of leave, id 2 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11988,'2025-03-16 12:39:43',5,'insert','Approved leave application of leave, id 2 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11989,'2025-03-16 12:39:43',5,'insert','Created leave application  id:3 for Employee Id: 8 Staff #: AC0003 Names: Sam Mosabi Mungeli Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(11990,'2025-03-16 12:39:43',5,'insert','Approved leave application of leave, id 3 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11991,'2025-03-16 12:39:43',5,'insert','Approved leave application of leave, id 3 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11992,'2025-03-16 12:39:43',5,'insert','Approved leave application of leave, id 3 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11993,'2025-03-16 12:39:43',5,'insert','Created leave application  id:4 for Employee Id: 10 Staff #: AC0004 Names: Daniel Middle Boy Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(11994,'2025-03-16 12:39:43',5,'insert','Approved leave application of leave, id 4 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11995,'2025-03-16 12:39:43',5,'insert','Approved leave application of leave, id 4 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11996,'2025-03-16 12:39:43',5,'insert','Approved leave application of leave, id 4 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11997,'2025-03-16 12:39:43',5,'insert','Created leave application  id:5 for Employee Id: 1 Staff #: NT0001 Names: Richard Onyango Akelo Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(11998,'2025-03-16 12:39:43',5,'insert','Approved leave application of leave, id 5 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(11999,'2025-03-16 12:39:44',5,'insert','Approved leave application of leave, id 5 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12000,'2025-03-16 12:39:44',5,'insert','Approved leave application of leave, id 5 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12001,'2025-03-16 12:39:44',5,'insert','Created leave application  id:6 for Employee Id: 4 Staff #: NT0002 Names: Patrice Lumumba Emery Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(12002,'2025-03-16 12:39:44',5,'insert','Approved leave application of leave, id 6 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12003,'2025-03-16 12:39:44',5,'insert','Approved leave application of leave, id 6 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12004,'2025-03-16 12:39:44',5,'insert','Approved leave application of leave, id 6 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12005,'2025-03-16 12:39:44',5,'insert','Created leave application  id:7 for Employee Id: 5 Staff #: NT0003 Names: Marion Jones Mayers Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(12006,'2025-03-16 12:39:44',5,'insert','Approved leave application of leave, id 7 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12007,'2025-03-16 12:39:44',5,'insert','Approved leave application of leave, id 7 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12008,'2025-03-16 12:39:44',5,'insert','Approved leave application of leave, id 7 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12009,'2025-03-16 12:39:45',5,'insert','Created leave application  id:8 for Employee Id: 9 Staff #: NT0004 Names: Robert Mugabe Snr Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(12010,'2025-03-16 12:39:45',5,'insert','Approved leave application of leave, id 8 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12011,'2025-03-16 12:39:45',5,'insert','Approved leave application of leave, id 8 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12012,'2025-03-16 12:39:45',5,'insert','Approved leave application of leave, id 8 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12013,'2025-03-16 12:39:45',5,'insert','Created leave application  id:9 for Employee Id: 7 Staff #: ST0321 Names: Leila Charles Achieng Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(12014,'2025-03-16 12:39:45',5,'insert','Approved leave application of leave, id 9 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12015,'2025-03-16 12:39:45',5,'insert','Approved leave application of leave, id 9 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12016,'2025-03-16 12:39:45',5,'insert','Approved leave application of leave, id 9 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12017,'2025-03-16 12:39:45',5,'insert','Created leave application  id:10 for Employee Id: 11 Staff #: TST0001 Names: John Kamau Ndirangu Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(12018,'2025-03-16 12:39:45',5,'insert','Approved leave application of leave, id 10 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12019,'2025-03-16 12:39:45',5,'insert','Approved leave application of leave, id 10 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12020,'2025-03-16 12:39:45',5,'insert','Approved leave application of leave, id 10 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12021,'2025-03-16 12:46:14',5,'insert','Created leave application  id:1 for Employee Id: 2 Staff #: AC0001 Names: Martin Lawrence Jameson Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(12022,'2025-03-16 12:46:14',5,'insert','Approved leave application of leave, id 1 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12023,'2025-03-16 12:46:14',5,'insert','Approved leave application of leave, id 1 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12024,'2025-03-16 12:46:14',5,'insert','Approved leave application of leave, id 1 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12025,'2025-03-16 12:46:14',5,'insert','Created leave application  id:2 for Employee Id: 6 Staff #: AC0002 Names: Richard Onyango  Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(12026,'2025-03-16 12:46:14',5,'insert','Approved leave application of leave, id 2 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12027,'2025-03-16 12:46:14',5,'insert','Approved leave application of leave, id 2 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12028,'2025-03-16 12:46:14',5,'insert','Approved leave application of leave, id 2 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12029,'2025-03-16 12:46:14',5,'insert','Created leave application  id:3 for Employee Id: 8 Staff #: AC0003 Names: Sam Mosabi Mungeli Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(12030,'2025-03-16 12:46:14',5,'insert','Approved leave application of leave, id 3 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12031,'2025-03-16 12:46:14',5,'insert','Approved leave application of leave, id 3 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12032,'2025-03-16 12:46:15',5,'insert','Approved leave application of leave, id 3 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12033,'2025-03-16 12:46:15',5,'insert','Created leave application  id:4 for Employee Id: 10 Staff #: AC0004 Names: Daniel Middle Boy Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(12034,'2025-03-16 12:46:15',5,'insert','Approved leave application of leave, id 4 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12035,'2025-03-16 12:46:15',5,'insert','Approved leave application of leave, id 4 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12036,'2025-03-16 12:46:15',5,'insert','Approved leave application of leave, id 4 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12037,'2025-03-16 12:46:15',5,'insert','Created leave application  id:5 for Employee Id: 1 Staff #: NT0001 Names: Richard Onyango Akelo Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(12038,'2025-03-16 12:46:15',5,'insert','Approved leave application of leave, id 5 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12039,'2025-03-16 12:46:15',5,'insert','Approved leave application of leave, id 5 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12040,'2025-03-16 12:46:15',5,'insert','Approved leave application of leave, id 5 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12041,'2025-03-16 12:46:15',5,'insert','Created leave application  id:6 for Employee Id: 4 Staff #: NT0002 Names: Patrice Lumumba Emery Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(12042,'2025-03-16 12:46:15',5,'insert','Approved leave application of leave, id 6 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12043,'2025-03-16 12:46:15',5,'insert','Approved leave application of leave, id 6 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12044,'2025-03-16 12:46:16',5,'insert','Approved leave application of leave, id 6 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12045,'2025-03-16 12:46:16',5,'insert','Created leave application  id:7 for Employee Id: 5 Staff #: NT0003 Names: Marion Jones Mayers Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(12046,'2025-03-16 12:46:16',5,'insert','Approved leave application of leave, id 7 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12047,'2025-03-16 12:46:16',5,'insert','Approved leave application of leave, id 7 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12048,'2025-03-16 12:46:16',5,'insert','Approved leave application of leave, id 7 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12049,'2025-03-16 12:46:16',5,'insert','Created leave application  id:8 for Employee Id: 9 Staff #: NT0004 Names: Robert Mugabe Snr Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(12050,'2025-03-16 12:46:16',5,'insert','Approved leave application of leave, id 8 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12051,'2025-03-16 12:46:16',5,'insert','Approved leave application of leave, id 8 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12052,'2025-03-16 12:46:16',5,'insert','Approved leave application of leave, id 8 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12053,'2025-03-16 12:46:16',5,'insert','Created leave application  id:9 for Employee Id: 7 Staff #: ST0321 Names: Leila Charles Achieng Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(12054,'2025-03-16 12:46:16',5,'insert','Approved leave application of leave, id 9 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12055,'2025-03-16 12:46:16',5,'insert','Approved leave application of leave, id 9 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12056,'2025-03-16 12:46:16',5,'insert','Approved leave application of leave, id 9 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12057,'2025-03-16 12:46:16',5,'insert','Created leave application  id:10 for Employee Id: 11 Staff #: TST0001 Names: John Kamau Ndirangu Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(12058,'2025-03-16 12:46:17',5,'insert','Approved leave application of leave, id 10 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12059,'2025-03-16 12:46:17',5,'insert','Approved leave application of leave, id 10 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12060,'2025-03-16 12:46:17',5,'insert','Approved leave application of leave, id 10 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12061,'2025-03-16 13:36:15',5,'insert','Created leave application  id:1 for Employee Id: 2 Staff #: AC0001 Names: Martin Lawrence Jameson Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(12062,'2025-03-16 13:36:15',5,'insert','Approved leave application of leave, id 1 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12063,'2025-03-16 13:36:15',5,'insert','Approved leave application of leave, id 1 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12064,'2025-03-16 13:36:15',5,'insert','Approved leave application of leave, id 1 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12065,'2025-03-16 13:36:15',5,'insert','Created leave application  id:2 for Employee Id: 6 Staff #: AC0002 Names: Richard Onyango  Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(12066,'2025-03-16 13:36:15',5,'insert','Approved leave application of leave, id 2 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12067,'2025-03-16 13:36:15',5,'insert','Approved leave application of leave, id 2 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12068,'2025-03-16 13:36:15',5,'insert','Approved leave application of leave, id 2 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12069,'2025-03-16 13:36:16',5,'insert','Created leave application  id:3 for Employee Id: 8 Staff #: AC0003 Names: Sam Mosabi Mungeli Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(12070,'2025-03-16 13:36:16',5,'insert','Approved leave application of leave, id 3 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12071,'2025-03-16 13:36:16',5,'insert','Approved leave application of leave, id 3 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12072,'2025-03-16 13:36:16',5,'insert','Approved leave application of leave, id 3 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12073,'2025-03-16 13:36:16',5,'insert','Created leave application  id:4 for Employee Id: 10 Staff #: AC0004 Names: Daniel Middle Boy Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(12074,'2025-03-16 13:36:16',5,'insert','Approved leave application of leave, id 4 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12075,'2025-03-16 13:36:16',5,'insert','Approved leave application of leave, id 4 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12076,'2025-03-16 13:36:16',5,'insert','Approved leave application of leave, id 4 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12077,'2025-03-16 13:36:16',5,'insert','Created leave application  id:5 for Employee Id: 1 Staff #: NT0001 Names: Richard Onyango Akelo Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(12078,'2025-03-16 13:36:16',5,'insert','Approved leave application of leave, id 5 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12079,'2025-03-16 13:36:16',5,'insert','Approved leave application of leave, id 5 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12080,'2025-03-16 13:36:16',5,'insert','Approved leave application of leave, id 5 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12081,'2025-03-16 13:36:17',5,'insert','Created leave application  id:6 for Employee Id: 4 Staff #: NT0002 Names: Patrice Lumumba Emery Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(12082,'2025-03-16 13:36:17',5,'insert','Approved leave application of leave, id 6 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12083,'2025-03-16 13:36:17',5,'insert','Approved leave application of leave, id 6 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12084,'2025-03-16 13:36:17',5,'insert','Approved leave application of leave, id 6 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12085,'2025-03-16 13:36:17',5,'insert','Created leave application  id:7 for Employee Id: 5 Staff #: NT0003 Names: Marion Jones Mayers Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(12086,'2025-03-16 13:36:17',5,'insert','Approved leave application of leave, id 7 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12087,'2025-03-16 13:36:17',5,'insert','Approved leave application of leave, id 7 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12088,'2025-03-16 13:36:17',5,'insert','Approved leave application of leave, id 7 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12089,'2025-03-16 13:36:17',5,'insert','Created leave application  id:8 for Employee Id: 9 Staff #: NT0004 Names: Robert Mugabe Snr Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(12090,'2025-03-16 13:36:17',5,'insert','Approved leave application of leave, id 8 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12091,'2025-03-16 13:36:17',5,'insert','Approved leave application of leave, id 8 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12092,'2025-03-16 13:36:17',5,'insert','Approved leave application of leave, id 8 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12093,'2025-03-16 13:36:18',5,'insert','Created leave application  id:9 for Employee Id: 7 Staff #: ST0321 Names: Leila Charles Achieng Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(12094,'2025-03-16 13:36:18',5,'insert','Approved leave application of leave, id 9 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12095,'2025-03-16 13:36:18',5,'insert','Approved leave application of leave, id 9 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12096,'2025-03-16 13:36:18',5,'insert','Approved leave application of leave, id 9 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12097,'2025-03-16 13:36:18',5,'insert','Created leave application  id:10 for Employee Id: 11 Staff #: TST0001 Names: John Kamau Ndirangu Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(12098,'2025-03-16 13:36:18',5,'insert','Approved leave application of leave, id 10 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12099,'2025-03-16 13:36:18',5,'insert','Approved leave application of leave, id 10 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12100,'2025-03-16 13:36:18',5,'insert','Approved leave application of leave, id 10 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12101,'2025-03-16 13:37:39',5,'insert','Created leave application  id:11 for Employee Id: 3 Staff #: TST001 Names: James Marsden Cain Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(12102,'2025-03-16 13:37:39',5,'insert','Approved leave application of leave, id 11 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12103,'2025-03-16 13:37:39',5,'insert','Approved leave application of leave, id 11 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12104,'2025-03-16 13:37:39',5,'insert','Approved leave application of leave, id 11 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12105,'2025-04-09 14:31:11',5,'insert','Added employee payroll item id:83 name:Housing Levy amount:0.00','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12106,'2025-04-09 14:31:11',5,'insert','Added employee payroll item id:84 name:NHIF amount:0.00','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12107,'2025-04-09 14:31:11',5,'insert','Added employee payroll item id:85 name:NSSF amount:0.00','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12108,'2025-04-09 14:31:11',5,'insert','Added employee payroll item id:86 name:PAYE amount:0.00','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12109,'2025-04-09 14:31:46',5,'insert','Added employee payroll item id:87 name:Basic Salary amount:11000.00','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12110,'2025-04-09 14:31:46',5,'insert','Added employee payroll item id:88 name:House Allowance amount:7800.00','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12111,'2025-04-09 14:32:21',5,'insert','Added employee payroll item id:89 name:Arrears amount:4500.00','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12112,'2025-04-09 14:44:42',5,'insert','Created leave application  id:12 for Employee Id: 5 Staff #: NT0003 Names: Marion Jones Mayers Leave Id:2 name: Annual Leave','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(12113,'2025-04-09 14:45:09',5,'insert','Approved leave application of leave, id 12 for level id:1, levelname:Supervisor','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12114,'2025-04-09 14:45:23',5,'insert','Approved leave application of leave, id 12 for level id:2, levelname:Human Resource Manager','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12115,'2025-04-09 14:45:49',5,'insert','Approved leave application of leave, id 12 for level id:3, levelname:Senior management','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12116,'2025-04-09 14:47:45',5,'update','Closed payroll period January 2025 id: 11','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(12117,'2025-04-09 14:51:28',5,'insert','Added employee payroll item id:90 name:Arrears amount:5200.00','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12118,'2025-04-09 14:51:28',5,'insert','Added employee payroll item id:91 name:Arrears amount:3100.00','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12119,'2025-04-09 14:51:28',5,'insert','Added employee payroll item id:92 name:Arrears amount:4500.00','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12120,'2025-04-09 14:51:28',5,'insert','Added employee payroll item id:93 name:Arrears amount:2400.00','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12121,'2025-04-09 14:51:29',5,'insert','Added employee payroll item id:94 name:Arrears amount:5800.00','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",','','',NULL),
+(12122,'2025-04-09 14:52:10',5,'insert','Processed payroll for April 2025 id: 12','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(12123,'2025-04-09 15:01:02',5,'insert','Created new overtime requisition number:OTR00013 id:18','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(12124,'2025-04-09 15:02:35',5,'insert','Imported attendance records for 09-Apr-2025','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(12125,'2025-04-09 15:02:51',5,'insert','Locked unit id4 name:Changamwe from attendance data importation','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(12126,'2025-04-09 15:02:51',5,'insert','Locked unit id1 name:Mombasa 01 from attendance data importation','{\"browser\":\"Chrome\",\"browser_version\":\"134.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(12127,'2025-04-30 12:14:55',5,'insert','Imported attendance records for 30-Apr-2025','{\"browser\":\"Chrome\",\"browser_version\":\"135.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(12128,'2025-04-30 12:15:13',5,'insert','Locked unit id4 name:Changamwe from attendance data importation','{\"browser\":\"Chrome\",\"browser_version\":\"135.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(12129,'2025-04-30 12:15:13',5,'insert','Locked unit id1 name:Mombasa 01 from attendance data importation','{\"browser\":\"Chrome\",\"browser_version\":\"135.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(12130,'2025-04-30 12:19:28',5,'update','Closed payroll period April 2025 id: 12','{\"browser\":\"Chrome\",\"browser_version\":\"135.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(12131,'2025-04-30 12:20:54',5,'insert','Added employee payroll item id:95 name:Commuter Allowance amount:5200.00','{\"browser\":\"Chrome\",\"browser_version\":\"135.0.0.0\",','','',NULL),
+(12132,'2025-04-30 12:20:54',5,'insert','Added employee payroll item id:96 name:Commuter Allowance amount:3100.00','{\"browser\":\"Chrome\",\"browser_version\":\"135.0.0.0\",','','',NULL),
+(12133,'2025-04-30 12:20:54',5,'insert','Added employee payroll item id:97 name:Commuter Allowance amount:4500.00','{\"browser\":\"Chrome\",\"browser_version\":\"135.0.0.0\",','','',NULL),
+(12134,'2025-04-30 12:20:54',5,'insert','Added employee payroll item id:98 name:Commuter Allowance amount:2400.00','{\"browser\":\"Chrome\",\"browser_version\":\"135.0.0.0\",','','',NULL),
+(12135,'2025-04-30 12:20:54',5,'insert','Added employee payroll item id:99 name:Commuter Allowance amount:5800.00','{\"browser\":\"Chrome\",\"browser_version\":\"135.0.0.0\",','','',NULL),
+(12136,'2025-04-30 12:22:12',5,'insert','Processed payroll for May 2025 id: 13','{\"browser\":\"Chrome\",\"browser_version\":\"135.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(12137,'2025-04-30 13:04:58',5,'insert','Created new creditor id: 10 name: Stima Sacco','{\"browser\":\"Chrome\",\"browser_version\":\"135.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(12138,'2025-04-30 13:06:59',5,'insert','Created a new payroll item  id: 17 item name:Stima Sacco Loan','{\"browser\":\"Chrome\",\"browser_version\":\"135.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(12139,'2025-05-01 17:05:42',5,'update','Updated employee details for id :1 staff no:NT0001 names:Richard Onyango Akelo','{\"browser\":\"Chrome\",\"browser_version\":\"135.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','{\"employeeid\": 1, \"staffno\": \"NT0001\", \"firstname\": \"Richard\", \"middlename\": \"Onyango\", \"lastname\": \"Akelo\", \"termid\": 5, \"categoryid\": 2, \"departmentid\": 13, \"religionid\": 1, \"salutationid\": 1, \"iddocumentid\": 1, \"iddocreferenceno\": \"23657524\", \"iddocexpirydate\": \"0000-00-00\", \"dateofbirth\": \"1983-01-11\", \"gender\": \"male\", \"pinno\": \"A00389875\", \"nssfno\": \"7487854\", \"nhifno\": \"N9879347\", \"disabled\": 0, \"disabilitytype\": \"none\", \"disabilitydescription\": \"\", \"disabilitycertificateno\": \"\", \"onpayroll\": 0, \"fixedpaye\": 0, \"status\": \"active\", \"positionid\": 6, \"jobgroupid\": 10, \"notchid\": 8, \"bankbranchid\": 3, \"bankaccountnumber\": \"0250190497310\", \"employmentdate\": \"2009-06-17\", \"separationdate\": null, \"separationreason\": null, \"physicaladdress\": \"Kandisi, Ongata Rongai, Opp SGR\", \"postaladdress\": \"52428\", \"town\": \"Nairobi\", \"postalcode\": \"00200\", \"mobile\": \"0727709772\", \"emailaddress\": \"akellorich@gmail.com\", \"alternativemobile\": \"\", \"alternativeemailaddress\": \"\", \"dateadded\": \"2024-06-15 13:32:58\", \"addedby\": 5, \"unitid\": 4, \"shiftid\": 10, \"sectionid\": 2, \"lastmodifiedby\": 5, \"lastmodificationdate\": \"2025-01-30 16:31:36\", \"attendancestatus\": \"inactive\"}','{\"employeeid\": 1, \"staffno\": \"NT0001\", \"firstname\": \"Richard\", \"middlename\": \"Onyango\", \"lastname\": \"Akelo\", \"termid\": 5, \"categoryid\": 2, \"departmentid\": 13, \"religionid\": 1, \"salutationid\": 1, \"iddocumentid\": 1, \"iddocreferenceno\": \"23657524\", \"iddocexpirydate\": \"0000-00-00\", \"dateofbirth\": \"1983-01-11\", \"gender\": \"male\", \"pinno\": \"A00389875\", \"nssfno\": \"7487854\", \"nhifno\": \"N9879347\", \"disabled\": 0, \"disabilitytype\": \"none\", \"disabilitydescription\": \"\", \"disabilitycertificateno\": \"\", \"onpayroll\": 0, \"fixedpaye\": 0, \"status\": \"active\", \"positionid\": 6, \"jobgroupid\": 10, \"notchid\": 8, \"bankbranchid\": 174, \"bankaccountnumber\": \"0250190497310\", \"employmentdate\": \"2009-06-17\", \"separationdate\": null, \"separationreason\": null, \"physicaladdress\": \"Kandisi, Ongata Rongai, Opp SGR\", \"postaladdress\": \"52428\", \"town\": \"Nairobi\", \"postalcode\": \"00200\", \"mobile\": \"0727709772\", \"emailaddress\": \"akellorich2@gmail.com\", \"alternativemobile\": \"\", \"alternativeemailaddress\": \"\", \"dateadded\": \"2024-06-15 13:32:58\", \"addedby\": 5, \"unitid\": 4, \"shiftid\": 10, \"sectionid\": 1, \"lastmodifiedby\": 5, \"lastmodificationdate\": \"2025-01-30 16:31:36\", \"attendancestatus\": \"inactive\"}',NULL),
+(12140,'2025-05-07 10:00:32',44,'Insert','Created user account for userid:44, username: test3, fullname:Test User Account','{\"browser\":\"Chrome\",\"browser_version\":\"135.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL),
+(12141,'2025-05-07 10:01:58',45,'Insert','Created user account for userid:45, username: test4, fullname:Test User Account','{\"browser\":\"Chrome\",\"browser_version\":\"135.0.0.0\",\"os_platform\":\"windows\",\"device\":\"Desktop\"}','','',NULL);
 
 /*Table structure for table `bankbranches` */
 
@@ -2220,7 +3878,7 @@ CREATE TABLE `creditors` (
   `datedeleted` datetime DEFAULT NULL,
   `deletedby` int(11) DEFAULT NULL,
   PRIMARY KEY (`creditorid`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `creditors` */
 
@@ -2233,7 +3891,8 @@ insert  into `creditors`(`creditorid`,`referenceno`,`creditorname`,`shortname`,`
 (6,'COO1098','Cooperative Bank of Kenya Ltd','Coop Bank','Co-operative House, Haile Selassie Avenue, Nairobi, Kenya','48231 - 00100','Nairobi, kenya',NULL,'020 277 6000','customerservice@co-opbank.co.ke',1,0,'2024-06-09 20:52:18',5,0,NULL,NULL),
 (7,'JB02943','Jubilee Insurance','Jubilee','Jubilee Insurance House, Wabera Street, CBD, Nairobi','48597, 00100','Nairobi, Kenya',NULL,'0709949000','info@JubileeKenya.com',1,0,'2024-06-09 20:54:18',5,0,NULL,NULL),
 (8,'PL001','Polytech Sacco Limited','Poltech','Technical University of Kenya, haile Sellasie Avenue','52428, 00200','Nairobi',NULL,'08976756','poltechsacco@gmail.com',1,0,'2024-06-10 19:06:11',5,0,NULL,NULL),
-(9,'MW001','Mwalimu national sacco','Mwalimu','Tom Mboya Street Nairobi','59847','Nairobi, Kenya',NULL,'0792345678','mwalimunational@gmail.com',1,0,'2024-06-12 17:15:35',5,0,NULL,NULL);
+(9,'MW001','Mwalimu national sacco','Mwalimu','Tom Mboya Street Nairobi','59847','Nairobi, Kenya',NULL,'0792345678','mwalimunational@gmail.com',1,0,'2024-06-12 17:15:35',5,0,NULL,NULL),
+(10,'SMT00834','Stima Sacco',NULL,'Nairobi','','',NULL,'','',1,0,'2025-04-30 13:04:58',5,0,NULL,NULL);
 
 /*Table structure for table `departments` */
 
@@ -2250,7 +3909,7 @@ CREATE TABLE `departments` (
   `datedeleted` datetime DEFAULT NULL,
   `deletedby` int(50) DEFAULT NULL,
   PRIMARY KEY (`departmentid`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `departments` */
 
@@ -2266,7 +3925,8 @@ insert  into `departments`(`departmentid`,`departmentname`,`departmenthead`,`ext
 (9,'Test Department',0,'',5,'2024-06-13 20:09:40',1,'2024-06-13 20:15:23',5),
 (10,'SCIT',0,'12345',5,'2024-06-13 20:19:33',0,NULL,NULL),
 (11,'Test1 Department',0,'',5,'2024-06-14 16:01:15',1,'2024-06-14 16:01:20',5),
-(12,'ICT',0,'',5,'2024-06-20 18:26:41',0,NULL,NULL);
+(12,'ICT',0,'',5,'2024-06-20 18:26:41',0,NULL,NULL),
+(13,'Sewing',0,'',5,'2025-01-29 17:46:14',0,NULL,NULL);
 
 /*Table structure for table `disciplinarycategories` */
 
@@ -2361,13 +4021,16 @@ CREATE TABLE `emailconfiguration` (
   `password` varchar(100) DEFAULT NULL,
   `smtpserver` varchar(100) DEFAULT NULL,
   `usessl` tinyint(4) DEFAULT NULL,
-  `smtpport` int(11) DEFAULT NULL
+  `smtpport` int(11) DEFAULT NULL,
+  `defaultsendingmethod` varchar(50) DEFAULT NULL,
+  `sendername` varchar(50) DEFAULT NULL,
+  `globalsetting` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `emailconfiguration` */
 
-insert  into `emailconfiguration`(`emailaddress`,`password`,`smtpserver`,`usessl`,`smtpport`) values 
-('insurance@cuvva.co.ke','New@Old-Man','mail.cuvva.co.ke',1,465);
+insert  into `emailconfiguration`(`emailaddress`,`password`,`smtpserver`,`usessl`,`smtpport`,`defaultsendingmethod`,`sendername`,`globalsetting`) values 
+('richard@amnelsolutions.co.ke','K@r1bun1','mail.amnelsolutions.co.ke',1,465,'queue','{{username}}',1);
 
 /*Table structure for table `emailqueue` */
 
@@ -2389,6 +4052,47 @@ CREATE TABLE `emailqueue` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `emailqueue` */
+
+/*Table structure for table `emailscheduler` */
+
+DROP TABLE IF EXISTS `emailscheduler`;
+
+CREATE TABLE `emailscheduler` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `module` varchar(100) DEFAULT NULL,
+  `from` varchar(1000) DEFAULT NULL,
+  `to` varchar(1000) DEFAULT NULL,
+  `message` text DEFAULT NULL,
+  `subject` varchar(1000) DEFAULT NULL,
+  `attachment` varchar(5000) DEFAULT NULL,
+  `dateadded` datetime DEFAULT NULL,
+  `addedby` int(11) DEFAULT NULL,
+  `datesent` datetime DEFAULT NULL,
+  `status` varchar(50) DEFAULT 'pending',
+  `reasonnotsent` varchar(1000) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `emailscheduler` */
+
+insert  into `emailscheduler`(`id`,`module`,`from`,`to`,`message`,`subject`,`attachment`,`dateadded`,`addedby`,`datesent`,`status`,`reasonnotsent`) values 
+(1,'HR','System Administrator','akellorich@gmail.com','<body style=\"background-color:rgb(206, 200, 200); font-family:\'Helvetica Neue\',Arial, Helvetica, sans-serif; font-size: 12px;\" >\r\n	<table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\"\r\n		width=\"650px\" bgcolor=\"white\" style=\"border:2px solid rgb(121, 120, 120)\">\r\n		<tbody>\r\n			<tr>\r\n				<td align=\"center\" >\r\n					<table align=\"center\" border=\"0\" cellpadding=\"0\"\r\n						cellspacing=\"0\" class=\"col-550\" width=\"100%\">\r\n						<tbody>\r\n							<tr>\r\n								<td align=\"center\" style=\"background-color: #1e90ff;\r\n										height: 50px; width:100%\">\r\n                                    <img src=\"/images/logo.jpg\" alt=\"\" style=\"margin-top:10px; width:70px; border-radius:5px\">\r\n									<a href=\"#\" style=\"text-decoration: none;\">\r\n										<p style=\"color:white;\r\n												font-weight:bold; margin-bottom: 10px;\">\r\n											Wolfenberg International Limited\r\n										</p>\r\n									</a>\r\n								</td>\r\n							</tr>\r\n						</tbody>\r\n					</table>\r\n				</td>\r\n			</tr>\r\n			<tr style=\"height: 75px; border: none;border-bottom: 2px solid #1e90ff;\">\r\n				<td align=\"center\" style=\"padding-right: 20px;padding-left:20px; width:100%\">\r\n					<p style=\"font-weight: bolder;font-size: 20px; letter-spacing: 0.025em;	color:rgb(62, 62, 62);\">\r\n						Leave Application Approval Completion Notification\r\n					</p>\r\n				</td>\r\n			</tr>\r\n\r\n			<tr style=\"display: inline-block;\">\r\n				<td style=\"height: 150px; padding: 20px; border: none;	 background-color: white;\">\r\n					<p class=\"data\" style=\"text-align: justify-all;	align-items: center; font-size: 12px; padding-bottom: 12px;\">\r\n                        <p>Hello Martin Lawrence Jameson,</p>\r\n                        <p>Your leave application has been fully approved. Leave details are as follows:</p>\r\n                        <p>Leave Type:<strong>Annual Leave</strong></p>\r\n                        <p>Start Date: <strong>03-Mar-2025</strong></p>\r\n                        <p>End Date: <strong>03-Mar-2025</strong></p>\r\n                        <p>Days Taken: <strong>0.50</strong></p>\r\n                        <p>Narration: <strong>This is a test</strong></p>\r\n                        <p></p>\r\n                        <p>You may proceed for your leave upon clearing with your supervisor. All the best during this time and stay safe</p>\r\n                        <p></p>\r\n                        <p>&nbsp;</p>\r\n                        <p>Kind Regards</p>\r\n                        <p>System Administrator</p>\r\n					</p>\r\n				</td>\r\n			</tr>\r\n            <tr style=\"border: none; background-color: #1e90ff; height: 40px; color:white; padding-bottom: 20px;	text-align: center;\">	\r\n                <td height=\"40px\" align=\"center\">\r\n                    <p style=\"color:rgb(246, 243, 243); line-height: 1.5em;\">\r\n                        Please get in touch via our social media platform links below\r\n                    </p>\r\n                    <a href=\"https://instagram.com/cuvva.ke?igshid=MzMyNGUyNmU2YQ==\"style=\"border:none;text-decoration: none; padding: 5px;\">      \r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/instagram.jpg\" width=\"40px\" height=\"40px\"  /> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M224 202.66A53.34 53.34 0 1 0 277.36 256A53.38 53.38 0 0 0 224 202.66Zm124.71-41a54 54 0 0 0-30.41-30.41c-21-8.29-71-6.43-94.3-6.43s-73.25-1.93-94.31 6.43a54 54 0 0 0-30.41 30.41c-8.28 21-6.43 71.05-6.43 94.33s-1.85 73.27 6.47 94.34a54 54 0 0 0 30.41 30.41c21 8.29 71 6.43 94.31 6.43s73.24 1.93 94.3-6.43a54 54 0 0 0 30.41-30.41c8.35-21 6.43-71.05 6.43-94.33s1.92-73.26-6.43-94.33ZM224 338a82 82 0 1 1 82-82a81.9 81.9 0 0 1-82 82Zm85.38-148.3a19.14 19.14 0 1 1 19.13-19.14a19.1 19.1 0 0 1-19.09 19.18ZM400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h352a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48Zm-17.12 290c-1.29 25.63-7.14 48.34-25.85 67s-41.4 24.63-67 25.85c-26.41 1.49-105.59 1.49-132 0c-25.63-1.29-48.26-7.15-67-25.85s-24.63-41.42-25.85-67c-1.49-26.42-1.49-105.61 0-132c1.29-25.63 7.07-48.34 25.85-67s41.47-24.56 67-25.78c26.41-1.49 105.59-1.49 132 0c25.63 1.29 48.33 7.15 67 25.85s24.63 41.42 25.85 67.05c1.49 26.32 1.49 105.44 0 131.88Z\"/>\r\n                        </svg>\r\n                    </a>\r\n        \r\n                    <a href=\"https://www.linkedin.com/company/cuvva-insurance/\"style=\"border:none; text-decoration: none; padding: 5px;\">\r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/linkedin.jpg\" width=\"40px\" height=\"40px\" /> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5c0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7c-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5c67.2 0 79.7 44.3 79.7 101.9V416z\"/>\r\n                        </svg>\r\n                    </a>\r\n        \r\n                    <a href=\"https://www.facebook.com/profile.php?id=100089429259352&mibextid=b06tZ0\"style=\"border:none; text-decoration: none; padding: 5px;\">\r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/facebook.jpg\" width=\"40px\" height=\"40px\"  style=\"position: relative;\"/> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48c27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z\"/>\r\n                        </svg>\r\n                    </a>\r\n                </td>   \r\n            </tr>\r\n\r\n            <tr>\r\n                <td style=\"font-family:\'Open Sans\', Arial, sans-serif; font-size:11px; line-height:18px;  color:#999999;\"  valign=\"top\"  align=\"center\">\r\n                    <a href=\"#\"\r\n                        target=\"_blank\"\r\n                        style=\"color:#999999;\r\n                            text-decoration:none;\">\r\n                            PRIVACY STATEMENT\r\n                    </a>\r\n                    |\r\n                    <a href=\"#\" target=\"_blank\"  style=\"color:#999999; text-decoration:none;\">\r\n                        TERMS OF SERVICE\r\n                    </a>\r\n                    <!-- |\r\n                    <a href=\"#\" target=\"_blank\" style=\"color:#999999; text-decoration:none;\">\r\n                        RETURNS\r\n                    </a> -->\r\n                    <p>\r\n\r\n                        &copy;2025 Wolfenberg International Limited&reg;. All Rights Reserved.<br>\r\n                            If you do not wish to receive any further\r\n                            emails from us, please\r\n                        <a href=\"#\" target=\"_blank\" style=\"text-decoration:none; color:#999999;\">\r\n                            Unsubscribe\r\n                        </a>\r\n                    </p>\r\n                    \r\n                </td>\r\n            </tr>\r\n        </tbody>\r\n    </table>\r\n</body>\r\n','Leave Application Approval Completion Notification','','2025-03-16 13:36:15',5,NULL,'pending',NULL),
+(2,'HR','System Administrator','akellorich@gmail.com','<body style=\"background-color:rgb(206, 200, 200); font-family:\'Helvetica Neue\',Arial, Helvetica, sans-serif; font-size: 12px;\" >\r\n	<table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\"\r\n		width=\"650px\" bgcolor=\"white\" style=\"border:2px solid rgb(121, 120, 120)\">\r\n		<tbody>\r\n			<tr>\r\n				<td align=\"center\" >\r\n					<table align=\"center\" border=\"0\" cellpadding=\"0\"\r\n						cellspacing=\"0\" class=\"col-550\" width=\"100%\">\r\n						<tbody>\r\n							<tr>\r\n								<td align=\"center\" style=\"background-color: #1e90ff;\r\n										height: 50px; width:100%\">\r\n                                    <img src=\"/images/logo.jpg\" alt=\"\" style=\"margin-top:10px; width:70px; border-radius:5px\">\r\n									<a href=\"#\" style=\"text-decoration: none;\">\r\n										<p style=\"color:white;\r\n												font-weight:bold; margin-bottom: 10px;\">\r\n											Wolfenberg International Limited\r\n										</p>\r\n									</a>\r\n								</td>\r\n							</tr>\r\n						</tbody>\r\n					</table>\r\n				</td>\r\n			</tr>\r\n			<tr style=\"height: 75px; border: none;border-bottom: 2px solid #1e90ff;\">\r\n				<td align=\"center\" style=\"padding-right: 20px;padding-left:20px; width:100%\">\r\n					<p style=\"font-weight: bolder;font-size: 20px; letter-spacing: 0.025em;	color:rgb(62, 62, 62);\">\r\n						Leave Application Approval Completion Notification\r\n					</p>\r\n				</td>\r\n			</tr>\r\n\r\n			<tr style=\"display: inline-block;\">\r\n				<td style=\"height: 150px; padding: 20px; border: none;	 background-color: white;\">\r\n					<p class=\"data\" style=\"text-align: justify-all;	align-items: center; font-size: 12px; padding-bottom: 12px;\">\r\n                        <p>Hello Richard Onyango ,</p>\r\n                        <p>Your leave application has been fully approved. Leave details are as follows:</p>\r\n                        <p>Leave Type:<strong>Annual Leave</strong></p>\r\n                        <p>Start Date: <strong>03-Mar-2025</strong></p>\r\n                        <p>End Date: <strong>03-Mar-2025</strong></p>\r\n                        <p>Days Taken: <strong>0.50</strong></p>\r\n                        <p>Narration: <strong>This is a test</strong></p>\r\n                        <p></p>\r\n                        <p>You may proceed for your leave upon clearing with your supervisor. All the best during this time and stay safe</p>\r\n                        <p></p>\r\n                        <p>&nbsp;</p>\r\n                        <p>Kind Regards</p>\r\n                        <p>System Administrator</p>\r\n					</p>\r\n				</td>\r\n			</tr>\r\n            <tr style=\"border: none; background-color: #1e90ff; height: 40px; color:white; padding-bottom: 20px;	text-align: center;\">	\r\n                <td height=\"40px\" align=\"center\">\r\n                    <p style=\"color:rgb(246, 243, 243); line-height: 1.5em;\">\r\n                        Please get in touch via our social media platform links below\r\n                    </p>\r\n                    <a href=\"https://instagram.com/cuvva.ke?igshid=MzMyNGUyNmU2YQ==\"style=\"border:none;text-decoration: none; padding: 5px;\">      \r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/instagram.jpg\" width=\"40px\" height=\"40px\"  /> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M224 202.66A53.34 53.34 0 1 0 277.36 256A53.38 53.38 0 0 0 224 202.66Zm124.71-41a54 54 0 0 0-30.41-30.41c-21-8.29-71-6.43-94.3-6.43s-73.25-1.93-94.31 6.43a54 54 0 0 0-30.41 30.41c-8.28 21-6.43 71.05-6.43 94.33s-1.85 73.27 6.47 94.34a54 54 0 0 0 30.41 30.41c21 8.29 71 6.43 94.31 6.43s73.24 1.93 94.3-6.43a54 54 0 0 0 30.41-30.41c8.35-21 6.43-71.05 6.43-94.33s1.92-73.26-6.43-94.33ZM224 338a82 82 0 1 1 82-82a81.9 81.9 0 0 1-82 82Zm85.38-148.3a19.14 19.14 0 1 1 19.13-19.14a19.1 19.1 0 0 1-19.09 19.18ZM400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h352a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48Zm-17.12 290c-1.29 25.63-7.14 48.34-25.85 67s-41.4 24.63-67 25.85c-26.41 1.49-105.59 1.49-132 0c-25.63-1.29-48.26-7.15-67-25.85s-24.63-41.42-25.85-67c-1.49-26.42-1.49-105.61 0-132c1.29-25.63 7.07-48.34 25.85-67s41.47-24.56 67-25.78c26.41-1.49 105.59-1.49 132 0c25.63 1.29 48.33 7.15 67 25.85s24.63 41.42 25.85 67.05c1.49 26.32 1.49 105.44 0 131.88Z\"/>\r\n                        </svg>\r\n                    </a>\r\n        \r\n                    <a href=\"https://www.linkedin.com/company/cuvva-insurance/\"style=\"border:none; text-decoration: none; padding: 5px;\">\r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/linkedin.jpg\" width=\"40px\" height=\"40px\" /> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5c0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7c-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5c67.2 0 79.7 44.3 79.7 101.9V416z\"/>\r\n                        </svg>\r\n                    </a>\r\n        \r\n                    <a href=\"https://www.facebook.com/profile.php?id=100089429259352&mibextid=b06tZ0\"style=\"border:none; text-decoration: none; padding: 5px;\">\r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/facebook.jpg\" width=\"40px\" height=\"40px\"  style=\"position: relative;\"/> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48c27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z\"/>\r\n                        </svg>\r\n                    </a>\r\n                </td>   \r\n            </tr>\r\n\r\n            <tr>\r\n                <td style=\"font-family:\'Open Sans\', Arial, sans-serif; font-size:11px; line-height:18px;  color:#999999;\"  valign=\"top\"  align=\"center\">\r\n                    <a href=\"#\"\r\n                        target=\"_blank\"\r\n                        style=\"color:#999999;\r\n                            text-decoration:none;\">\r\n                            PRIVACY STATEMENT\r\n                    </a>\r\n                    |\r\n                    <a href=\"#\" target=\"_blank\"  style=\"color:#999999; text-decoration:none;\">\r\n                        TERMS OF SERVICE\r\n                    </a>\r\n                    <!-- |\r\n                    <a href=\"#\" target=\"_blank\" style=\"color:#999999; text-decoration:none;\">\r\n                        RETURNS\r\n                    </a> -->\r\n                    <p>\r\n\r\n                        &copy;2025 Wolfenberg International Limited&reg;. All Rights Reserved.<br>\r\n                            If you do not wish to receive any further\r\n                            emails from us, please\r\n                        <a href=\"#\" target=\"_blank\" style=\"text-decoration:none; color:#999999;\">\r\n                            Unsubscribe\r\n                        </a>\r\n                    </p>\r\n                    \r\n                </td>\r\n            </tr>\r\n        </tbody>\r\n    </table>\r\n</body>\r\n','Leave Application Approval Completion Notification','','2025-03-16 13:36:16',5,NULL,'pending',NULL),
+(3,'HR','System Administrator','akellorich@gmail.com','<body style=\"background-color:rgb(206, 200, 200); font-family:\'Helvetica Neue\',Arial, Helvetica, sans-serif; font-size: 12px;\" >\r\n	<table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\"\r\n		width=\"650px\" bgcolor=\"white\" style=\"border:2px solid rgb(121, 120, 120)\">\r\n		<tbody>\r\n			<tr>\r\n				<td align=\"center\" >\r\n					<table align=\"center\" border=\"0\" cellpadding=\"0\"\r\n						cellspacing=\"0\" class=\"col-550\" width=\"100%\">\r\n						<tbody>\r\n							<tr>\r\n								<td align=\"center\" style=\"background-color: #1e90ff;\r\n										height: 50px; width:100%\">\r\n                                    <img src=\"/images/logo.jpg\" alt=\"\" style=\"margin-top:10px; width:70px; border-radius:5px\">\r\n									<a href=\"#\" style=\"text-decoration: none;\">\r\n										<p style=\"color:white;\r\n												font-weight:bold; margin-bottom: 10px;\">\r\n											Wolfenberg International Limited\r\n										</p>\r\n									</a>\r\n								</td>\r\n							</tr>\r\n						</tbody>\r\n					</table>\r\n				</td>\r\n			</tr>\r\n			<tr style=\"height: 75px; border: none;border-bottom: 2px solid #1e90ff;\">\r\n				<td align=\"center\" style=\"padding-right: 20px;padding-left:20px; width:100%\">\r\n					<p style=\"font-weight: bolder;font-size: 20px; letter-spacing: 0.025em;	color:rgb(62, 62, 62);\">\r\n						Leave Application Approval Completion Notification\r\n					</p>\r\n				</td>\r\n			</tr>\r\n\r\n			<tr style=\"display: inline-block;\">\r\n				<td style=\"height: 150px; padding: 20px; border: none;	 background-color: white;\">\r\n					<p class=\"data\" style=\"text-align: justify-all;	align-items: center; font-size: 12px; padding-bottom: 12px;\">\r\n                        <p>Hello Sam Mosabi Mungeli,</p>\r\n                        <p>Your leave application has been fully approved. Leave details are as follows:</p>\r\n                        <p>Leave Type:<strong>Annual Leave</strong></p>\r\n                        <p>Start Date: <strong>03-Mar-2025</strong></p>\r\n                        <p>End Date: <strong>03-Mar-2025</strong></p>\r\n                        <p>Days Taken: <strong>0.50</strong></p>\r\n                        <p>Narration: <strong>This is a test</strong></p>\r\n                        <p></p>\r\n                        <p>You may proceed for your leave upon clearing with your supervisor. All the best during this time and stay safe</p>\r\n                        <p></p>\r\n                        <p>&nbsp;</p>\r\n                        <p>Kind Regards</p>\r\n                        <p>System Administrator</p>\r\n					</p>\r\n				</td>\r\n			</tr>\r\n            <tr style=\"border: none; background-color: #1e90ff; height: 40px; color:white; padding-bottom: 20px;	text-align: center;\">	\r\n                <td height=\"40px\" align=\"center\">\r\n                    <p style=\"color:rgb(246, 243, 243); line-height: 1.5em;\">\r\n                        Please get in touch via our social media platform links below\r\n                    </p>\r\n                    <a href=\"https://instagram.com/cuvva.ke?igshid=MzMyNGUyNmU2YQ==\"style=\"border:none;text-decoration: none; padding: 5px;\">      \r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/instagram.jpg\" width=\"40px\" height=\"40px\"  /> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M224 202.66A53.34 53.34 0 1 0 277.36 256A53.38 53.38 0 0 0 224 202.66Zm124.71-41a54 54 0 0 0-30.41-30.41c-21-8.29-71-6.43-94.3-6.43s-73.25-1.93-94.31 6.43a54 54 0 0 0-30.41 30.41c-8.28 21-6.43 71.05-6.43 94.33s-1.85 73.27 6.47 94.34a54 54 0 0 0 30.41 30.41c21 8.29 71 6.43 94.31 6.43s73.24 1.93 94.3-6.43a54 54 0 0 0 30.41-30.41c8.35-21 6.43-71.05 6.43-94.33s1.92-73.26-6.43-94.33ZM224 338a82 82 0 1 1 82-82a81.9 81.9 0 0 1-82 82Zm85.38-148.3a19.14 19.14 0 1 1 19.13-19.14a19.1 19.1 0 0 1-19.09 19.18ZM400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h352a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48Zm-17.12 290c-1.29 25.63-7.14 48.34-25.85 67s-41.4 24.63-67 25.85c-26.41 1.49-105.59 1.49-132 0c-25.63-1.29-48.26-7.15-67-25.85s-24.63-41.42-25.85-67c-1.49-26.42-1.49-105.61 0-132c1.29-25.63 7.07-48.34 25.85-67s41.47-24.56 67-25.78c26.41-1.49 105.59-1.49 132 0c25.63 1.29 48.33 7.15 67 25.85s24.63 41.42 25.85 67.05c1.49 26.32 1.49 105.44 0 131.88Z\"/>\r\n                        </svg>\r\n                    </a>\r\n        \r\n                    <a href=\"https://www.linkedin.com/company/cuvva-insurance/\"style=\"border:none; text-decoration: none; padding: 5px;\">\r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/linkedin.jpg\" width=\"40px\" height=\"40px\" /> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5c0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7c-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5c67.2 0 79.7 44.3 79.7 101.9V416z\"/>\r\n                        </svg>\r\n                    </a>\r\n        \r\n                    <a href=\"https://www.facebook.com/profile.php?id=100089429259352&mibextid=b06tZ0\"style=\"border:none; text-decoration: none; padding: 5px;\">\r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/facebook.jpg\" width=\"40px\" height=\"40px\"  style=\"position: relative;\"/> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48c27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z\"/>\r\n                        </svg>\r\n                    </a>\r\n                </td>   \r\n            </tr>\r\n\r\n            <tr>\r\n                <td style=\"font-family:\'Open Sans\', Arial, sans-serif; font-size:11px; line-height:18px;  color:#999999;\"  valign=\"top\"  align=\"center\">\r\n                    <a href=\"#\"\r\n                        target=\"_blank\"\r\n                        style=\"color:#999999;\r\n                            text-decoration:none;\">\r\n                            PRIVACY STATEMENT\r\n                    </a>\r\n                    |\r\n                    <a href=\"#\" target=\"_blank\"  style=\"color:#999999; text-decoration:none;\">\r\n                        TERMS OF SERVICE\r\n                    </a>\r\n                    <!-- |\r\n                    <a href=\"#\" target=\"_blank\" style=\"color:#999999; text-decoration:none;\">\r\n                        RETURNS\r\n                    </a> -->\r\n                    <p>\r\n\r\n                        &copy;2025 Wolfenberg International Limited&reg;. All Rights Reserved.<br>\r\n                            If you do not wish to receive any further\r\n                            emails from us, please\r\n                        <a href=\"#\" target=\"_blank\" style=\"text-decoration:none; color:#999999;\">\r\n                            Unsubscribe\r\n                        </a>\r\n                    </p>\r\n                    \r\n                </td>\r\n            </tr>\r\n        </tbody>\r\n    </table>\r\n</body>\r\n','Leave Application Approval Completion Notification','','2025-03-16 13:36:16',5,NULL,'pending',NULL),
+(4,'HR','System Administrator','akellorich@gmail.com','<body style=\"background-color:rgb(206, 200, 200); font-family:\'Helvetica Neue\',Arial, Helvetica, sans-serif; font-size: 12px;\" >\r\n	<table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\"\r\n		width=\"650px\" bgcolor=\"white\" style=\"border:2px solid rgb(121, 120, 120)\">\r\n		<tbody>\r\n			<tr>\r\n				<td align=\"center\" >\r\n					<table align=\"center\" border=\"0\" cellpadding=\"0\"\r\n						cellspacing=\"0\" class=\"col-550\" width=\"100%\">\r\n						<tbody>\r\n							<tr>\r\n								<td align=\"center\" style=\"background-color: #1e90ff;\r\n										height: 50px; width:100%\">\r\n                                    <img src=\"/images/logo.jpg\" alt=\"\" style=\"margin-top:10px; width:70px; border-radius:5px\">\r\n									<a href=\"#\" style=\"text-decoration: none;\">\r\n										<p style=\"color:white;\r\n												font-weight:bold; margin-bottom: 10px;\">\r\n											Wolfenberg International Limited\r\n										</p>\r\n									</a>\r\n								</td>\r\n							</tr>\r\n						</tbody>\r\n					</table>\r\n				</td>\r\n			</tr>\r\n			<tr style=\"height: 75px; border: none;border-bottom: 2px solid #1e90ff;\">\r\n				<td align=\"center\" style=\"padding-right: 20px;padding-left:20px; width:100%\">\r\n					<p style=\"font-weight: bolder;font-size: 20px; letter-spacing: 0.025em;	color:rgb(62, 62, 62);\">\r\n						Leave Application Approval Completion Notification\r\n					</p>\r\n				</td>\r\n			</tr>\r\n\r\n			<tr style=\"display: inline-block;\">\r\n				<td style=\"height: 150px; padding: 20px; border: none;	 background-color: white;\">\r\n					<p class=\"data\" style=\"text-align: justify-all;	align-items: center; font-size: 12px; padding-bottom: 12px;\">\r\n                        <p>Hello Daniel Middle Boy,</p>\r\n                        <p>Your leave application has been fully approved. Leave details are as follows:</p>\r\n                        <p>Leave Type:<strong>Annual Leave</strong></p>\r\n                        <p>Start Date: <strong>03-Mar-2025</strong></p>\r\n                        <p>End Date: <strong>03-Mar-2025</strong></p>\r\n                        <p>Days Taken: <strong>0.50</strong></p>\r\n                        <p>Narration: <strong>This is a test</strong></p>\r\n                        <p></p>\r\n                        <p>You may proceed for your leave upon clearing with your supervisor. All the best during this time and stay safe</p>\r\n                        <p></p>\r\n                        <p>&nbsp;</p>\r\n                        <p>Kind Regards</p>\r\n                        <p>System Administrator</p>\r\n					</p>\r\n				</td>\r\n			</tr>\r\n            <tr style=\"border: none; background-color: #1e90ff; height: 40px; color:white; padding-bottom: 20px;	text-align: center;\">	\r\n                <td height=\"40px\" align=\"center\">\r\n                    <p style=\"color:rgb(246, 243, 243); line-height: 1.5em;\">\r\n                        Please get in touch via our social media platform links below\r\n                    </p>\r\n                    <a href=\"https://instagram.com/cuvva.ke?igshid=MzMyNGUyNmU2YQ==\"style=\"border:none;text-decoration: none; padding: 5px;\">      \r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/instagram.jpg\" width=\"40px\" height=\"40px\"  /> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M224 202.66A53.34 53.34 0 1 0 277.36 256A53.38 53.38 0 0 0 224 202.66Zm124.71-41a54 54 0 0 0-30.41-30.41c-21-8.29-71-6.43-94.3-6.43s-73.25-1.93-94.31 6.43a54 54 0 0 0-30.41 30.41c-8.28 21-6.43 71.05-6.43 94.33s-1.85 73.27 6.47 94.34a54 54 0 0 0 30.41 30.41c21 8.29 71 6.43 94.31 6.43s73.24 1.93 94.3-6.43a54 54 0 0 0 30.41-30.41c8.35-21 6.43-71.05 6.43-94.33s1.92-73.26-6.43-94.33ZM224 338a82 82 0 1 1 82-82a81.9 81.9 0 0 1-82 82Zm85.38-148.3a19.14 19.14 0 1 1 19.13-19.14a19.1 19.1 0 0 1-19.09 19.18ZM400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h352a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48Zm-17.12 290c-1.29 25.63-7.14 48.34-25.85 67s-41.4 24.63-67 25.85c-26.41 1.49-105.59 1.49-132 0c-25.63-1.29-48.26-7.15-67-25.85s-24.63-41.42-25.85-67c-1.49-26.42-1.49-105.61 0-132c1.29-25.63 7.07-48.34 25.85-67s41.47-24.56 67-25.78c26.41-1.49 105.59-1.49 132 0c25.63 1.29 48.33 7.15 67 25.85s24.63 41.42 25.85 67.05c1.49 26.32 1.49 105.44 0 131.88Z\"/>\r\n                        </svg>\r\n                    </a>\r\n        \r\n                    <a href=\"https://www.linkedin.com/company/cuvva-insurance/\"style=\"border:none; text-decoration: none; padding: 5px;\">\r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/linkedin.jpg\" width=\"40px\" height=\"40px\" /> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5c0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7c-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5c67.2 0 79.7 44.3 79.7 101.9V416z\"/>\r\n                        </svg>\r\n                    </a>\r\n        \r\n                    <a href=\"https://www.facebook.com/profile.php?id=100089429259352&mibextid=b06tZ0\"style=\"border:none; text-decoration: none; padding: 5px;\">\r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/facebook.jpg\" width=\"40px\" height=\"40px\"  style=\"position: relative;\"/> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48c27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z\"/>\r\n                        </svg>\r\n                    </a>\r\n                </td>   \r\n            </tr>\r\n\r\n            <tr>\r\n                <td style=\"font-family:\'Open Sans\', Arial, sans-serif; font-size:11px; line-height:18px;  color:#999999;\"  valign=\"top\"  align=\"center\">\r\n                    <a href=\"#\"\r\n                        target=\"_blank\"\r\n                        style=\"color:#999999;\r\n                            text-decoration:none;\">\r\n                            PRIVACY STATEMENT\r\n                    </a>\r\n                    |\r\n                    <a href=\"#\" target=\"_blank\"  style=\"color:#999999; text-decoration:none;\">\r\n                        TERMS OF SERVICE\r\n                    </a>\r\n                    <!-- |\r\n                    <a href=\"#\" target=\"_blank\" style=\"color:#999999; text-decoration:none;\">\r\n                        RETURNS\r\n                    </a> -->\r\n                    <p>\r\n\r\n                        &copy;2025 Wolfenberg International Limited&reg;. All Rights Reserved.<br>\r\n                            If you do not wish to receive any further\r\n                            emails from us, please\r\n                        <a href=\"#\" target=\"_blank\" style=\"text-decoration:none; color:#999999;\">\r\n                            Unsubscribe\r\n                        </a>\r\n                    </p>\r\n                    \r\n                </td>\r\n            </tr>\r\n        </tbody>\r\n    </table>\r\n</body>\r\n','Leave Application Approval Completion Notification','','2025-03-16 13:36:16',5,NULL,'pending',NULL),
+(5,'HR','System Administrator','akellorich@gmail.com','<body style=\"background-color:rgb(206, 200, 200); font-family:\'Helvetica Neue\',Arial, Helvetica, sans-serif; font-size: 12px;\" >\r\n	<table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\"\r\n		width=\"650px\" bgcolor=\"white\" style=\"border:2px solid rgb(121, 120, 120)\">\r\n		<tbody>\r\n			<tr>\r\n				<td align=\"center\" >\r\n					<table align=\"center\" border=\"0\" cellpadding=\"0\"\r\n						cellspacing=\"0\" class=\"col-550\" width=\"100%\">\r\n						<tbody>\r\n							<tr>\r\n								<td align=\"center\" style=\"background-color: #1e90ff;\r\n										height: 50px; width:100%\">\r\n                                    <img src=\"/images/logo.jpg\" alt=\"\" style=\"margin-top:10px; width:70px; border-radius:5px\">\r\n									<a href=\"#\" style=\"text-decoration: none;\">\r\n										<p style=\"color:white;\r\n												font-weight:bold; margin-bottom: 10px;\">\r\n											Wolfenberg International Limited\r\n										</p>\r\n									</a>\r\n								</td>\r\n							</tr>\r\n						</tbody>\r\n					</table>\r\n				</td>\r\n			</tr>\r\n			<tr style=\"height: 75px; border: none;border-bottom: 2px solid #1e90ff;\">\r\n				<td align=\"center\" style=\"padding-right: 20px;padding-left:20px; width:100%\">\r\n					<p style=\"font-weight: bolder;font-size: 20px; letter-spacing: 0.025em;	color:rgb(62, 62, 62);\">\r\n						Leave Application Approval Completion Notification\r\n					</p>\r\n				</td>\r\n			</tr>\r\n\r\n			<tr style=\"display: inline-block;\">\r\n				<td style=\"height: 150px; padding: 20px; border: none;	 background-color: white;\">\r\n					<p class=\"data\" style=\"text-align: justify-all;	align-items: center; font-size: 12px; padding-bottom: 12px;\">\r\n                        <p>Hello Richard Onyango Akelo,</p>\r\n                        <p>Your leave application has been fully approved. Leave details are as follows:</p>\r\n                        <p>Leave Type:<strong>Annual Leave</strong></p>\r\n                        <p>Start Date: <strong>03-Mar-2025</strong></p>\r\n                        <p>End Date: <strong>03-Mar-2025</strong></p>\r\n                        <p>Days Taken: <strong>0.50</strong></p>\r\n                        <p>Narration: <strong>This is a test</strong></p>\r\n                        <p></p>\r\n                        <p>You may proceed for your leave upon clearing with your supervisor. All the best during this time and stay safe</p>\r\n                        <p></p>\r\n                        <p>&nbsp;</p>\r\n                        <p>Kind Regards</p>\r\n                        <p>System Administrator</p>\r\n					</p>\r\n				</td>\r\n			</tr>\r\n            <tr style=\"border: none; background-color: #1e90ff; height: 40px; color:white; padding-bottom: 20px;	text-align: center;\">	\r\n                <td height=\"40px\" align=\"center\">\r\n                    <p style=\"color:rgb(246, 243, 243); line-height: 1.5em;\">\r\n                        Please get in touch via our social media platform links below\r\n                    </p>\r\n                    <a href=\"https://instagram.com/cuvva.ke?igshid=MzMyNGUyNmU2YQ==\"style=\"border:none;text-decoration: none; padding: 5px;\">      \r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/instagram.jpg\" width=\"40px\" height=\"40px\"  /> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M224 202.66A53.34 53.34 0 1 0 277.36 256A53.38 53.38 0 0 0 224 202.66Zm124.71-41a54 54 0 0 0-30.41-30.41c-21-8.29-71-6.43-94.3-6.43s-73.25-1.93-94.31 6.43a54 54 0 0 0-30.41 30.41c-8.28 21-6.43 71.05-6.43 94.33s-1.85 73.27 6.47 94.34a54 54 0 0 0 30.41 30.41c21 8.29 71 6.43 94.31 6.43s73.24 1.93 94.3-6.43a54 54 0 0 0 30.41-30.41c8.35-21 6.43-71.05 6.43-94.33s1.92-73.26-6.43-94.33ZM224 338a82 82 0 1 1 82-82a81.9 81.9 0 0 1-82 82Zm85.38-148.3a19.14 19.14 0 1 1 19.13-19.14a19.1 19.1 0 0 1-19.09 19.18ZM400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h352a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48Zm-17.12 290c-1.29 25.63-7.14 48.34-25.85 67s-41.4 24.63-67 25.85c-26.41 1.49-105.59 1.49-132 0c-25.63-1.29-48.26-7.15-67-25.85s-24.63-41.42-25.85-67c-1.49-26.42-1.49-105.61 0-132c1.29-25.63 7.07-48.34 25.85-67s41.47-24.56 67-25.78c26.41-1.49 105.59-1.49 132 0c25.63 1.29 48.33 7.15 67 25.85s24.63 41.42 25.85 67.05c1.49 26.32 1.49 105.44 0 131.88Z\"/>\r\n                        </svg>\r\n                    </a>\r\n        \r\n                    <a href=\"https://www.linkedin.com/company/cuvva-insurance/\"style=\"border:none; text-decoration: none; padding: 5px;\">\r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/linkedin.jpg\" width=\"40px\" height=\"40px\" /> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5c0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7c-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5c67.2 0 79.7 44.3 79.7 101.9V416z\"/>\r\n                        </svg>\r\n                    </a>\r\n        \r\n                    <a href=\"https://www.facebook.com/profile.php?id=100089429259352&mibextid=b06tZ0\"style=\"border:none; text-decoration: none; padding: 5px;\">\r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/facebook.jpg\" width=\"40px\" height=\"40px\"  style=\"position: relative;\"/> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48c27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z\"/>\r\n                        </svg>\r\n                    </a>\r\n                </td>   \r\n            </tr>\r\n\r\n            <tr>\r\n                <td style=\"font-family:\'Open Sans\', Arial, sans-serif; font-size:11px; line-height:18px;  color:#999999;\"  valign=\"top\"  align=\"center\">\r\n                    <a href=\"#\"\r\n                        target=\"_blank\"\r\n                        style=\"color:#999999;\r\n                            text-decoration:none;\">\r\n                            PRIVACY STATEMENT\r\n                    </a>\r\n                    |\r\n                    <a href=\"#\" target=\"_blank\"  style=\"color:#999999; text-decoration:none;\">\r\n                        TERMS OF SERVICE\r\n                    </a>\r\n                    <!-- |\r\n                    <a href=\"#\" target=\"_blank\" style=\"color:#999999; text-decoration:none;\">\r\n                        RETURNS\r\n                    </a> -->\r\n                    <p>\r\n\r\n                        &copy;2025 Wolfenberg International Limited&reg;. All Rights Reserved.<br>\r\n                            If you do not wish to receive any further\r\n                            emails from us, please\r\n                        <a href=\"#\" target=\"_blank\" style=\"text-decoration:none; color:#999999;\">\r\n                            Unsubscribe\r\n                        </a>\r\n                    </p>\r\n                    \r\n                </td>\r\n            </tr>\r\n        </tbody>\r\n    </table>\r\n</body>\r\n','Leave Application Approval Completion Notification','','2025-03-16 13:36:16',5,NULL,'pending',NULL),
+(6,'HR','System Administrator','akellorich@gmail.com','<body style=\"background-color:rgb(206, 200, 200); font-family:\'Helvetica Neue\',Arial, Helvetica, sans-serif; font-size: 12px;\" >\r\n	<table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\"\r\n		width=\"650px\" bgcolor=\"white\" style=\"border:2px solid rgb(121, 120, 120)\">\r\n		<tbody>\r\n			<tr>\r\n				<td align=\"center\" >\r\n					<table align=\"center\" border=\"0\" cellpadding=\"0\"\r\n						cellspacing=\"0\" class=\"col-550\" width=\"100%\">\r\n						<tbody>\r\n							<tr>\r\n								<td align=\"center\" style=\"background-color: #1e90ff;\r\n										height: 50px; width:100%\">\r\n                                    <img src=\"/images/logo.jpg\" alt=\"\" style=\"margin-top:10px; width:70px; border-radius:5px\">\r\n									<a href=\"#\" style=\"text-decoration: none;\">\r\n										<p style=\"color:white;\r\n												font-weight:bold; margin-bottom: 10px;\">\r\n											Wolfenberg International Limited\r\n										</p>\r\n									</a>\r\n								</td>\r\n							</tr>\r\n						</tbody>\r\n					</table>\r\n				</td>\r\n			</tr>\r\n			<tr style=\"height: 75px; border: none;border-bottom: 2px solid #1e90ff;\">\r\n				<td align=\"center\" style=\"padding-right: 20px;padding-left:20px; width:100%\">\r\n					<p style=\"font-weight: bolder;font-size: 20px; letter-spacing: 0.025em;	color:rgb(62, 62, 62);\">\r\n						Leave Application Approval Completion Notification\r\n					</p>\r\n				</td>\r\n			</tr>\r\n\r\n			<tr style=\"display: inline-block;\">\r\n				<td style=\"height: 150px; padding: 20px; border: none;	 background-color: white;\">\r\n					<p class=\"data\" style=\"text-align: justify-all;	align-items: center; font-size: 12px; padding-bottom: 12px;\">\r\n                        <p>Hello Patrice Lumumba Emery,</p>\r\n                        <p>Your leave application has been fully approved. Leave details are as follows:</p>\r\n                        <p>Leave Type:<strong>Annual Leave</strong></p>\r\n                        <p>Start Date: <strong>03-Mar-2025</strong></p>\r\n                        <p>End Date: <strong>03-Mar-2025</strong></p>\r\n                        <p>Days Taken: <strong>0.50</strong></p>\r\n                        <p>Narration: <strong>This is a test</strong></p>\r\n                        <p></p>\r\n                        <p>You may proceed for your leave upon clearing with your supervisor. All the best during this time and stay safe</p>\r\n                        <p></p>\r\n                        <p>&nbsp;</p>\r\n                        <p>Kind Regards</p>\r\n                        <p>System Administrator</p>\r\n					</p>\r\n				</td>\r\n			</tr>\r\n            <tr style=\"border: none; background-color: #1e90ff; height: 40px; color:white; padding-bottom: 20px;	text-align: center;\">	\r\n                <td height=\"40px\" align=\"center\">\r\n                    <p style=\"color:rgb(246, 243, 243); line-height: 1.5em;\">\r\n                        Please get in touch via our social media platform links below\r\n                    </p>\r\n                    <a href=\"https://instagram.com/cuvva.ke?igshid=MzMyNGUyNmU2YQ==\"style=\"border:none;text-decoration: none; padding: 5px;\">      \r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/instagram.jpg\" width=\"40px\" height=\"40px\"  /> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M224 202.66A53.34 53.34 0 1 0 277.36 256A53.38 53.38 0 0 0 224 202.66Zm124.71-41a54 54 0 0 0-30.41-30.41c-21-8.29-71-6.43-94.3-6.43s-73.25-1.93-94.31 6.43a54 54 0 0 0-30.41 30.41c-8.28 21-6.43 71.05-6.43 94.33s-1.85 73.27 6.47 94.34a54 54 0 0 0 30.41 30.41c21 8.29 71 6.43 94.31 6.43s73.24 1.93 94.3-6.43a54 54 0 0 0 30.41-30.41c8.35-21 6.43-71.05 6.43-94.33s1.92-73.26-6.43-94.33ZM224 338a82 82 0 1 1 82-82a81.9 81.9 0 0 1-82 82Zm85.38-148.3a19.14 19.14 0 1 1 19.13-19.14a19.1 19.1 0 0 1-19.09 19.18ZM400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h352a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48Zm-17.12 290c-1.29 25.63-7.14 48.34-25.85 67s-41.4 24.63-67 25.85c-26.41 1.49-105.59 1.49-132 0c-25.63-1.29-48.26-7.15-67-25.85s-24.63-41.42-25.85-67c-1.49-26.42-1.49-105.61 0-132c1.29-25.63 7.07-48.34 25.85-67s41.47-24.56 67-25.78c26.41-1.49 105.59-1.49 132 0c25.63 1.29 48.33 7.15 67 25.85s24.63 41.42 25.85 67.05c1.49 26.32 1.49 105.44 0 131.88Z\"/>\r\n                        </svg>\r\n                    </a>\r\n        \r\n                    <a href=\"https://www.linkedin.com/company/cuvva-insurance/\"style=\"border:none; text-decoration: none; padding: 5px;\">\r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/linkedin.jpg\" width=\"40px\" height=\"40px\" /> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5c0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7c-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5c67.2 0 79.7 44.3 79.7 101.9V416z\"/>\r\n                        </svg>\r\n                    </a>\r\n        \r\n                    <a href=\"https://www.facebook.com/profile.php?id=100089429259352&mibextid=b06tZ0\"style=\"border:none; text-decoration: none; padding: 5px;\">\r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/facebook.jpg\" width=\"40px\" height=\"40px\"  style=\"position: relative;\"/> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48c27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z\"/>\r\n                        </svg>\r\n                    </a>\r\n                </td>   \r\n            </tr>\r\n\r\n            <tr>\r\n                <td style=\"font-family:\'Open Sans\', Arial, sans-serif; font-size:11px; line-height:18px;  color:#999999;\"  valign=\"top\"  align=\"center\">\r\n                    <a href=\"#\"\r\n                        target=\"_blank\"\r\n                        style=\"color:#999999;\r\n                            text-decoration:none;\">\r\n                            PRIVACY STATEMENT\r\n                    </a>\r\n                    |\r\n                    <a href=\"#\" target=\"_blank\"  style=\"color:#999999; text-decoration:none;\">\r\n                        TERMS OF SERVICE\r\n                    </a>\r\n                    <!-- |\r\n                    <a href=\"#\" target=\"_blank\" style=\"color:#999999; text-decoration:none;\">\r\n                        RETURNS\r\n                    </a> -->\r\n                    <p>\r\n\r\n                        &copy;2025 Wolfenberg International Limited&reg;. All Rights Reserved.<br>\r\n                            If you do not wish to receive any further\r\n                            emails from us, please\r\n                        <a href=\"#\" target=\"_blank\" style=\"text-decoration:none; color:#999999;\">\r\n                            Unsubscribe\r\n                        </a>\r\n                    </p>\r\n                    \r\n                </td>\r\n            </tr>\r\n        </tbody>\r\n    </table>\r\n</body>\r\n','Leave Application Approval Completion Notification','','2025-03-16 13:36:17',5,NULL,'pending',NULL),
+(7,'HR','System Administrator','akellorich@gmail.com','<body style=\"background-color:rgb(206, 200, 200); font-family:\'Helvetica Neue\',Arial, Helvetica, sans-serif; font-size: 12px;\" >\r\n	<table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\"\r\n		width=\"650px\" bgcolor=\"white\" style=\"border:2px solid rgb(121, 120, 120)\">\r\n		<tbody>\r\n			<tr>\r\n				<td align=\"center\" >\r\n					<table align=\"center\" border=\"0\" cellpadding=\"0\"\r\n						cellspacing=\"0\" class=\"col-550\" width=\"100%\">\r\n						<tbody>\r\n							<tr>\r\n								<td align=\"center\" style=\"background-color: #1e90ff;\r\n										height: 50px; width:100%\">\r\n                                    <img src=\"/images/logo.jpg\" alt=\"\" style=\"margin-top:10px; width:70px; border-radius:5px\">\r\n									<a href=\"#\" style=\"text-decoration: none;\">\r\n										<p style=\"color:white;\r\n												font-weight:bold; margin-bottom: 10px;\">\r\n											Wolfenberg International Limited\r\n										</p>\r\n									</a>\r\n								</td>\r\n							</tr>\r\n						</tbody>\r\n					</table>\r\n				</td>\r\n			</tr>\r\n			<tr style=\"height: 75px; border: none;border-bottom: 2px solid #1e90ff;\">\r\n				<td align=\"center\" style=\"padding-right: 20px;padding-left:20px; width:100%\">\r\n					<p style=\"font-weight: bolder;font-size: 20px; letter-spacing: 0.025em;	color:rgb(62, 62, 62);\">\r\n						Leave Application Approval Completion Notification\r\n					</p>\r\n				</td>\r\n			</tr>\r\n\r\n			<tr style=\"display: inline-block;\">\r\n				<td style=\"height: 150px; padding: 20px; border: none;	 background-color: white;\">\r\n					<p class=\"data\" style=\"text-align: justify-all;	align-items: center; font-size: 12px; padding-bottom: 12px;\">\r\n                        <p>Hello Marion Jones Mayers,</p>\r\n                        <p>Your leave application has been fully approved. Leave details are as follows:</p>\r\n                        <p>Leave Type:<strong>Annual Leave</strong></p>\r\n                        <p>Start Date: <strong>03-Mar-2025</strong></p>\r\n                        <p>End Date: <strong>03-Mar-2025</strong></p>\r\n                        <p>Days Taken: <strong>0.50</strong></p>\r\n                        <p>Narration: <strong>This is a test</strong></p>\r\n                        <p></p>\r\n                        <p>You may proceed for your leave upon clearing with your supervisor. All the best during this time and stay safe</p>\r\n                        <p></p>\r\n                        <p>&nbsp;</p>\r\n                        <p>Kind Regards</p>\r\n                        <p>System Administrator</p>\r\n					</p>\r\n				</td>\r\n			</tr>\r\n            <tr style=\"border: none; background-color: #1e90ff; height: 40px; color:white; padding-bottom: 20px;	text-align: center;\">	\r\n                <td height=\"40px\" align=\"center\">\r\n                    <p style=\"color:rgb(246, 243, 243); line-height: 1.5em;\">\r\n                        Please get in touch via our social media platform links below\r\n                    </p>\r\n                    <a href=\"https://instagram.com/cuvva.ke?igshid=MzMyNGUyNmU2YQ==\"style=\"border:none;text-decoration: none; padding: 5px;\">      \r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/instagram.jpg\" width=\"40px\" height=\"40px\"  /> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M224 202.66A53.34 53.34 0 1 0 277.36 256A53.38 53.38 0 0 0 224 202.66Zm124.71-41a54 54 0 0 0-30.41-30.41c-21-8.29-71-6.43-94.3-6.43s-73.25-1.93-94.31 6.43a54 54 0 0 0-30.41 30.41c-8.28 21-6.43 71.05-6.43 94.33s-1.85 73.27 6.47 94.34a54 54 0 0 0 30.41 30.41c21 8.29 71 6.43 94.31 6.43s73.24 1.93 94.3-6.43a54 54 0 0 0 30.41-30.41c8.35-21 6.43-71.05 6.43-94.33s1.92-73.26-6.43-94.33ZM224 338a82 82 0 1 1 82-82a81.9 81.9 0 0 1-82 82Zm85.38-148.3a19.14 19.14 0 1 1 19.13-19.14a19.1 19.1 0 0 1-19.09 19.18ZM400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h352a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48Zm-17.12 290c-1.29 25.63-7.14 48.34-25.85 67s-41.4 24.63-67 25.85c-26.41 1.49-105.59 1.49-132 0c-25.63-1.29-48.26-7.15-67-25.85s-24.63-41.42-25.85-67c-1.49-26.42-1.49-105.61 0-132c1.29-25.63 7.07-48.34 25.85-67s41.47-24.56 67-25.78c26.41-1.49 105.59-1.49 132 0c25.63 1.29 48.33 7.15 67 25.85s24.63 41.42 25.85 67.05c1.49 26.32 1.49 105.44 0 131.88Z\"/>\r\n                        </svg>\r\n                    </a>\r\n        \r\n                    <a href=\"https://www.linkedin.com/company/cuvva-insurance/\"style=\"border:none; text-decoration: none; padding: 5px;\">\r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/linkedin.jpg\" width=\"40px\" height=\"40px\" /> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5c0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7c-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5c67.2 0 79.7 44.3 79.7 101.9V416z\"/>\r\n                        </svg>\r\n                    </a>\r\n        \r\n                    <a href=\"https://www.facebook.com/profile.php?id=100089429259352&mibextid=b06tZ0\"style=\"border:none; text-decoration: none; padding: 5px;\">\r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/facebook.jpg\" width=\"40px\" height=\"40px\"  style=\"position: relative;\"/> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48c27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z\"/>\r\n                        </svg>\r\n                    </a>\r\n                </td>   \r\n            </tr>\r\n\r\n            <tr>\r\n                <td style=\"font-family:\'Open Sans\', Arial, sans-serif; font-size:11px; line-height:18px;  color:#999999;\"  valign=\"top\"  align=\"center\">\r\n                    <a href=\"#\"\r\n                        target=\"_blank\"\r\n                        style=\"color:#999999;\r\n                            text-decoration:none;\">\r\n                            PRIVACY STATEMENT\r\n                    </a>\r\n                    |\r\n                    <a href=\"#\" target=\"_blank\"  style=\"color:#999999; text-decoration:none;\">\r\n                        TERMS OF SERVICE\r\n                    </a>\r\n                    <!-- |\r\n                    <a href=\"#\" target=\"_blank\" style=\"color:#999999; text-decoration:none;\">\r\n                        RETURNS\r\n                    </a> -->\r\n                    <p>\r\n\r\n                        &copy;2025 Wolfenberg International Limited&reg;. All Rights Reserved.<br>\r\n                            If you do not wish to receive any further\r\n                            emails from us, please\r\n                        <a href=\"#\" target=\"_blank\" style=\"text-decoration:none; color:#999999;\">\r\n                            Unsubscribe\r\n                        </a>\r\n                    </p>\r\n                    \r\n                </td>\r\n            </tr>\r\n        </tbody>\r\n    </table>\r\n</body>\r\n','Leave Application Approval Completion Notification','','2025-03-16 13:36:17',5,NULL,'pending',NULL),
+(8,'HR','System Administrator','akellorich@gmail.com','<body style=\"background-color:rgb(206, 200, 200); font-family:\'Helvetica Neue\',Arial, Helvetica, sans-serif; font-size: 12px;\" >\r\n	<table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\"\r\n		width=\"650px\" bgcolor=\"white\" style=\"border:2px solid rgb(121, 120, 120)\">\r\n		<tbody>\r\n			<tr>\r\n				<td align=\"center\" >\r\n					<table align=\"center\" border=\"0\" cellpadding=\"0\"\r\n						cellspacing=\"0\" class=\"col-550\" width=\"100%\">\r\n						<tbody>\r\n							<tr>\r\n								<td align=\"center\" style=\"background-color: #1e90ff;\r\n										height: 50px; width:100%\">\r\n                                    <img src=\"/images/logo.jpg\" alt=\"\" style=\"margin-top:10px; width:70px; border-radius:5px\">\r\n									<a href=\"#\" style=\"text-decoration: none;\">\r\n										<p style=\"color:white;\r\n												font-weight:bold; margin-bottom: 10px;\">\r\n											Wolfenberg International Limited\r\n										</p>\r\n									</a>\r\n								</td>\r\n							</tr>\r\n						</tbody>\r\n					</table>\r\n				</td>\r\n			</tr>\r\n			<tr style=\"height: 75px; border: none;border-bottom: 2px solid #1e90ff;\">\r\n				<td align=\"center\" style=\"padding-right: 20px;padding-left:20px; width:100%\">\r\n					<p style=\"font-weight: bolder;font-size: 20px; letter-spacing: 0.025em;	color:rgb(62, 62, 62);\">\r\n						Leave Application Approval Completion Notification\r\n					</p>\r\n				</td>\r\n			</tr>\r\n\r\n			<tr style=\"display: inline-block;\">\r\n				<td style=\"height: 150px; padding: 20px; border: none;	 background-color: white;\">\r\n					<p class=\"data\" style=\"text-align: justify-all;	align-items: center; font-size: 12px; padding-bottom: 12px;\">\r\n                        <p>Hello Robert Mugabe Snr,</p>\r\n                        <p>Your leave application has been fully approved. Leave details are as follows:</p>\r\n                        <p>Leave Type:<strong>Annual Leave</strong></p>\r\n                        <p>Start Date: <strong>03-Mar-2025</strong></p>\r\n                        <p>End Date: <strong>03-Mar-2025</strong></p>\r\n                        <p>Days Taken: <strong>0.50</strong></p>\r\n                        <p>Narration: <strong>This is a test</strong></p>\r\n                        <p></p>\r\n                        <p>You may proceed for your leave upon clearing with your supervisor. All the best during this time and stay safe</p>\r\n                        <p></p>\r\n                        <p>&nbsp;</p>\r\n                        <p>Kind Regards</p>\r\n                        <p>System Administrator</p>\r\n					</p>\r\n				</td>\r\n			</tr>\r\n            <tr style=\"border: none; background-color: #1e90ff; height: 40px; color:white; padding-bottom: 20px;	text-align: center;\">	\r\n                <td height=\"40px\" align=\"center\">\r\n                    <p style=\"color:rgb(246, 243, 243); line-height: 1.5em;\">\r\n                        Please get in touch via our social media platform links below\r\n                    </p>\r\n                    <a href=\"https://instagram.com/cuvva.ke?igshid=MzMyNGUyNmU2YQ==\"style=\"border:none;text-decoration: none; padding: 5px;\">      \r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/instagram.jpg\" width=\"40px\" height=\"40px\"  /> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M224 202.66A53.34 53.34 0 1 0 277.36 256A53.38 53.38 0 0 0 224 202.66Zm124.71-41a54 54 0 0 0-30.41-30.41c-21-8.29-71-6.43-94.3-6.43s-73.25-1.93-94.31 6.43a54 54 0 0 0-30.41 30.41c-8.28 21-6.43 71.05-6.43 94.33s-1.85 73.27 6.47 94.34a54 54 0 0 0 30.41 30.41c21 8.29 71 6.43 94.31 6.43s73.24 1.93 94.3-6.43a54 54 0 0 0 30.41-30.41c8.35-21 6.43-71.05 6.43-94.33s1.92-73.26-6.43-94.33ZM224 338a82 82 0 1 1 82-82a81.9 81.9 0 0 1-82 82Zm85.38-148.3a19.14 19.14 0 1 1 19.13-19.14a19.1 19.1 0 0 1-19.09 19.18ZM400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h352a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48Zm-17.12 290c-1.29 25.63-7.14 48.34-25.85 67s-41.4 24.63-67 25.85c-26.41 1.49-105.59 1.49-132 0c-25.63-1.29-48.26-7.15-67-25.85s-24.63-41.42-25.85-67c-1.49-26.42-1.49-105.61 0-132c1.29-25.63 7.07-48.34 25.85-67s41.47-24.56 67-25.78c26.41-1.49 105.59-1.49 132 0c25.63 1.29 48.33 7.15 67 25.85s24.63 41.42 25.85 67.05c1.49 26.32 1.49 105.44 0 131.88Z\"/>\r\n                        </svg>\r\n                    </a>\r\n        \r\n                    <a href=\"https://www.linkedin.com/company/cuvva-insurance/\"style=\"border:none; text-decoration: none; padding: 5px;\">\r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/linkedin.jpg\" width=\"40px\" height=\"40px\" /> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5c0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7c-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5c67.2 0 79.7 44.3 79.7 101.9V416z\"/>\r\n                        </svg>\r\n                    </a>\r\n        \r\n                    <a href=\"https://www.facebook.com/profile.php?id=100089429259352&mibextid=b06tZ0\"style=\"border:none; text-decoration: none; padding: 5px;\">\r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/facebook.jpg\" width=\"40px\" height=\"40px\"  style=\"position: relative;\"/> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48c27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z\"/>\r\n                        </svg>\r\n                    </a>\r\n                </td>   \r\n            </tr>\r\n\r\n            <tr>\r\n                <td style=\"font-family:\'Open Sans\', Arial, sans-serif; font-size:11px; line-height:18px;  color:#999999;\"  valign=\"top\"  align=\"center\">\r\n                    <a href=\"#\"\r\n                        target=\"_blank\"\r\n                        style=\"color:#999999;\r\n                            text-decoration:none;\">\r\n                            PRIVACY STATEMENT\r\n                    </a>\r\n                    |\r\n                    <a href=\"#\" target=\"_blank\"  style=\"color:#999999; text-decoration:none;\">\r\n                        TERMS OF SERVICE\r\n                    </a>\r\n                    <!-- |\r\n                    <a href=\"#\" target=\"_blank\" style=\"color:#999999; text-decoration:none;\">\r\n                        RETURNS\r\n                    </a> -->\r\n                    <p>\r\n\r\n                        &copy;2025 Wolfenberg International Limited&reg;. All Rights Reserved.<br>\r\n                            If you do not wish to receive any further\r\n                            emails from us, please\r\n                        <a href=\"#\" target=\"_blank\" style=\"text-decoration:none; color:#999999;\">\r\n                            Unsubscribe\r\n                        </a>\r\n                    </p>\r\n                    \r\n                </td>\r\n            </tr>\r\n        </tbody>\r\n    </table>\r\n</body>\r\n','Leave Application Approval Completion Notification','','2025-03-16 13:36:17',5,NULL,'pending',NULL),
+(9,'HR','System Administrator','akellorich@gmail.com','<body style=\"background-color:rgb(206, 200, 200); font-family:\'Helvetica Neue\',Arial, Helvetica, sans-serif; font-size: 12px;\" >\r\n	<table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\"\r\n		width=\"650px\" bgcolor=\"white\" style=\"border:2px solid rgb(121, 120, 120)\">\r\n		<tbody>\r\n			<tr>\r\n				<td align=\"center\" >\r\n					<table align=\"center\" border=\"0\" cellpadding=\"0\"\r\n						cellspacing=\"0\" class=\"col-550\" width=\"100%\">\r\n						<tbody>\r\n							<tr>\r\n								<td align=\"center\" style=\"background-color: #1e90ff;\r\n										height: 50px; width:100%\">\r\n                                    <img src=\"/images/logo.jpg\" alt=\"\" style=\"margin-top:10px; width:70px; border-radius:5px\">\r\n									<a href=\"#\" style=\"text-decoration: none;\">\r\n										<p style=\"color:white;\r\n												font-weight:bold; margin-bottom: 10px;\">\r\n											Wolfenberg International Limited\r\n										</p>\r\n									</a>\r\n								</td>\r\n							</tr>\r\n						</tbody>\r\n					</table>\r\n				</td>\r\n			</tr>\r\n			<tr style=\"height: 75px; border: none;border-bottom: 2px solid #1e90ff;\">\r\n				<td align=\"center\" style=\"padding-right: 20px;padding-left:20px; width:100%\">\r\n					<p style=\"font-weight: bolder;font-size: 20px; letter-spacing: 0.025em;	color:rgb(62, 62, 62);\">\r\n						Leave Application Approval Completion Notification\r\n					</p>\r\n				</td>\r\n			</tr>\r\n\r\n			<tr style=\"display: inline-block;\">\r\n				<td style=\"height: 150px; padding: 20px; border: none;	 background-color: white;\">\r\n					<p class=\"data\" style=\"text-align: justify-all;	align-items: center; font-size: 12px; padding-bottom: 12px;\">\r\n                        <p>Hello Leila Charles Achieng,</p>\r\n                        <p>Your leave application has been fully approved. Leave details are as follows:</p>\r\n                        <p>Leave Type:<strong>Annual Leave</strong></p>\r\n                        <p>Start Date: <strong>03-Mar-2025</strong></p>\r\n                        <p>End Date: <strong>03-Mar-2025</strong></p>\r\n                        <p>Days Taken: <strong>0.50</strong></p>\r\n                        <p>Narration: <strong>This is a test</strong></p>\r\n                        <p></p>\r\n                        <p>You may proceed for your leave upon clearing with your supervisor. All the best during this time and stay safe</p>\r\n                        <p></p>\r\n                        <p>&nbsp;</p>\r\n                        <p>Kind Regards</p>\r\n                        <p>System Administrator</p>\r\n					</p>\r\n				</td>\r\n			</tr>\r\n            <tr style=\"border: none; background-color: #1e90ff; height: 40px; color:white; padding-bottom: 20px;	text-align: center;\">	\r\n                <td height=\"40px\" align=\"center\">\r\n                    <p style=\"color:rgb(246, 243, 243); line-height: 1.5em;\">\r\n                        Please get in touch via our social media platform links below\r\n                    </p>\r\n                    <a href=\"https://instagram.com/cuvva.ke?igshid=MzMyNGUyNmU2YQ==\"style=\"border:none;text-decoration: none; padding: 5px;\">      \r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/instagram.jpg\" width=\"40px\" height=\"40px\"  /> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M224 202.66A53.34 53.34 0 1 0 277.36 256A53.38 53.38 0 0 0 224 202.66Zm124.71-41a54 54 0 0 0-30.41-30.41c-21-8.29-71-6.43-94.3-6.43s-73.25-1.93-94.31 6.43a54 54 0 0 0-30.41 30.41c-8.28 21-6.43 71.05-6.43 94.33s-1.85 73.27 6.47 94.34a54 54 0 0 0 30.41 30.41c21 8.29 71 6.43 94.31 6.43s73.24 1.93 94.3-6.43a54 54 0 0 0 30.41-30.41c8.35-21 6.43-71.05 6.43-94.33s1.92-73.26-6.43-94.33ZM224 338a82 82 0 1 1 82-82a81.9 81.9 0 0 1-82 82Zm85.38-148.3a19.14 19.14 0 1 1 19.13-19.14a19.1 19.1 0 0 1-19.09 19.18ZM400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h352a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48Zm-17.12 290c-1.29 25.63-7.14 48.34-25.85 67s-41.4 24.63-67 25.85c-26.41 1.49-105.59 1.49-132 0c-25.63-1.29-48.26-7.15-67-25.85s-24.63-41.42-25.85-67c-1.49-26.42-1.49-105.61 0-132c1.29-25.63 7.07-48.34 25.85-67s41.47-24.56 67-25.78c26.41-1.49 105.59-1.49 132 0c25.63 1.29 48.33 7.15 67 25.85s24.63 41.42 25.85 67.05c1.49 26.32 1.49 105.44 0 131.88Z\"/>\r\n                        </svg>\r\n                    </a>\r\n        \r\n                    <a href=\"https://www.linkedin.com/company/cuvva-insurance/\"style=\"border:none; text-decoration: none; padding: 5px;\">\r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/linkedin.jpg\" width=\"40px\" height=\"40px\" /> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5c0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7c-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5c67.2 0 79.7 44.3 79.7 101.9V416z\"/>\r\n                        </svg>\r\n                    </a>\r\n        \r\n                    <a href=\"https://www.facebook.com/profile.php?id=100089429259352&mibextid=b06tZ0\"style=\"border:none; text-decoration: none; padding: 5px;\">\r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/facebook.jpg\" width=\"40px\" height=\"40px\"  style=\"position: relative;\"/> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48c27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z\"/>\r\n                        </svg>\r\n                    </a>\r\n                </td>   \r\n            </tr>\r\n\r\n            <tr>\r\n                <td style=\"font-family:\'Open Sans\', Arial, sans-serif; font-size:11px; line-height:18px;  color:#999999;\"  valign=\"top\"  align=\"center\">\r\n                    <a href=\"#\"\r\n                        target=\"_blank\"\r\n                        style=\"color:#999999;\r\n                            text-decoration:none;\">\r\n                            PRIVACY STATEMENT\r\n                    </a>\r\n                    |\r\n                    <a href=\"#\" target=\"_blank\"  style=\"color:#999999; text-decoration:none;\">\r\n                        TERMS OF SERVICE\r\n                    </a>\r\n                    <!-- |\r\n                    <a href=\"#\" target=\"_blank\" style=\"color:#999999; text-decoration:none;\">\r\n                        RETURNS\r\n                    </a> -->\r\n                    <p>\r\n\r\n                        &copy;2025 Wolfenberg International Limited&reg;. All Rights Reserved.<br>\r\n                            If you do not wish to receive any further\r\n                            emails from us, please\r\n                        <a href=\"#\" target=\"_blank\" style=\"text-decoration:none; color:#999999;\">\r\n                            Unsubscribe\r\n                        </a>\r\n                    </p>\r\n                    \r\n                </td>\r\n            </tr>\r\n        </tbody>\r\n    </table>\r\n</body>\r\n','Leave Application Approval Completion Notification','','2025-03-16 13:36:18',5,NULL,'pending',NULL),
+(10,'HR','System Administrator','akellorich@gmail.com','<body style=\"background-color:rgb(206, 200, 200); font-family:\'Helvetica Neue\',Arial, Helvetica, sans-serif; font-size: 12px;\" >\r\n	<table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\"\r\n		width=\"650px\" bgcolor=\"white\" style=\"border:2px solid rgb(121, 120, 120)\">\r\n		<tbody>\r\n			<tr>\r\n				<td align=\"center\" >\r\n					<table align=\"center\" border=\"0\" cellpadding=\"0\"\r\n						cellspacing=\"0\" class=\"col-550\" width=\"100%\">\r\n						<tbody>\r\n							<tr>\r\n								<td align=\"center\" style=\"background-color: #1e90ff;\r\n										height: 50px; width:100%\">\r\n                                    <img src=\"/images/logo.jpg\" alt=\"\" style=\"margin-top:10px; width:70px; border-radius:5px\">\r\n									<a href=\"#\" style=\"text-decoration: none;\">\r\n										<p style=\"color:white;\r\n												font-weight:bold; margin-bottom: 10px;\">\r\n											Wolfenberg International Limited\r\n										</p>\r\n									</a>\r\n								</td>\r\n							</tr>\r\n						</tbody>\r\n					</table>\r\n				</td>\r\n			</tr>\r\n			<tr style=\"height: 75px; border: none;border-bottom: 2px solid #1e90ff;\">\r\n				<td align=\"center\" style=\"padding-right: 20px;padding-left:20px; width:100%\">\r\n					<p style=\"font-weight: bolder;font-size: 20px; letter-spacing: 0.025em;	color:rgb(62, 62, 62);\">\r\n						Leave Application Approval Completion Notification\r\n					</p>\r\n				</td>\r\n			</tr>\r\n\r\n			<tr style=\"display: inline-block;\">\r\n				<td style=\"height: 150px; padding: 20px; border: none;	 background-color: white;\">\r\n					<p class=\"data\" style=\"text-align: justify-all;	align-items: center; font-size: 12px; padding-bottom: 12px;\">\r\n                        <p>Hello John Kamau Ndirangu,</p>\r\n                        <p>Your leave application has been fully approved. Leave details are as follows:</p>\r\n                        <p>Leave Type:<strong>Annual Leave</strong></p>\r\n                        <p>Start Date: <strong>03-Mar-2025</strong></p>\r\n                        <p>End Date: <strong>03-Mar-2025</strong></p>\r\n                        <p>Days Taken: <strong>0.50</strong></p>\r\n                        <p>Narration: <strong>This is a test</strong></p>\r\n                        <p></p>\r\n                        <p>You may proceed for your leave upon clearing with your supervisor. All the best during this time and stay safe</p>\r\n                        <p></p>\r\n                        <p>&nbsp;</p>\r\n                        <p>Kind Regards</p>\r\n                        <p>System Administrator</p>\r\n					</p>\r\n				</td>\r\n			</tr>\r\n            <tr style=\"border: none; background-color: #1e90ff; height: 40px; color:white; padding-bottom: 20px;	text-align: center;\">	\r\n                <td height=\"40px\" align=\"center\">\r\n                    <p style=\"color:rgb(246, 243, 243); line-height: 1.5em;\">\r\n                        Please get in touch via our social media platform links below\r\n                    </p>\r\n                    <a href=\"https://instagram.com/cuvva.ke?igshid=MzMyNGUyNmU2YQ==\"style=\"border:none;text-decoration: none; padding: 5px;\">      \r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/instagram.jpg\" width=\"40px\" height=\"40px\"  /> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M224 202.66A53.34 53.34 0 1 0 277.36 256A53.38 53.38 0 0 0 224 202.66Zm124.71-41a54 54 0 0 0-30.41-30.41c-21-8.29-71-6.43-94.3-6.43s-73.25-1.93-94.31 6.43a54 54 0 0 0-30.41 30.41c-8.28 21-6.43 71.05-6.43 94.33s-1.85 73.27 6.47 94.34a54 54 0 0 0 30.41 30.41c21 8.29 71 6.43 94.31 6.43s73.24 1.93 94.3-6.43a54 54 0 0 0 30.41-30.41c8.35-21 6.43-71.05 6.43-94.33s1.92-73.26-6.43-94.33ZM224 338a82 82 0 1 1 82-82a81.9 81.9 0 0 1-82 82Zm85.38-148.3a19.14 19.14 0 1 1 19.13-19.14a19.1 19.1 0 0 1-19.09 19.18ZM400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h352a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48Zm-17.12 290c-1.29 25.63-7.14 48.34-25.85 67s-41.4 24.63-67 25.85c-26.41 1.49-105.59 1.49-132 0c-25.63-1.29-48.26-7.15-67-25.85s-24.63-41.42-25.85-67c-1.49-26.42-1.49-105.61 0-132c1.29-25.63 7.07-48.34 25.85-67s41.47-24.56 67-25.78c26.41-1.49 105.59-1.49 132 0c25.63 1.29 48.33 7.15 67 25.85s24.63 41.42 25.85 67.05c1.49 26.32 1.49 105.44 0 131.88Z\"/>\r\n                        </svg>\r\n                    </a>\r\n        \r\n                    <a href=\"https://www.linkedin.com/company/cuvva-insurance/\"style=\"border:none; text-decoration: none; padding: 5px;\">\r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/linkedin.jpg\" width=\"40px\" height=\"40px\" /> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5c0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7c-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5c67.2 0 79.7 44.3 79.7 101.9V416z\"/>\r\n                        </svg>\r\n                    </a>\r\n        \r\n                    <a href=\"https://www.facebook.com/profile.php?id=100089429259352&mibextid=b06tZ0\"style=\"border:none; text-decoration: none; padding: 5px;\">\r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/facebook.jpg\" width=\"40px\" height=\"40px\"  style=\"position: relative;\"/> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48c27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z\"/>\r\n                        </svg>\r\n                    </a>\r\n                </td>   \r\n            </tr>\r\n\r\n            <tr>\r\n                <td style=\"font-family:\'Open Sans\', Arial, sans-serif; font-size:11px; line-height:18px;  color:#999999;\"  valign=\"top\"  align=\"center\">\r\n                    <a href=\"#\"\r\n                        target=\"_blank\"\r\n                        style=\"color:#999999;\r\n                            text-decoration:none;\">\r\n                            PRIVACY STATEMENT\r\n                    </a>\r\n                    |\r\n                    <a href=\"#\" target=\"_blank\"  style=\"color:#999999; text-decoration:none;\">\r\n                        TERMS OF SERVICE\r\n                    </a>\r\n                    <!-- |\r\n                    <a href=\"#\" target=\"_blank\" style=\"color:#999999; text-decoration:none;\">\r\n                        RETURNS\r\n                    </a> -->\r\n                    <p>\r\n\r\n                        &copy;2025 Wolfenberg International Limited&reg;. All Rights Reserved.<br>\r\n                            If you do not wish to receive any further\r\n                            emails from us, please\r\n                        <a href=\"#\" target=\"_blank\" style=\"text-decoration:none; color:#999999;\">\r\n                            Unsubscribe\r\n                        </a>\r\n                    </p>\r\n                    \r\n                </td>\r\n            </tr>\r\n        </tbody>\r\n    </table>\r\n</body>\r\n','Leave Application Approval Completion Notification','','2025-03-16 13:36:18',5,NULL,'pending',NULL),
+(11,'HR','System Administrator','akellorich@gmail.com','<body style=\"background-color:rgb(206, 200, 200); font-family:\'Helvetica Neue\',Arial, Helvetica, sans-serif; font-size: 12px;\" >\r\n	<table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\"\r\n		width=\"650px\" bgcolor=\"white\" style=\"border:2px solid rgb(121, 120, 120)\">\r\n		<tbody>\r\n			<tr>\r\n				<td align=\"center\" >\r\n					<table align=\"center\" border=\"0\" cellpadding=\"0\"\r\n						cellspacing=\"0\" class=\"col-550\" width=\"100%\">\r\n						<tbody>\r\n							<tr>\r\n								<td align=\"center\" style=\"background-color: #1e90ff;\r\n										height: 50px; width:100%\">\r\n                                    <img src=\"/images/logo.jpg\" alt=\"\" style=\"margin-top:10px; width:70px; border-radius:5px\">\r\n									<a href=\"#\" style=\"text-decoration: none;\">\r\n										<p style=\"color:white;\r\n												font-weight:bold; margin-bottom: 10px;\">\r\n											Wolfenberg International Limited\r\n										</p>\r\n									</a>\r\n								</td>\r\n							</tr>\r\n						</tbody>\r\n					</table>\r\n				</td>\r\n			</tr>\r\n			<tr style=\"height: 75px; border: none;border-bottom: 2px solid #1e90ff;\">\r\n				<td align=\"center\" style=\"padding-right: 20px;padding-left:20px; width:100%\">\r\n					<p style=\"font-weight: bolder;font-size: 20px; letter-spacing: 0.025em;	color:rgb(62, 62, 62);\">\r\n						Leave Application Approval Completion Notification\r\n					</p>\r\n				</td>\r\n			</tr>\r\n\r\n			<tr style=\"display: inline-block;\">\r\n				<td style=\"height: 150px; padding: 20px; border: none;	 background-color: white;\">\r\n					<p class=\"data\" style=\"text-align: justify-all;	align-items: center; font-size: 12px; padding-bottom: 12px;\">\r\n                        <p>Hello James Marsden Cain,</p>\r\n                        <p>Your leave application has been fully approved. Leave details are as follows:</p>\r\n                        <p>Leave Type:<strong>Annual Leave</strong></p>\r\n                        <p>Start Date: <strong>03-Mar-2025</strong></p>\r\n                        <p>End Date: <strong>03-Mar-2025</strong></p>\r\n                        <p>Days Taken: <strong>0.50</strong></p>\r\n                        <p>Narration: <strong>This is a test</strong></p>\r\n                        <p></p>\r\n                        <p>You may proceed for your leave upon clearing with your supervisor. All the best during this time and stay safe</p>\r\n                        <p></p>\r\n                        <p>&nbsp;</p>\r\n                        <p>Kind Regards</p>\r\n                        <p>System Administrator</p>\r\n					</p>\r\n				</td>\r\n			</tr>\r\n            <tr style=\"border: none; background-color: #1e90ff; height: 40px; color:white; padding-bottom: 20px;	text-align: center;\">	\r\n                <td height=\"40px\" align=\"center\">\r\n                    <p style=\"color:rgb(246, 243, 243); line-height: 1.5em;\">\r\n                        Please get in touch via our social media platform links below\r\n                    </p>\r\n                    <a href=\"https://instagram.com/cuvva.ke?igshid=MzMyNGUyNmU2YQ==\"style=\"border:none;text-decoration: none; padding: 5px;\">      \r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/instagram.jpg\" width=\"40px\" height=\"40px\"  /> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M224 202.66A53.34 53.34 0 1 0 277.36 256A53.38 53.38 0 0 0 224 202.66Zm124.71-41a54 54 0 0 0-30.41-30.41c-21-8.29-71-6.43-94.3-6.43s-73.25-1.93-94.31 6.43a54 54 0 0 0-30.41 30.41c-8.28 21-6.43 71.05-6.43 94.33s-1.85 73.27 6.47 94.34a54 54 0 0 0 30.41 30.41c21 8.29 71 6.43 94.31 6.43s73.24 1.93 94.3-6.43a54 54 0 0 0 30.41-30.41c8.35-21 6.43-71.05 6.43-94.33s1.92-73.26-6.43-94.33ZM224 338a82 82 0 1 1 82-82a81.9 81.9 0 0 1-82 82Zm85.38-148.3a19.14 19.14 0 1 1 19.13-19.14a19.1 19.1 0 0 1-19.09 19.18ZM400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h352a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48Zm-17.12 290c-1.29 25.63-7.14 48.34-25.85 67s-41.4 24.63-67 25.85c-26.41 1.49-105.59 1.49-132 0c-25.63-1.29-48.26-7.15-67-25.85s-24.63-41.42-25.85-67c-1.49-26.42-1.49-105.61 0-132c1.29-25.63 7.07-48.34 25.85-67s41.47-24.56 67-25.78c26.41-1.49 105.59-1.49 132 0c25.63 1.29 48.33 7.15 67 25.85s24.63 41.42 25.85 67.05c1.49 26.32 1.49 105.44 0 131.88Z\"/>\r\n                        </svg>\r\n                    </a>\r\n        \r\n                    <a href=\"https://www.linkedin.com/company/cuvva-insurance/\"style=\"border:none; text-decoration: none; padding: 5px;\">\r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/linkedin.jpg\" width=\"40px\" height=\"40px\" /> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5c0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7c-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5c67.2 0 79.7 44.3 79.7 101.9V416z\"/>\r\n                        </svg>\r\n                    </a>\r\n        \r\n                    <a href=\"https://www.facebook.com/profile.php?id=100089429259352&mibextid=b06tZ0\"style=\"border:none; text-decoration: none; padding: 5px;\">\r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/facebook.jpg\" width=\"40px\" height=\"40px\"  style=\"position: relative;\"/> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48c27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z\"/>\r\n                        </svg>\r\n                    </a>\r\n                </td>   \r\n            </tr>\r\n\r\n            <tr>\r\n                <td style=\"font-family:\'Open Sans\', Arial, sans-serif; font-size:11px; line-height:18px;  color:#999999;\"  valign=\"top\"  align=\"center\">\r\n                    <a href=\"#\"\r\n                        target=\"_blank\"\r\n                        style=\"color:#999999;\r\n                            text-decoration:none;\">\r\n                            PRIVACY STATEMENT\r\n                    </a>\r\n                    |\r\n                    <a href=\"#\" target=\"_blank\"  style=\"color:#999999; text-decoration:none;\">\r\n                        TERMS OF SERVICE\r\n                    </a>\r\n                    <!-- |\r\n                    <a href=\"#\" target=\"_blank\" style=\"color:#999999; text-decoration:none;\">\r\n                        RETURNS\r\n                    </a> -->\r\n                    <p>\r\n\r\n                        &copy;2025 Wolfenberg International Limited&reg;. All Rights Reserved.<br>\r\n                            If you do not wish to receive any further\r\n                            emails from us, please\r\n                        <a href=\"#\" target=\"_blank\" style=\"text-decoration:none; color:#999999;\">\r\n                            Unsubscribe\r\n                        </a>\r\n                    </p>\r\n                    \r\n                </td>\r\n            </tr>\r\n        </tbody>\r\n    </table>\r\n</body>\r\n','Leave Application Approval Completion Notification','','2025-03-16 13:37:39',5,NULL,'pending',NULL),
+(12,'HR','System Administrator','akellorich@gmail.com','<body style=\"background-color:rgb(206, 200, 200); font-family:\'Helvetica Neue\',Arial, Helvetica, sans-serif; font-size: 12px;\" >\r\n	<table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\"\r\n		width=\"650px\" bgcolor=\"white\" style=\"border:2px solid rgb(121, 120, 120)\">\r\n		<tbody>\r\n			<tr>\r\n				<td align=\"center\" >\r\n					<table align=\"center\" border=\"0\" cellpadding=\"0\"\r\n						cellspacing=\"0\" class=\"col-550\" width=\"100%\">\r\n						<tbody>\r\n							<tr>\r\n								<td align=\"center\" style=\"background-color: #1e90ff;\r\n										height: 50px; width:100%\">\r\n                                    <img src=\"/images/logo.jpg\" alt=\"\" style=\"margin-top:10px; width:70px; border-radius:5px\">\r\n									<a href=\"#\" style=\"text-decoration: none;\">\r\n										<p style=\"color:white;\r\n												font-weight:bold; margin-bottom: 10px;\">\r\n											Wolfenberg International Limited\r\n										</p>\r\n									</a>\r\n								</td>\r\n							</tr>\r\n						</tbody>\r\n					</table>\r\n				</td>\r\n			</tr>\r\n			<tr style=\"height: 75px; border: none;border-bottom: 2px solid #1e90ff;\">\r\n				<td align=\"center\" style=\"padding-right: 20px;padding-left:20px; width:100%\">\r\n					<p style=\"font-weight: bolder;font-size: 20px; letter-spacing: 0.025em;	color:rgb(62, 62, 62);\">\r\n						Leave Application Receipt Status Notification\r\n					</p>\r\n				</td>\r\n			</tr>\r\n\r\n			<tr style=\"display: inline-block;\">\r\n				<td style=\"height: 150px; padding: 20px; border: none;	 background-color: white;\">\r\n					<p class=\"data\" style=\"text-align: justify-all;	align-items: center; font-size: 12px; padding-bottom: 12px;\">\r\n                        <p>Hello Marion Jones Mayers,</p>\r\n                        <p>Your leave application has been received successfully. Leave details are as follows:</p>\r\n                        <p>Leave Type:<strong>Annual Leave</strong></p>\r\n                        <p>Start Date: <strong>09-Apr-2025</strong></p>\r\n                        <p>End Date: <strong>09-Apr-2025</strong></p>\r\n                        <p>Days Taken: <strong>0.50</strong></p>\r\n                        <p>Narration: <strong>This is a test leave</strong></p>\r\n                        <p></p>\r\n                        <p>The application has been forwaded for approvals.</p>\r\n                        <p>Please wait for leave processing to complete before commencing.</p>\r\n                        <p></p>\r\n                        <p>&nbsp;</p>\r\n                        <p>Kind Regards</p>\r\n                        <p>System Administrator</p>\r\n					</p>\r\n				</td>\r\n			</tr>\r\n            <tr style=\"border: none; background-color: #1e90ff; height: 40px; color:white; padding-bottom: 20px;	text-align: center;\">	\r\n                <td height=\"40px\" align=\"center\">\r\n                    <p style=\"color:rgb(246, 243, 243); line-height: 1.5em;\">\r\n                        Please get in touch via our social media platform links below\r\n                    </p>\r\n                    <a href=\"https://instagram.com/cuvva.ke?igshid=MzMyNGUyNmU2YQ==\"style=\"border:none;text-decoration: none; padding: 5px;\">      \r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/instagram.jpg\" width=\"40px\" height=\"40px\"  /> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M224 202.66A53.34 53.34 0 1 0 277.36 256A53.38 53.38 0 0 0 224 202.66Zm124.71-41a54 54 0 0 0-30.41-30.41c-21-8.29-71-6.43-94.3-6.43s-73.25-1.93-94.31 6.43a54 54 0 0 0-30.41 30.41c-8.28 21-6.43 71.05-6.43 94.33s-1.85 73.27 6.47 94.34a54 54 0 0 0 30.41 30.41c21 8.29 71 6.43 94.31 6.43s73.24 1.93 94.3-6.43a54 54 0 0 0 30.41-30.41c8.35-21 6.43-71.05 6.43-94.33s1.92-73.26-6.43-94.33ZM224 338a82 82 0 1 1 82-82a81.9 81.9 0 0 1-82 82Zm85.38-148.3a19.14 19.14 0 1 1 19.13-19.14a19.1 19.1 0 0 1-19.09 19.18ZM400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h352a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48Zm-17.12 290c-1.29 25.63-7.14 48.34-25.85 67s-41.4 24.63-67 25.85c-26.41 1.49-105.59 1.49-132 0c-25.63-1.29-48.26-7.15-67-25.85s-24.63-41.42-25.85-67c-1.49-26.42-1.49-105.61 0-132c1.29-25.63 7.07-48.34 25.85-67s41.47-24.56 67-25.78c26.41-1.49 105.59-1.49 132 0c25.63 1.29 48.33 7.15 67 25.85s24.63 41.42 25.85 67.05c1.49 26.32 1.49 105.44 0 131.88Z\"/>\r\n                        </svg>\r\n                    </a>\r\n        \r\n                    <a href=\"https://www.linkedin.com/company/cuvva-insurance/\"style=\"border:none; text-decoration: none; padding: 5px;\">\r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/linkedin.jpg\" width=\"40px\" height=\"40px\" /> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5c0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7c-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5c67.2 0 79.7 44.3 79.7 101.9V416z\"/>\r\n                        </svg>\r\n                    </a>\r\n        \r\n                    <a href=\"https://www.facebook.com/profile.php?id=100089429259352&mibextid=b06tZ0\"style=\"border:none; text-decoration: none; padding: 5px;\">\r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/facebook.jpg\" width=\"40px\" height=\"40px\"  style=\"position: relative;\"/> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48c27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z\"/>\r\n                        </svg>\r\n                    </a>\r\n                </td>   \r\n            </tr>\r\n\r\n            <tr>\r\n                <td style=\"font-family:\'Open Sans\', Arial, sans-serif; font-size:11px; line-height:18px;  color:#999999;\"  valign=\"top\"  align=\"center\">\r\n                    <a href=\"#\"\r\n                        target=\"_blank\"\r\n                        style=\"color:#999999;\r\n                            text-decoration:none;\">\r\n                            PRIVACY STATEMENT\r\n                    </a>\r\n                    |\r\n                    <a href=\"#\" target=\"_blank\"  style=\"color:#999999; text-decoration:none;\">\r\n                        TERMS OF SERVICE\r\n                    </a>\r\n                    <!-- |\r\n                    <a href=\"#\" target=\"_blank\" style=\"color:#999999; text-decoration:none;\">\r\n                        RETURNS\r\n                    </a> -->\r\n                    <p>\r\n\r\n                        &copy;2025 Wolfenberg International Limited&reg;. All Rights Reserved.<br>\r\n                            If you do not wish to receive any further\r\n                            emails from us, please\r\n                        <a href=\"#\" target=\"_blank\" style=\"text-decoration:none; color:#999999;\">\r\n                            Unsubscribe\r\n                        </a>\r\n                    </p>\r\n                    \r\n                </td>\r\n            </tr>\r\n        </tbody>\r\n    </table>\r\n</body>\r\n','Leave Application Receipt Status Notification','','2025-04-09 14:44:42',5,NULL,'pending',NULL),
+(13,'HR','System Administrator','akellorich@gmail.com','<body style=\"background-color:rgb(206, 200, 200); font-family:\'Helvetica Neue\',Arial, Helvetica, sans-serif; font-size: 12px;\" >\r\n	<table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\"\r\n		width=\"650px\" bgcolor=\"white\" style=\"border:2px solid rgb(121, 120, 120)\">\r\n		<tbody>\r\n			<tr>\r\n				<td align=\"center\" >\r\n					<table align=\"center\" border=\"0\" cellpadding=\"0\"\r\n						cellspacing=\"0\" class=\"col-550\" width=\"100%\">\r\n						<tbody>\r\n							<tr>\r\n								<td align=\"center\" style=\"background-color: #1e90ff;\r\n										height: 50px; width:100%\">\r\n                                    <img src=\"/images/logo.jpg\" alt=\"\" style=\"margin-top:10px; width:70px; border-radius:5px\">\r\n									<a href=\"#\" style=\"text-decoration: none;\">\r\n										<p style=\"color:white;\r\n												font-weight:bold; margin-bottom: 10px;\">\r\n											Wolfenberg International Limited\r\n										</p>\r\n									</a>\r\n								</td>\r\n							</tr>\r\n						</tbody>\r\n					</table>\r\n				</td>\r\n			</tr>\r\n			<tr style=\"height: 75px; border: none;border-bottom: 2px solid #1e90ff;\">\r\n				<td align=\"center\" style=\"padding-right: 20px;padding-left:20px; width:100%\">\r\n					<p style=\"font-weight: bolder;font-size: 20px; letter-spacing: 0.025em;	color:rgb(62, 62, 62);\">\r\n						Leave Application Approval Request\r\n					</p>\r\n				</td>\r\n			</tr>\r\n\r\n			<tr style=\"display: inline-block;\">\r\n				<td style=\"height: 150px; padding: 20px; border: none;	 background-color: white;\">\r\n					<p class=\"data\" style=\"text-align: justify-all;	align-items: center; font-size: 12px; padding-bottom: 12px;\">\r\n                        <p>Hello James Marsden Cain,</p>\r\n                        <p>Marion Jones Mayers of staff number NT0003 has applied for a leave, details below:</p>\r\n                        <p>Leave Type:<strong>Annual Leave</strong></p>\r\n                        <p>Start Date: <strong>09-Apr-2025</strong></p>\r\n                        <p>End Date: <strong>09-Apr-2025</strong></p>\r\n                        <p>Days Taken: <strong>0.50</strong></p>\r\n                        <p>Narration: <strong>This is a test leave</strong></p>\r\n                        <p></p>\r\n                        <p>Kindly access the system for review and approval of the leave for <strong>Supervisor Level</strong> </p>\r\n                        <p></p>\r\n                        <p>&nbsp;</p>\r\n                        <p>Kind Regards</p>\r\n                        <p>System Administrator</p>\r\n					</p>\r\n				</td>\r\n			</tr>\r\n            <tr style=\"border: none; background-color: #1e90ff; height: 40px; color:white; padding-bottom: 20px;	text-align: center;\">	\r\n                <td height=\"40px\" align=\"center\">\r\n                    <p style=\"color:rgb(246, 243, 243); line-height: 1.5em;\">\r\n                        Please get in touch via our social media platform links below\r\n                    </p>\r\n                    <a href=\"https://instagram.com/cuvva.ke?igshid=MzMyNGUyNmU2YQ==\"style=\"border:none;text-decoration: none; padding: 5px;\">      \r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/instagram.jpg\" width=\"40px\" height=\"40px\"  /> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M224 202.66A53.34 53.34 0 1 0 277.36 256A53.38 53.38 0 0 0 224 202.66Zm124.71-41a54 54 0 0 0-30.41-30.41c-21-8.29-71-6.43-94.3-6.43s-73.25-1.93-94.31 6.43a54 54 0 0 0-30.41 30.41c-8.28 21-6.43 71.05-6.43 94.33s-1.85 73.27 6.47 94.34a54 54 0 0 0 30.41 30.41c21 8.29 71 6.43 94.31 6.43s73.24 1.93 94.3-6.43a54 54 0 0 0 30.41-30.41c8.35-21 6.43-71.05 6.43-94.33s1.92-73.26-6.43-94.33ZM224 338a82 82 0 1 1 82-82a81.9 81.9 0 0 1-82 82Zm85.38-148.3a19.14 19.14 0 1 1 19.13-19.14a19.1 19.1 0 0 1-19.09 19.18ZM400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h352a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48Zm-17.12 290c-1.29 25.63-7.14 48.34-25.85 67s-41.4 24.63-67 25.85c-26.41 1.49-105.59 1.49-132 0c-25.63-1.29-48.26-7.15-67-25.85s-24.63-41.42-25.85-67c-1.49-26.42-1.49-105.61 0-132c1.29-25.63 7.07-48.34 25.85-67s41.47-24.56 67-25.78c26.41-1.49 105.59-1.49 132 0c25.63 1.29 48.33 7.15 67 25.85s24.63 41.42 25.85 67.05c1.49 26.32 1.49 105.44 0 131.88Z\"/>\r\n                        </svg>\r\n                    </a>\r\n        \r\n                    <a href=\"https://www.linkedin.com/company/cuvva-insurance/\"style=\"border:none; text-decoration: none; padding: 5px;\">\r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/linkedin.jpg\" width=\"40px\" height=\"40px\" /> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5c0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7c-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5c67.2 0 79.7 44.3 79.7 101.9V416z\"/>\r\n                        </svg>\r\n                    </a>\r\n        \r\n                    <a href=\"https://www.facebook.com/profile.php?id=100089429259352&mibextid=b06tZ0\"style=\"border:none; text-decoration: none; padding: 5px;\">\r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/facebook.jpg\" width=\"40px\" height=\"40px\"  style=\"position: relative;\"/> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48c27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z\"/>\r\n                        </svg>\r\n                    </a>\r\n                </td>   \r\n            </tr>\r\n\r\n            <tr>\r\n                <td style=\"font-family:\'Open Sans\', Arial, sans-serif; font-size:11px; line-height:18px;  color:#999999;\"  valign=\"top\"  align=\"center\">\r\n                    <a href=\"#\"\r\n                        target=\"_blank\"\r\n                        style=\"color:#999999;\r\n                            text-decoration:none;\">\r\n                            PRIVACY STATEMENT\r\n                    </a>\r\n                    |\r\n                    <a href=\"#\" target=\"_blank\"  style=\"color:#999999; text-decoration:none;\">\r\n                        TERMS OF SERVICE\r\n                    </a>\r\n                    <!-- |\r\n                    <a href=\"#\" target=\"_blank\" style=\"color:#999999; text-decoration:none;\">\r\n                        RETURNS\r\n                    </a> -->\r\n                    <p>\r\n\r\n                        &copy;2025 Wolfenberg International Limited&reg;. All Rights Reserved.<br>\r\n                            If you do not wish to receive any further\r\n                            emails from us, please\r\n                        <a href=\"#\" target=\"_blank\" style=\"text-decoration:none; color:#999999;\">\r\n                            Unsubscribe\r\n                        </a>\r\n                    </p>\r\n                    \r\n                </td>\r\n            </tr>\r\n        </tbody>\r\n    </table>\r\n</body>\r\n','Leave Application Approval Request for Supervisor Level ','','2025-04-09 14:44:42',5,NULL,'pending',NULL),
+(14,'HR','System Administrator','akellorich@gmail.com','<body style=\"background-color:rgb(206, 200, 200); font-family:\'Helvetica Neue\',Arial, Helvetica, sans-serif; font-size: 12px;\" >\r\n	<table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\"\r\n		width=\"650px\" bgcolor=\"white\" style=\"border:2px solid rgb(121, 120, 120)\">\r\n		<tbody>\r\n			<tr>\r\n				<td align=\"center\" >\r\n					<table align=\"center\" border=\"0\" cellpadding=\"0\"\r\n						cellspacing=\"0\" class=\"col-550\" width=\"100%\">\r\n						<tbody>\r\n							<tr>\r\n								<td align=\"center\" style=\"background-color: #1e90ff;\r\n										height: 50px; width:100%\">\r\n                                    <img src=\"/images/logo.jpg\" alt=\"\" style=\"margin-top:10px; width:70px; border-radius:5px\">\r\n									<a href=\"#\" style=\"text-decoration: none;\">\r\n										<p style=\"color:white;\r\n												font-weight:bold; margin-bottom: 10px;\">\r\n											Wolfenberg International Limited\r\n										</p>\r\n									</a>\r\n								</td>\r\n							</tr>\r\n						</tbody>\r\n					</table>\r\n				</td>\r\n			</tr>\r\n			<tr style=\"height: 75px; border: none;border-bottom: 2px solid #1e90ff;\">\r\n				<td align=\"center\" style=\"padding-right: 20px;padding-left:20px; width:100%\">\r\n					<p style=\"font-weight: bolder;font-size: 20px; letter-spacing: 0.025em;	color:rgb(62, 62, 62);\">\r\n						Leave Application Approval Request\r\n					</p>\r\n				</td>\r\n			</tr>\r\n\r\n			<tr style=\"display: inline-block;\">\r\n				<td style=\"height: 150px; padding: 20px; border: none;	 background-color: white;\">\r\n					<p class=\"data\" style=\"text-align: justify-all;	align-items: center; font-size: 12px; padding-bottom: 12px;\">\r\n                        <p>Hello Richard Onyango Akelo,</p>\r\n                        <p>Marion Jones Mayers of staff number NT0003 has applied for a leave, details below:</p>\r\n                        <p>Leave Type:<strong>Annual Leave</strong></p>\r\n                        <p>Start Date: <strong>09-Apr-2025</strong></p>\r\n                        <p>End Date: <strong>09-Apr-2025</strong></p>\r\n                        <p>Days Taken: <strong>0.50</strong></p>\r\n                        <p>Narration: <strong>This is a test leave</strong></p>\r\n                        <p></p>\r\n                        <p>Kindly access the system for review and approval of the leave for <strong>Human Resource Manager Level</strong> </p>\r\n                        <p></p>\r\n                        <p>&nbsp;</p>\r\n                        <p>Kind Regards</p>\r\n                        <p>System Administrator</p>\r\n					</p>\r\n				</td>\r\n			</tr>\r\n            <tr style=\"border: none; background-color: #1e90ff; height: 40px; color:white; padding-bottom: 20px;	text-align: center;\">	\r\n                <td height=\"40px\" align=\"center\">\r\n                    <p style=\"color:rgb(246, 243, 243); line-height: 1.5em;\">\r\n                        Please get in touch via our social media platform links below\r\n                    </p>\r\n                    <a href=\"https://instagram.com/cuvva.ke?igshid=MzMyNGUyNmU2YQ==\"style=\"border:none;text-decoration: none; padding: 5px;\">      \r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/instagram.jpg\" width=\"40px\" height=\"40px\"  /> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M224 202.66A53.34 53.34 0 1 0 277.36 256A53.38 53.38 0 0 0 224 202.66Zm124.71-41a54 54 0 0 0-30.41-30.41c-21-8.29-71-6.43-94.3-6.43s-73.25-1.93-94.31 6.43a54 54 0 0 0-30.41 30.41c-8.28 21-6.43 71.05-6.43 94.33s-1.85 73.27 6.47 94.34a54 54 0 0 0 30.41 30.41c21 8.29 71 6.43 94.31 6.43s73.24 1.93 94.3-6.43a54 54 0 0 0 30.41-30.41c8.35-21 6.43-71.05 6.43-94.33s1.92-73.26-6.43-94.33ZM224 338a82 82 0 1 1 82-82a81.9 81.9 0 0 1-82 82Zm85.38-148.3a19.14 19.14 0 1 1 19.13-19.14a19.1 19.1 0 0 1-19.09 19.18ZM400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h352a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48Zm-17.12 290c-1.29 25.63-7.14 48.34-25.85 67s-41.4 24.63-67 25.85c-26.41 1.49-105.59 1.49-132 0c-25.63-1.29-48.26-7.15-67-25.85s-24.63-41.42-25.85-67c-1.49-26.42-1.49-105.61 0-132c1.29-25.63 7.07-48.34 25.85-67s41.47-24.56 67-25.78c26.41-1.49 105.59-1.49 132 0c25.63 1.29 48.33 7.15 67 25.85s24.63 41.42 25.85 67.05c1.49 26.32 1.49 105.44 0 131.88Z\"/>\r\n                        </svg>\r\n                    </a>\r\n        \r\n                    <a href=\"https://www.linkedin.com/company/cuvva-insurance/\"style=\"border:none; text-decoration: none; padding: 5px;\">\r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/linkedin.jpg\" width=\"40px\" height=\"40px\" /> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5c0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7c-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5c67.2 0 79.7 44.3 79.7 101.9V416z\"/>\r\n                        </svg>\r\n                    </a>\r\n        \r\n                    <a href=\"https://www.facebook.com/profile.php?id=100089429259352&mibextid=b06tZ0\"style=\"border:none; text-decoration: none; padding: 5px;\">\r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/facebook.jpg\" width=\"40px\" height=\"40px\"  style=\"position: relative;\"/> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48c27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z\"/>\r\n                        </svg>\r\n                    </a>\r\n                </td>   \r\n            </tr>\r\n\r\n            <tr>\r\n                <td style=\"font-family:\'Open Sans\', Arial, sans-serif; font-size:11px; line-height:18px;  color:#999999;\"  valign=\"top\"  align=\"center\">\r\n                    <a href=\"#\"\r\n                        target=\"_blank\"\r\n                        style=\"color:#999999;\r\n                            text-decoration:none;\">\r\n                            PRIVACY STATEMENT\r\n                    </a>\r\n                    |\r\n                    <a href=\"#\" target=\"_blank\"  style=\"color:#999999; text-decoration:none;\">\r\n                        TERMS OF SERVICE\r\n                    </a>\r\n                    <!-- |\r\n                    <a href=\"#\" target=\"_blank\" style=\"color:#999999; text-decoration:none;\">\r\n                        RETURNS\r\n                    </a> -->\r\n                    <p>\r\n\r\n                        &copy;2025 Wolfenberg International Limited&reg;. All Rights Reserved.<br>\r\n                            If you do not wish to receive any further\r\n                            emails from us, please\r\n                        <a href=\"#\" target=\"_blank\" style=\"text-decoration:none; color:#999999;\">\r\n                            Unsubscribe\r\n                        </a>\r\n                    </p>\r\n                    \r\n                </td>\r\n            </tr>\r\n        </tbody>\r\n    </table>\r\n</body>\r\n','Leave Application Approval Request for Human Resource Manager Level ','','2025-04-09 14:45:09',5,NULL,'pending',NULL),
+(15,'HR','System Administrator','akellorich@gmail.com','<body style=\"background-color:rgb(206, 200, 200); font-family:\'Helvetica Neue\',Arial, Helvetica, sans-serif; font-size: 12px;\" >\r\n	<table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\"\r\n		width=\"650px\" bgcolor=\"white\" style=\"border:2px solid rgb(121, 120, 120)\">\r\n		<tbody>\r\n			<tr>\r\n				<td align=\"center\" >\r\n					<table align=\"center\" border=\"0\" cellpadding=\"0\"\r\n						cellspacing=\"0\" class=\"col-550\" width=\"100%\">\r\n						<tbody>\r\n							<tr>\r\n								<td align=\"center\" style=\"background-color: #1e90ff;\r\n										height: 50px; width:100%\">\r\n                                    <img src=\"/images/logo.jpg\" alt=\"\" style=\"margin-top:10px; width:70px; border-radius:5px\">\r\n									<a href=\"#\" style=\"text-decoration: none;\">\r\n										<p style=\"color:white;\r\n												font-weight:bold; margin-bottom: 10px;\">\r\n											Wolfenberg International Limited\r\n										</p>\r\n									</a>\r\n								</td>\r\n							</tr>\r\n						</tbody>\r\n					</table>\r\n				</td>\r\n			</tr>\r\n			<tr style=\"height: 75px; border: none;border-bottom: 2px solid #1e90ff;\">\r\n				<td align=\"center\" style=\"padding-right: 20px;padding-left:20px; width:100%\">\r\n					<p style=\"font-weight: bolder;font-size: 20px; letter-spacing: 0.025em;	color:rgb(62, 62, 62);\">\r\n						Leave Application Approval Request\r\n					</p>\r\n				</td>\r\n			</tr>\r\n\r\n			<tr style=\"display: inline-block;\">\r\n				<td style=\"height: 150px; padding: 20px; border: none;	 background-color: white;\">\r\n					<p class=\"data\" style=\"text-align: justify-all;	align-items: center; font-size: 12px; padding-bottom: 12px;\">\r\n                        <p>Hello James Marsden Cain,</p>\r\n                        <p>Marion Jones Mayers of staff number NT0003 has applied for a leave, details below:</p>\r\n                        <p>Leave Type:<strong>Annual Leave</strong></p>\r\n                        <p>Start Date: <strong>09-Apr-2025</strong></p>\r\n                        <p>End Date: <strong>09-Apr-2025</strong></p>\r\n                        <p>Days Taken: <strong>0.50</strong></p>\r\n                        <p>Narration: <strong>This is a test leave</strong></p>\r\n                        <p></p>\r\n                        <p>Kindly access the system for review and approval of the leave for <strong>Senior Management Level</strong> </p>\r\n                        <p></p>\r\n                        <p>&nbsp;</p>\r\n                        <p>Kind Regards</p>\r\n                        <p>System Administrator</p>\r\n					</p>\r\n				</td>\r\n			</tr>\r\n            <tr style=\"border: none; background-color: #1e90ff; height: 40px; color:white; padding-bottom: 20px;	text-align: center;\">	\r\n                <td height=\"40px\" align=\"center\">\r\n                    <p style=\"color:rgb(246, 243, 243); line-height: 1.5em;\">\r\n                        Please get in touch via our social media platform links below\r\n                    </p>\r\n                    <a href=\"https://instagram.com/cuvva.ke?igshid=MzMyNGUyNmU2YQ==\"style=\"border:none;text-decoration: none; padding: 5px;\">      \r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/instagram.jpg\" width=\"40px\" height=\"40px\"  /> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M224 202.66A53.34 53.34 0 1 0 277.36 256A53.38 53.38 0 0 0 224 202.66Zm124.71-41a54 54 0 0 0-30.41-30.41c-21-8.29-71-6.43-94.3-6.43s-73.25-1.93-94.31 6.43a54 54 0 0 0-30.41 30.41c-8.28 21-6.43 71.05-6.43 94.33s-1.85 73.27 6.47 94.34a54 54 0 0 0 30.41 30.41c21 8.29 71 6.43 94.31 6.43s73.24 1.93 94.3-6.43a54 54 0 0 0 30.41-30.41c8.35-21 6.43-71.05 6.43-94.33s1.92-73.26-6.43-94.33ZM224 338a82 82 0 1 1 82-82a81.9 81.9 0 0 1-82 82Zm85.38-148.3a19.14 19.14 0 1 1 19.13-19.14a19.1 19.1 0 0 1-19.09 19.18ZM400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h352a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48Zm-17.12 290c-1.29 25.63-7.14 48.34-25.85 67s-41.4 24.63-67 25.85c-26.41 1.49-105.59 1.49-132 0c-25.63-1.29-48.26-7.15-67-25.85s-24.63-41.42-25.85-67c-1.49-26.42-1.49-105.61 0-132c1.29-25.63 7.07-48.34 25.85-67s41.47-24.56 67-25.78c26.41-1.49 105.59-1.49 132 0c25.63 1.29 48.33 7.15 67 25.85s24.63 41.42 25.85 67.05c1.49 26.32 1.49 105.44 0 131.88Z\"/>\r\n                        </svg>\r\n                    </a>\r\n        \r\n                    <a href=\"https://www.linkedin.com/company/cuvva-insurance/\"style=\"border:none; text-decoration: none; padding: 5px;\">\r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/linkedin.jpg\" width=\"40px\" height=\"40px\" /> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5c0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7c-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5c67.2 0 79.7 44.3 79.7 101.9V416z\"/>\r\n                        </svg>\r\n                    </a>\r\n        \r\n                    <a href=\"https://www.facebook.com/profile.php?id=100089429259352&mibextid=b06tZ0\"style=\"border:none; text-decoration: none; padding: 5px;\">\r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/facebook.jpg\" width=\"40px\" height=\"40px\"  style=\"position: relative;\"/> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48c27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z\"/>\r\n                        </svg>\r\n                    </a>\r\n                </td>   \r\n            </tr>\r\n\r\n            <tr>\r\n                <td style=\"font-family:\'Open Sans\', Arial, sans-serif; font-size:11px; line-height:18px;  color:#999999;\"  valign=\"top\"  align=\"center\">\r\n                    <a href=\"#\"\r\n                        target=\"_blank\"\r\n                        style=\"color:#999999;\r\n                            text-decoration:none;\">\r\n                            PRIVACY STATEMENT\r\n                    </a>\r\n                    |\r\n                    <a href=\"#\" target=\"_blank\"  style=\"color:#999999; text-decoration:none;\">\r\n                        TERMS OF SERVICE\r\n                    </a>\r\n                    <!-- |\r\n                    <a href=\"#\" target=\"_blank\" style=\"color:#999999; text-decoration:none;\">\r\n                        RETURNS\r\n                    </a> -->\r\n                    <p>\r\n\r\n                        &copy;2025 Wolfenberg International Limited&reg;. All Rights Reserved.<br>\r\n                            If you do not wish to receive any further\r\n                            emails from us, please\r\n                        <a href=\"#\" target=\"_blank\" style=\"text-decoration:none; color:#999999;\">\r\n                            Unsubscribe\r\n                        </a>\r\n                    </p>\r\n                    \r\n                </td>\r\n            </tr>\r\n        </tbody>\r\n    </table>\r\n</body>\r\n','Leave Application Approval Request for Senior Management Level ','','2025-04-09 14:45:23',5,NULL,'pending',NULL),
+(16,'HR','System Administrator','akellorich@gmail.com','<body style=\"background-color:rgb(206, 200, 200); font-family:\'Helvetica Neue\',Arial, Helvetica, sans-serif; font-size: 12px;\" >\r\n	<table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\"\r\n		width=\"650px\" bgcolor=\"white\" style=\"border:2px solid rgb(121, 120, 120)\">\r\n		<tbody>\r\n			<tr>\r\n				<td align=\"center\" >\r\n					<table align=\"center\" border=\"0\" cellpadding=\"0\"\r\n						cellspacing=\"0\" class=\"col-550\" width=\"100%\">\r\n						<tbody>\r\n							<tr>\r\n								<td align=\"center\" style=\"background-color: #1e90ff;\r\n										height: 50px; width:100%\">\r\n                                    <img src=\"/images/logo.jpg\" alt=\"\" style=\"margin-top:10px; width:70px; border-radius:5px\">\r\n									<a href=\"#\" style=\"text-decoration: none;\">\r\n										<p style=\"color:white;\r\n												font-weight:bold; margin-bottom: 10px;\">\r\n											Wolfenberg International Limited\r\n										</p>\r\n									</a>\r\n								</td>\r\n							</tr>\r\n						</tbody>\r\n					</table>\r\n				</td>\r\n			</tr>\r\n			<tr style=\"height: 75px; border: none;border-bottom: 2px solid #1e90ff;\">\r\n				<td align=\"center\" style=\"padding-right: 20px;padding-left:20px; width:100%\">\r\n					<p style=\"font-weight: bolder;font-size: 20px; letter-spacing: 0.025em;	color:rgb(62, 62, 62);\">\r\n						Leave Application Approval Completion Notification\r\n					</p>\r\n				</td>\r\n			</tr>\r\n\r\n			<tr style=\"display: inline-block;\">\r\n				<td style=\"height: 150px; padding: 20px; border: none;	 background-color: white;\">\r\n					<p class=\"data\" style=\"text-align: justify-all;	align-items: center; font-size: 12px; padding-bottom: 12px;\">\r\n                        <p>Hello Marion Jones Mayers,</p>\r\n                        <p>Your leave application has been fully approved. Leave details are as follows:</p>\r\n                        <p>Leave Type:<strong>Annual Leave</strong></p>\r\n                        <p>Start Date: <strong>09-Apr-2025</strong></p>\r\n                        <p>End Date: <strong>09-Apr-2025</strong></p>\r\n                        <p>Days Taken: <strong>0.50</strong></p>\r\n                        <p>Narration: <strong>This is a test leave</strong></p>\r\n                        <p></p>\r\n                        <p>You may proceed for your leave upon clearing with your supervisor. All the best during this time and stay safe</p>\r\n                        <p></p>\r\n                        <p>&nbsp;</p>\r\n                        <p>Kind Regards</p>\r\n                        <p>System Administrator</p>\r\n					</p>\r\n				</td>\r\n			</tr>\r\n            <tr style=\"border: none; background-color: #1e90ff; height: 40px; color:white; padding-bottom: 20px;	text-align: center;\">	\r\n                <td height=\"40px\" align=\"center\">\r\n                    <p style=\"color:rgb(246, 243, 243); line-height: 1.5em;\">\r\n                        Please get in touch via our social media platform links below\r\n                    </p>\r\n                    <a href=\"https://instagram.com/cuvva.ke?igshid=MzMyNGUyNmU2YQ==\"style=\"border:none;text-decoration: none; padding: 5px;\">      \r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/instagram.jpg\" width=\"40px\" height=\"40px\"  /> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M224 202.66A53.34 53.34 0 1 0 277.36 256A53.38 53.38 0 0 0 224 202.66Zm124.71-41a54 54 0 0 0-30.41-30.41c-21-8.29-71-6.43-94.3-6.43s-73.25-1.93-94.31 6.43a54 54 0 0 0-30.41 30.41c-8.28 21-6.43 71.05-6.43 94.33s-1.85 73.27 6.47 94.34a54 54 0 0 0 30.41 30.41c21 8.29 71 6.43 94.31 6.43s73.24 1.93 94.3-6.43a54 54 0 0 0 30.41-30.41c8.35-21 6.43-71.05 6.43-94.33s1.92-73.26-6.43-94.33ZM224 338a82 82 0 1 1 82-82a81.9 81.9 0 0 1-82 82Zm85.38-148.3a19.14 19.14 0 1 1 19.13-19.14a19.1 19.1 0 0 1-19.09 19.18ZM400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h352a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48Zm-17.12 290c-1.29 25.63-7.14 48.34-25.85 67s-41.4 24.63-67 25.85c-26.41 1.49-105.59 1.49-132 0c-25.63-1.29-48.26-7.15-67-25.85s-24.63-41.42-25.85-67c-1.49-26.42-1.49-105.61 0-132c1.29-25.63 7.07-48.34 25.85-67s41.47-24.56 67-25.78c26.41-1.49 105.59-1.49 132 0c25.63 1.29 48.33 7.15 67 25.85s24.63 41.42 25.85 67.05c1.49 26.32 1.49 105.44 0 131.88Z\"/>\r\n                        </svg>\r\n                    </a>\r\n        \r\n                    <a href=\"https://www.linkedin.com/company/cuvva-insurance/\"style=\"border:none; text-decoration: none; padding: 5px;\">\r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/linkedin.jpg\" width=\"40px\" height=\"40px\" /> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5c0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7c-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5c67.2 0 79.7 44.3 79.7 101.9V416z\"/>\r\n                        </svg>\r\n                    </a>\r\n        \r\n                    <a href=\"https://www.facebook.com/profile.php?id=100089429259352&mibextid=b06tZ0\"style=\"border:none; text-decoration: none; padding: 5px;\">\r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/facebook.jpg\" width=\"40px\" height=\"40px\"  style=\"position: relative;\"/> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48c27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z\"/>\r\n                        </svg>\r\n                    </a>\r\n                </td>   \r\n            </tr>\r\n\r\n            <tr>\r\n                <td style=\"font-family:\'Open Sans\', Arial, sans-serif; font-size:11px; line-height:18px;  color:#999999;\"  valign=\"top\"  align=\"center\">\r\n                    <a href=\"#\"\r\n                        target=\"_blank\"\r\n                        style=\"color:#999999;\r\n                            text-decoration:none;\">\r\n                            PRIVACY STATEMENT\r\n                    </a>\r\n                    |\r\n                    <a href=\"#\" target=\"_blank\"  style=\"color:#999999; text-decoration:none;\">\r\n                        TERMS OF SERVICE\r\n                    </a>\r\n                    <!-- |\r\n                    <a href=\"#\" target=\"_blank\" style=\"color:#999999; text-decoration:none;\">\r\n                        RETURNS\r\n                    </a> -->\r\n                    <p>\r\n\r\n                        &copy;2025 Wolfenberg International Limited&reg;. All Rights Reserved.<br>\r\n                            If you do not wish to receive any further\r\n                            emails from us, please\r\n                        <a href=\"#\" target=\"_blank\" style=\"text-decoration:none; color:#999999;\">\r\n                            Unsubscribe\r\n                        </a>\r\n                    </p>\r\n                    \r\n                </td>\r\n            </tr>\r\n        </tbody>\r\n    </table>\r\n</body>\r\n','Leave Application Approval Completion Notification','','2025-04-09 14:45:49',5,NULL,'pending',NULL),
+(17,'HR','System Administrator','akellorich@gmail.com','<body style=\"background-color:rgb(206, 200, 200); font-family:\'Helvetica Neue\',Arial, Helvetica, sans-serif; font-size: 12px;\" >\r\n	<table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\"\r\n		width=\"650px\" bgcolor=\"white\" style=\"border:2px solid rgb(121, 120, 120)\">\r\n		<tbody>\r\n			<tr>\r\n				<td align=\"center\" >\r\n					<table align=\"center\" border=\"0\" cellpadding=\"0\"\r\n						cellspacing=\"0\" class=\"col-550\" width=\"100%\">\r\n						<tbody>\r\n							<tr>\r\n								<td align=\"center\" style=\"background-color: #1e90ff;\r\n										height: 50px; width:100%\">\r\n                                    <img src=\"/images/logo.jpg\" alt=\"\" style=\"margin-top:10px; width:70px; border-radius:5px\">\r\n									<a href=\"#\" style=\"text-decoration: none;\">\r\n										<p style=\"color:white;\r\n												font-weight:bold; margin-bottom: 10px;\">\r\n											Wolfenberg International Limited\r\n										</p>\r\n									</a>\r\n								</td>\r\n							</tr>\r\n						</tbody>\r\n					</table>\r\n				</td>\r\n			</tr>\r\n			<tr style=\"height: 75px; border: none;border-bottom: 2px solid #1e90ff;\">\r\n				<td align=\"center\" style=\"padding-right: 20px;padding-left:20px; width:100%\">\r\n					<p style=\"font-weight: bolder;font-size: 20px; letter-spacing: 0.025em;	color:rgb(62, 62, 62);\">\r\n						Reliever Leave Application Approval Notification\r\n					</p>\r\n				</td>\r\n			</tr>\r\n\r\n			<tr style=\"display: inline-block;\">\r\n				<td style=\"height: 150px; padding: 20px; border: none;	 background-color: white;\">\r\n					<p class=\"data\" style=\"text-align: justify-all;	align-items: center; font-size: 12px; padding-bottom: 12px;\">\r\n                        <p>Hello Patrice Lumumba Emery,</p>\r\n                        <p>Your colleague Marion Jones Mayers staff number {{staffno}} had made a leave application and it has been approved fully.</p>\r\n                        <p>You had been selected as the reliever by your colleague for the leave application</p>\r\n                        <p>Leave details are as follows:</p>\r\n                        <p>Leave Type:<strong>Annual Leave</strong></p>\r\n                        <p>Start Date: <strong>09-Apr-2025</strong></p>\r\n                        <p>End Date: <strong>09-Apr-2025</strong></p>\r\n                        <p>Days Taken: <strong>0.50</strong></p>\r\n                        <p>Narration: <strong>This is a test leave</strong></p>\r\n                        <p></p>\r\n                        <p>Kindly liase with the applicant for hand over as you will be taking over their responsibilities during their leave period</p>\r\n                        <p></p>\r\n                        <p>&nbsp;</p>\r\n                        <p>Kind Regards</p>\r\n                        <p>System Administrator</p>\r\n					</p>\r\n				</td>\r\n			</tr>\r\n            <tr style=\"border: none; background-color: #1e90ff; height: 40px; color:white; padding-bottom: 20px;	text-align: center;\">	\r\n                <td height=\"40px\" align=\"center\">\r\n                    <p style=\"color:rgb(246, 243, 243); line-height: 1.5em;\">\r\n                        Please get in touch via our social media platform links below\r\n                    </p>\r\n                    <a href=\"https://instagram.com/cuvva.ke?igshid=MzMyNGUyNmU2YQ==\"style=\"border:none;text-decoration: none; padding: 5px;\">      \r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/instagram.jpg\" width=\"40px\" height=\"40px\"  /> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M224 202.66A53.34 53.34 0 1 0 277.36 256A53.38 53.38 0 0 0 224 202.66Zm124.71-41a54 54 0 0 0-30.41-30.41c-21-8.29-71-6.43-94.3-6.43s-73.25-1.93-94.31 6.43a54 54 0 0 0-30.41 30.41c-8.28 21-6.43 71.05-6.43 94.33s-1.85 73.27 6.47 94.34a54 54 0 0 0 30.41 30.41c21 8.29 71 6.43 94.31 6.43s73.24 1.93 94.3-6.43a54 54 0 0 0 30.41-30.41c8.35-21 6.43-71.05 6.43-94.33s1.92-73.26-6.43-94.33ZM224 338a82 82 0 1 1 82-82a81.9 81.9 0 0 1-82 82Zm85.38-148.3a19.14 19.14 0 1 1 19.13-19.14a19.1 19.1 0 0 1-19.09 19.18ZM400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h352a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48Zm-17.12 290c-1.29 25.63-7.14 48.34-25.85 67s-41.4 24.63-67 25.85c-26.41 1.49-105.59 1.49-132 0c-25.63-1.29-48.26-7.15-67-25.85s-24.63-41.42-25.85-67c-1.49-26.42-1.49-105.61 0-132c1.29-25.63 7.07-48.34 25.85-67s41.47-24.56 67-25.78c26.41-1.49 105.59-1.49 132 0c25.63 1.29 48.33 7.15 67 25.85s24.63 41.42 25.85 67.05c1.49 26.32 1.49 105.44 0 131.88Z\"/>\r\n                        </svg>\r\n                    </a>\r\n        \r\n                    <a href=\"https://www.linkedin.com/company/cuvva-insurance/\"style=\"border:none; text-decoration: none; padding: 5px;\">\r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/linkedin.jpg\" width=\"40px\" height=\"40px\" /> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5c0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7c-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5c67.2 0 79.7 44.3 79.7 101.9V416z\"/>\r\n                        </svg>\r\n                    </a>\r\n        \r\n                    <a href=\"https://www.facebook.com/profile.php?id=100089429259352&mibextid=b06tZ0\"style=\"border:none; text-decoration: none; padding: 5px;\">\r\n                        <!-- <img src=\"https://cuvva.co.ke/quotation/images/socialicons/facebook.jpg\" width=\"40px\" height=\"40px\"  style=\"position: relative;\"/> -->\r\n                        <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"45\" viewBox=\"0 0 448 512\">\r\n                            <path fill=\"white\" d=\"M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48c27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z\"/>\r\n                        </svg>\r\n                    </a>\r\n                </td>   \r\n            </tr>\r\n\r\n            <tr>\r\n                <td style=\"font-family:\'Open Sans\', Arial, sans-serif; font-size:11px; line-height:18px;  color:#999999;\"  valign=\"top\"  align=\"center\">\r\n                    <a href=\"#\"\r\n                        target=\"_blank\"\r\n                        style=\"color:#999999;\r\n                            text-decoration:none;\">\r\n                            PRIVACY STATEMENT\r\n                    </a>\r\n                    |\r\n                    <a href=\"#\" target=\"_blank\"  style=\"color:#999999; text-decoration:none;\">\r\n                        TERMS OF SERVICE\r\n                    </a>\r\n                    <!-- |\r\n                    <a href=\"#\" target=\"_blank\" style=\"color:#999999; text-decoration:none;\">\r\n                        RETURNS\r\n                    </a> -->\r\n                    <p>\r\n\r\n                        &copy;2025 Wolfenberg International Limited&reg;. All Rights Reserved.<br>\r\n                            If you do not wish to receive any further\r\n                            emails from us, please\r\n                        <a href=\"#\" target=\"_blank\" style=\"text-decoration:none; color:#999999;\">\r\n                            Unsubscribe\r\n                        </a>\r\n                    </p>\r\n                    \r\n                </td>\r\n            </tr>\r\n        </tbody>\r\n    </table>\r\n</body>\r\n','Reliever Leave Application Full Approval Notification','','2025-04-09 14:45:49',5,NULL,'pending',NULL);
 
 /*Table structure for table `employeeattachabledocuments` */
 
@@ -2438,6 +4142,24 @@ insert  into `employeeattachments`(`id`,`documentid`,`employeeid`,`documentexpir
 (1,1,6,0,'1970-01-01','','',5,'2024-08-26 15:55:02',5,1,'2024-08-26 16:02:38'),
 (2,2,6,0,'1970-01-01','','The ID is a 1st Generation',5,'2024-08-26 16:03:09',NULL,0,NULL),
 (3,1,6,0,'1970-01-01','../employee_uploads/document_attachments/Richard Onyango _6_85653be542d73b4e69db_Richard_CV.pdf','This is a coloure copy of the ID front',5,'2024-08-26 20:02:24',NULL,0,NULL);
+
+/*Table structure for table `employeeattendance` */
+
+DROP TABLE IF EXISTS `employeeattendance`;
+
+CREATE TABLE `employeeattendance` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `employeeid` int(11) DEFAULT NULL,
+  `shiftid` int(11) DEFAULT NULL,
+  `date` date DEFAULT NULL,
+  `checkin` datetime DEFAULT NULL,
+  `checkout` datetime DEFAULT NULL,
+  `dateadded` datetime DEFAULT NULL,
+  `addedby` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `employeeattendance` */
 
 /*Table structure for table `employeebeneficiaries` */
 
@@ -2633,7 +4355,7 @@ CREATE TABLE `employeeleaveallocation` (
   `datedeleted` datetime DEFAULT NULL,
   `deleteby` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `employeeleaveallocation` */
 
@@ -2661,7 +4383,14 @@ insert  into `employeeleaveallocation`(`id`,`employeeid`,`leavetypeid`,`year`,`a
 (28,4,2,2024,7.00,'2024-12-29 00:05:01',25,0,NULL,NULL),
 (29,5,2,2024,7.00,'2024-12-29 00:05:01',25,0,NULL,NULL),
 (30,7,2,2024,7.00,'2024-12-29 00:05:01',25,0,NULL,NULL),
-(31,6,2,2024,7.00,'2024-12-29 00:05:01',25,0,NULL,NULL);
+(31,6,2,2024,7.00,'2024-12-29 00:05:01',25,0,NULL,NULL),
+(32,1,2,2024,7.00,'2024-12-30 15:21:41',25,0,NULL,NULL),
+(33,2,2,2024,7.00,'2024-12-30 15:21:41',25,0,NULL,NULL),
+(34,3,2,2024,7.00,'2024-12-30 15:21:41',25,0,NULL,NULL),
+(35,4,2,2024,7.00,'2024-12-30 15:21:41',25,0,NULL,NULL),
+(36,5,2,2024,7.00,'2024-12-30 15:21:41',25,0,NULL,NULL),
+(37,7,2,2024,7.00,'2024-12-30 15:21:41',25,0,NULL,NULL),
+(38,6,2,2024,7.00,'2024-12-30 15:21:41',25,0,NULL,NULL);
 
 /*Table structure for table `employeepayrollitems` */
 
@@ -2684,7 +4413,7 @@ CREATE TABLE `employeepayrollitems` (
   `deletedby` int(11) DEFAULT NULL,
   `targetamount` decimal(18,2) DEFAULT NULL,
   PRIMARY KEY (`itemid`)
-) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `employeepayrollitems` */
 
@@ -2715,10 +4444,10 @@ insert  into `employeepayrollitems`(`itemid`,`payrollitemid`,`employeeid`,`start
 (24,7,1,'2024-01-01',0,14000.00,0,0,'','2024-06-22 19:45:36',5,0,NULL,NULL,0.00),
 (25,6,1,'2024-01-01',0,45800.00,0,0,'','2024-06-22 19:45:36',5,0,NULL,NULL,0.00),
 (26,5,3,'2024-01-01',0,162800.00,0,0,'','2024-06-23 09:46:28',5,1,'2024-07-14 12:01:59',5,0.00),
-(27,7,3,'2024-01-01',0,14000.00,0,0,'','2024-06-23 09:46:28',5,0,NULL,NULL,0.00),
+(27,7,3,'2024-01-01',0,14000.00,0,0,'','2024-06-23 09:46:28',5,1,'2025-04-30 12:20:54',5,0.00),
 (28,6,3,'2024-01-01',0,56800.00,0,0,'','2024-06-23 09:46:29',5,0,NULL,NULL,0.00),
 (29,5,5,'2024-01-01',0,162800.00,0,0,'','2024-06-23 09:47:36',5,0,NULL,NULL,0.00),
-(30,7,5,'2024-01-01',0,14000.00,0,0,'','2024-06-23 09:47:36',5,0,NULL,NULL,0.00),
+(30,7,5,'2024-01-01',0,14000.00,0,0,'','2024-06-23 09:47:36',5,1,'2025-04-30 12:20:54',5,0.00),
 (31,6,5,'2024-01-01',0,56800.00,0,0,'','2024-06-23 09:47:36',5,0,NULL,NULL,0.00),
 (32,5,2,'2024-01-01',0,132500.00,0,0,'','2024-06-23 09:49:19',5,0,NULL,NULL,0.00),
 (33,7,2,'2024-01-01',0,14000.00,0,0,'','2024-06-23 09:49:19',5,1,'2024-07-14 13:02:29',5,0.00),
@@ -2735,7 +4464,7 @@ insert  into `employeepayrollitems`(`itemid`,`payrollitemid`,`employeeid`,`start
 (44,10,3,'2024-01-01',0,3504.00,0,0,'','2024-07-02 17:27:49',5,0,NULL,NULL,0.00),
 (45,14,1,'2024-01-01',0,15000.00,0,0,'','2024-07-14 12:01:03',5,0,NULL,NULL,0.00),
 (46,5,3,'2024-01-01',0,148500.00,0,0,'','2024-07-14 12:02:03',5,0,NULL,NULL,0.00),
-(47,7,4,'2024-01-01',0,14000.00,0,0,'','2024-07-14 12:02:33',5,0,NULL,NULL,0.00),
+(47,7,4,'2024-01-01',0,14000.00,0,0,'','2024-07-14 12:02:33',5,1,'2025-04-30 12:20:54',5,0.00),
 (48,14,4,'2024-01-01',0,25200.00,0,0,'','2024-07-14 12:36:00',5,0,NULL,NULL,0.00),
 (49,11,2,'2024-01-01',0,2884.50,0,0,'','2024-07-15 19:27:10',5,1,'2024-07-15 19:27:31',5,0.00),
 (50,11,4,'2024-01-01',0,1060.50,0,0,'','2024-07-15 19:27:10',5,1,'2024-07-15 19:27:31',5,0.00),
@@ -2767,10 +4496,27 @@ insert  into `employeepayrollitems`(`itemid`,`payrollitemid`,`employeeid`,`start
 (76,15,5,'2024-08-15',1,61779.40,1,0,'','2024-08-15 20:21:53',5,1,'2024-08-15 20:24:29',5,0.00),
 (77,15,3,'2024-08-15',1,61779.40,1,0,'','2024-08-15 20:21:53',5,1,'2024-08-15 20:24:29',5,0.00),
 (78,15,1,'2024-08-15',1,51376.90,1,0,'','2024-08-15 20:24:29',5,0,NULL,NULL,0.00),
-(79,15,4,'2024-08-15',1,12909.40,1,0,'','2024-08-15 20:24:29',5,0,NULL,NULL,0.00),
-(80,15,5,'2024-08-15',1,61779.40,1,0,'','2024-08-15 20:24:29',5,0,NULL,NULL,0.00),
-(81,15,3,'2024-08-15',1,61779.40,1,0,'','2024-08-15 20:24:29',5,0,NULL,NULL,0.00),
-(82,6,8,'2024-08-31',0,20000.00,0,0,'','2024-08-19 14:22:52',5,0,NULL,NULL,0.00);
+(79,15,4,'2024-08-15',1,12909.40,1,0,'','2024-08-15 20:24:29',5,1,'2025-04-09 14:51:28',5,0.00),
+(80,15,5,'2024-08-15',1,61779.40,1,0,'','2024-08-15 20:24:29',5,1,'2025-04-09 14:51:28',5,0.00),
+(81,15,3,'2024-08-15',1,61779.40,1,0,'','2024-08-15 20:24:29',5,1,'2025-04-09 14:51:28',5,0.00),
+(82,6,8,'2024-08-31',0,20000.00,0,0,'','2024-08-19 14:22:52',5,0,NULL,NULL,0.00),
+(83,2,11,'2025-04-09',0,0.00,0,0,'','2025-04-09 14:31:11',5,0,NULL,NULL,0.00),
+(84,9,11,'2025-04-09',0,0.00,0,0,'','2025-04-09 14:31:11',5,0,NULL,NULL,0.00),
+(85,1,11,'2025-04-09',0,0.00,0,0,'','2025-04-09 14:31:11',5,0,NULL,NULL,0.00),
+(86,4,11,'2025-04-09',0,0.00,0,0,'','2025-04-09 14:31:11',5,0,NULL,NULL,0.00),
+(87,5,11,'2025-04-09',0,11000.00,0,0,'','2025-04-09 14:31:46',5,0,NULL,NULL,0.00),
+(88,6,11,'2025-04-09',0,7800.00,0,0,'','2025-04-09 14:31:46',5,0,NULL,NULL,0.00),
+(89,15,11,'2025-04-09',1,4500.00,1,0,'','2025-04-09 14:32:21',5,0,NULL,NULL,0.00),
+(90,15,2,'2025-04-09',1,5200.00,1,0,'','2025-04-09 14:51:28',5,0,NULL,NULL,0.00),
+(91,15,4,'2025-04-09',1,3100.00,1,0,'','2025-04-09 14:51:28',5,0,NULL,NULL,0.00),
+(92,15,5,'2025-04-09',1,4500.00,1,0,'','2025-04-09 14:51:28',5,0,NULL,NULL,0.00),
+(93,15,7,'2025-04-09',1,2400.00,1,0,'','2025-04-09 14:51:28',5,0,NULL,NULL,0.00),
+(94,15,3,'2025-04-09',1,5800.00,1,0,'','2025-04-09 14:51:28',5,0,NULL,NULL,0.00),
+(95,7,2,'2025-04-30',3,5200.00,1,0,'','2025-04-30 12:20:54',5,0,NULL,NULL,0.00),
+(96,7,4,'2025-04-30',3,3100.00,1,0,'','2025-04-30 12:20:54',5,0,NULL,NULL,0.00),
+(97,7,5,'2025-04-30',3,4500.00,1,0,'','2025-04-30 12:20:54',5,0,NULL,NULL,0.00),
+(98,7,7,'2025-04-30',3,2400.00,1,0,'','2025-04-30 12:20:54',5,0,NULL,NULL,0.00),
+(99,7,3,'2025-04-30',3,5800.00,1,0,'','2025-04-30 12:20:54',5,0,NULL,NULL,0.00);
 
 /*Table structure for table `employeerecords` */
 
@@ -2820,6 +4566,12 @@ CREATE TABLE `employeerecords` (
   `alternativeemailaddress` varchar(100) DEFAULT NULL,
   `dateadded` datetime DEFAULT NULL,
   `addedby` int(11) DEFAULT NULL,
+  `unitid` int(11) DEFAULT NULL,
+  `shiftid` int(11) DEFAULT NULL,
+  `sectionid` int(11) DEFAULT NULL,
+  `lastmodifiedby` int(11) DEFAULT NULL,
+  `lastmodificationdate` datetime DEFAULT NULL,
+  `attendancestatus` varchar(50) DEFAULT 'active',
   PRIMARY KEY (`employeeid`),
   CONSTRAINT `CONSTRAINT_1` CHECK (`gender` in ('male','female','other')),
   CONSTRAINT `CONSTRAINT_2` CHECK (`status` in ('active','suspended','withdrawn')),
@@ -2828,18 +4580,18 @@ CREATE TABLE `employeerecords` (
 
 /*Data for the table `employeerecords` */
 
-insert  into `employeerecords`(`employeeid`,`staffno`,`firstname`,`middlename`,`lastname`,`termid`,`categoryid`,`departmentid`,`religionid`,`salutationid`,`iddocumentid`,`iddocreferenceno`,`iddocexpirydate`,`dateofbirth`,`gender`,`pinno`,`nssfno`,`nhifno`,`disabled`,`disabilitytype`,`disabilitydescription`,`disabilitycertificateno`,`onpayroll`,`fixedpaye`,`status`,`positionid`,`jobgroupid`,`notchid`,`bankbranchid`,`bankaccountnumber`,`employmentdate`,`separationdate`,`separationreason`,`physicaladdress`,`postaladdress`,`town`,`postalcode`,`mobile`,`emailaddress`,`alternativemobile`,`alternativeemailaddress`,`dateadded`,`addedby`) values 
-(1,'NT0001','Richard','Onyango','Akelo',5,2,10,1,1,1,'23657524','0000-00-00','1983-01-11','male','A00389875','7487854','N9879347',0,'none','','',0,0,'active',6,10,8,3,'0250190497310','2009-06-17',NULL,NULL,'Kandisi, Ongata Rongai, Opp SGR','52428','Nairobi','00200','0727709772','akellorich@gmail.com','','','2024-06-15 13:32:58',5),
-(2,'AC0001','Martin','Lawrence','Jameson',4,1,2,1,2,1,'3487674','0000-00-00','2005-06-01','male','A743657534H','2638764','N27979287',0,'none','',NULL,1,0,'active',10,10,8,3,'0111250456897','2018-01-01',NULL,NULL,'New York','99832','New York','801210','0734556677','akellorich1@gmail.com','','','2024-06-15 13:48:18',5),
-(3,'TST001','James','Marsden','Cain',4,1,2,1,2,1,'34876747','0000-00-00','2005-06-01','male','A743657534HY','2638764J','N27979287U',1,'permanent','Clubfoot','85796767',1,0,'active',1,10,4,3,'0111250456897','2018-01-01',NULL,NULL,'New York','99832','New York','801210','0734556674','akellorich1@gmail.com','','','2024-06-15 13:50:28',5),
-(4,'NT0002','Patrice','Lumumba','Emery',4,2,1,1,3,1,'5786547','0000-00-00','1974-03-31','male','A3476865H','873464','R827647',0,'none','','',1,0,'active',12,10,6,2,'1115456','1990-01-01',NULL,NULL,'Gatsabo District, Nyarutarama, Kigali','4587','Kigali, Rwanda','89089','256789456123','akellorich1@gmail.com','','','2024-06-15 15:04:58',5),
-(5,'NT0003','Marion','Jones','Mayers',4,2,1,1,2,1,'456789798','0000-00-00','1980-04-01','female','A45876465H','376487654','N736746U',0,'none','','',1,0,'active',2,10,4,2,'11156789422','1992-06-01',NULL,NULL,'Beverly Hills, Carlifonia','9485908','Beverly Hills','810210','254753601502','akellorich1@gmail.com','','','2024-06-15 15:11:35',5),
-(6,'AC0002','Richard','Onyango','',6,1,1,4,3,1,'878976986','0000-00-00','2024-07-15','male','7576545','75876','8766',1,'temporary','Fisheye','8579676709',1,0,'active',7,5,5,1,'79877698765','2024-07-15',NULL,NULL,'','','','','0727709773','akellorich1@gmail.com','','','2024-07-15 19:33:31',5),
-(7,'ST0321','Leila','Charles','Achieng',4,2,1,1,1,1,'11840101','0000-00-00','2005-08-01','female','A0098749875H','-','-',0,'none','','',1,0,'active',1,11,9,5,'01020017043300','2023-08-01',NULL,NULL,'Haile Sellasie Avenue','52428','Nairobi','00200','0727477757','akellorich1@gmail.com','','','2024-08-09 12:54:36',5),
-(8,'AC0003','Sam','Mosabi','Mungeli',4,1,12,1,1,1,'37966232','0000-00-00','2005-08-03','male','A009876545','7654321','1234567',0,'temporary','','',1,1,'withdrawn',2,20,10,621,'0987654321','2024-08-19',NULL,NULL,'Donholm','1725','Nairobi','00100','0725162889','sommosabi2@gmail.com','','','2024-08-19 14:19:45',5),
-(9,'NT0004','Robert','Mugabe','Snr',4,2,12,1,1,1,'8797897','0000-00-00','1964-02-12','male','A874676587Q','S765754','N34776456',0,'none','','',1,0,'active',10,9,8,1807,'54679876598756','2024-10-01',NULL,NULL,'Haile Sellasie Avenue','52428','Nairobi','00200','0722000000','akellorich@yahoo.com','','','2024-10-08 14:33:30',5),
-(10,'AC0004','Daniel','Middle','Boy',4,1,12,1,1,1,'39654412','0000-00-00','1979-10-09','male','A0123456','98087696','9808765',0,'none','','',1,0,'active',9,8,14,675,'0001232525154','2024-10-16',NULL,NULL,'Embakasi','00501','Nairobi','00100','0725162888','cthis999@gmail.com','','','2024-10-16 14:18:58',5),
-(11,'TST0001','John','Kamau','Ndirangu',4,6,12,1,1,1,'12345','0000-00-00','1966-10-12','male','12345','4567890','654321',0,'none','','',1,0,'active',15,2,14,621,'098765432','2024-10-28',NULL,NULL,'Embakasi','0501','Nairobi','0100','0712345678','john23@gmail.com','','','2024-10-28 14:01:49',5);
+insert  into `employeerecords`(`employeeid`,`staffno`,`firstname`,`middlename`,`lastname`,`termid`,`categoryid`,`departmentid`,`religionid`,`salutationid`,`iddocumentid`,`iddocreferenceno`,`iddocexpirydate`,`dateofbirth`,`gender`,`pinno`,`nssfno`,`nhifno`,`disabled`,`disabilitytype`,`disabilitydescription`,`disabilitycertificateno`,`onpayroll`,`fixedpaye`,`status`,`positionid`,`jobgroupid`,`notchid`,`bankbranchid`,`bankaccountnumber`,`employmentdate`,`separationdate`,`separationreason`,`physicaladdress`,`postaladdress`,`town`,`postalcode`,`mobile`,`emailaddress`,`alternativemobile`,`alternativeemailaddress`,`dateadded`,`addedby`,`unitid`,`shiftid`,`sectionid`,`lastmodifiedby`,`lastmodificationdate`,`attendancestatus`) values 
+(1,'NT0001','Richard','Onyango','Akelo',5,2,13,1,1,1,'23657524','0000-00-00','1983-01-11','male','A00389875','7487854','N9879347',0,'none','','',0,0,'active',6,10,8,174,'0250190497310','2009-06-17',NULL,NULL,'Kandisi, Ongata Rongai, Opp SGR','52428','Nairobi','00200','0727709772','akellorich2@gmail.com','','','2024-06-15 13:32:58',5,4,10,1,5,'2025-01-30 16:31:36','inactive'),
+(2,'AC0001','Martin','Lawrence','Jameson',4,1,2,1,2,1,'3487674','0000-00-00','2005-06-01','male','A743657534H','2638764','N27979287',0,'none','',NULL,1,0,'active',10,10,8,3,'0111250456897','2018-01-01',NULL,NULL,'New York','99832','New York','801210','0734556677','akellorich@gmail.com','','','2024-06-15 13:48:18',5,4,10,1,NULL,NULL,'inactive'),
+(3,'TST001','James','Marsden','Cain',4,1,13,1,2,1,'34876747','0000-00-00','2005-06-01','male','A743657534HY','2638764J','N27979287U',1,'permanent','Clubfoot','85796767',1,0,'active',1,10,4,17,'0111250456897','2018-01-01',NULL,NULL,'New York','99832','New York','801210','0734556674','akellorich@gmail.com','','','2024-06-15 13:50:28',5,4,10,1,5,'2025-01-30 16:31:36','inactive'),
+(4,'NT0002','Patrice','Lumumba','Emery',4,2,1,1,3,1,'5786547','0000-00-00','1974-03-31','male','A3476865H','873464','R827647',0,'none','','',1,0,'active',12,10,6,2,'1115456','1990-01-01',NULL,NULL,'Gatsabo District, Nyarutarama, Kigali','4587','Kigali, Rwanda','89089','256789456123','akellorich@gmail.com','','','2024-06-15 15:04:58',5,4,10,2,NULL,NULL,'inactive'),
+(5,'NT0003','Marion','Jones','Mayers',4,2,1,1,2,1,'456789798','0000-00-00','1980-04-01','female','A45876465H','376487654','N736746U',0,'none','','',1,0,'active',2,10,4,2,'11156789422','1992-06-01',NULL,NULL,'Beverly Hills, Carlifonia','9485908','Beverly Hills','810210','254753601502','akellorich@gmail.com','','','2024-06-15 15:11:35',5,4,10,2,NULL,NULL,'inactive'),
+(6,'AC0002','Richard','Onyango','',6,1,1,4,3,1,'878976986','0000-00-00','2024-07-15','male','7576545','75876','8766',1,'temporary','Fisheye','8579676709',1,0,'active',7,5,5,1,'79877698765','2024-07-15',NULL,NULL,'','','','','0727709773','akellorich@gmail.com','','','2024-07-15 19:33:31',5,4,10,1,NULL,NULL,'inactive'),
+(7,'ST0321','Leila','Charles','Achieng',4,2,1,1,1,1,'11840101','0000-00-00','2005-08-01','female','A0098749875H','-','-',0,'none','','',1,0,'active',1,11,9,5,'01020017043300','2023-08-01',NULL,NULL,'Haile Sellasie Avenue','52428','Nairobi','00200','0727477757','akellorich@gmail.com','','','2024-08-09 12:54:36',5,4,10,1,NULL,NULL,'inactive'),
+(8,'AC0003','Sam','Mosabi','Mungeli',4,1,12,1,1,1,'37966232','0000-00-00','2005-08-03','male','A009876545','7654321','1234567',0,'temporary','','',1,1,'withdrawn',2,20,10,621,'0987654321','2024-08-19',NULL,NULL,'Donholm','1725','Nairobi','00100','0725162889','akellorich@gmail.com','','','2024-08-19 14:19:45',5,4,10,2,NULL,NULL,'inactive'),
+(9,'NT0004','Robert','Mugabe','Snr',4,2,12,1,1,1,'8797897','0000-00-00','1964-02-12','male','A874676587Q','S765754','N34776456',0,'none','','',1,0,'active',10,9,8,1807,'54679876598756','2024-10-01',NULL,NULL,'Haile Sellasie Avenue','52428','Nairobi','00200','0722000000','akellorich@gmail.com','','','2024-10-08 14:33:30',5,4,10,2,NULL,NULL,'inactive'),
+(10,'AC0004','Daniel','Middle','Boy',4,1,13,1,1,1,'39654412','0000-00-00','1979-10-09','male','A0123456','98087696','9808765',0,'none','','',1,0,'active',9,8,14,675,'0001232525154','2024-10-16',NULL,NULL,'Embakasi','00501','Nairobi','00100','0725162888','akellorich@gmail.com','','','2024-10-16 14:18:58',5,1,10,2,NULL,NULL,'inactive'),
+(11,'TST0001','John','Kamau','Ndirangu',4,6,12,1,1,1,'12345','0000-00-00','1966-10-12','male','12345','4567890','654321',0,'none','','',1,0,'active',15,2,14,621,'098765432','2024-10-28',NULL,NULL,'Embakasi','0501','Nairobi','0100','0712345678','akellorich@gmail.com','','','2024-10-28 14:01:49',5,4,10,1,NULL,NULL,'inactive');
 
 /*Table structure for table `employeetraining` */
 
@@ -3262,7 +5014,7 @@ CREATE TABLE `leaveapplications` (
   `leavetypeid` int(11) DEFAULT NULL,
   `startdate` date DEFAULT NULL,
   `enddate` date DEFAULT NULL,
-  `daystaken` decimal(3,2) DEFAULT NULL,
+  `daystaken` decimal(18,2) DEFAULT NULL,
   `attachment` varchar(1000) DEFAULT NULL,
   `narration` varchar(1000) DEFAULT NULL,
   `status` varchar(50) DEFAULT 'pending',
@@ -3274,16 +5026,28 @@ CREATE TABLE `leaveapplications` (
   `relieverid` int(11) DEFAULT NULL,
   `supervisorid` int(11) DEFAULT NULL,
   `approvalflowid` int(11) DEFAULT NULL,
+  `halfdayapplication` tinyint(1) DEFAULT 0,
+  `shifthalf` int(11) DEFAULT NULL COMMENT 'Either first or second half of a shift',
+  `starttime` time DEFAULT NULL,
+  `endtime` time DEFAULT NULL,
   PRIMARY KEY (`applicationid`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `leaveapplications` */
 
-insert  into `leaveapplications`(`applicationid`,`employeeid`,`leavetypeid`,`startdate`,`enddate`,`daystaken`,`attachment`,`narration`,`status`,`addedby`,`dateadded`,`deleted`,`datedeleted`,`deletedby`,`relieverid`,`supervisorid`,`approvalflowid`) values 
-(11,5,2,'2024-08-16','2024-08-20',3.00,'','To be contacted via 0727709772 or akellorich@gmail.com','pending',5,'2024-08-15 18:40:00',0,NULL,NULL,7,3,1),
-(12,5,2,'2024-08-26','2024-08-28',3.00,'../employee_uploads/leaveapplications/employeeid_5_Annual Leave_26-Aug-2024_28-Aug-2024_e569a2a5b01fd7b79efa_akinyi_face_photo.png','Need to attend to an emergency at home in Nyahururu, can be contacted via phone or email','pending',5,'2024-08-18 13:15:44',0,NULL,NULL,4,3,1),
-(15,5,2,'2024-08-26','2024-08-28',3.00,'','Attending prize giving day for daughter on tuesday in Mombasa','pending',5,'2024-08-18 16:11:16',0,NULL,NULL,4,3,1),
-(16,5,2,'2024-09-01','2024-09-04',3.00,'../employee_uploads/leaveapplications/employeeid_5_Annual Leave_01-Sep-2024_04-Sep-2024_a67df1f0342b852e163d_My_PIN_Certificate.pdf','Going for  daughters prize giving day in Mombasa, can be reached via personal email','pending',5,'2024-08-20 18:13:30',0,NULL,NULL,6,7,1);
+insert  into `leaveapplications`(`applicationid`,`employeeid`,`leavetypeid`,`startdate`,`enddate`,`daystaken`,`attachment`,`narration`,`status`,`addedby`,`dateadded`,`deleted`,`datedeleted`,`deletedby`,`relieverid`,`supervisorid`,`approvalflowid`,`halfdayapplication`,`shifthalf`,`starttime`,`endtime`) values 
+(1,2,2,'2025-03-03','2025-03-03',0.50,'','This is a test','Approved',5,'2025-03-16 13:36:15',0,NULL,NULL,5,5,1,1,1,'07:00:00','12:00:00'),
+(2,6,2,'2025-03-03','2025-03-03',0.50,'','This is a test','Approved',5,'2025-03-16 13:36:15',0,NULL,NULL,5,5,1,1,1,'07:00:00','12:00:00'),
+(3,8,2,'2025-03-03','2025-03-03',0.50,'','This is a test','Approved',5,'2025-03-16 13:36:16',0,NULL,NULL,5,5,1,1,1,'07:00:00','12:00:00'),
+(4,10,2,'2025-03-03','2025-03-03',0.50,'','This is a test','Approved',5,'2025-03-16 13:36:16',0,NULL,NULL,5,5,1,1,1,'07:00:00','12:00:00'),
+(5,1,2,'2025-03-03','2025-03-03',0.50,'','This is a test','Approved',5,'2025-03-16 13:36:16',0,NULL,NULL,5,5,1,1,1,'07:00:00','12:00:00'),
+(6,4,2,'2025-03-03','2025-03-03',0.50,'','This is a test','Approved',5,'2025-03-16 13:36:17',0,NULL,NULL,5,5,1,1,1,'07:00:00','12:00:00'),
+(7,5,2,'2025-03-03','2025-03-03',0.50,'','This is a test','Approved',5,'2025-03-16 13:36:17',0,NULL,NULL,5,5,1,1,1,'07:00:00','12:00:00'),
+(8,9,2,'2025-03-03','2025-03-03',0.50,'','This is a test','Approved',5,'2025-03-16 13:36:17',0,NULL,NULL,5,5,1,1,1,'07:00:00','12:00:00'),
+(9,7,2,'2025-03-03','2025-03-03',0.50,'','This is a test','Approved',5,'2025-03-16 13:36:18',0,NULL,NULL,5,5,1,1,1,'07:00:00','12:00:00'),
+(10,11,2,'2025-03-03','2025-03-03',0.50,'','This is a test','Approved',5,'2025-03-16 13:36:18',0,NULL,NULL,5,5,1,1,1,'07:00:00','12:00:00'),
+(11,3,2,'2025-03-03','2025-03-03',0.50,'','This is a test','Approved',5,'2025-03-16 13:37:39',0,NULL,NULL,5,5,1,1,1,'07:00:00','12:00:00'),
+(12,5,2,'2025-04-09','2025-04-09',0.50,'','This is a test leave','Approved',5,'2025-04-09 14:44:42',0,NULL,NULL,4,3,1,1,1,'07:00:00','12:00:00');
 
 /*Table structure for table `leaveapproval` */
 
@@ -3298,19 +5062,47 @@ CREATE TABLE `leaveapproval` (
   `status` varchar(50) DEFAULT 'approved',
   `statusdate` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `leaveapproval` */
 
 insert  into `leaveapproval`(`id`,`applicationid`,`approvallevelid`,`approvaluser`,`narration`,`status`,`statusdate`) values 
-(6,11,1,5,'The employee has met all application requirements','approved','2024-08-17 15:29:42'),
-(7,11,2,5,'The employee has met all application requirements','approved','2024-08-17 15:29:53'),
-(8,11,3,5,'The employee has met all application requirements','approved','2024-08-17 15:30:00'),
-(9,12,1,5,'The user has some work pending','cancelled','2024-08-18 14:28:48'),
-(10,15,1,5,'The user did not properly inform the reliever','cancelled','2024-08-18 16:56:16'),
-(11,16,1,5,'Kindly handover roles to Maryjane instead','approved','2024-08-20 18:34:05'),
-(12,16,2,5,'Enjoy your holidays and stay safe','approved','2024-08-20 18:41:39'),
-(13,16,3,5,'Kindly hand over all tasks as directed by your sup','approved','2024-08-20 18:42:11');
+(1,1,1,5,'Auto approved from attendance application','approved','2025-03-16 13:36:15'),
+(2,1,2,5,'Auto approved from attendance application','approved','2025-03-16 13:36:15'),
+(3,1,3,5,'Auto approved from attendance application','approved','2025-03-16 13:36:15'),
+(4,2,1,5,'Auto approved from attendance application','approved','2025-03-16 13:36:15'),
+(5,2,2,5,'Auto approved from attendance application','approved','2025-03-16 13:36:15'),
+(6,2,3,5,'Auto approved from attendance application','approved','2025-03-16 13:36:15'),
+(7,3,1,5,'Auto approved from attendance application','approved','2025-03-16 13:36:16'),
+(8,3,2,5,'Auto approved from attendance application','approved','2025-03-16 13:36:16'),
+(9,3,3,5,'Auto approved from attendance application','approved','2025-03-16 13:36:16'),
+(10,4,1,5,'Auto approved from attendance application','approved','2025-03-16 13:36:16'),
+(11,4,2,5,'Auto approved from attendance application','approved','2025-03-16 13:36:16'),
+(12,4,3,5,'Auto approved from attendance application','approved','2025-03-16 13:36:16'),
+(13,5,1,5,'Auto approved from attendance application','approved','2025-03-16 13:36:16'),
+(14,5,2,5,'Auto approved from attendance application','approved','2025-03-16 13:36:16'),
+(15,5,3,5,'Auto approved from attendance application','approved','2025-03-16 13:36:16'),
+(16,6,1,5,'Auto approved from attendance application','approved','2025-03-16 13:36:17'),
+(17,6,2,5,'Auto approved from attendance application','approved','2025-03-16 13:36:17'),
+(18,6,3,5,'Auto approved from attendance application','approved','2025-03-16 13:36:17'),
+(19,7,1,5,'Auto approved from attendance application','approved','2025-03-16 13:36:17'),
+(20,7,2,5,'Auto approved from attendance application','approved','2025-03-16 13:36:17'),
+(21,7,3,5,'Auto approved from attendance application','approved','2025-03-16 13:36:17'),
+(22,8,1,5,'Auto approved from attendance application','approved','2025-03-16 13:36:17'),
+(23,8,2,5,'Auto approved from attendance application','approved','2025-03-16 13:36:17'),
+(24,8,3,5,'Auto approved from attendance application','approved','2025-03-16 13:36:17'),
+(25,9,1,5,'Auto approved from attendance application','approved','2025-03-16 13:36:18'),
+(26,9,2,5,'Auto approved from attendance application','approved','2025-03-16 13:36:18'),
+(27,9,3,5,'Auto approved from attendance application','approved','2025-03-16 13:36:18'),
+(28,10,1,5,'Auto approved from attendance application','approved','2025-03-16 13:36:18'),
+(29,10,2,5,'Auto approved from attendance application','approved','2025-03-16 13:36:18'),
+(30,10,3,5,'Auto approved from attendance application','approved','2025-03-16 13:36:18'),
+(31,11,1,5,'Auto approved from attendance application','approved','2025-03-16 13:37:39'),
+(32,11,2,5,'Auto approved from attendance application','approved','2025-03-16 13:37:39'),
+(33,11,3,5,'Auto approved from attendance application','approved','2025-03-16 13:37:39'),
+(34,12,1,5,'This is ok','approved','2025-04-09 14:45:09'),
+(35,12,2,5,'This is also ok','approved','2025-04-09 14:45:23'),
+(36,12,3,5,'All the best in your leave or vacation','approved','2025-04-09 14:45:49');
 
 /*Table structure for table `leaveapprovalflows` */
 
@@ -3400,18 +5192,19 @@ CREATE TABLE `leavetypes` (
   `datedeleted` datetime DEFAULT NULL,
   `deletedby` int(11) DEFAULT NULL,
   `systemlabel` varchar(50) DEFAULT NULL,
+  `abbreviation` varchar(5) DEFAULT NULL,
   PRIMARY KEY (`leaveid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `leavetypes` */
 
-insert  into `leavetypes`(`leaveid`,`leavename`,`allocationdays`,`probationperiod`,`canbesplit`,`halfdayapplication`,`skipsholidays`,`applywithoutallocation`,`requiresattachment`,`approvalflow`,`allowancepayable`,`allowancepayrollitemid`,`dateadded`,`deleted`,`addedby`,`datedeleted`,`deletedby`,`systemlabel`) values 
-(1,'Annual Leave',21,60,1,1,1,0,0,1,1,16,'2024-08-03 17:31:01',1,5,'2024-08-03 17:45:21',5,NULL),
-(2,'Annual Leave',21,60,1,1,1,0,0,1,1,16,'2024-08-03 21:26:23',0,5,NULL,NULL,'ANNUAL LEAVE'),
-(3,'Maternity Leave',90,60,0,0,0,1,0,1,0,0,'2024-08-03 21:26:52',0,5,NULL,NULL,'MATERNITY LEAVE'),
-(4,'Paternity Leave',14,60,0,0,0,0,1,1,0,0,'2024-08-03 21:27:22',0,5,NULL,NULL,'PATERNITY LEAVE'),
-(5,'Sick Leave',45,60,1,1,0,1,1,1,0,0,'2024-08-03 21:28:14',0,5,NULL,NULL,'SICK LEAVE'),
-(6,'Off Days',1,1,1,1,0,1,0,1,0,0,'2024-08-03 21:31:52',0,5,NULL,NULL,NULL);
+insert  into `leavetypes`(`leaveid`,`leavename`,`allocationdays`,`probationperiod`,`canbesplit`,`halfdayapplication`,`skipsholidays`,`applywithoutallocation`,`requiresattachment`,`approvalflow`,`allowancepayable`,`allowancepayrollitemid`,`dateadded`,`deleted`,`addedby`,`datedeleted`,`deletedby`,`systemlabel`,`abbreviation`) values 
+(1,'Annual Leave',21,60,1,1,1,0,0,1,1,16,'2024-08-03 17:31:01',1,5,'2024-08-03 17:45:21',5,NULL,NULL),
+(2,'Annual Leave',21,60,1,1,1,0,0,1,1,16,'2024-08-03 21:26:23',0,5,NULL,NULL,'ANNUAL LEAVE','AL'),
+(3,'Maternity Leave',90,60,0,0,0,1,0,1,0,0,'2024-08-03 21:26:52',0,5,NULL,NULL,'MATERNITY LEAVE','ML'),
+(4,'Paternity Leave',14,60,0,0,0,0,1,1,0,0,'2024-08-03 21:27:22',0,5,NULL,NULL,'PATERNITY LEAVE','PL'),
+(5,'Sick Leave',45,60,1,1,0,1,1,1,0,0,'2024-08-03 21:28:14',0,5,NULL,NULL,'SICK LEAVE','SL'),
+(6,'Off Days',1,1,1,1,0,1,0,1,0,0,'2024-08-03 21:31:52',0,5,NULL,NULL,NULL,'OF');
 
 /*Table structure for table `maritalstatuses` */
 
@@ -3441,71 +5234,142 @@ CREATE TABLE `objects` (
   `description` varchar(50) DEFAULT NULL,
   `module` varchar(50) DEFAULT NULL,
   `restricted` tinyint(1) DEFAULT 0,
+  `code` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `objects` */
 
-insert  into `objects`(`id`,`description`,`module`,`restricted`) values 
-(1,'View members list','bosa',0),
-(2,'Manage member details','bosa',0),
-(3,'View suppliers list','bosa',0),
-(4,'Manage member people','bosa',0),
-(5,'View users list','admin',0),
-(6,'Manage user details','admin',0),
-(7,'View member statements','bosa',0),
-(8,'Manage member schedule','bosa',0),
-(9,'Manage member loan application','bosa',0),
-(10,'Manage member documents','bosa',0),
-(11,'Withdraw member','bosa',0),
-(12,'Manage member notes','bosa',0),
-(13,'Approve loan','bosa',0),
-(14,'Manage system settings','admin',0),
-(15,'Manage chart of accounts','finance',0),
-(16,'Manage financial periods','finance',0),
-(17,'Manage journals','finance',0),
-(18,'Manage payments','finance',0),
-(19,'Reject member loans','bosa',0),
-(20,'Generate report by company','reports',0),
-(21,'Reschedule member loan','reports',0),
-(22,'Receive member individual payments','reports',0),
-(23,'Refund member savings','reports',0),
-(24,'Receive member company payments','reports',0),
-(25,'Print member receipts','reports',0),
-(26,'Manage Companies','admin',0),
-(27,'Manage bankings','finance',0),
-(28,'Manage Chart of Accounts','finance',0),
-(29,'Manage Payments','finance',0),
-(30,'Manage customer accounts','fosa',0),
-(31,'Manage FOSA transactions','fosa',0),
-(32,'Manage FOSA float','fosa',0),
-(33,'Generate FOSA statements','fosa',0),
-(34,'View Trial Balance','reports',0),
-(35,'View Profit and Loss Account','reports',0),
-(36,'View Balance Sheet','reports',0),
-(37,'Manage FOSA account type','fosa',0),
-(38,'Manage FOSA charges','fosa',0),
-(39,'Manage system settings','admin',0),
-(40,'Generate loan analysis report','reports',0),
-(41,'Generate dividend report','reports',0),
-(42,'Disburse dividends','bosa',0),
-(43,'Generate grade A loans report','reports',0),
-(44,'Generate portfolio at risk report','reports',0),
-(45,'Generate qualitative analysis report','reports',0),
-(46,'Generate quantitative analysis report','reports',0),
-(47,'Generate company membership report','reports',0),
-(48,'View System Dashboard','reports',0),
-(49,'Manage Loans','bosa',0),
-(50,'Manage Recoveries','bosa',0),
-(51,'Manage FOSA','fosa',0),
-(52,'Manage Communications','bosa',0),
-(53,'Manage System Users','admin',0),
-(54,'Manage deliveries','bosa',0),
-(55,'Manage member recoveries','bosa',0),
-(56,'View reports','bosa',0),
-(57,'Manage finance','finance',0),
-(58,'Manage customer deliveries','bosa',0),
-(59,'Save member details','bosa',0);
+insert  into `objects`(`id`,`description`,`module`,`restricted`,`code`) values 
+(1,'Access system dashboard','admin',0,'1x001'),
+(2,'Access Employees menu','Human Resource',0,'2x001'),
+(3,'Manage employee bio data','Human Resource',0,'2x002'),
+(4,'Manage employee contracts','Human Resource',0,'2x003'),
+(5,'Manage employee payroll info','Human Resource',0,'2x004'),
+(6,'Manage employee relationships','Human Resource',0,'2x005'),
+(7,'manage employee experience','Human Resource',0,'2x006'),
+(8,'Manage employee training','Human Resource',0,'2x007'),
+(9,'Manage employee leaves','Human Resource',0,'2x008'),
+(10,'Manage employee documents','Human Resource',0,'2x009'),
+(11,'Manage employee disciplinary cases','Human Resource',0,'2x010'),
+(12,'Access payroll menu','payroll',0,'3x001'),
+(13,'Process payroll','payroll',0,'3x002'),
+(14,'Import employee payroll items','payroll',0,'3x003'),
+(15,'Generate payroll reports','payroll',0,'3x004'),
+(16,'Access attendance menu','attendance',0,'8x001'),
+(17,'View attendance historical data','attendance',0,'8x002'),
+(18,'Import attendance data','attendance',0,'8x003'),
+(19,'Manage attendance actions','attendance',0,'8x004'),
+(20,'Generate PresAbs report','attendance',0,'8x005'),
+(21,'Manage overtime data','attendance',0,'8x006'),
+(22,'Approve overtime','attendance',0,'8x007'),
+(23,'Manage shift master','attendance',0,'8x008'),
+(24,'Manage staff shift(s)','attendance',0,'8x009'),
+(25,'Access leave menu','leave',0,'4x001'),
+(26,'View leave dashboard','leave',0,'4x002'),
+(27,'View leave applications','leave',0,'4x003'),
+(28,'Manage leave allocations','leave',0,'4x004'),
+(29,'Access recruitment menu','recruitment',0,'5x001'),
+(30,'Manage recruitment requisitions','recruitment',0,'5x002'),
+(31,'Manage applicants','recruitment',0,'5x003'),
+(32,'Manage applicant selection','recruitment',0,'5x004'),
+(33,'Manage interview panels','recruitment',0,'5x005'),
+(34,'Manage interview schedule','recruitment',0,'5x006'),
+(35,'Manage Interview scoring','recruitment',0,'5x007'),
+(36,'Manage employee onboarding','recruitment',0,'5x008'),
+(37,'Access contracts menu','contracts',0,'6x001'),
+(38,'View contracts dashboard','contracts',0,'6x002'),
+(39,'View contracts history','contracts',0,'6x003'),
+(40,'Renew contracts','contracts',0,'6x004'),
+(41,'Generate contract document','contracts',0,'6x005'),
+(42,'Access settings menu','settings',0,'7x001'),
+(43,'Manage institution details','settings',0,'7x002'),
+(44,'Manage payroll grades','settings',0,'7x003'),
+(45,'Manage payroll scales','settings',0,'7x004'),
+(46,'Manage employment positions','settings',0,'7x005'),
+(47,'Manage bank and branch details','settings',0,'7x006'),
+(48,'Manage payroll items','settings',0,'7x007'),
+(49,'Manage payroll creditors','settings',0,'7x008'),
+(50,'Manage leave types','settings',0,'7x009'),
+(51,'Manage public holidays','settings',0,'7x009'),
+(52,'Manage leave approval flow','settings',0,'7x010'),
+(53,'Manage employment categories','settings',0,'7x011'),
+(54,'Manage departments and sections','settings',0,'7x012'),
+(55,'Manage units','settings',0,'7x013'),
+(56,'Manage employment terms','settings',0,'7x014'),
+(57,'Manage email configuration','settings',0,'7x015'),
+(58,'Manage sms configuration','settings',0,'7x016'),
+(59,'manage whatsapp configuration ','settings',0,'7x017'),
+(60,'Manage system users','admin',0,'1x002'),
+(61,'Access reports menu','reports',0,'9x001'),
+(62,'Close payroll period','payroll',0,'3x005');
+
+/*Table structure for table `overtimerequisitionemployees` */
+
+DROP TABLE IF EXISTS `overtimerequisitionemployees`;
+
+CREATE TABLE `overtimerequisitionemployees` (
+  `requisitionemployeeid` int(11) NOT NULL AUTO_INCREMENT,
+  `requisitionid` int(11) DEFAULT NULL,
+  `employeeid` int(11) DEFAULT NULL,
+  `addedby` int(11) DEFAULT NULL,
+  `dateadded` datetime DEFAULT NULL,
+  `deleted` tinyint(1) DEFAULT 0,
+  `datedeleted` datetime DEFAULT NULL,
+  `deletedby` int(11) DEFAULT NULL,
+  `reasondeleted` varchar(1000) DEFAULT NULL,
+  PRIMARY KEY (`requisitionemployeeid`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `overtimerequisitionemployees` */
+
+insert  into `overtimerequisitionemployees`(`requisitionemployeeid`,`requisitionid`,`employeeid`,`addedby`,`dateadded`,`deleted`,`datedeleted`,`deletedby`,`reasondeleted`) values 
+(1,13,3,5,'2025-01-30 18:57:22',0,NULL,NULL,NULL),
+(2,13,1,5,'2025-01-30 18:57:22',0,NULL,NULL,NULL),
+(4,14,3,5,'2025-01-30 18:59:40',0,NULL,NULL,NULL),
+(5,14,1,5,'2025-01-30 18:59:40',0,NULL,NULL,NULL),
+(7,15,10,5,'2025-01-30 19:02:01',0,NULL,NULL,NULL);
+
+/*Table structure for table `overtimerequisitions` */
+
+DROP TABLE IF EXISTS `overtimerequisitions`;
+
+CREATE TABLE `overtimerequisitions` (
+  `requisitionid` int(11) NOT NULL AUTO_INCREMENT,
+  `requisitionno` varchar(100) DEFAULT NULL,
+  `shiftid` int(11) DEFAULT NULL,
+  `unitid` int(11) DEFAULT NULL,
+  `departmentid` int(11) DEFAULT NULL,
+  `startdate` date DEFAULT NULL,
+  `enddate` date DEFAULT NULL,
+  `duration` decimal(3,2) DEFAULT NULL,
+  `status` varchar(50) DEFAULT 'pending',
+  `narration` varchar(1000) DEFAULT NULL,
+  `dateadded` datetime DEFAULT NULL,
+  `addedby` int(11) DEFAULT NULL,
+  `deleted` tinyint(1) DEFAULT 0,
+  `datedeleted` datetime DEFAULT NULL,
+  `deletedby` int(11) DEFAULT NULL,
+  `reasondeleted` varchar(1000) DEFAULT NULL,
+  PRIMARY KEY (`requisitionid`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `overtimerequisitions` */
+
+insert  into `overtimerequisitions`(`requisitionid`,`requisitionno`,`shiftid`,`unitid`,`departmentid`,`startdate`,`enddate`,`duration`,`status`,`narration`,`dateadded`,`addedby`,`deleted`,`datedeleted`,`deletedby`,`reasondeleted`) values 
+(6,NULL,10,4,13,'2025-01-30','2025-01-30',3.00,'pending','There is an urgent order that a Subcon will not be able to deliver','2025-01-30 18:21:08',5,0,NULL,NULL,NULL),
+(7,'OTR00002',10,4,13,'2025-01-30','2025-01-30',3.00,'pending','Assisting a Subcon on an urgent contract','2025-01-30 18:26:14',5,0,NULL,NULL,NULL),
+(8,'OTR00003',10,4,13,'2025-01-30','2025-01-30',3.00,'pending','Assisting a Subcon on an urgent contract','2025-01-30 18:30:24',5,0,NULL,NULL,NULL),
+(9,'OTR00004',10,4,13,'2025-01-30','2025-01-30',3.00,'pending','Assisting a Subcon on an urgent contract','2025-01-30 18:31:47',5,0,NULL,NULL,NULL),
+(10,'OTR00005',10,4,13,'2025-01-30','2025-01-30',3.00,'pending','Assisting a Subcon on an urgent contract','2025-01-30 18:43:26',5,0,NULL,NULL,NULL),
+(11,'OTR00006',10,4,13,'2025-01-30','2025-01-30',3.00,'pending','Assisting a Subcon on an urgent contract','2025-01-30 18:53:17',5,0,NULL,NULL,NULL),
+(12,'OTR00007',10,4,13,'2025-01-30','2025-01-30',3.00,'pending','Assisting a Subcon on an urgent contract','2025-01-30 18:55:55',5,0,NULL,NULL,NULL),
+(13,'OTR00008',10,4,13,'2025-01-30','2025-01-31',3.00,'pending','','2025-01-30 18:57:22',5,0,NULL,NULL,NULL),
+(14,'OTR00009',10,4,13,'2025-01-30','2025-01-30',3.00,'pending','','2025-01-30 18:59:40',5,0,NULL,NULL,NULL),
+(15,'OTR00010',9,1,13,'2025-01-30','2025-01-30',1.00,'pending','','2025-01-30 19:02:01',5,0,NULL,NULL,NULL),
+(16,'OTR00011',10,4,13,'2025-02-02','2025-02-03',2.00,'pending','Overproduction','2025-02-02 08:28:38',5,0,NULL,NULL,NULL),
+(17,'OTR00012',10,4,13,'2025-02-02','2025-02-03',2.00,'pending','Overproduction','2025-02-02 08:32:07',5,0,NULL,NULL,NULL),
+(18,'OTR00013',10,4,2,'2025-04-09','2025-04-10',3.00,'pending','Production increase','2025-04-09 15:01:02',5,0,NULL,NULL,NULL);
 
 /*Table structure for table `payetaxtable` */
 
@@ -3596,7 +5460,7 @@ CREATE TABLE `payrollbankremittances` (
   `datedeleted` datetime DEFAULT NULL,
   `verificationid` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=195 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=222 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `payrollbankremittances` */
 
@@ -3786,7 +5650,34 @@ insert  into `payrollbankremittances`(`id`,`payrollid`,`employeeid`,`branchid`,`
 (191,10,7,5,'01020017043300',150348.90,0,NULL,NULL,'8ef3010f82fc457b22315bebc0a34de52fe97cce'),
 (192,10,9,1807,'54679876598756',NULL,0,NULL,NULL,'908bb938e530e0a83b387d2532d9fe74a8a15a06'),
 (193,10,10,675,'0001232525154',NULL,0,NULL,NULL,'8009f71b5d9713e2ecc6ce2432585b236a383694'),
-(194,10,11,621,'098765432',NULL,0,NULL,NULL,'79dae6253e02b730612b23f014a3962da4561c2a');
+(194,10,11,621,'098765432',NULL,0,NULL,NULL,'79dae6253e02b730612b23f014a3962da4561c2a'),
+(195,11,2,3,'0111250456897',124037.97,0,NULL,NULL,'4f9c0885f0a9978990808b77d2a197e57d640756'),
+(196,11,3,17,'0111250456897',196830.97,0,NULL,NULL,'acb7b4e12fe43fa45917b19e022a6cde8ad13710'),
+(197,11,4,2,'1115456',72551.97,0,NULL,NULL,'e92b4dd67fb6de9f5bbd791b640b9ed18b1f3225'),
+(198,11,5,2,'11156789422',161365.50,0,NULL,NULL,'49ca3fcd652a942cf9588d8e992358e0a89cffe3'),
+(199,11,6,1,'79877698765',NULL,0,NULL,NULL,'bd23e14ae71afae33626ee528928594f801aa342'),
+(200,11,7,5,'01020017043300',150348.90,0,NULL,NULL,'2c268f592d763d51f4b2206965dcf487d6549f76'),
+(201,11,9,1807,'54679876598756',NULL,0,NULL,NULL,'52288fb73bfb9c7e0913016907ac4cc8dcd9e612'),
+(202,11,10,675,'0001232525154',NULL,0,NULL,NULL,'affadc8c610c6f0125e1d845605a676a18193d5e'),
+(203,11,11,621,'098765432',NULL,0,NULL,NULL,'b8dce3a479ef3a25ca063a498071854e454f2f53'),
+(204,12,2,3,'0111250456897',127599.97,0,NULL,NULL,'92bcf3337ae328bcd64dd266f9289710d1a8ee7b'),
+(205,12,3,17,'0111250456897',200803.97,0,NULL,NULL,'1da1eda89b8656bf928b094b1d41fbf2aecb7d23'),
+(206,12,4,2,'1115456',74675.47,0,NULL,NULL,'8b040dfb7070613698b484c15ef0117cc280b894'),
+(207,12,5,2,'11156789422',164448.00,0,NULL,NULL,'b39c473ddc90c698c720c5c1f4aefdfa06e4cfe6'),
+(208,12,6,1,'79877698765',NULL,0,NULL,NULL,'d767ef736cd02f3fc1e8b3e11532cf6c4155e0ce'),
+(209,12,7,5,'01020017043300',151992.90,0,NULL,NULL,'e4f2c2cce8e2b9e2e9c7eebfaa7529b2f30cb9dd'),
+(210,12,9,1807,'54679876598756',NULL,0,NULL,NULL,'829174eb3108bf4b47a0a7ffe4fa25f065bbdf50'),
+(211,12,10,675,'0001232525154',NULL,0,NULL,NULL,'77e367ccae9c6bbb8fbaa6d23e28821afe07b5cb'),
+(212,12,11,621,'098765432',22200.50,0,NULL,NULL,'2eb6bc3223246a368f23e2750638ad6719e77721'),
+(213,13,2,3,'0111250456897',131161.97,0,NULL,NULL,'6ae14e19f6b926940851fadb2f92a89919609e41'),
+(214,13,3,17,'0111250456897',195186.97,0,NULL,NULL,'49d5ab5e3a6a03bb6321d15620a7680d834fdc3d'),
+(215,13,4,2,'1115456',67308.97,0,NULL,NULL,'51d20b73dfb316807de52b9e8d15648bd073a84f'),
+(216,13,5,2,'11156789422',157940.50,0,NULL,NULL,'c65917ec35303c21d90f4e0f1b39d61c8c65f434'),
+(217,13,6,1,'79877698765',NULL,0,NULL,NULL,'9cdfb6f791bb70d9ea8d21404a44ce6788f212e6'),
+(218,13,7,5,'01020017043300',153636.90,0,NULL,NULL,'bacdbd84ff688f0b8cf92957b0a42fd59c8e03bf'),
+(219,13,9,1807,'54679876598756',NULL,0,NULL,NULL,'da2ed556ff903941be5a671a320925450c01c268'),
+(220,13,10,675,'0001232525154',NULL,0,NULL,NULL,'b803f463f5d8a38ecfc3dd1d1de4a99fe982519b'),
+(221,13,11,621,'098765432',22200.50,0,NULL,NULL,'c4b35a2af4b6d405ef7fbc6c4b26f8ec3625681c');
 
 /*Table structure for table `payrollcategories` */
 
@@ -3821,20 +5712,27 @@ CREATE TABLE `payrolldetails` (
   `dateadded` datetime DEFAULT NULL,
   `addedby` int(11) DEFAULT NULL,
   `payrolldate` date GENERATED ALWAYS AS (str_to_date(concat(`year`,'-',field(`month`,'January','February','March','April','May','June','July','August','September','October','November','December'),'-','01'),'%Y-%m-%d')) VIRTUAL,
+  `startdate` date DEFAULT NULL,
+  `enddate` date DEFAULT NULL,
+  `taxlabel` int(11) DEFAULT NULL,
+  `computedvia` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`payrollid`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `payrolldetails` */
 
-insert  into `payrolldetails`(`payrollid`,`month`,`year`,`status`,`dateadded`,`addedby`) values 
-(3,'June',2024,'closed','2024-06-23 20:51:01',5),
-(4,'July',2024,'closed','2024-07-04 08:41:01',5),
-(5,'August',2024,'closed','2024-08-02 10:28:14',5),
-(6,'May',2024,'closed','2024-05-30 12:55:30',5),
-(7,'October',2024,'closed','2024-10-07 17:13:03',5),
-(8,'September',2024,'closed','2024-10-07 19:07:50',5),
-(9,'November',2024,'closed','2024-11-13 16:14:34',5),
-(10,'December',2024,'open','2024-12-11 00:20:08',5);
+insert  into `payrolldetails`(`payrollid`,`month`,`year`,`status`,`dateadded`,`addedby`,`startdate`,`enddate`,`taxlabel`,`computedvia`) values 
+(3,'June',2024,'closed','2024-06-23 20:51:01',5,NULL,NULL,NULL,NULL),
+(4,'July',2024,'closed','2024-07-04 08:41:01',5,NULL,NULL,NULL,NULL),
+(5,'August',2024,'closed','2024-08-02 10:28:14',5,NULL,NULL,NULL,NULL),
+(6,'May',2024,'closed','2024-05-30 12:55:30',5,NULL,NULL,NULL,NULL),
+(7,'October',2024,'closed','2024-10-07 17:13:03',5,NULL,NULL,NULL,NULL),
+(8,'September',2024,'closed','2024-10-07 19:07:50',5,NULL,NULL,NULL,NULL),
+(9,'November',2024,'closed','2024-11-13 16:14:34',5,NULL,NULL,NULL,NULL),
+(10,'December',2024,'closed','2024-12-11 00:20:08',5,NULL,NULL,NULL,NULL),
+(11,'January',2025,'closed','2025-02-24 18:27:38',5,NULL,NULL,NULL,NULL),
+(12,'April',2025,'closed','2025-04-09 14:52:10',5,NULL,NULL,NULL,NULL),
+(13,'May',2025,'open','2025-04-30 12:22:12',5,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `payrollemployees` */
 
@@ -3850,7 +5748,7 @@ CREATE TABLE `payrollemployees` (
   `datedeleted` datetime DEFAULT NULL,
   `refno` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=143 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=170 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `payrollemployees` */
 
@@ -3996,7 +5894,34 @@ insert  into `payrollemployees`(`id`,`payrollid`,`employeeid`,`hasdisability`,`d
 (139,10,7,0,0,NULL,NULL,'8ef3010f82fc457b22315bebc0a34de52fe97cce'),
 (140,10,9,0,0,NULL,NULL,'908bb938e530e0a83b387d2532d9fe74a8a15a06'),
 (141,10,10,0,0,NULL,NULL,'8009f71b5d9713e2ecc6ce2432585b236a383694'),
-(142,10,11,0,0,NULL,NULL,'79dae6253e02b730612b23f014a3962da4561c2a');
+(142,10,11,0,0,NULL,NULL,'79dae6253e02b730612b23f014a3962da4561c2a'),
+(143,11,2,0,0,NULL,NULL,'4f9c0885f0a9978990808b77d2a197e57d640756'),
+(144,11,3,1,0,NULL,NULL,'acb7b4e12fe43fa45917b19e022a6cde8ad13710'),
+(145,11,4,0,0,NULL,NULL,'e92b4dd67fb6de9f5bbd791b640b9ed18b1f3225'),
+(146,11,5,0,0,NULL,NULL,'49ca3fcd652a942cf9588d8e992358e0a89cffe3'),
+(147,11,6,1,0,NULL,NULL,'bd23e14ae71afae33626ee528928594f801aa342'),
+(148,11,7,0,0,NULL,NULL,'2c268f592d763d51f4b2206965dcf487d6549f76'),
+(149,11,9,0,0,NULL,NULL,'52288fb73bfb9c7e0913016907ac4cc8dcd9e612'),
+(150,11,10,0,0,NULL,NULL,'affadc8c610c6f0125e1d845605a676a18193d5e'),
+(151,11,11,0,0,NULL,NULL,'b8dce3a479ef3a25ca063a498071854e454f2f53'),
+(152,12,2,0,0,NULL,NULL,'92bcf3337ae328bcd64dd266f9289710d1a8ee7b'),
+(153,12,3,1,0,NULL,NULL,'1da1eda89b8656bf928b094b1d41fbf2aecb7d23'),
+(154,12,4,0,0,NULL,NULL,'8b040dfb7070613698b484c15ef0117cc280b894'),
+(155,12,5,0,0,NULL,NULL,'b39c473ddc90c698c720c5c1f4aefdfa06e4cfe6'),
+(156,12,6,1,0,NULL,NULL,'d767ef736cd02f3fc1e8b3e11532cf6c4155e0ce'),
+(157,12,7,0,0,NULL,NULL,'e4f2c2cce8e2b9e2e9c7eebfaa7529b2f30cb9dd'),
+(158,12,9,0,0,NULL,NULL,'829174eb3108bf4b47a0a7ffe4fa25f065bbdf50'),
+(159,12,10,0,0,NULL,NULL,'77e367ccae9c6bbb8fbaa6d23e28821afe07b5cb'),
+(160,12,11,0,0,NULL,NULL,'2eb6bc3223246a368f23e2750638ad6719e77721'),
+(161,13,2,0,0,NULL,NULL,'6ae14e19f6b926940851fadb2f92a89919609e41'),
+(162,13,3,1,0,NULL,NULL,'49d5ab5e3a6a03bb6321d15620a7680d834fdc3d'),
+(163,13,4,0,0,NULL,NULL,'51d20b73dfb316807de52b9e8d15648bd073a84f'),
+(164,13,5,0,0,NULL,NULL,'c65917ec35303c21d90f4e0f1b39d61c8c65f434'),
+(165,13,6,1,0,NULL,NULL,'9cdfb6f791bb70d9ea8d21404a44ce6788f212e6'),
+(166,13,7,0,0,NULL,NULL,'bacdbd84ff688f0b8cf92957b0a42fd59c8e03bf'),
+(167,13,9,0,0,NULL,NULL,'da2ed556ff903941be5a671a320925450c01c268'),
+(168,13,10,0,0,NULL,NULL,'b803f463f5d8a38ecfc3dd1d1de4a99fe982519b'),
+(169,13,11,0,0,NULL,NULL,'c4b35a2af4b6d405ef7fbc6c4b26f8ec3625681c');
 
 /*Table structure for table `payrollitembracket` */
 
@@ -4109,7 +6034,7 @@ CREATE TABLE `payrollitems` (
   `itemgroupid` int(11) DEFAULT NULL,
   `autorelief` tinyint(1) DEFAULT 0,
   PRIMARY KEY (`itemid`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `payrollitems` */
 
@@ -4129,7 +6054,8 @@ insert  into `payrollitems`(`itemid`,`itemname`,`shortname`,`sortorder`,`itemtyp
 (13,'NSSF Voluntary','NSSF-V',100,'deduction',0,2,'none',1,1,0,0.00,1,1.00,20000.00,1.00,0,0,0,'0',0,0.00,0,0,'2024-06-26 11:31:00',5,0,NULL,NULL,0,0,0.00,0.00,'NSSF VOLUNTARY',NULL,0),
 (14,'Acting Allowance','Acting',100,'payment',0,0,'none',1,1,0,0.00,0,0.00,0.00,0.00,0,0,0,'0',0,0.00,0,0,'2024-07-14 12:00:42',5,0,NULL,NULL,0,0,0.00,0.00,NULL,1,0),
 (15,'Arrears','Arrears',100,'payment',0,0,'none',1,1,0,0.00,0,0.00,0.00,0.00,0,0,0,'0',0,0.00,0,0,'2024-07-19 14:19:25',5,0,NULL,NULL,0,0,0.00,0.00,'ARREARS',NULL,0),
-(16,'Leave Allowances','Leave Allow',100,'payment',0,0,'none',1,1,0,0.00,0,0.00,0.00,0.00,0,0,0,'0',0,0.00,0,0,'2024-08-03 11:01:47',5,0,NULL,NULL,0,0,0.00,0.00,NULL,1,0);
+(16,'Leave Allowances','Leave Allow',100,'payment',0,0,'none',1,1,0,0.00,0,0.00,0.00,0.00,0,0,0,'0',0,0.00,0,0,'2024-08-03 11:01:47',5,0,NULL,NULL,0,0,0.00,0.00,NULL,1,0),
+(17,'Stima Sacco Loan','Stima Sacco Loan',100,'deduction',0,10,'reducing',1,1,1,0.00,0,0.00,0.00,0.00,0,0,0,'0',0,0.00,0,0,'2025-04-30 13:06:59',5,0,NULL,NULL,0,0,0.00,0.00,NULL,2,0);
 
 /*Table structure for table `payslipinformation` */
 
@@ -4146,7 +6072,7 @@ CREATE TABLE `payslipinformation` (
   `deletedby` int(11) DEFAULT NULL,
   `datedeleted` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2120 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2355 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `payslipinformation` */
 
@@ -5594,7 +7520,194 @@ insert  into `payslipinformation`(`id`,`payrollid`,`employeeid`,`payrollitemid`,
 (2116,10,7,4,55653.40,NULL,0,NULL,NULL),
 (2117,10,7,3,2280.00,NULL,0,NULL,NULL),
 (2118,10,7,12,255.00,NULL,0,NULL,NULL),
-(2119,10,7,8,2400.00,NULL,0,NULL,NULL);
+(2119,10,7,8,2400.00,NULL,0,NULL,NULL),
+(2120,11,2,5,132500.00,NULL,0,NULL,NULL),
+(2121,11,2,6,45800.00,NULL,0,NULL,NULL),
+(2122,11,2,11,6625.00,NULL,0,NULL,NULL),
+(2123,11,2,2,2773.88,NULL,0,NULL,NULL),
+(2124,11,2,9,1700.00,NULL,0,NULL,NULL),
+(2125,11,2,3,2280.00,NULL,0,NULL,NULL),
+(2126,11,2,4,44195.65,NULL,0,NULL,NULL),
+(2127,11,2,10,9937.50,NULL,0,NULL,NULL),
+(2128,11,2,12,255.00,NULL,0,NULL,NULL),
+(2129,11,2,8,2400.00,NULL,0,NULL,NULL),
+(2135,11,3,7,14000.00,NULL,0,NULL,NULL),
+(2136,11,3,6,56800.00,NULL,0,NULL,NULL),
+(2137,11,3,5,148500.00,NULL,0,NULL,NULL),
+(2138,11,3,11,7425.00,NULL,0,NULL,NULL),
+(2139,11,3,2,3400.88,NULL,0,NULL,NULL),
+(2140,11,3,9,1700.00,NULL,0,NULL,NULL),
+(2141,11,3,3,2280.00,NULL,0,NULL,NULL),
+(2142,11,3,4,11375.65,NULL,0,NULL,NULL),
+(2143,11,3,10,11137.50,NULL,0,NULL,NULL),
+(2144,11,3,12,255.00,NULL,0,NULL,NULL),
+(2145,11,3,8,2400.00,NULL,0,NULL,NULL),
+(2150,11,4,5,48500.00,NULL,0,NULL,NULL),
+(2151,11,4,6,13200.00,NULL,0,NULL,NULL),
+(2152,11,4,7,14000.00,NULL,0,NULL,NULL),
+(2153,11,4,14,25200.00,NULL,0,NULL,NULL),
+(2154,11,4,11,2425.00,NULL,0,NULL,NULL),
+(2155,11,4,2,1549.88,NULL,0,NULL,NULL),
+(2156,11,4,9,1700.00,NULL,0,NULL,NULL),
+(2157,11,4,3,2280.00,NULL,0,NULL,NULL),
+(2158,11,4,4,21605.65,NULL,0,NULL,NULL),
+(2159,11,4,10,3637.50,NULL,0,NULL,NULL),
+(2160,11,4,12,255.00,NULL,0,NULL,NULL),
+(2161,11,4,8,2400.00,NULL,0,NULL,NULL),
+(2165,11,5,5,162800.00,NULL,0,NULL,NULL),
+(2166,11,5,7,14000.00,NULL,0,NULL,NULL),
+(2167,11,5,6,56800.00,NULL,0,NULL,NULL),
+(2168,11,5,11,8140.00,NULL,0,NULL,NULL),
+(2169,11,5,2,3626.10,NULL,0,NULL,NULL),
+(2170,11,5,9,1700.00,NULL,0,NULL,NULL),
+(2171,11,5,3,2280.00,NULL,0,NULL,NULL),
+(2172,11,5,4,60558.40,NULL,0,NULL,NULL),
+(2173,11,5,10,12210.00,NULL,0,NULL,NULL),
+(2174,11,5,12,255.00,NULL,0,NULL,NULL),
+(2175,11,5,8,2400.00,NULL,0,NULL,NULL),
+(2180,11,7,5,145200.00,NULL,0,NULL,NULL),
+(2181,11,7,6,54100.00,NULL,0,NULL,NULL),
+(2182,11,7,14,13880.00,NULL,0,NULL,NULL),
+(2183,11,7,2,3197.70,NULL,0,NULL,NULL),
+(2184,11,7,9,1700.00,NULL,0,NULL,NULL),
+(2185,11,7,4,55653.40,NULL,0,NULL,NULL),
+(2186,11,7,3,2280.00,NULL,0,NULL,NULL),
+(2187,11,7,12,255.00,NULL,0,NULL,NULL),
+(2188,11,7,8,2400.00,NULL,0,NULL,NULL),
+(2189,12,2,5,132500.00,NULL,0,NULL,NULL),
+(2190,12,2,6,45800.00,NULL,0,NULL,NULL),
+(2191,12,2,11,6625.00,NULL,0,NULL,NULL),
+(2192,12,2,15,5200.00,NULL,0,NULL,NULL),
+(2193,12,2,2,2851.88,NULL,0,NULL,NULL),
+(2194,12,2,9,1700.00,NULL,0,NULL,NULL),
+(2195,12,2,3,2280.00,NULL,0,NULL,NULL),
+(2196,12,2,4,45755.65,NULL,0,NULL,NULL),
+(2197,12,2,10,9937.50,NULL,0,NULL,NULL),
+(2198,12,2,12,255.00,NULL,0,NULL,NULL),
+(2199,12,2,8,2400.00,NULL,0,NULL,NULL),
+(2204,12,3,7,14000.00,NULL,0,NULL,NULL),
+(2205,12,3,6,56800.00,NULL,0,NULL,NULL),
+(2206,12,3,5,148500.00,NULL,0,NULL,NULL),
+(2207,12,3,11,7425.00,NULL,0,NULL,NULL),
+(2208,12,3,15,5800.00,NULL,0,NULL,NULL),
+(2209,12,3,2,3487.88,NULL,0,NULL,NULL),
+(2210,12,3,9,1700.00,NULL,0,NULL,NULL),
+(2211,12,3,3,2280.00,NULL,0,NULL,NULL),
+(2212,12,3,4,13115.65,NULL,0,NULL,NULL),
+(2213,12,3,10,11137.50,NULL,0,NULL,NULL),
+(2214,12,3,12,255.00,NULL,0,NULL,NULL),
+(2215,12,3,8,2400.00,NULL,0,NULL,NULL),
+(2219,12,4,5,48500.00,NULL,0,NULL,NULL),
+(2220,12,4,6,13200.00,NULL,0,NULL,NULL),
+(2221,12,4,7,14000.00,NULL,0,NULL,NULL),
+(2222,12,4,14,25200.00,NULL,0,NULL,NULL),
+(2223,12,4,11,2425.00,NULL,0,NULL,NULL),
+(2224,12,4,15,3100.00,NULL,0,NULL,NULL),
+(2225,12,4,2,1596.38,NULL,0,NULL,NULL),
+(2226,12,4,9,1700.00,NULL,0,NULL,NULL),
+(2227,12,4,3,2280.00,NULL,0,NULL,NULL),
+(2228,12,4,4,22535.65,NULL,0,NULL,NULL),
+(2229,12,4,10,3637.50,NULL,0,NULL,NULL),
+(2230,12,4,12,255.00,NULL,0,NULL,NULL),
+(2231,12,4,8,2400.00,NULL,0,NULL,NULL),
+(2234,12,5,5,162800.00,NULL,0,NULL,NULL),
+(2235,12,5,7,14000.00,NULL,0,NULL,NULL),
+(2236,12,5,6,56800.00,NULL,0,NULL,NULL),
+(2237,12,5,11,8140.00,NULL,0,NULL,NULL),
+(2238,12,5,15,4500.00,NULL,0,NULL,NULL),
+(2239,12,5,2,3693.60,NULL,0,NULL,NULL),
+(2240,12,5,9,1700.00,NULL,0,NULL,NULL),
+(2241,12,5,3,2280.00,NULL,0,NULL,NULL),
+(2242,12,5,4,61908.40,NULL,0,NULL,NULL),
+(2243,12,5,10,12210.00,NULL,0,NULL,NULL),
+(2244,12,5,12,255.00,NULL,0,NULL,NULL),
+(2245,12,5,8,2400.00,NULL,0,NULL,NULL),
+(2249,12,7,5,145200.00,NULL,0,NULL,NULL),
+(2250,12,7,6,54100.00,NULL,0,NULL,NULL),
+(2251,12,7,14,13880.00,NULL,0,NULL,NULL),
+(2252,12,7,15,2400.00,NULL,0,NULL,NULL),
+(2253,12,7,2,3233.70,NULL,0,NULL,NULL),
+(2254,12,7,9,1700.00,NULL,0,NULL,NULL),
+(2255,12,7,4,56373.40,NULL,0,NULL,NULL),
+(2256,12,7,3,2280.00,NULL,0,NULL,NULL),
+(2257,12,7,12,255.00,NULL,0,NULL,NULL),
+(2258,12,7,8,2400.00,NULL,0,NULL,NULL),
+(2264,12,11,5,11000.00,NULL,0,NULL,NULL),
+(2265,12,11,6,7800.00,NULL,0,NULL,NULL),
+(2266,12,11,15,4500.00,NULL,0,NULL,NULL),
+(2267,12,11,2,349.50,NULL,0,NULL,NULL),
+(2268,12,11,9,750.00,NULL,0,NULL,NULL),
+(2269,12,11,1,0.00,NULL,0,NULL,NULL),
+(2270,12,11,4,0.00,NULL,0,NULL,NULL),
+(2271,12,11,12,112.50,NULL,0,NULL,NULL),
+(2272,13,2,5,132500.00,NULL,0,NULL,NULL),
+(2273,13,2,6,45800.00,NULL,0,NULL,NULL),
+(2274,13,2,11,6625.00,NULL,0,NULL,NULL),
+(2275,13,2,15,5200.00,NULL,0,NULL,NULL),
+(2276,13,2,7,5200.00,NULL,0,NULL,NULL),
+(2277,13,2,2,2929.88,NULL,0,NULL,NULL),
+(2278,13,2,9,1700.00,NULL,0,NULL,NULL),
+(2279,13,2,3,2280.00,NULL,0,NULL,NULL),
+(2280,13,2,4,47315.65,NULL,0,NULL,NULL),
+(2281,13,2,10,9937.50,NULL,0,NULL,NULL),
+(2282,13,2,12,255.00,NULL,0,NULL,NULL),
+(2283,13,2,8,2400.00,NULL,0,NULL,NULL),
+(2287,13,3,6,56800.00,NULL,0,NULL,NULL),
+(2288,13,3,5,148500.00,NULL,0,NULL,NULL),
+(2289,13,3,11,7425.00,NULL,0,NULL,NULL),
+(2290,13,3,15,5800.00,NULL,0,NULL,NULL),
+(2291,13,3,7,5800.00,NULL,0,NULL,NULL),
+(2292,13,3,2,3364.88,NULL,0,NULL,NULL),
+(2293,13,3,9,1700.00,NULL,0,NULL,NULL),
+(2294,13,3,3,2280.00,NULL,0,NULL,NULL),
+(2295,13,3,4,10655.65,NULL,0,NULL,NULL),
+(2296,13,3,10,11137.50,NULL,0,NULL,NULL),
+(2297,13,3,12,255.00,NULL,0,NULL,NULL),
+(2298,13,3,8,2400.00,NULL,0,NULL,NULL),
+(2302,13,4,5,48500.00,NULL,0,NULL,NULL),
+(2303,13,4,6,13200.00,NULL,0,NULL,NULL),
+(2304,13,4,14,25200.00,NULL,0,NULL,NULL),
+(2305,13,4,11,2425.00,NULL,0,NULL,NULL),
+(2306,13,4,15,3100.00,NULL,0,NULL,NULL),
+(2307,13,4,7,3100.00,NULL,0,NULL,NULL),
+(2308,13,4,2,1432.88,NULL,0,NULL,NULL),
+(2309,13,4,9,1600.00,NULL,0,NULL,NULL),
+(2310,13,4,3,2280.00,NULL,0,NULL,NULL),
+(2311,13,4,4,19265.65,NULL,0,NULL,NULL),
+(2312,13,4,10,3637.50,NULL,0,NULL,NULL),
+(2313,13,4,12,240.00,NULL,0,NULL,NULL),
+(2314,13,4,8,2400.00,NULL,0,NULL,NULL),
+(2317,13,5,5,162800.00,NULL,0,NULL,NULL),
+(2318,13,5,6,56800.00,NULL,0,NULL,NULL),
+(2319,13,5,11,8140.00,NULL,0,NULL,NULL),
+(2320,13,5,15,4500.00,NULL,0,NULL,NULL),
+(2321,13,5,7,4500.00,NULL,0,NULL,NULL),
+(2322,13,5,2,3551.10,NULL,0,NULL,NULL),
+(2323,13,5,9,1700.00,NULL,0,NULL,NULL),
+(2324,13,5,3,2280.00,NULL,0,NULL,NULL),
+(2325,13,5,4,59058.40,NULL,0,NULL,NULL),
+(2326,13,5,10,12210.00,NULL,0,NULL,NULL),
+(2327,13,5,12,255.00,NULL,0,NULL,NULL),
+(2328,13,5,8,2400.00,NULL,0,NULL,NULL),
+(2332,13,7,5,145200.00,NULL,0,NULL,NULL),
+(2333,13,7,6,54100.00,NULL,0,NULL,NULL),
+(2334,13,7,14,13880.00,NULL,0,NULL,NULL),
+(2335,13,7,15,2400.00,NULL,0,NULL,NULL),
+(2336,13,7,7,2400.00,NULL,0,NULL,NULL),
+(2337,13,7,2,3269.70,NULL,0,NULL,NULL),
+(2338,13,7,9,1700.00,NULL,0,NULL,NULL),
+(2339,13,7,4,57093.40,NULL,0,NULL,NULL),
+(2340,13,7,3,2280.00,NULL,0,NULL,NULL),
+(2341,13,7,12,255.00,NULL,0,NULL,NULL),
+(2342,13,7,8,2400.00,NULL,0,NULL,NULL),
+(2347,13,11,5,11000.00,NULL,0,NULL,NULL),
+(2348,13,11,6,7800.00,NULL,0,NULL,NULL),
+(2349,13,11,15,4500.00,NULL,0,NULL,NULL),
+(2350,13,11,2,349.50,NULL,0,NULL,NULL),
+(2351,13,11,9,750.00,NULL,0,NULL,NULL),
+(2352,13,11,1,0.00,NULL,0,NULL,NULL),
+(2353,13,11,4,0.00,NULL,0,NULL,NULL),
+(2354,13,11,12,112.50,NULL,0,NULL,NULL);
 
 /*Table structure for table `peoplecategories` */
 
@@ -5704,6 +7817,25 @@ insert  into `religions`(`id`,`religionname`,`deleted`) values
 (4,'Budhist',0),
 (5,'Hindu',0);
 
+/*Table structure for table `roleprivileges` */
+
+DROP TABLE IF EXISTS `roleprivileges`;
+
+CREATE TABLE `roleprivileges` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `roleid` int(11) DEFAULT NULL,
+  `objectid` int(11) DEFAULT NULL,
+  `allowed` tinyint(1) DEFAULT 0,
+  `dateadded` datetime DEFAULT NULL,
+  `addedby` int(11) DEFAULT NULL,
+  `deleted` tinyint(1) DEFAULT 0,
+  `deletedby` int(11) DEFAULT NULL,
+  `datedeleted` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `roleprivileges` */
+
 /*Table structure for table `roles` */
 
 DROP TABLE IF EXISTS `roles`;
@@ -5798,6 +7930,46 @@ insert  into `salutations`(`id`,`salutation`,`deleted`) values
 (7,'Pst',0),
 (8,'Fr',0);
 
+/*Table structure for table `sections` */
+
+DROP TABLE IF EXISTS `sections`;
+
+CREATE TABLE `sections` (
+  `sectionid` int(11) NOT NULL AUTO_INCREMENT,
+  `departmentid` int(11) DEFAULT NULL,
+  `sectioncode` varchar(50) DEFAULT NULL,
+  `sectionname` varchar(100) DEFAULT NULL,
+  `dateadded` datetime DEFAULT NULL,
+  `addedby` int(11) DEFAULT NULL,
+  `deleted` tinyint(1) DEFAULT 0,
+  `datedeleted` datetime DEFAULT NULL,
+  `deletedby` int(11) DEFAULT NULL,
+  PRIMARY KEY (`sectionid`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `sections` */
+
+insert  into `sections`(`sectionid`,`departmentid`,`sectioncode`,`sectionname`,`dateadded`,`addedby`,`deleted`,`datedeleted`,`deletedby`) values 
+(1,13,'LN01','Line 01','2025-01-29 18:00:41',5,0,NULL,NULL),
+(2,13,'LN02','Line 02','2025-01-29 18:03:28',5,0,NULL,NULL);
+
+/*Table structure for table `serials` */
+
+DROP TABLE IF EXISTS `serials`;
+
+CREATE TABLE `serials` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `document` varchar(50) DEFAULT NULL,
+  `prefix` varchar(50) DEFAULT NULL,
+  `currentno` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `serials` */
+
+insert  into `serials`(`id`,`document`,`prefix`,`currentno`) values 
+(1,'Overtime Requisition','OTR',14);
+
 /*Table structure for table `shiftdetails` */
 
 DROP TABLE IF EXISTS `shiftdetails`;
@@ -5810,27 +7982,45 @@ CREATE TABLE `shiftdetails` (
   `ends` time DEFAULT NULL,
   `status` varchar(50) DEFAULT NULL,
   `break` float DEFAULT NULL,
+  `deleted` tinyint(1) DEFAULT 0,
+  `datedeleted` datetime DEFAULT NULL,
+  `deletedby` int(11) DEFAULT NULL,
+  `reasondeleted` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`shiftdetailid`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `shiftdetails` */
 
-insert  into `shiftdetails`(`shiftdetailid`,`shiftid`,`dayofweek`,`starts`,`ends`,`status`,`break`) values 
-(4,7,'Monday','08:00:00','17:00:00','workingday',30),
-(5,7,'Tuesday','08:00:00','17:00:00','workingday',30),
-(6,7,'Wednesday','08:00:00','17:00:00','workingday',30),
-(7,7,'Thursday','08:00:00','17:00:00','workingday',30),
-(8,7,'Friday','08:00:00','17:00:00','workingday',30),
-(9,7,'Saturday','08:00:00','17:00:00','workingday',30),
-(10,7,'Sunday','08:00:00','17:00:00','workingday',30),
-(11,8,'Monday','08:00:00','17:00:00','workingday',30),
-(12,9,'Monday','08:00:00','17:00:00','workingday',30),
-(13,9,'Tuesday','08:00:00','17:00:00','workingday',30),
-(14,9,'Wednesday','08:00:00','17:00:00','workingday',30),
-(15,9,'Thursday','08:00:00','17:00:00','workingday',30),
-(16,9,'Friday','08:00:00','17:00:00','workingday',30),
-(17,9,'Saturday','08:00:00','17:00:00','workingday',30),
-(18,9,'Sunday','08:00:00','17:00:00','offday',30);
+insert  into `shiftdetails`(`shiftdetailid`,`shiftid`,`dayofweek`,`starts`,`ends`,`status`,`break`,`deleted`,`datedeleted`,`deletedby`,`reasondeleted`) values 
+(4,7,'Monday','08:00:00','17:00:00','workingday',30,1,'2025-01-30 11:54:55',5,'Updated to new values'),
+(5,7,'Tuesday','08:00:00','17:00:00','workingday',30,1,'2025-01-30 11:54:55',5,'Updated to new values'),
+(6,7,'Wednesday','08:00:00','17:00:00','workingday',30,1,'2025-01-30 11:54:55',5,'Updated to new values'),
+(7,7,'Thursday','08:00:00','17:00:00','workingday',30,1,'2025-01-30 11:54:55',5,'Updated to new values'),
+(8,7,'Friday','08:00:00','17:00:00','workingday',30,1,'2025-01-30 11:54:55',5,'Updated to new values'),
+(9,7,'Saturday','08:00:00','17:00:00','workingday',30,1,'2025-01-30 11:54:55',5,'Updated to new values'),
+(10,7,'Sunday','08:00:00','17:00:00','workingday',30,1,'2025-01-30 11:54:55',5,'Updated to new values'),
+(11,8,'Monday','08:00:00','17:00:00','workingday',30,0,NULL,NULL,NULL),
+(12,9,'Monday','08:00:00','17:00:00','workingday',30,0,NULL,NULL,NULL),
+(13,9,'Tuesday','08:00:00','17:00:00','workingday',30,0,NULL,NULL,NULL),
+(14,9,'Wednesday','08:00:00','17:00:00','workingday',30,0,NULL,NULL,NULL),
+(15,9,'Thursday','08:00:00','17:00:00','workingday',30,0,NULL,NULL,NULL),
+(16,9,'Friday','08:00:00','17:00:00','workingday',30,0,NULL,NULL,NULL),
+(17,9,'Saturday','08:00:00','17:00:00','workingday',30,0,NULL,NULL,NULL),
+(18,9,'Sunday','08:00:00','17:00:00','offday',30,0,NULL,NULL,NULL),
+(19,7,'Monday','08:00:00','17:00:00','workingday',30,0,NULL,NULL,NULL),
+(20,7,'Tuesday','08:00:00','17:00:00','workingday',30,0,NULL,NULL,NULL),
+(21,7,'Wednesday','08:00:00','17:00:00','workingday',30,0,NULL,NULL,NULL),
+(22,7,'Thursday','08:00:00','17:00:00','workingday',30,0,NULL,NULL,NULL),
+(23,7,'Friday','08:00:00','17:00:00','workingday',30,0,NULL,NULL,NULL),
+(24,7,'Saturday','08:00:00','17:00:00','workingday',30,0,NULL,NULL,NULL),
+(25,7,'Sunday','00:00:00','00:00:00','offday',0,0,NULL,NULL,NULL),
+(26,10,'Monday','07:00:00','17:00:00','workingday',30,0,NULL,NULL,NULL),
+(27,10,'Tuesday','07:00:00','17:00:00','workingday',30,0,NULL,NULL,NULL),
+(28,10,'Wednesday','07:00:00','17:00:00','workingday',30,0,NULL,NULL,NULL),
+(29,10,'Thursday','07:00:00','17:00:00','workingday',30,0,NULL,NULL,NULL),
+(30,10,'Friday','07:00:00','17:00:00','workingday',30,0,NULL,NULL,NULL),
+(31,10,'Saturday','07:00:00','17:00:00','workingday',30,0,NULL,NULL,NULL),
+(32,10,'Sunday','00:00:00','00:00:00','offday',0,0,NULL,NULL,NULL);
 
 /*Table structure for table `shiftmaster` */
 
@@ -5845,14 +8035,16 @@ CREATE TABLE `shiftmaster` (
   `deleted` tinyint(1) DEFAULT 0,
   `datedeleted` datetime DEFAULT NULL,
   `deletedby` int(11) DEFAULT NULL,
+  `defaultshift` tinyint(1) DEFAULT 0,
   PRIMARY KEY (`shiftid`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `shiftmaster` */
 
-insert  into `shiftmaster`(`shiftid`,`shiftname`,`shifttype`,`dateadded`,`addedby`,`deleted`,`datedeleted`,`deletedby`) values 
-(7,'Day Shift','day','2024-12-29 14:08:53',5,0,NULL,NULL),
-(9,'Night Shift','night','2024-12-29 14:18:26',5,0,NULL,NULL);
+insert  into `shiftmaster`(`shiftid`,`shiftname`,`shifttype`,`dateadded`,`addedby`,`deleted`,`datedeleted`,`deletedby`,`defaultshift`) values 
+(7,'Day Shift','day','2024-12-29 14:08:53',5,1,'2025-01-30 12:23:36',5,0),
+(9,'Night Shift','night','2024-12-29 14:18:26',5,0,NULL,NULL,0),
+(10,'General Day Shift','day','2025-01-30 12:30:49',5,0,NULL,NULL,0);
 
 /*Table structure for table `staffshifts` */
 
@@ -5874,6 +8066,56 @@ CREATE TABLE `staffshifts` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `staffshifts` */
+
+/*Table structure for table `tempemployeeattendance` */
+
+DROP TABLE IF EXISTS `tempemployeeattendance`;
+
+CREATE TABLE `tempemployeeattendance` (
+  `refno` varchar(50) DEFAULT NULL,
+  `employeeid` int(11) DEFAULT NULL,
+  `clockin` varchar(50) DEFAULT NULL,
+  `clockout` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `tempemployeeattendance` */
+
+insert  into `tempemployeeattendance`(`refno`,`employeeid`,`clockin`,`clockout`) values 
+('930468a863974133ef08',8,'07:22:00','17:14:00'),
+('930468a863974133ef08',11,'07:27:00','17:55:00'),
+('930468a863974133ef08',4,'07:46:00','17:42:00'),
+('930468a863974133ef08',2,'08:12:00','18:41:00'),
+('930468a863974133ef08',10,'08:17:00','18:17:00'),
+('4dd1454b65d3fa7f698a',8,'07:22:00','17:14:00'),
+('4dd1454b65d3fa7f698a',11,'07:27:00','17:55:00'),
+('4dd1454b65d3fa7f698a',4,'07:46:00','17:42:00'),
+('4dd1454b65d3fa7f698a',2,'08:12:00','18:41:00'),
+('4dd1454b65d3fa7f698a',10,'08:17:00','18:17:00'),
+('9ad8226275bf6b8acf69',8,'07:22:00','17:14:00'),
+('9ad8226275bf6b8acf69',11,'07:27:00','17:55:00'),
+('9ad8226275bf6b8acf69',4,'07:46:00','17:42:00'),
+('9ad8226275bf6b8acf69',2,'08:12:00','18:41:00'),
+('9ad8226275bf6b8acf69',10,'08:17:00','18:17:00'),
+('77d2942a39d6a13b6d51',8,'07:22:00','17:14:00'),
+('77d2942a39d6a13b6d51',11,'07:27:00','17:55:00'),
+('77d2942a39d6a13b6d51',4,'07:46:00','17:42:00'),
+('77d2942a39d6a13b6d51',2,'08:12:00','18:41:00'),
+('77d2942a39d6a13b6d51',10,'08:17:00','18:17:00'),
+('cefc28421c1cf87d5048',8,'07:22:00','17:14:00'),
+('cefc28421c1cf87d5048',11,'07:27:00','17:55:00'),
+('cefc28421c1cf87d5048',4,'07:46:00','17:42:00'),
+('cefc28421c1cf87d5048',2,'08:12:00','18:41:00'),
+('cefc28421c1cf87d5048',10,'08:17:00','18:17:00'),
+('614f258eddc8fab8522d',8,'07:22:00','17:14:00'),
+('614f258eddc8fab8522d',11,'07:27:00','17:55:00'),
+('614f258eddc8fab8522d',4,'07:46:00','17:42:00'),
+('614f258eddc8fab8522d',2,'08:12:00','18:41:00'),
+('614f258eddc8fab8522d',10,'08:17:00','18:17:00'),
+('c09ec77dfb286c9fc97e',8,'07:22:00','17:14:00'),
+('c09ec77dfb286c9fc97e',11,'07:27:00','17:55:00'),
+('c09ec77dfb286c9fc97e',4,'07:46:00','17:42:00'),
+('c09ec77dfb286c9fc97e',2,'08:12:00','18:41:00'),
+('c09ec77dfb286c9fc97e',10,'08:17:00','18:17:00');
 
 /*Table structure for table `templates` */
 
@@ -5931,6 +8173,29 @@ insert  into `templleaveapprovallevel`(`refno`,`approvallevel`,`escallationdurat
 ('b9548737ccab02db57a1','supervisor',120,'#f91010',1,0,NULL,NULL,NULL),
 ('b9548737ccab02db57a1','hrmanager',120,'#1c19e1',2,0,NULL,NULL,NULL),
 ('b9548737ccab02db57a1','topmanagement',120,'#40981b',3,0,NULL,NULL,NULL);
+
+/*Table structure for table `tempovertimeemployees` */
+
+DROP TABLE IF EXISTS `tempovertimeemployees`;
+
+CREATE TABLE `tempovertimeemployees` (
+  `refno` varchar(50) DEFAULT NULL,
+  `employeeid` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `tempovertimeemployees` */
+
+insert  into `tempovertimeemployees`(`refno`,`employeeid`) values 
+('TEST',123),
+('87123d0f0b07103aef9f',3),
+('87123d0f0b07103aef9f',1),
+('e6923cd8c8a2d3f8170a',3),
+('e6923cd8c8a2d3f8170a',1),
+('5a24afbf522fdc0491f5',3),
+('5a24afbf522fdc0491f5',1),
+('e11b6a61da4975473367',3),
+('e11b6a61da4975473367',1),
+('3716e839f9c5ff3b8acf',10);
 
 /*Table structure for table `temppayrollitembracket` */
 
@@ -6012,6 +8277,21 @@ CREATE TABLE `tempprivilege` (
 
 /*Data for the table `tempprivilege` */
 
+/*Table structure for table `tempshiftdetails` */
+
+DROP TABLE IF EXISTS `tempshiftdetails`;
+
+CREATE TABLE `tempshiftdetails` (
+  `refno` varchar(50) DEFAULT NULL,
+  `dayofweek` varchar(100) DEFAULT NULL,
+  `starts` time DEFAULT NULL,
+  `ends` time DEFAULT NULL,
+  `status` varchar(50) DEFAULT NULL,
+  `break` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `tempshiftdetails` */
+
 /*Table structure for table `tempstaffshifts` */
 
 DROP TABLE IF EXISTS `tempstaffshifts`;
@@ -6022,6 +8302,31 @@ CREATE TABLE `tempstaffshifts` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `tempstaffshifts` */
+
+/*Table structure for table `units` */
+
+DROP TABLE IF EXISTS `units`;
+
+CREATE TABLE `units` (
+  `unitid` int(11) NOT NULL AUTO_INCREMENT,
+  `unitname` varchar(50) DEFAULT NULL,
+  `unitcode` varchar(50) DEFAULT NULL,
+  `dateadded` datetime DEFAULT NULL,
+  `addedby` int(11) DEFAULT NULL,
+  `deleted` tinyint(1) DEFAULT 0,
+  `datedeleted` datetime DEFAULT NULL,
+  `deletedby` int(11) DEFAULT NULL,
+  PRIMARY KEY (`unitid`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `units` */
+
+insert  into `units`(`unitid`,`unitname`,`unitcode`,`dateadded`,`addedby`,`deleted`,`datedeleted`,`deletedby`) values 
+(1,'Mombasa 01','001','2025-01-29 11:48:31',5,0,NULL,NULL),
+(2,'Mtwapa 01','002','2025-01-29 12:00:47',5,1,'2025-01-29 13:18:56',5),
+(3,'Mtwapa 02','003','2025-01-29 12:01:01',5,1,'2025-01-29 13:18:00',5),
+(4,'Changamwe','004','2025-01-29 13:27:16',5,0,NULL,NULL),
+(5,'Miritini','005','2025-01-29 13:27:25',5,1,'2025-01-29 13:27:31',5);
 
 /*Table structure for table `user` */
 
@@ -6048,7 +8353,7 @@ CREATE TABLE `user` (
   `systemadmin` tinyint(1) DEFAULT 0,
   `profilephoto` varchar(1000) DEFAULT NULL,
   `institutionid` int(11) DEFAULT NULL,
-  `salt` varchar(50) DEFAULT NULL,
+  `salt` varchar(100) DEFAULT NULL,
   `systemlabel` varchar(50) DEFAULT NULL,
   `category` varchar(50) DEFAULT 'system',
   `emailactivationcode` varchar(50) DEFAULT NULL,
@@ -6057,7 +8362,7 @@ CREATE TABLE `user` (
   KEY `institutionid` (`institutionid`),
   KEY `addedby` (`addedby`),
   CONSTRAINT `user_ibfk_2` FOREIGN KEY (`addedby`) REFERENCES `user` (`userid`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 /*Data for the table `user` */
 
@@ -6069,7 +8374,11 @@ insert  into `user`(`userid`,`username`,`firstname`,`middlename`,`lastname`,`ema
 (38,'NT0002','Patrice','Lumumba','Emery','akellorich@gmail.com','0727709772','7b885174f1eb08747da64cf6a8f4f4425c4ed41bd480c27dc571dd7d113e9d95',0,NULL,0,1,NULL,'2024-09-04 11:42:22',25,NULL,NULL,0,NULL,NULL,'067bd2e06b5244ff340ed31def78bc',NULL,'employee','35efd','5f339'),
 (39,'NT0001','Richard','Onyango','Akelo','akellorich@gmail.com','0727709772','ea75a17b7f34e26b4731a41931955c628562511119eb755305662cf943233787',0,NULL,0,1,NULL,'2024-10-07 21:07:57',25,NULL,NULL,0,NULL,NULL,'ec11f3bf13c4cb7877ab3cad8fc402',NULL,'employee','4f475','e05b7'),
 (40,'AC0004','Daniel','Middle','Boy','cthis999@gmail.com','0725162888','558a5fdf256daeebc4982fb051a16827e57395d9bcbe10012a13f7c611d4b00b',0,NULL,0,1,NULL,'2024-10-16 14:22:01',25,NULL,NULL,0,NULL,NULL,'f7e7401d1c2b319ed76b94b2df4b48',NULL,'employee','7993c','b8195'),
-(41,'AC0003','Sam','Mosabi','Mungeli','sommosabi2@gmail.com','0725162889','c826f944e5277fcaea442faee83b3157b85f63d4c5966d58f27e031a13c8f4ba',0,NULL,0,1,NULL,'2024-11-04 13:03:39',25,NULL,NULL,0,NULL,NULL,'51d9940b9bd59052eb506f0a60bdae',NULL,'employee','f20dc','d1e6b');
+(41,'AC0003','Sam','Mosabi','Mungeli','sommosabi2@gmail.com','0725162889','c826f944e5277fcaea442faee83b3157b85f63d4c5966d58f27e031a13c8f4ba',0,NULL,0,1,NULL,'2024-11-04 13:03:39',25,NULL,NULL,0,NULL,NULL,'51d9940b9bd59052eb506f0a60bdae',NULL,'employee','f20dc','d1e6b'),
+(42,'test','Test','User','Account','testuser@gmail.com','0727709773','713c70ac574fd15f4f8c618ec2170b876a9b1f8f37dc356baf1ef27a02c835d6',0,NULL,0,1,NULL,'2025-05-07 09:56:24',5,NULL,NULL,0,NULL,NULL,'444f9027918ac8622891',NULL,'system',NULL,NULL),
+(43,'test1','Test','User','Account','testuser1@gmail.com','0727709774','3fc405e1142e1a5bdb14b2d85558ddec2c4994da4d7921521f26544710c33d5d',0,NULL,0,1,NULL,'2025-05-07 09:58:46',5,NULL,NULL,0,NULL,NULL,'fcfe880f3f6e8b10daf5',NULL,'system',NULL,NULL),
+(44,'test3','Test','User','Account','testuser3@gmail.com','0727709775','0e5e1663f19e264fbac7667ca7f30dc149c06af5066a2b1db465ad4995a24af9',0,NULL,0,1,NULL,'2025-05-07 10:00:32',5,NULL,NULL,0,NULL,NULL,'e0f453617c67814e329f',NULL,'system',NULL,NULL),
+(45,'test4','Test','User','Account','testuser4@gmail.com','0727709776','ce8d5bf5a496c0ce1038ded9f60a2f7ef54054b889ca5ace9414ea6ad5374075',0,NULL,0,1,NULL,'2025-05-07 10:01:58',5,NULL,NULL,0,NULL,NULL,'fcd8d1e2c030f2bd7065',NULL,'system',NULL,NULL);
 
 /*Table structure for table `userprivileges` */
 
@@ -6703,7 +9012,78 @@ insert  into `userprivileges`(`id`,`objectid`,`userid`,`allowed`,`dateadded`,`ad
 (1908,5,24,1,NULL,8,'2023-05-30 20:25:12',8),
 (1909,11,24,1,NULL,8,'2023-05-30 20:25:12',8);
 
+/*Table structure for table `uwazismsconfiguration` */
+
+DROP TABLE IF EXISTS `uwazismsconfiguration`;
+
+CREATE TABLE `uwazismsconfiguration` (
+  `clientid` varchar(1000) DEFAULT NULL,
+  `url` varchar(1000) DEFAULT NULL,
+  `senderid` varchar(1000) DEFAULT NULL,
+  `apikey` varchar(1000) DEFAULT NULL,
+  `enabled` tinyint(1) DEFAULT 1,
+  `token` varchar(1000) DEFAULT NULL,
+  `apiused` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+/*Data for the table `uwazismsconfiguration` */
+
+insert  into `uwazismsconfiguration`(`clientid`,`url`,`senderid`,`apikey`,`enabled`,`token`,`apiused`) values 
+('747fc002-1c0d-46a2-8dad-35ed52323a39','https://api2.uwaziimobile.com/send','Wavishaji','P5ctnLs2DBtWaBE+/msmFBbLMBUxpqBbdJT6JNyW8vs=',1,'wJd8mN14re5AM7gQt0S46MfKRJhdBW','new');
+
+/*Table structure for table `whatsappconfiguration` */
+
+DROP TABLE IF EXISTS `whatsappconfiguration`;
+
+CREATE TABLE `whatsappconfiguration` (
+  `phonenumberid` varchar(50) DEFAULT NULL,
+  `accesstoken` varchar(1000) DEFAULT NULL,
+  `baseurl` varchar(1000) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `whatsappconfiguration` */
+
+insert  into `whatsappconfiguration`(`phonenumberid`,`accesstoken`,`baseurl`) values 
+('103782302688750','EAAFt0ZCSbkPEBOZC4jFWQ2ZCcZAPCZCX6oBC4KJroCkYwbiMykfVJhngwC3ZCbkCqs2DXQB1c0CAYvLffvueZCIRmIDyJLQQtBseSjKH2zP5qm23pEVDZATvqQlQ5EkrKkX6M1SyZBmpDdAa3aSw6C448vzekvkZBm19yfBvOsUZAnhzfQG3vdbO0Li2y7MpiVwaUICL11VszsrioYWCskKftOOsqpZB5gtvw64VYZBFNSfDO6ZAKdDAE3Qfxd','https://graph.facebook.com/v16.0/');
+
+/*Table structure for table `whatsappmessages` */
+
+DROP TABLE IF EXISTS `whatsappmessages`;
+
+CREATE TABLE `whatsappmessages` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `wamid` varchar(200) DEFAULT NULL,
+  `phoneno` varchar(50) DEFAULT NULL,
+  `messagecontent` text DEFAULT NULL,
+  `direction` varchar(50) DEFAULT NULL,
+  `timestamp` datetime DEFAULT NULL,
+  `status` varchar(50) DEFAULT NULL,
+  `delivered` tinyint(1) DEFAULT NULL,
+  `deliverydate` datetime DEFAULT NULL,
+  `read` tinyint(1) DEFAULT NULL,
+  `readdate` datetime DEFAULT NULL,
+  `template` tinyint(1) DEFAULT NULL,
+  `templatename` varchar(100) DEFAULT NULL,
+  `category` varchar(50) DEFAULT NULL,
+  `sentdate` datetime DEFAULT NULL,
+  `questionid` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8097 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Data for the table `whatsappmessages` */
+
 /*!50106 set global event_scheduler = 1*/;
+
+/* Event structure for event `ev_decativateconsecutiveabsentemployees` */
+
+/*!50106 DROP EVENT IF EXISTS `ev_decativateconsecutiveabsentemployees`*/;
+
+DELIMITER $$
+
+/*!50106 CREATE DEFINER=`root`@`localhost` EVENT `ev_decativateconsecutiveabsentemployees` ON SCHEDULE EVERY 1 DAY STARTS '2024-08-04 00:00:00' ON COMPLETION NOT PRESERVE ENABLE DO BEGIN
+	    call `sp_deactivateconsecutiveabsentemployees`();
+	END */$$
+DELIMITER ;
 
 /* Event structure for event `ev_prorateannualleavedays` */
 
@@ -6714,6 +9094,73 @@ DELIMITER $$
 /*!50106 CREATE DEFINER=`root`@`localhost` EVENT `ev_prorateannualleavedays` ON SCHEDULE EVERY 1 DAY STARTS '2024-08-04 00:05:00' ON COMPLETION NOT PRESERVE ENABLE DO BEGIN
 		call `sp_saveemployeeannualleaveallocation`();
 	END */$$
+DELIMITER ;
+
+/* Function  structure for function  `fn_calculategenlosthours` */
+
+/*!50003 DROP FUNCTION IF EXISTS `fn_calculategenlosthours` */;
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` FUNCTION `fn_calculategenlosthours`($shiftid int,$workdate date, $clockin time,$clockout time) RETURNS decimal(3,2)
+BEGIN
+	DECLARE $clockinallowance DECIMAL(5,2);
+	DECLARE $clockoutallowance DECIMAL(5,2);
+	DECLARE $shiftstarts TIME;
+	DECLARE $shiftends TIME;
+	DECLARE $clockindelay DECIMAL(5,2) DEFAULT 0;
+	DECLARE $clockoutadvance DECIMAL(5,2) DEFAULT 0;
+	DECLARE $losthours DECIMAL(5,2) DEFAULT 0;
+	DECLARE $wkday VARCHAR(50) DEFAULT DAYNAME($workdate);
+	
+	-- Get allowable time for clockin and clockout
+	SELECT `clockinallowance`,`clockoutallowance` 
+	INTO $clockinallowance,$clockoutallowance
+	FROM `attendancesettings`;
+	
+	
+	SELECT `starts`,`ends`
+	INTO $shiftstarts,$shiftends
+	FROM `shiftdetails` 
+	WHERE `shiftid`=$shiftid AND `dayofweek`=$wkday AND `deleted`=0;
+	
+	IF $clockin>$shiftstarts THEN
+		SET $clockindelay=(TIME_TO_SEC($clockin)-TIME_TO_SEC($shiftstarts))/3600;
+		IF $clockindelay >($clockinallowance/60) THEN
+			SET $losthours=$clockindelay;
+		END IF;
+	END IF;
+	
+	IF $shiftends>$clockout THEN 
+		SET $clockoutadvance=(TIME_TO_SEC($shiftends)-TIME_TO_SEC($clockout))/3600;
+		IF $clockoutadvance>($clockoutallowance/60) THEN 
+			SET $losthours=$losthours+$clockoutadvance;
+		END IF;
+	END IF;
+	
+	RETURN $losthours;
+	
+    END */$$
+DELIMITER ;
+
+/* Function  structure for function  `fn_checkemployeeonleave` */
+
+/*!50003 DROP FUNCTION IF EXISTS `fn_checkemployeeonleave` */;
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` FUNCTION `fn_checkemployeeonleave`($employeeid int,$validationdate date) RETURNS varchar(50) CHARSET utf8mb4 COLLATE utf8mb4_general_ci
+BEGIN
+    
+	declare $leavename varchar(50);
+	
+	SELECT abbreviation into $leavename
+	FROM `leaveapplications` a
+	join `leavetypes` t on t.`leaveid`=a.leavetypeid
+	WHERE a.`employeeid`=$employeeid AND $validationdate BETWEEN `startdate` AND `enddate`
+	AND `status`='Approved'limit 1;
+		
+	return ifnull($leavename,'');
+	
+    END */$$
 DELIMITER ;
 
 /* Function  structure for function  `fn_computebracketedvalue` */
@@ -6926,6 +9373,207 @@ BEGIN
     END */$$
 DELIMITER ;
 
+/* Function  structure for function  `fn_generateotrequisitionno` */
+
+/*!50003 DROP FUNCTION IF EXISTS `fn_generateotrequisitionno` */;
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` FUNCTION `fn_generateotrequisitionno`() RETURNS varchar(50) CHARSET utf8mb4 COLLATE utf8mb4_general_ci
+BEGIN
+    
+	declare $otrequisitionno varchar(50);
+	
+	SELECT CONCAT(`prefix`,CASE CHAR_LENGTH(`currentno`) 
+		WHEN 1 THEN '0000'
+		WHEN 2 THEN '000'
+		WHEN 3 THEN '00'
+		when 4 then '0'
+		ELSE '' END,`currentno`)
+	INTO $otrequisitionno
+	FROM `serials` WHERE id=1;
+	
+	RETURN $otrequisitionno;
+	
+    END */$$
+DELIMITER ;
+
+/* Function  structure for function  `fn_getemployeeapprovedovertime` */
+
+/*!50003 DROP FUNCTION IF EXISTS `fn_getemployeeapprovedovertime` */;
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` FUNCTION `fn_getemployeeapprovedovertime`($employeeid int,$validationdate date) RETURNS decimal(5,2)
+BEGIN
+    
+	declare $approvedot decimal(5,2) default 0;
+	declare $shiftid int;
+	
+	SELECT `shiftid`
+	INTO $shiftid
+	FROM `attendanceemployees` e
+	JOIN `attendance` a ON a.attendanceid=e.attendanceid 
+	WHERE `employeeid`=$employeeid AND a.`date`=$validationdate;
+	
+	if $shiftid is not null then 
+		SELECT `duration` into $approvedot
+		FROM `overtimerequisitions` r
+		JOIN `overtimerequisitionemployees` ot on ot.`requisitionid`=r.`requisitionid`
+		WHERE $validationdate BETWEEN r.`startdate` AND r.`enddate`
+		AND ot.`employeeid`=$employeeid AND `shiftid`=$shiftid AND ot.`deleted`=0 AND r.status='approved';
+	end if;
+	
+	return $approvedot;
+
+    END */$$
+DELIMITER ;
+
+/* Function  structure for function  `fn_getemployeelosthours` */
+
+/*!50003 DROP FUNCTION IF EXISTS `fn_getemployeelosthours` */;
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` FUNCTION `fn_getemployeelosthours`($employeeid int,$validationdate date) RETURNS decimal(5,2)
+BEGIN
+	declare $clockinallowance decimal(5,2);
+	declare $clockoutallowance decimal(5,2);
+	declare $clockintime time;
+	declare $clockouttime time;
+	declare $shiftid int;
+	declare $shiftstarts time;
+	declare $shiftends time;
+	declare $clockindelay decimal(5,2) default 0;
+	declare $clockoutadvance decimal(5,2) default 0;
+	declare $losthours decimal(5,2) default 0;
+	DECLARE $wkday VARCHAR(50) DEFAULT DAYNAME($validationdate);
+	
+	-- Get allowable time for clockin and clockout
+	select `clockinallowance`,`clockoutallowance` 
+	into $clockinallowance,$clockoutallowance
+	from `attendancesettings`;
+	
+	-- get staff details
+	SELECT e.`shiftid`,`clockin`,`clockout` 
+	INTO $shiftid,$clockintime,$clockouttime 
+	FROM `attendanceemployees` e
+	join `shiftdetails` s on s.`shiftid`=e.shiftid
+	JOIN `attendance` a ON a.attendanceid=e.attendanceid 
+	WHERE `employeeid`=$employeeid AND a.`date`=$validationdate and s.`status`='workingday' and s.dayofweek=$wkday ;
+	
+	-- get shift details
+	if $shiftid is not null then		
+		SELECT `starts`,`ends`
+		INTO $shiftstarts,$shiftends
+		FROM `shiftdetails` 
+		WHERE `shiftid`=$shiftid AND `dayofweek`=$wkday AND `deleted`=0;
+		
+		if $clockintime is not null then 
+			if $clockintime>$shiftstarts then
+				set $clockindelay=(TIME_TO_SEC($clockintime)-TIME_TO_SEC($shiftstarts))/3600;
+				if $clockindelay >($clockinallowance/60) then
+					set $losthours=$clockindelay;
+				end if;
+			end if;
+		elseif $clockouttime is not null then 
+			if $shiftends>$clockouttime then 
+				set $clockoutadvance=(TIME_TO_SEC($shiftends)-TIME_TO_SEC($clockouttime))/3600;
+				if $clockoutadvance>($clockoutallowance/60) then 
+					set $losthours=$losthours+$clockoutadvance;
+				end if;
+			end if;
+		else
+			set $losthours=0;
+		end if;	
+	else
+		set $losthours=0;
+	end if;
+	
+	return $losthours;
+	
+    END */$$
+DELIMITER ;
+
+/* Function  structure for function  `fn_getemployeeovertime` */
+
+/*!50003 DROP FUNCTION IF EXISTS `fn_getemployeeovertime` */;
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` FUNCTION `fn_getemployeeovertime`($employeeid INT,$validationdate DATE) RETURNS decimal(18,2)
+BEGIN
+    
+	DECLARE $shiftid INT;
+	DECLARE $clockintime TIME;
+	DECLARE $clockouttime TIME;
+	DECLARE $overtime DECIMAL(18,2) default 0;
+	DECLARE $shiftstarts TIME;
+	DECLARE $shiftends TIME;
+	DECLARE $shiftbreak DECIMAL(5,3);
+	DECLARE $wkday VARCHAR(50) DEFAULT DAYNAME($validationdate);
+	DECLARE $workinghours DECIMAL(5,2);
+	DECLARE $hoursworked DECIMAL(5,2);
+	
+	SELECT e.shiftid,clockin,clockout 
+	INTO $shiftid,$clockintime,$clockouttime 
+	FROM attendanceemployees e
+	JOIN attendance a ON a.attendanceid=e.attendanceid 
+	JOIN `shiftdetails` s ON s.`shiftid`=e.shiftid
+	WHERE employeeid=$employeeid AND a.date=$validationdate AND s.`status`='workingday' AND s.dayofweek=$wkday;
+	
+	IF $shiftid IS NOT NULL THEN 
+	
+		SELECT `starts`,`ends`,break 
+		INTO $shiftstarts,$shiftends,$shiftbreak
+		FROM shiftdetails WHERE shiftid=$shiftid AND `dayofweek`=$wkday AND deleted=0;
+		
+		-- SET $workinghours=(TIME_TO_SEC($shiftends)-TIME_TO_SEC($shiftstarts))/3600;
+		
+		IF $clockintime IS NOT NULL  AND $clockouttime IS NOT NULL THEN
+			if $clockouttime>$shiftends then 		
+				SET $overtime=(TIME_TO_SEC($clockouttime)-TIME_TO_SEC($shiftends))/3600;
+			ELSE
+				SET $overtime=0;
+			END IF;
+		END IF;
+	ELSE
+		SELECT `clockin`,`clockout` 
+		into $clockintime,$clockouttime
+		from `attendanceemployees` e
+		join `attendance` a on a.`attendanceid`=e.`attendanceid` and `date`=$validationdate and `employeeid`=$employeeid;
+		if $clockintime is not null and $clockouttime is not null then 
+			SET $overtime=(TIME_TO_SEC($clockouttime)-TIME_TO_SEC($clockintime))/3600;
+		end if;
+	END IF;
+	
+	RETURN $overtime;
+			
+    END */$$
+DELIMITER ;
+
+/* Function  structure for function  `fn_getgeneralovertime` */
+
+/*!50003 DROP FUNCTION IF EXISTS `fn_getgeneralovertime` */;
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` FUNCTION `fn_getgeneralovertime`($shiftid int,$workdate date,$clockout time) RETURNS varchar(50) CHARSET utf8mb4 COLLATE utf8mb4_general_ci
+BEGIN
+	-- DECLARE $shiftid INT;
+	DECLARE $overtime DECIMAL(18,2) DEFAULT 0;
+	-- DECLARE $shiftstarts TIME;
+	DECLARE $shiftends TIME;
+	-- DECLARE $shiftbreak DECIMAL(5,3);
+	DECLARE $wkday VARCHAR(50) DEFAULT DAYNAME($workdate);
+
+	SELECT `ends`
+	INTO $shiftends
+	FROM shiftdetails WHERE shiftid=$shiftid AND `dayofweek`=$wkday AND deleted=0;
+	
+	IF $clockout>$shiftends THEN 		
+		SET $overtime=(TIME_TO_SEC($clockout)-TIME_TO_SEC($shiftends))/3600;
+	END if;
+	
+	return $overtime;
+    END */$$
+DELIMITER ;
+
 /* Function  structure for function  `fn_getleaveapplicationstatus` */
 
 /*!50003 DROP FUNCTION IF EXISTS `fn_getleaveapplicationstatus` */;
@@ -6957,6579 +9605,30 @@ BEGIN
     END */$$
 DELIMITER ;
 
-/* Procedure structure for procedure `sp_approveleave` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_approveleave` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_approveleave`($applicationid int,$approvallevelid int,$approvalstatus varchar(50),$narration varchar(1000),$userid int,$platform varchar(50))
-BEGIN
-		start transaction;
-			insert into `leaveapproval`(`applicationid`,`approvallevelid`,`approvaluser`,`narration`,`status`,`statusdate`)
-			values($applicationid,$approvallevelid,$userid,$narration,$approvalstatus,now());
-			
-			select concat('Approved leave application of leave, id ',$applicationid,' for level id:',
-			$approvallevelid,', levelname:',
-				case approvallevel when 'supervisor' then 'Supervisor'
-				when 'hrmanager' then 'Human Resource Manager'
-				when 'topmanagement' then 'Senior management' end)
-			into @narration
-			from `leaveapprovallevels` where `id`=$approvallevelid;
-			
-			CALL `sp_saveaudittrailentry`($userid,'insert',@narration,$platform,'','',NULL);
-		commit;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_changeuserpassword` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_changeuserpassword` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_changeuserpassword`($id numeric, $userpassword varchar(100),$salt varchar(50),$changepasswordonlogon bool)
-BEGIN
-	update `user` 
-	set `password`=$userpassword, `salt`=$salt,`changepasswordonlogon`=$changepasswordonlogon 
-	where `userid`=$id;
-    END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_checkbank` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_checkbank` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_checkbank`($bankid int,$checkfield varchar(50),$checkvalue varchar(50))
-BEGIN
-		if $checkfield='code' then
-			select * from `banks`
-			where `bankid`!=$bankid and `bankcode`=$checkvalue;
-		elseif $checkfield='name' then
-			SELECT * FROM `banks`
-			WHERE `bankid`!=$bankid AND `bankname`=$checkvalue;
-		end if;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_checkbankbranchcode` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_checkbankbranchcode` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_checkbankbranchcode`($branchid int,$branchcode varchar(50))
-BEGIN
-		select * 
-		from `bankbranches`
-		where `branchid`!=$branchid and `branchcode`=$branchcode;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_checkbankbranchname` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_checkbankbranchname` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_checkbankbranchname`($branchid int,$bankid int, $branchname varchar(50))
-BEGIN
-		select * 
-		from `bankbranches`
-		where `branchid`!=$branchid and `bankid`=$bankid and `branchname`=$branchname;
-		
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_checkchargeableitem` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_checkchargeableitem` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_checkchargeableitem`($itemid int,$itemname varchar(50))
-BEGIN
-		select * 
-		from `chargeableitems` 
-		where `itemid`!=$itemid and `itemname`=$itemname;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_checkcreditor` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_checkcreditor` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_checkcreditor`($creditorid int,$checkfield varchar(50),$checkvalue varchar(50))
-BEGIN
-		if $checkfield='reference' then
-			select * 
-			from `creditors`
-			where `creditorid`!=$creditorid and `referenceno`=$checkvalue and `deleted`=0;
-		elseif $checkfield='name' then 
-			select * 
-			from `creditors`
-			where `creditorid`!=$creditorid and `creditorname`=$checkvalue and `deleted`=0;
-		end if;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_checkdepartment` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_checkdepartment` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_checkdepartment`($departmentid INT, $departmentname VARCHAR(50))
-BEGIN
-          SELECT * FROM departments
-          WHERE departmentid!=$departmentid AND departmentname=$departmentname;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_checkdepartments` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_checkdepartments` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_checkdepartments`($departmentid int, $departmentname varchar(50))
-BEGIN
-          select * from `departments`
-          where `departmentid`!=$departmentid and `departmentname`=$departmentname
-          and deleted=0;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_checkemployeeattachment` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_checkemployeeattachment` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_checkemployeeattachment`($id int,$documentid int,$employeeid int)
-BEGIN
-             select * from `employeeattachments`
-             where id!=$id and employeeid=$employeeid and `documentid`=$documentid;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_checkemployeebeneficiary` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_checkemployeebeneficiary` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_checkemployeebeneficiary`($beneficiaryid int,$employeeid int, $idnumber varchar(50))
-BEGIN
-		select * from `employeebeneficiaries`
-		where `beneficiaryid`!=$beneficiaryid and `employeeid`=$employeeid 
-		and `idnumber`=$idnumber and `deleted`=0;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_checkemployeechpayrollitem` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_checkemployeechpayrollitem` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_checkemployeechpayrollitem`($itemid int,$employeeid int,$payrollitemid int)
-BEGIN
-		select * from `employeepayrollitems` 
-		where `itemid`!=$itemid and `payrollitemid`=$payrollitemid  and `employeeid`=$employeeid and 
-		(
-			(periodic=1 and date_format(DATE_ADD(startdate, INTERVAL `duration` month),'%Y-%m-%d')>date_format(now(),'%Y-%m-%d')
-			or periodic=0)
-		) and deleted=0;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_checkemployeedependantiddoc` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_checkemployeedependantiddoc` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_checkemployeedependantiddoc`($dependantid int,$employeeid int,$iddoc int,$iddocno varchar(50))
-BEGIN
-		select * from `employeedependants`
-		where `dependantid`!=$dependantid and `employeeid`=$employeeid 
-		and `iddocumentid`=$iddoc and `iddocumentno`=$iddocno
-		and `deleted`=0;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_checkemployeedetails` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_checkemployeedetails` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_checkemployeedetails`($employeeid int,$checkfield varchar(50),$iddocument int,$checkvalue varchar(50))
-BEGIN
-		if $checkfield='id document' then 
-			select * from `employeerecords` 
-			where `employeeid`!=$employeeid and `iddocumentid`=$iddocument and `iddocreferenceno`=$checkvalue;
-		elseif $checkfield='staff no' then
-			SELECT * FROM `employeerecords` 
-			WHERE `employeeid`!=$employeeid AND `staffno`=$checkvalue;
-		elseif $checkfield='pin no' then 
-			SELECT * FROM `employeerecords` 
-			WHERE `employeeid`!=$employeeid AND `pinno`=$checkvalue;
-		elseif $checkfield='nssf no' then 
-			SELECT * FROM `employeerecords` 
-			WHERE `employeeid`!=$employeeid AND `nssfno`=$checkvalue;
-		elseif $checkfield='nhif no' then
-			SELECT * FROM `employeerecords` 
-			WHERE `employeeid`!=$employeeid AND `nhifno`=$checkvalue;
-		elseif $checkfield='email' then 
-			SELECT * FROM `employeerecords` 
-			WHERE `employeeid`!=$employeeid AND `emailaddress`=$checkvalue;
-		elseif $checkfield='mobile' then
-			SELECT * FROM `employeerecords` 
-			WHERE `employeeid`!=$employeeid AND `mobile`=$checkvalue;
-		elseif $checkfield='disabilitycertificate' then 
-			SELECT * FROM `employeerecords` 
-			WHERE `employeeid`!=$employeeid AND `disabilitycertificateno`=$checkvalue;
-		end if;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_checkemployeeexternalexperience` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_checkemployeeexternalexperience` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_checkemployeeexternalexperience`($id int,$employeeid int,$startdate date,$enddate date)
-BEGIN
-		select * from `employeeexternalworkingexperience`
-		where `id`!=$id and `employeeid`=$employeeid and 
-		(`startdate` between $startdate and $enddate or `enddate` between $startdate and $enddate)
-		and `deleted`=0;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_checkemployeeinternalexperience` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_checkemployeeinternalexperience` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_checkemployeeinternalexperience`($id int,$employeeid int,$startdate date,$enddate date,$currentlyhere bool)
-BEGIN
-		if $currentlyhere=1 then 
-			set $enddate=date_format(now(),'%Y-%m-%d');
-		end if;
-		
-		select * from `employeeinternalworkingexperience`
-		where `id`!=$id and `employeeid`=$employeeid and 
-			(`startdate` between $startdate and $enddate 
-			or 
-			(`currentlyhere`=0 and `enddate` between $startdate and $enddate)
-			or
-			(`currentlyhere`=1 and date_format(now(),'%Y-%m-%d') between $startdate and $enddate)
-		) and deleted=0;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_checkemployeeleaveapplication` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_checkemployeeleaveapplication` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_checkemployeeleaveapplication`($applicationid int,$employeeid int,$startdate date,$enddate date)
-BEGIN
-		select * from `leaveapplications`
-		where `employeeid`=$employeeid and 
-		(`startdate` between $startdate and $enddate or `enddate` between $startdate and $enddate)
-		and `fn_getleaveapplicationstatus`(applicationid) not like '%cancelled%' and `deleted`=0 and `applicationid`!=$applicationid;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_checkemployeetrainingcertificate` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_checkemployeetrainingcertificate` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_checkemployeetrainingcertificate`($trainingid int,$employeeid int,$certificatenumber varchar(50))
-BEGIN
-		select * from  `employeetraining`
-		where `trainingid`!=$trainingid and `employeeid`=$employeeid and `certificateno`=$certificatenumber;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_checkemploymentterm` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_checkemploymentterm` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_checkemploymentterm`($termid int,$termname varchar(50))
-BEGIN
-		select * from `employmentterms`
-		where `termid`!=$termid and `termname`=$termname and `deleted`=0;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_checkgrievances` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_checkgrievances` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_checkgrievances`($grievanceid int)
-BEGIN
-            select * from `employeegrievances`
-            where `grievanceid`=$grievanceid;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_checkjobcategory` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_checkjobcategory` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_checkjobcategory`($categoryid int,$checkfield varchar(50),$checkvalue varchar(50))
-BEGIN
-		if $checkfield='prefix' then 
-			select * from `jobcategories`
-			where `categoryid`!=$categoryid and `numberingprefix`=$checkvalue and `deleted`=0;
-		elseif $checkfield='name' then 
-			select * from `jobcategories`
-			where `categoryid`!=$categoryid and `categoryname`=$checkvalue and `deleted`=0;
-		end if;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_checkjobgroup` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_checkjobgroup` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_checkjobgroup`($jobgroupid int,$jobgroupname varchar(50))
-BEGIN
-		select * from `jobgroups`
-		where `jobgroupid`!=$jobgroupid and `jobgroupname`=$jobgroupname and `deleted`=0;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_checkjobnotch` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_checkjobnotch` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_checkjobnotch`($notchid int,$notchname varchar(50))
-BEGIN
-		select * from `jobnotches`
-		where `notchid`!=$notchid and `notchname`=$notchname and `deleted`=0;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_checkjobposition` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_checkjobposition` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_checkjobposition`($positionid int,$positionname varchar(100))
-BEGIN
-		select * from `jobpositions`
-		where positionid!=$positionid and `positionname`=$positionname
-		and deleted=0;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_checkleaveapprovalflow` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_checkleaveapprovalflow` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_checkleaveapprovalflow`($flowid int,$flowname varchar(50))
-BEGIN
-		select *
-		from `leaveapprovalflows`
-		where `flowid`!=$flowid and `flowname`=$flowname
-		and `deleted`=0;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_checkleavename` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_checkleavename` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_checkleavename`($leaveid int,$leavename varchar(50))
-BEGIN
-		select * 
-		from `leavetypes`
-		where `leaveid`!=$leaveid and `leavename`=$leavename and `deleted`=0;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_checkpayrollitem` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_checkpayrollitem` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_checkpayrollitem`($itemid int,$itemname varchar(50))
-BEGIN
-		select * 
-		from `payrollitems` where `itemid`!=$itemid and `itemname`=$itemname and `deleted`=0;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_checkpayrollitemgroup` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_checkpayrollitemgroup` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_checkpayrollitemgroup`($groupid int,$groupname varchar(50))
-BEGIN
-		select * 
-		from `payrollitemgroups`
-		where `groupid`!=$groupid and `groupname`=$groupname and `deleted`=0;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_checkpayrollotheropenperiods` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_checkpayrollotheropenperiods` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_checkpayrollotheropenperiods`($payrollmonth varchar(50),$payrollyear int)
-BEGIN
-		select * 
-		from `payrolldetails`
-		where `status`='open' and `month`!=$payrollmonth and `year`!=$payrollyear;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_checkpayrollperiodstatus` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_checkpayrollperiodstatus` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_checkpayrollperiodstatus`($payrollmonth varchar(50),$payrollyear int)
-BEGIN
-		select * from `payrolldetails`
-		where `month`=$payrollmonth and `year`=$payrollyear;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_checkpublicholiday` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_checkpublicholiday` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_checkpublicholiday`($id int,$holidaydate date,$holidayname varchar(50))
-BEGIN
-		if exists(select * from `publicholidays` where `id`!=$id and `holidayname`=$holidayname and `deleted`=0 and date_format($holidaydate,'%Y-%m-%d')>=$holidaydate) then
-			select 'holiday exists' as description;
-		elseif exists(SELECT * FROM `publicholidays` WHERE `id`!=$id AND `date`=$holidaydate AND `deleted`=0) then 
-			select 'date exists' as description;
-		end if;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_checkrole` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_checkrole` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_checkrole`(`$roleid` INT, `$rolename` VARCHAR(50))
-BEGIN
-	select * 
-	from `roles` 
-	where `roleid`<>$roleid and `rolename`=$rolename;
-    END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_checksalarystructure` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_checksalarystructure` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_checksalarystructure`($structureid int, $jobgroupid int,$notchid int,$payrollitemid int)
-BEGIN
-		select * from `jobsalarystructures`
-		where `jobgroupid`=$jobgroupid and `notchid`=$notchid and `payrollitemid`=$payrollitemid
-		and `structureid`!=$structureid
-		and `deleted`=0;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_checkshiftmasterdetails` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_checkshiftmasterdetails` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_checkshiftmasterdetails`($shiftid int,$shiftname varchar(50))
-BEGIN
-		select * from `shiftmaster`
-		where `shiftid`!=$shiftid and `shiftname`=$shiftname and `deleted`=0;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_checkstaffshift` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_checkstaffshift` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_checkstaffshift`($staffshiftid int,$shiftid int,$employeeid int,$shiftdate date)
-BEGIN
-		select * from `staffshifts`
-		where `staffshiftid`!=$staffshiftid and `employeeid`=$employeeid 
-		and `shiftid`=$shiftid and date_format(`date`,'%Y-%m-%d')=$shiftdate and `deleted`=0;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_checkuser` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_checkuser` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_checkuser`(`$userid` INT, `$checkfield` VARCHAR(50), `$checkvalue` VARCHAR(50))
-BEGIN
-	if $checkfield='username' then 
-		select * from `user` where `id`<>$userid and `username`=$checkvalue;
-	elseif $checkfield='email' then 
-		select * from `user` where `id`<>$userid AND `email`=$checkvalue;
-	elseif $checkfield='mobile' then 
-		SELECT * FROM `user` WHERE `id`<>$userid AND `mobile`=$checkvalue;
-	end if;
-    END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_closepayrollperiod` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_closepayrollperiod` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_closepayrollperiod`($payrollid int,$userid int,$platform varchar(1000))
-BEGIN
-		start transaction;
-			update `payrolldetails` 
-			set `status`='closed'
-			where `payrollid`=$payrollid;
-			
-			select concat('Closed payroll period ',`month`,' ',`year`, ' id: ',$payrollid)
-			into @narration
-			from `payrolldetails` where `payrollid`=$payrollid;
-			
-			CALL `sp_saveaudittrailentry`($userid,'update',@narration,$platform,'','',NULL);
-		commit;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_countholidays` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_countholidays` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_countholidays`( $startdate DATE, $enddate DATE)
-BEGIN 
-	-- declare publicholidays int default 0;
-  /*DECLARE curr_date DATE;
-  DECLARE total_days INT;
-  DECLARE day_of_week INT;
-  DECLARE weekend_count INT DEFAULT 0;
- 
-  
-  SET curr_date = start_date;
-  SET total_days = DATEDIFF(end_date, start_date);
-
-  WHILE total_days >= 0 DO
-    SET day_of_week = DAYOFWEEK(curr_date);
-    IF day_of_week = 1 OR day_of_week = 7 THEN
-      SET weekend_count = weekend_count + 1;
-    END IF;
-    SET curr_date = DATE_ADD(curr_date, INTERVAL 1 DAY);
-    SET total_days = total_days - 1;
-  END WHILE;*/
-  
-	 -- get public holidays between the dates that are active
-	 SELECT COUNT(*) AS weekendholidayscount
-	 -- INTO public_holidays
-	 FROM `publicholidays`
-	 WHERE `date` BETWEEN $startdate AND $enddate AND `deleted`=0;
-  
-	-- SELECT ifnull(public_holidays,0) ;
-  
-END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_createemployeeuseraccount` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_createemployeeuseraccount` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_createemployeeuseraccount`($staffno varchar(50),$mobile varchar(50),$emailaddress varchar(50),$salt varchar(50),
-	$userpassword varchar(100),$emailactivationcode varchar(50),$phoneactivationcode varchar(50),
-	$userid int,$platform varchar(50))
-BEGIN
-		declare $firstname varchar(50);
-		declare $middlename varchar(50);
-		declare $lastname varchar(50);
-		
-		select `firstname`,`middlename`,`lastname` 
-		into $firstname,$middlename,$lastname
-		from  `employeerecords` where `staffno`=$staffno;
-		
-		start transaction;		
-			if not exists(select * from `user` where `username`=$staffno) then 
-				-- Create user account for employee
-				insert into `user`(`category`,`username`,`firstname`,`middlename`,`lastname`,`email`,`mobile`,`password`,`salt`,
-				`emailactivationcode`,`phoneactivationcode`,`dateadded`,`addedby`)
-				values('employee',$staffno,$firstname,$middlename,$lastname,$emailaddress,$mobile,$userpassword,$salt,
-				$emailactivationcode,$phoneactivationcode,now(),$userid);
-				
-				-- Update mobile and email addresses
-				update `employeerecords`
-				set `mobile`=$mobile,`emailaddress`=$emailaddress
-				where `staffno`=$staffno;
-				
-				-- Add audit trails for the same
-				select concat('Created ESS portal access account for  staff: ',$staffno,' names:',$firstname,' ',$middlename,' ',$lastname)
-				into @narration;
-				CALL `sp_saveaudittrailentry`($userid,'insert',@narration,$platform,'','',NULL);
-				
-				SELECT CONCAT('Updated concat details for  staff: ',$staffno,' names:',$firstname,' ',$middlename,' ',$lastname)
-				INTO @narration;
-				CALL `sp_saveaudittrailentry`($userid,'update',@narration,$platform,'','',NULL);
-			end if;
-		commit;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_deletebank` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_deletebank` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_deletebank`($bankid int,$userid int,$platform varchar(1000))
-BEGIN
-		start transaction;
-			-- delete bank
-			update `banks`
-			set `deleted`=1,
-			`deletedy`=$userid,
-			`datedeleted`=now()
-			where `bankid`=$bankid;
-			
-			-- Generate audit trail narration
-			select concat('Deleted  bank id : ',$bankid,' bank name : ',bankname)
-			into @narration
-			from `banks` where `bankid`=$bankid;
-			-- add audit trail
-			CALL `sp_saveaudittrailentry`($userid,'Delete',@narration,$platform,'','',null); 
-		commit;	
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_deletebankbranch` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_deletebankbranch` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_deletebankbranch`($branchid int,$userid int,$platform varchar(1000))
-BEGIN
-		start transaction;
-		
-			update `bankbranches`
-			set `deleted`=1,`deletedby`=$userid,`datedeleted`=now()
-			where `branchid`=$branchid;
-			
-			select concat('Deleted bank branch id: ',$branchid,' name: ',branchname)
-			into @narration
-			from `bankbranches` where `branchid`=$branchid;
-			
-			CALL `sp_saveaudittrailentry`($userid,'delete',@narration,$platform,'','',NULL);
-			
-		commit;
-		 
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_deletechargeableitem` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_deletechargeableitem` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_deletechargeableitem`($itemid int,$userid int,$platform varchar(50))
-BEGIN
-		update `chargeableitems`
-		set `deleted`=1,`datedeleted`=now(),`deletedby`=$userid
-		where `itemid`=$itemid;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_deletecreditor` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_deletecreditor` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_deletecreditor`($creditorid int,$userid int,$platform varchar(1000))
-BEGIN
-		start transaction;
-			UPDATE `creditors`
-			SET `deleted`=1,`datedeleted`=NOW(),`deletedby`=$userid
-			WHERE `creditorid`=$creditorid;
-			
-			SELECT CONCAT('Deleted creditor id:',$creditorid,' name:',creditorname)
-			INTO @narration
-			FROM `creditors` WHERE `creditorid`=$creditorid;
-			
-			CALL `sp_saveaudittrailentry`($userid,'deleted',@narration,$platform,'','',NULL);
-		
-		commit;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_deletedepartment` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_deletedepartment` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_deletedepartment`($departmentid int,$userid int,$platform varchar(50))
-BEGIN
-		START TRANSACTION;
-		
-			UPDATE `departments`
-			SET `deleted`=1,`datedeleted`=NOW(),`deletedby`=$userid
-			WHERE `departmentid`=$departmentid;
-			
-			SELECT CONCAT('Deleted department id:',$departmentid,' name:',departmentname)
-			INTO @narration
-			FROM `departments` WHERE `departmentid`=$departmentid;
-			
-			CALL `sp_saveaudittrailentry`($userid,'deleted',@narration,$platform,'','',NULL);
-			
-		COMMIT;	
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_deletedepartments` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_deletedepartments` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_deletedepartments`($departmentid int, $userid int,$platform varchar(1000))
-BEGIN
-            start transaction;
-            
-              update `departments`
-              
-              set `deleted` =1,`datedeleted`=now(),`deletedby`=$userid
-              
-              where `departmentid`=$departmentid; 
-              
-              select concat('Deleted department id:',`departmentid`,'name:',`departmentname`,'head:',`departmenthead`)
-              into @narration
-              from `departments` where `departmentid`= $departmentid;  
-                 CALL `sp_saveaudittrailentry`($userid,'delete',@narration,$platform,'','',NULL); 
-            
-            commit;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_deleteemployeeattachment` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_deleteemployeeattachment` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_deleteemployeeattachment`($id int,$userid int,$platform varchar(1000))
-BEGIN
-             
-             -- update the table
-             update `employeeattachments`
-             set `deleted`=1,`datedeleted`=now(),`deletedby`=$userid
-             where `id` =$id;
-             
-             select concat('deleted employee attachment id',$id,' document name:', 
-             `documentname`,' staff id"', e.employeeid,' no:',staffno,' names:',firstname,' ',middlename,' ',lastname)
-             into @narration
-             from `employeeattachments` e
-             join `employeeattachabledocuments` d on d.documentid=e.documentid
-             join `employeerecords` r on r.employeeid=e.employeeid
-             where e.`id`=$id;
-             
-             -- update autid trail 
-             CALL `sp_saveaudittrailentry`($userid,'Delete',@narration,$platform,'','',NULL);
-             
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_deleteemployeebeneficiary` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_deleteemployeebeneficiary` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_deleteemployeebeneficiary`($beneficiaryid int,$userid int,$platform varchar(50))
-BEGIN
-		start transaction;
-			update `employeebeneficiaries`
-			set `deleted`=1,`datedeleted`=now(),`deletedby`=$userid
-			where `beneficiaryid`=$beneficiaryid;
-			
-			select concat('Deleted employee beneficary id:',$beneficiaryid,' names:',fullname,
-			' of staff id:',r.employeeid,' number:',staffno,' names:',firstname,' ',middlename,' ',lastname)
-			into @narration
-			from `employeebeneficiaries` b 
-			join `employeerecords` r on r.employeeid=b.employeeid
-			where b.beneficiaryid=$beneficiaryid;
-			
-			CALL `sp_saveaudittrailentry`($userid,'deleted',@narration,$platform,'','',NULL);
-		commit;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_deleteemployeedependant` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_deleteemployeedependant` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_deleteemployeedependant`($dependantid int,$userid int,$platform varchar(1000))
-BEGIN
-		start transaction;
-		
-			update `employeedependants`
-			set `deleted`=1,`datedeleted`=now(),`deletedby`=$userid
-			where dependantid=$dependantid;
-			
-			select concat('Deleted dependant id:',$dependantid,' name:',dependantname,' for employee id:',e.employeeid,' name:', 
-			firstname, ' ',middlename,' ' ,lastname)
-			into @narration 
-			from `employeedependants` d
-			join `employeerecords` e on e.employeeid=d.employeeid 
-			where d.dependantid=$dependantid;
-			
-			CALL `sp_saveaudittrailentry`($userid,'Delete',@narration,$platform,'','',null); 	
-		
-		commit;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_deleteemployeedisciplinaryincident` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_deleteemployeedisciplinaryincident` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_deleteemployeedisciplinaryincident`($incidentid int,$userid int,$platform varchar(1000))
-BEGIN
-		start transaction;
-		
-			update `employeedisciplinarycases`
-			set `deleted`=1,`deleteby`=$userid,`datedeleted`=now()
-			where `incidentid`=$incidentid;
-			
-			select concat('Deleted disciplinary inceident id:',$incidentid,' for employee id:',i.employeeid,' staff no:',staffno,
-			' names ',firstname,' ',middlename,' ',lastname)
-			into @narration
-			from `employeedisciplinarycases` i
-			join `employeerecords` r on r.employeeid=i.employeeid
-			where incidentid=$incidentid;
-			
-			CALL `sp_saveaudittrailentry`($userid,'deleted',@narration,$platform,'','',NULL);
-			
-		commit;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_deleteemployeeinternalexperience` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_deleteemployeeinternalexperience` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_deleteemployeeinternalexperience`($id int,$userid int,$platform varchar(50))
-BEGIN
-		start transaction;
-		
-			update `employeeinternalworkingexperience`
-			set `deleted`=1,`datedeleted`=now(),`deleteby`=$userid
-			where `id`=$id;
-			
-			select concat('Deleted employee internal experience id:',$id)
-			into @narration;
-			
-			CALL `sp_saveaudittrailentry`($userid,'delete',@narration,$platform,'','',NULL);
-			
-		commit;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_deleteemployeepayrollitem` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_deleteemployeepayrollitem` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_deleteemployeepayrollitem`($itemid int,$userid int,$platform varchar(1000))
-BEGIN
-		start transaction;
-		
-			update `employeepayrollitems`
-			set `deleted`=1,`datedeleted`=now(),`deletedby`=$userid
-			where `itemid`=$itemid;
-			
-			select concat('Deleted payroll item id:',$itemid,' name:',itemname,' staffno:',staffno,' names:',firstname,' ',middlename,' ',lastname)
-			into @narration
-			from `employeepayrollitems` ep
-			inner join `payrollitems` p on p.itemid=ep.payrollitemid
-			inner join `employeerecords` e on e.employeeid=ep.employeeid
-			where ep.itemid=$itemid;
-			
-			CALL `sp_saveaudittrailentry`($userid,'deleted',@narration,$platform,'','',NULL);
-		
-		commit;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_deleteemployeetraining` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_deleteemployeetraining` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_deleteemployeetraining`($trainingid int,$userid int,$platform varchar(1000))
-BEGIN
-		start transaction;
-		
-			update `employeetraining`
-			set `deleted`=1,`datedeleted`=now(),`deletedby`=$userid
-			where `trainingid`=$trainingid;
-			
-			select concat('Deleted employee training id:',$trainingid,' staff id:',e. employeeid,' staff no:',staffno,
-			' names:',firstname,' ',middlename,' ', lastname,' course details name:',coursename,' level:', levelname)
-			into @narration
-			from `employeetraining` e
-			join `employeerecords` r on r.employeeid=e.employeeid
-			join `courselevels` l on l.levelid=e.levelid
-			where e.trainingid=$trainingid;
-			
-			CALL `sp_saveaudittrailentry`($userid,'deleted',@narration,$platform,'','',NULL);
-			
-		commit;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_deleteemploymentterm` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_deleteemploymentterm` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_deleteemploymentterm`($termid int,$userid int,$platform varchar(1000))
-BEGIN
-		start transaction;
-		
-			update `employmentterms`
-			set `deleted`=1,`datedeleted`=now(),`deletedby`=$userid
-			where `termid`=$termid;
-			
-			select concat('Deleted employment term id:',$termid,' name: ',termname)
-			into @narration
-			from `employmentterms` where `termid`=$termid;
-			
-			CALL `sp_saveaudittrailentry`($userid,'delete',@narration,$platform,'','',NULL);
-		
-		commit;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_deletegrievances` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_deletegrievances` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_deletegrievances`($grievanceid int,$userid int,$platform varchar(1000))
-BEGIN
-	
-		update `grievancesdetails`
-		set `deleted`=1,`datedeleted`=now(),`deletedby`=$userid
-		where `grievanceid`=$grievanceid;
-		
-		select concat('deleted grievances id',$grievanceid)
-		into @narration
-		from `grievancesdetails`
-		where `grievanceid`=$grievanceid;
-		
-		CALL `sp_saveaudittrailentry`($userid,'deleted',@narration,$platform,'','',NULL);
-		
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_deletejobcategory` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_deletejobcategory` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_deletejobcategory`($categoryid int,$userid int,$platform varchar(100))
-BEGIN
-		start transaction;
-		
-			update `jobcategories`
-			set `deleted`=1,`datedeleted`=now(),`deletedby`=$userid
-			where `categoryid`=$categoryid;
-			
-			SELECT CONCAT('Deleted job category  id:',$categoryid,' name:',categoryname)
-			INTO @narration
-			from `jobcategories` where `categoryid`=$categoryid;
-			
-			CALL `sp_saveaudittrailentry`($userid,'deleted',@narration,$platform,'','',NULL);
-			
-		commit;	
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_deletejobgroup` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_deletejobgroup` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_deletejobgroup`($jobgroupid int,$userid int,$platform varchar(1000))
-BEGIN
-		start transaction;
-			update `jobgroups`
-			set `deleted`=1,`datedeleted`=now(),`deletedby`=$userid
-			where `jobgroupid`=$jobgroupid;
-			
-			select concat('Deleted job group id :',$jobgroupid,' name: ',jobgroupname)
-			into @narration
-			from `jobgroups` where `jobgroupid`=$jobgroupid;
-			
-			CALL `sp_saveaudittrailentry`($userid,'deleted',@narration,$platform,'','',NULL);
-		commit;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_deletejobnotch` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_deletejobnotch` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_deletejobnotch`($notchid int,$userid int,$platform varchar(1000))
-BEGIN
-		START TRANSACTION;
-			UPDATE `jobnotches`
-			SET `deleted`=1,`datedeleted`=NOW(),`deletedby`=$userid
-			WHERE `notchid`=$notchid;
-			
-			SELECT CONCAT('Deleted job notch id :',$notchid,' name: ',notchname)
-			INTO @narration
-			FROM `jobnotches` WHERE `notchid`=$notchid;
-			
-			CALL `sp_saveaudittrailentry`($userid,'deleted',@narration,$platform,'','',NULL);
-		COMMIT;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_deletejobposition` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_deletejobposition` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_deletejobposition`($positionid int,$userid int,$platform varchar(1000))
-BEGIN
-		start transaction;
-		
-			update `jobpositions`
-			set `deleted`=1,`datedeleted`=now(),`deletedby`=$userid
-			where `positionid`=$positionid;
-			
-			select concat('Deleted job position id:',$positionid,' name:',positionname)
-			into @narration
-			from `jobpositions` where `positionid`=$positionid;
-			
-			CALL `sp_saveaudittrailentry`($userid,'deleted',@narration,$platform,'','',NULL);
-		
-		commit;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_deleteleaveapplication` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_deleteleaveapplication` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_deleteleaveapplication`($applicationid int,$userid int,$platform varchar(1000))
-BEGIN
-		declare $employeeid int;
-		declare $leavetypeid int;
-		
-		START TRANSACTION;
-		
-			UPDATE `leaveapplications`
-			SET `deleted`=1,`datedeleted`=NOW(),`deletedby`=$userid
-			WHERE `itemid`=$itemid;
-			
-			select employeeid,`leavetypeid` into $employeeid,$leavetypeid
-			from `leaveapplications` where `applicationid`=$applicationid;
-			
-			SELECT CONCAT('Employee Id: ', $employeeid,' Staff #: ',`staffno`,' Names: ',`firstname`,' ',`middlename`,' ',`lastname`) 
-			INTO @employeedetails
-			FROM `employeerecords`
-			WHERE `employeeid`=$employeeid;
-			
-			SELECT CONCAT('Leave Id:',$leavetypeid,' name: ',`leavename`)
-			INTO @leavedetails
-			FROM `leavetypes` WHERE `leaveid`=$leavetypeid;
-			
-			SELECT CONCAT('Deleted leave application id:',$applicationid,' ',@employeedetails,@leavedetails)
-			INTO @narration
-			FROM `inventoryitems`
-			WHERE `itemid`=$itemid;
-			
-			CALL `sp_saveaudittrailentry`($userid,'deleted',@narration,$platform,'','',NULL);
-			
-		COMMIT;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_deleteleaveapprovalflow` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_deleteleaveapprovalflow` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_deleteleaveapprovalflow`($flowid int,$userid int,$platform varchar(1000))
-BEGIN
-		start transaction;
-		
-			update `leaveapprovalflows`
-			set `deleted`=1,`deletedby`=$userid,`datedelete`=now()
-			where `flowid`=$flowid;
-		
-			select concat('Deleted leave approval flow id:',$flowid) 
-			into @narration;
-			
-			CALL `sp_saveaudittrailentry`($userid,'deleted',@narration,$platform,'','',NULL);
-		
-		commit;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_deleteleavetype` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_deleteleavetype` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_deleteleavetype`($leaveid int,$userid int,$platform varchar(1000))
-BEGIN
-		start transaction;
-		
-			update `leavetypes`
-			set `deleted`=1,`datedeleted`=now(),`deletedby`=$userid
-			where `leaveid`=$leaveid;
-			
-			select concat('Deleted leave type id',$leaveid,' name:', `leavename`)
-			into @narration 
-			from `leavetypes` 
-			where `leaveid`=$leaveid;
-			
-			CALL `sp_saveaudittrailentry`($userid,'delete',@narration,$platform,'','',NULL);
-			
-		commit;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_deletepayrollitem` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_deletepayrollitem` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_deletepayrollitem`($itemid int,$userid int,$platform varchar(1000))
-BEGIN
-		start transaction;
-			UPDATE `payrollitems`
-			SET `deleted`=1,`datedeleted`=NOW(),`deletedby`=$userid
-			WHERE `itemid`=$itemid;
-			
-			SELECT CONCAT('Deleted item id:',$itemid,' name:',itemname)
-			INTO @narration
-			FROM `payrollitems` WHERE `itemid`=$itemid;
-			
-			CALL `sp_saveaudittrailentry`($userid,'deleted',@narration,$platform,'','',NULL);
-		
-		commit;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_deletepayrollitemgroup` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_deletepayrollitemgroup` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_deletepayrollitemgroup`($groupid int,$userid int,$platform varchar(1000))
-BEGIN
-		start transaction;
-		
-			update `payrollitemgroups`
-			set `deleted`=1,`datedeleted`=now(),`deletedby`=$userid
-			where `groupid`=$groupid;
-			
-			select concat('Deleted payroll item group id:',$groupid,' name:',groupname)
-			into @narration
-			from `payrollitemgroups`
-			where `groupid`=$groupid;
-			
-			CALL `sp_saveaudittrailentry`($userid,'deleted',@narration,$platform,'','',NULL);
-			
-		commit;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_deletepublicholiday` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_deletepublicholiday` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_deletepublicholiday`($id int,$userid int,$platform varchar(1000))
-BEGIN
-		start transaction;
-			update `publicholidays`
-			set `deleted`=1,`datedeleted`=now(),`deletedby`=$userid
-			where `id`=$id;
-			
-			select concat('Deleted public holiday id ',$id,' name: ',holidayname)
-			into @narration
-			from `publicholidays`
-			where `id`=$id;
-			
-			CALL `sp_saveaudittrailentry`($userid,'Delete',@narration,$platform,'','',NULL); 
-		commit;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_deleterole` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_deleterole` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_deleterole`(`$roleid` INT, `$userid` INT)
-BEGIN
-	update `roles` 
-	set `deleted`=1, `deletedby`=$userid, `lastdatemodified`=now(), `lastmodifiedby`=$userid
-	where `roleid`=$roleid;
-    END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_deletesalarystructure` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_deletesalarystructure` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_deletesalarystructure`($structureid int,$userid int,$platform varchar(50))
-BEGIN
-		start transaction;
-			update `jobsalarystructures`
-			set `deleted`=1,`datedeleted`=now(),`deletedby`=$userid
-			where `structureid`=$structureid;
-			
-			select concat('Deleted salary structure id:',$structureid)
-			into @narration;
-			
-			CALL `sp_saveaudittrailentry`($userid,'deleted',@narration,$platform,'','',NULL);
-		
-		commit;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_deleteuser` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_deleteuser` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_deleteuser`(`$id` INT, `$userid` INT)
-BEGIN
-	update `user` set `accountactive`=0,`lastmodifiedon`=now(),`lastmodifiedby`=$userid, `reasoninactive`='Account deleted'
-	where `id`=$id;
-    END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_deletexternalemployeeexperience` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_deletexternalemployeeexperience` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_deletexternalemployeeexperience`($id int,$userid int,$platform varchar(1000))
-BEGIN
-		start transaction;
-		
-			update `employeeexternalworkingexperience`
-			set `deleted`=1,`datedeleted`=now(),`deletedby`=$userid
-			where `id`=$id;
-			
-			select concat('Deleted external employee experience id:',$id,' employee id:',e.employeeid,' staff no:',staffno,' names:',
-			firstname, ' ',middlename,' ',lastname,' for organization ',organization,' position:',`position`)
-			into @narration
-			from `employeeexternalworkingexperience` e
-			join `employeerecords` r on r.employeeid=e.employeeid
-			where `id`=$id;
-			
-			CALL `sp_saveaudittrailentry`($userid,'deleted',@narration,$platform,'','',NULL);
-		commit;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_disableuseraccount` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_disableuseraccount` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_disableuseraccount`(`$id` INT, `$reason` VARCHAR(500), `$userid` INT)
-BEGIN
-	update `user` set `accountactive`=0,`reasoninactive`=$reason,`lastmodifiedby`=$userid,`lastmodifiedon`=now()
-	where `id`=$id;
-    END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_enableuseraccount` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_enableuseraccount` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_enableuseraccount`(`$id` INT, `$userid` INT)
-BEGIN
-	update `user` set `accountactive`=1, `lastmodifiedon`=now(),`lastmodifiedby`=$userid
-	where `id`=$id;
-    END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_filterchargeableitems` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_filterchargeableitems` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_filterchargeableitems`($category varchar(50))
-BEGIN
-		if $category='all' then
-			select * from `chargeableitems`
-			where `deleted`=0
-			order by `recurring`, `itemname`;
-		else
-			select case when $category='recurring' then 1 else 0 end into @recurring;
-			SELECT * FROM `chargeableitems`
-			WHERE `deleted`=0 and `recurring`=@recurring
-			ORDER BY `itemname`;
-		end if;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_filteremployees` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_filteremployees` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_filteremployees`($staffno varchar(50),$staffname varchar(50),$regdocno varchar(50),$pinno varchar(50),$nssfno varchar(50),$nhifno varchar(50),
-	$employmentstatus varchar(50),$gender varchar(50),$disability varchar(50),$onpayroll varchar(50),$category int,$terms int,$employeeposition int,
-	$jobgroup int,$notch int,$salutation int,$religion int,$registrationdocument int
-)
-BEGIN
-		set $staffno=concat('%',$staffno,'%');
-		set $staffname=CONCAT('%',$staffname,'%');
-		set $regdocno=CONCAT('%',$regdocno,'%');
-		set $pinno=CONCAT('%',$pinno,'%');
-		set $nssfno=CONCAT('%',$nssfno,'%');
-		set $nhifno=CONCAT('%',$nhifno,'%');
-		
-		-- select $staffno staffno,$staffname staffname,$regdocno regdocno,$pinno pinno,$nssfno nssfno,$nhifno nhifno;
-		
-		if $employmentstatus='all' then
-			if $gender='all' then
-				if $disability='all' then 
-					if $onpayroll='all' then 
-						select * from `employeerecords`
-						where 
-						($category=0 OR categoryid=$category) AND 
-						($terms=0 OR `termid`=$terms ) AND 
-						($employeeposition=0 OR `positionid`=$employeeposition) AND
-						($jobgroup=0 OR `jobgroupid`=$jobgroup) AND
-						($notch=0 OR `notchid`=$notch) AND 
-						($salutation=0 OR `salutationid`=$salutation) AND 
-						($religion=0 OR `religionid`=$religion) AND
-						($registrationdocument=0 OR `iddocumentid`=$registrationdocument) AND 
-						`staffno` like $staffno and 
-						(`firstname` like $staffname OR `middlename` like $staffname or `lastname` like $staffname) and 
-						`iddocreferenceno` like $regdocno and `pinno` like $pinno and `nssfno` like $nssfno and `nhifno` like $nhifno
-						order by `firstname`,`middlename`,`lastname`;
-					else
-						-- Convert on payroll to number i.e 1 or 0
-						set $onpayroll=$onpayroll+0;
-						SELECT * FROM `employeerecords`
-						WHERE 
-						($category=0 OR categoryid=$category) AND 
-						($terms=0 OR `termid`=$terms ) AND 
-						($employeeposition=0 OR `positionid`=$employeeposition) AND
-						($jobgroup=0 OR `jobgroupid`=$jobgroup) AND
-						($notch=0 OR `notchid`=$notch) AND 
-						($salutation=0 OR `salutationid`=$salutation) AND 
-						($religion=0 OR `religionid`=$religion) AND
-						($registrationdocument=0 OR `iddocumentid`=$registrationdocument) AND 
-						`staffno` LIKE $staffno AND 
-						(`firstname` LIKE $staffname OR `middlename` LIKE $staffname OR `lastname` LIKE $staffname) AND 
-						`iddocreferenceno` LIKE $regdocno AND `pinno` LIKE $pinno AND `nssfno` LIKE $nssfno AND `nhifno` LIKE $nhifno
-						AND onpayroll=$onpayroll
-						ORDER BY `firstname`,`middlename`,`lastname`;
-					end if;
-				else
-				-- Filter by disability
-					set $disability=$disability+0;
-					IF $onpayroll='all' THEN 
-						SELECT * FROM `employeerecords`
-						WHERE 
-						($category=0 OR categoryid=$category) AND 
-						($terms=0 OR `termid`=$terms ) AND 
-						($employeeposition=0 OR `positionid`=$employeeposition) AND
-						($jobgroup=0 OR `jobgroupid`=$jobgroup) AND
-						($notch=0 OR `notchid`=$notch) AND 
-						($salutation=0 OR `salutationid`=$salutation) AND 
-						($religion=0 OR `religionid`=$religion) AND
-						($registrationdocument=0 OR `iddocumentid`=$registrationdocument) AND 
-						`staffno` LIKE $staffno AND 
-						(`firstname` LIKE $staffname OR `middlename` LIKE $staffname OR `lastname` LIKE $staffname) AND 
-						`iddocreferenceno` LIKE $regdocno AND `pinno` LIKE $pinno AND `nssfno` LIKE $nssfno AND `nhifno` LIKE $nhifno
-						and `disabled`=$disability
-						ORDER BY `firstname`,`middlename`,`lastname`;
-					ELSE
-						-- Convert on payroll to number i.e 1 or 0
-						SET $onpayroll=$onpayroll+0;
-						SELECT * FROM `employeerecords`
-						WHERE 
-						($category=0 OR categoryid=$category) AND 
-						($terms=0 OR `termid`=$terms ) AND 
-						($employeeposition=0 OR `positionid`=$employeeposition) AND
-						($jobgroup=0 OR `jobgroupid`=$jobgroup) AND
-						($notch=0 OR `notchid`=$notch) AND 
-						($salutation=0 OR `salutationid`=$salutation) AND 
-						($religion=0 OR `religionid`=$religion) AND
-						($registrationdocument=0 OR `iddocumentid`=$registrationdocument) AND 
-						`staffno` LIKE $staffno AND 
-						(`firstname` LIKE $staffname OR `middlename` LIKE $staffname OR `lastname` LIKE $staffname) AND 
-						`iddocreferenceno` LIKE $regdocno AND `pinno` LIKE $pinno AND `nssfno` LIKE $nssfno AND `nhifno` LIKE $nhifno
-						AND onpayroll=$onpayroll AND `disabled`=$disability
-						ORDER BY `firstname`,`middlename`,`lastname`;
-					END IF;
-				end if;
-			else
-			-- Filter by Gender
-				IF $disability='all' THEN 
-					IF $onpayroll='all' THEN 
-						SELECT * FROM `employeerecords`
-						WHERE 
-						($category=0 OR categoryid=$category) AND 
-						($terms=0 OR `termid`=$terms ) AND 
-						($employeeposition=0 OR `positionid`=$employeeposition) AND
-						($jobgroup=0 OR `jobgroupid`=$jobgroup) AND
-						($notch=0 OR `notchid`=$notch) AND 
-						($salutation=0 OR `salutationid`=$salutation) AND 
-						($religion=0 OR `religionid`=$religion) AND
-						($registrationdocument=0 OR `iddocumentid`=$registrationdocument) AND 
-						`staffno` LIKE $staffno AND 
-						(`firstname` LIKE $staffname OR `middlename` LIKE $staffname OR `lastname` LIKE $staffname) AND 
-						`iddocreferenceno` LIKE $regdocno AND `pinno` LIKE $pinno AND `nssfno` LIKE $nssfno AND `nhifno` LIKE $nhifno
-						and `gender`=$gender
-						ORDER BY `firstname`,`middlename`,`lastname`;
-					ELSE
-						-- Convert on payroll to number i.e 1 or 0
-						SET $onpayroll=$onpayroll+0;
-						SELECT * FROM `employeerecords`
-						WHERE 
-						($category=0 OR categoryid=$category) AND 
-						($terms=0 OR `termid`=$terms ) AND 
-						($employeeposition=0 OR `positionid`=$employeeposition) AND
-						($jobgroup=0 OR `jobgroupid`=$jobgroup) AND
-						($notch=0 OR `notchid`=$notch) AND 
-						($salutation=0 OR `salutationid`=$salutation) AND 
-						($religion=0 OR `religionid`=$religion) AND
-						($registrationdocument=0 OR `iddocumentid`=$registrationdocument) AND 
-						`staffno` LIKE $staffno AND 
-						(`firstname` LIKE $staffname OR `middlename` LIKE $staffname OR `lastname` LIKE $staffname) AND 
-						`iddocreferenceno` LIKE $regdocno AND `pinno` LIKE $pinno AND `nssfno` LIKE $nssfno AND `nhifno` LIKE $nhifno
-						AND onpayroll=$onpayroll AND `gender`=$gender
-						ORDER BY `firstname`,`middlename`,`lastname`;
-					END IF;
-				ELSE
-				-- Filter by disability
-					SET $disability=$disability+0;
-					IF $onpayroll='all' THEN 
-						SELECT * FROM `employeerecords`
-						WHERE 
-						($category=0 OR categoryid=$category) AND 
-						($terms=0 OR `termid`=$terms ) AND 
-						($employeeposition=0 OR `positionid`=$employeeposition) AND
-						($jobgroup=0 OR `jobgroupid`=$jobgroup) AND
-						($notch=0 OR `notchid`=$notch) AND 
-						($salutation=0 OR `salutationid`=$salutation) AND 
-						($religion=0 OR `religionid`=$religion) AND
-						($registrationdocument=0 OR `iddocumentid`=$registrationdocument) AND 
-						`staffno` LIKE $staffno AND 
-						(`firstname` LIKE $staffname OR `middlename` LIKE $staffname OR `lastname` LIKE $staffname) AND 
-						`iddocreferenceno` LIKE $regdocno AND `pinno` LIKE $pinno AND `nssfno` LIKE $nssfno AND `nhifno` LIKE $nhifno
-						AND `disabled`=$disability AND `gender`=$gender
-						ORDER BY `firstname`,`middlename`,`lastname`;
-					ELSE
-						-- Convert on payroll to number i.e 1 or 0
-						SET $onpayroll=$onpayroll+0;
-						SELECT * FROM `employeerecords`
-						WHERE 
-						($category=0 OR categoryid=$category) AND 
-						($terms=0 OR `termid`=$terms ) AND 
-						($employeeposition=0 OR `positionid`=$employeeposition) AND
-						($jobgroup=0 OR `jobgroupid`=$jobgroup) AND
-						($notch=0 OR `notchid`=$notch) AND 
-						($salutation=0 OR `salutationid`=$salutation) AND 
-						($religion=0 OR `religionid`=$religion) AND
-						($registrationdocument=0 OR `iddocumentid`=$registrationdocument) AND 
-						`staffno` LIKE $staffno AND 
-						(`firstname` LIKE $staffname OR `middlename` LIKE $staffname OR `lastname` LIKE $staffname) AND 
-						`iddocreferenceno` LIKE $regdocno AND `pinno` LIKE $pinno AND `nssfno` LIKE $nssfno AND `nhifno` LIKE $nhifno
-						AND onpayroll=$onpayroll AND `disabled`=$disability AND `gender`=$gender
-						ORDER BY `firstname`,`middlename`,`lastname`;
-					END IF;
-				END IF;
-			end if;
-		else
-		-- filter by employee status
-			IF $gender='all' THEN
-				IF $disability='all' THEN 
-					IF $onpayroll='all' THEN 
-						SELECT * FROM `employeerecords`
-						WHERE 
-						($category=0 OR categoryid=$category) AND 
-						($terms=0 OR `termid`=$terms ) AND 
-						($employeeposition=0 OR `positionid`=$employeeposition) AND
-						($jobgroup=0 OR `jobgroupid`=$jobgroup) AND
-						($notch=0 OR `notchid`=$notch) AND 
-						($salutation=0 OR `salutationid`=$salutation) AND 
-						($religion=0 OR `religionid`=$religion) AND
-						($registrationdocument=0 OR `iddocumentid`=$registrationdocument) AND 
-						`staffno` LIKE $staffno AND 
-						(`firstname` LIKE $staffname OR `middlename` LIKE $staffname OR `lastname` LIKE $staffname) AND 
-						`iddocreferenceno` LIKE $regdocno AND `pinno` LIKE $pinno AND `nssfno` LIKE $nssfno AND `nhifno` LIKE $nhifno
-						and `status`=$employmentstatus
-						ORDER BY `firstname`,`middlename`,`lastname`;
-					ELSE
-						-- Convert on payroll to number i.e 1 or 0
-						SET $onpayroll=$onpayroll+0;
-						SELECT * FROM `employeerecords`
-						WHERE 
-						($category=0 OR categoryid=$category) AND 
-						($terms=0 OR `termid`=$terms ) AND 
-						($employeeposition=0 OR `positionid`=$employeeposition) AND
-						($jobgroup=0 OR `jobgroupid`=$jobgroup) AND
-						($notch=0 OR `notchid`=$notch) AND 
-						($salutation=0 OR `salutationid`=$salutation) AND 
-						($religion=0 OR `religionid`=$religion) AND
-						($registrationdocument=0 OR `iddocumentid`=$registrationdocument) AND 
-						`staffno` LIKE $staffno AND 
-						(`firstname` LIKE $staffname OR `middlename` LIKE $staffname OR `lastname` LIKE $staffname) AND 
-						`iddocreferenceno` LIKE $regdocno AND `pinno` LIKE $pinno AND `nssfno` LIKE $nssfno AND `nhifno` LIKE $nhifno
-						AND onpayroll=$onpayroll AND `status`=$employmentstatus
-						ORDER BY `firstname`,`middlename`,`lastname`;
-					END IF;
-				ELSE
-				-- Filter by disability
-					SET $disability=$disability+0;
-					IF $onpayroll='all' THEN 
-						SELECT * FROM `employeerecords`
-						WHERE 
-						($category=0 OR categoryid=$category) AND 
-						($terms=0 OR `termid`=$terms ) AND 
-						($employeeposition=0 OR `positionid`=$employeeposition) AND
-						($jobgroup=0 OR `jobgroupid`=$jobgroup) AND
-						($notch=0 OR `notchid`=$notch) AND 
-						($salutation=0 OR `salutationid`=$salutation) AND 
-						($religion=0 OR `religionid`=$religion) AND
-						($registrationdocument=0 OR `iddocumentid`=$registrationdocument) AND 
-						`staffno` LIKE $staffno AND 
-						(`firstname` LIKE $staffname OR `middlename` LIKE $staffname OR `lastname` LIKE $staffname) AND 
-						`iddocreferenceno` LIKE $regdocno AND `pinno` LIKE $pinno AND `nssfno` LIKE $nssfno AND `nhifno` LIKE $nhifno
-						AND `disabled`=$disability AND `status`=$employmentstatus
-						ORDER BY `firstname`,`middlename`,`lastname`;
-					ELSE
-						-- Convert on payroll to number i.e 1 or 0
-						SET $onpayroll=$onpayroll+0;
-						SELECT * FROM `employeerecords`
-						WHERE 
-						($category=0 OR categoryid=$category) AND 
-						($terms=0 OR `termid`=$terms ) AND 
-						($employeeposition=0 OR `positionid`=$employeeposition) AND
-						($jobgroup=0 OR `jobgroupid`=$jobgroup) AND
-						($notch=0 OR `notchid`=$notch) AND 
-						($salutation=0 OR `salutationid`=$salutation) AND 
-						($religion=0 OR `religionid`=$religion) AND
-						($registrationdocument=0 OR `iddocumentid`=$registrationdocument) AND 
-						`staffno` LIKE $staffno AND 
-						(`firstname` LIKE $staffname OR `middlename` LIKE $staffname OR `lastname` LIKE $staffname) AND 
-						`iddocreferenceno` LIKE $regdocno AND `pinno` LIKE $pinno AND `nssfno` LIKE $nssfno AND `nhifno` LIKE $nhifno
-						AND onpayroll=$onpayroll AND `disabled`=$disability AND `status`=$employmentstatus
-						ORDER BY `firstname`,`middlename`,`lastname`;
-					END IF;
-				END IF;
-			ELSE
-			-- Filter by Gender
-				IF $disability='all' THEN 
-					IF $onpayroll='all' THEN 
-						SELECT * FROM `employeerecords`
-						WHERE 
-						($category=0 OR categoryid=$category) AND 
-						($terms=0 OR `termid`=$terms ) AND 
-						($employeeposition=0 OR `positionid`=$employeeposition) AND
-						($jobgroup=0 OR `jobgroupid`=$jobgroup) AND
-						($notch=0 OR `notchid`=$notch) AND 
-						($salutation=0 OR `salutationid`=$salutation) AND 
-						($religion=0 OR `religionid`=$religion) AND
-						($registrationdocument=0 OR `iddocumentid`=$registrationdocument) AND 
-						`staffno` LIKE $staffno AND 
-						(`firstname` LIKE $staffname OR `middlename` LIKE $staffname OR `lastname` LIKE $staffname) AND 
-						`iddocreferenceno` LIKE $regdocno AND `pinno` LIKE $pinno AND `nssfno` LIKE $nssfno AND `nhifno` LIKE $nhifno
-						AND `gender`=$gender AND `status`=$employmentstatus
-						ORDER BY `firstname`,`middlename`,`lastname`;
-					ELSE
-						-- Convert on payroll to number i.e 1 or 0
-						SET $onpayroll=$onpayroll+0;
-						SELECT * FROM `employeerecords`
-						WHERE 
-						($category=0 OR categoryid=$category) AND 
-						($terms=0 OR `termid`=$terms ) AND 
-						($employeeposition=0 OR `positionid`=$employeeposition) AND
-						($jobgroup=0 OR `jobgroupid`=$jobgroup) AND
-						($notch=0 OR `notchid`=$notch) AND 
-						($salutation=0 OR `salutationid`=$salutation) AND 
-						($religion=0 OR `religionid`=$religion) AND
-						($registrationdocument=0 OR `iddocumentid`=$registrationdocument) AND 
-						`staffno` LIKE $staffno AND 
-						(`firstname` LIKE $staffname OR `middlename` LIKE $staffname OR `lastname` LIKE $staffname) AND 
-						`iddocreferenceno` LIKE $regdocno AND `pinno` LIKE $pinno AND `nssfno` LIKE $nssfno AND `nhifno` LIKE $nhifno
-						AND onpayroll=$onpayroll AND `gender`=$gender AND `status`=$employmentstatus
-						ORDER BY `firstname`,`middlename`,`lastname`;
-					END IF;
-				ELSE
-				-- Filter by disability
-					SET $disability=$disability+0;
-					IF $onpayroll='all' THEN 
-						SELECT * FROM `employeerecords`
-						WHERE 
-						($category=0 OR categoryid=$category) AND 
-						($terms=0 OR `termid`=$terms ) AND 
-						($employeeposition=0 OR `positionid`=$employeeposition) AND
-						($jobgroup=0 OR `jobgroupid`=$jobgroup) AND
-						($notch=0 OR `notchid`=$notch) AND 
-						($salutation=0 OR `salutationid`=$salutation) AND 
-						($religion=0 OR `religionid`=$religion) AND
-						($registrationdocument=0 OR `iddocumentid`=$registrationdocument) AND 
-						`staffno` LIKE $staffno AND 
-						(`firstname` LIKE $staffname OR `middlename` LIKE $staffname OR `lastname` LIKE $staffname) AND 
-						`iddocreferenceno` LIKE $regdocno AND `pinno` LIKE $pinno AND `nssfno` LIKE $nssfno AND `nhifno` LIKE $nhifno
-						AND `disabled`=$disability AND `gender`=$gender AND `status`=$employmentstatus
-						ORDER BY `firstname`,`middlename`,`lastname`;
-					ELSE
-						-- Convert on payroll to number i.e 1 or 0
-						SET $onpayroll=$onpayroll+0;
-						SELECT * FROM `employeerecords`
-						WHERE 
-						($category=0 OR categoryid=$category) AND 
-						($terms=0 OR `termid`=$terms ) AND 
-						($employeeposition=0 OR `positionid`=$employeeposition) AND
-						($jobgroup=0 OR `jobgroupid`=$jobgroup) AND
-						($notch=0 OR `notchid`=$notch) AND 
-						($salutation=0 OR `salutationid`=$salutation) AND 
-						($religion=0 OR `religionid`=$religion) AND
-						($registrationdocument=0 OR `iddocumentid`=$registrationdocument) AND 
-						`staffno` LIKE $staffno AND 
-						(`firstname` LIKE $staffname OR `middlename` LIKE $staffname OR `lastname` LIKE $staffname) AND 
-						`iddocreferenceno` LIKE $regdocno AND `pinno` LIKE $pinno AND `nssfno` LIKE $nssfno AND `nhifno` LIKE $nhifno
-						AND onpayroll=$onpayroll AND `disabled`=$disability AND `gender`=$gender AND `status`=$employmentstatus
-						ORDER BY `firstname`,`middlename`,`lastname`;
-					END IF;
-				END IF;
-			END IF;
-		end if;											
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_filterinventorycategory` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_filterinventorycategory` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_filterinventorycategory`($typeid int)
-BEGIN
-		select * from `inventorycategory`
-		where `typeid`=$typeid 
-		order by `categoryname`;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getallemployees` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getallemployees` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getallemployees`()
-BEGIN
-		select * from `employeerecords`
-		order by firstname,middlename,lastname;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getallshiftdetails` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getallshiftdetails` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getallshiftdetails`()
-BEGIN
-		select * from `shiftdetails`
-		order by `shiftid`;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getallusers` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getallusers` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getallusers`()
-BEGIN
-	select u.*, ifnull(concat(a.firstname,' ',a.middlename,' ',a.lastname),'System') as addedbyname 
-	from `user` u  left OUTER join `user` a on u.addedby=a.id -- where u.`accountactive`=1 
-	order by u.`firstname`,u.`middlename`,u.`lastname`;
-    END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getbankbranchdetails` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getbankbranchdetails` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getbankbranchdetails`($branchid int)
-BEGIN
-		select * from `bankbranches`
-		where `branchid`=$branchid;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getbankbranches` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getbankbranches` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getbankbranches`($bankid int)
-BEGIN
-	
-		if $bankid=0 then
-			select r.*, b.bankname, concat(`firstname`,' ',`middlename`,' ',`lastname`) addedbyname
-			from `bankbranches` r inner join `banks` b on b.bankid=r.bankid
-			inner join `user` u on u.userid=r.addedby
-			where r.deleted=0
-			order by bankname,branchname;
-		else
-			SELECT r.*, b.bankname, CONCAT(`firstname`,' ',`middlename`,' ',`lastname`) addedbyname
-			FROM `bankbranches` r INNER JOIN `banks` b ON b.bankid=r.bankid
-			INNER JOIN `user` u ON u.userid=r.addedby
-			WHERE r.deleted=0 and r.bankid=$bankid
-			ORDER BY bankname,branchname;
-		end if;
-		
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getbankdetails` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getbankdetails` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getbankdetails`($bankid int)
-BEGIN
-		select * from `banks`
-		where `bankid`=$bankid;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getbankremittanceadvises` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getbankremittanceadvises` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getbankremittanceadvises`($payrollmonth varchar(50),$payrollyear int,$bankid int)
-BEGIN
-		if $bankid=0 then 
-			select staffno `Staff Number`, concat(firstname,' ',middlename,' ',lastname) as `Full Name`,
-			bankcode `Bank Code`,`bankname` `Bank Name`,`branchcode` `Branch Code`,`branchname` `Branch Name`,
-			`accountno` `Account Number`,format(`amount`,2) `Amount`
-			from `employeerecords` e
-			inner join `payrollbankremittances` r on r.employeeid=e.employeeid 
-			inner join `payrolldetails` pd on pd.payrollid=r.payrollid
-			inner join `bankbranches` br on br.branchid=r.branchid
-			inner join `banks` b on b.bankid=br.bankid
-			where r.deleted=0 and pd.`month`=$payrollmonth and pd.`year`=$payrollyear
-			order by bankname,branchname,staffno;
-		else
-			select staffno `Staff Number`, concat(firstname,' ',middlename,' ',lastname) as `Full Name`,
-			bankcode `Bank Code`,`bankname` `Bank Name`,`branchcode` `Branch Code`,`branchname` `Branch Name`,
-			`accountno` `Account Number`,format(`amount`,2) `Amount`
-			from `employeerecords` e
-			inner join `payrollbankremittances` r on r.employeeid=e.employeeid 
-			inner join `payrolldetails` pd on pd.payrollid=r.payrollid
-			inner join `bankbranches` br on br.branchid=r.branchid
-			inner join `banks` b on b.bankid=br.bankid
-			where r.deleted=0  and pd.`month`=$payrollmonth and pd.`year`=$payrollyear
-			and b.bankid=$bankid
-			order by bankname,branchname,staffno;
-		end if;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getbanks` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getbanks` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getbanks`()
-BEGIN
-		select b.*, 
-		-- ifnull((select count(*) from `bankbranches` br where b.bankid=br.bankid and br.deleted=0),0) as branches,
-		count(branchid) as branches,
-		concat(`firstname`,' ',`middlename`,' ',`lastname`) addedbyname
-		from `banks` b 
-		inner join `user` u on u.userid=b.addedby
-		left outer join `bankbranches` br on b.bankid=br.bankid and br.deleted=0
-		where b.`deleted`=0 
-		group by b.bankid
-		order by `bankname`;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getbranchdetails` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getbranchdetails` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getbranchdetails`($branchid int)
-BEGIN
-		select * from `branches`
-		where `branchid`=$branchid;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getbranches` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getbranches` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getbranches`()
-BEGIN
-		select b.*, concat(`firstname`,' ',`middlename`,' ',`lastname`) addedbyname, 0 as properties, 0 as units, 0 as tenants
-		from `branches` b
-		inner join `user` u on u.`userid`=b.`addedby`
-		where ifnull(b.`deleted`,0)=0
-		order by `branchname`;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getchargeableitemdetails` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getchargeableitemdetails` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getchargeableitemdetails`($itemid int)
-BEGIN
-		select * 
-		from `chargeableitems`
-		where `itemid`=$itemid;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getchargeableitems` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getchargeableitems` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getchargeableitems`()
-BEGIN
-		select c .*, concat(u.firstname,' ',u.middlename,' ',u.lastname) addedbyname
-		from `chargeableitems` c
-		inner join `user` u on u.userid=c.addedby
-		where ifnull(`deleted`,0)=0
-		order by `itemname`;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getcourselevels` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getcourselevels` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getcourselevels`()
-BEGIN
-		select * from `courselevels`
-		where deleted=0
-		order by `hierarchy`;
-		
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getcreditordetails` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getcreditordetails` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getcreditordetails`($creditorid int)
-BEGIN
-		select * 
-		from `creditors`
-		where `creditorid`=$creditorid;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getcreditors` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getcreditors` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getcreditors`($payrollcreditors bool)
-BEGIN
-		if $payrollcreditors=1 then
-			select c.*, concat(`firstname`,' ',`middlename`,' ',`lastname`) addedbyname, 0 as deducted, 0 as remitted
-			from `creditors` c
-			inner join `user` u on u.userid=c.addedby
-			where `payrollcreditor`=1 and c.deleted=0
-			order by `creditorname`;
-		else
-			select c.*, concat(`firstname`,' ',`middlename`,' ',`lastname`) addedbyname, 0 as deducted, 0 as remitted
-			from `creditors` c
-			inner join `user` u on u.userid=c.addedby
-			where c.deleted=0
-			order by `creditorname`;
-		end if;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getdepartmentactiveemployees` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getdepartmentactiveemployees` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getdepartmentactiveemployees`($departmentid int)
-BEGIN
-		select e.*, `positionname`
-		from `employeerecords` e
-		join `jobpositions` j on j.`positionid`=e.`positionid`
-		where `status`='active' and `departmentid`=$departmentid
-		order by `firstname`,`middlename`,`lastname`;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getdepartmentdetails` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getdepartmentdetails` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getdepartmentdetails`($departmentid int)
-BEGIN
-		select * from `departments`
-		where `departmentid`=$departmentid;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getdepartments` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getdepartments` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getdepartments`()
-BEGIN
-		select d.*,concat(`firstname`,' ',`middlename`,' ',`lastname`) as addedbyname,0 as employees
-		
-		from `departments` d
-		inner join `user` u on u.userid = d.addedby
-		WHERE d.`deleted`=0
-		ORDER BY `departmentname`;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getdisciplinaryactionsrequired` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getdisciplinaryactionsrequired` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getdisciplinaryactionsrequired`()
-BEGIN
-		select * 
-		from `disciplinaryrequiredactions`
-		where `deleted`=0
-		order by `actionname`;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getdisciplinarycategories` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getdisciplinarycategories` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getdisciplinarycategories`()
-BEGIN
-		select * from `disciplinarycategories`
-		where `deleted`=0
-		order by `categoryname`;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getdisciplinarytypes` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getdisciplinarytypes` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getdisciplinarytypes`()
-BEGIN
-		select * from `disciplinarytypes`
-		where `deleted`=0
-		order by `typename`;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getemailconfiguration` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getemailconfiguration` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getemailconfiguration`()
-BEGIN
-	select * from `emailconfiguration`;
-    END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getemployeeattachmentdetails` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getemployeeattachmentdetails` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getemployeeattachmentdetails`($id int)
-BEGIN
-		select * 
-		from `employeeattachments`
-		where id=$id;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getemployeeattachments` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getemployeeattachments` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getemployeeattachments`($employeeid int)
-BEGIN
-		select e.*, documentname,concat(firstname,' ',middlename,' ',lastname) addedbyname
-		from `employeeattachments` e
-		join `employeeattachabledocuments` d on d.documentid=e.documentid
-		join `employeerecords` r on r.employeeid=e.employeeid
-		where e.employeeid=$employeeid and e.deleted=0
-		order by documentname;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getemployeebeneficiaries` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getemployeebeneficiaries` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getemployeebeneficiaries`($employeeid int)
-BEGIN
-		select b.*, concat(u.firstname,' ',u.middlename,' ',u.lastname) addedbyname,
-		r.`description` relationship
-		from `employeebeneficiaries` b
-		join `user` u on u.userid=b.addedby
-		join `relationships` r on r.`relationshipid`=b.relationshipid
-		where `employeeid`=$employeeid and b.deleted=0
-		order by b.fullname;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getemployeebeneficiarydetails` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getemployeebeneficiarydetails` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getemployeebeneficiarydetails`($beneficiaryid int)
-BEGIN
-		select * from `employeebeneficiaries`
-		where `beneficiaryid`=$beneficiaryid;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getemployeebeneficiarytotalpercentage` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getemployeebeneficiarytotalpercentage` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getemployeebeneficiarytotalpercentage`($employeeid int,$beneficiaryid int)
-BEGIN
-		select ifnull(sum(`percentage`),0) as percentage
-		from `employeebeneficiaries`
-		where `employeeid`=$employeeid and `beneficiaryid`!=$beneficiaryid and `deleted`=0;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getemployeedaashboardsummaries` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getemployeedaashboardsummaries` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getemployeedaashboardsummaries`($employeeid int)
-BEGIN
-		SELECT COUNT(*) INTO @beneficiaries FROM `employeebeneficiaries` WHERE `employeeid`=$employeeid;
-		SELECT COUNT(*) INTO @dependants FROM `employeedependants` WHERE `employeeid`=$employeeid;
-
-		SELECT @beneficiaries AS beneficiaries,@dependants AS dependant;
-
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getemployeedepartmentcolleagues` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getemployeedepartmentcolleagues` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getemployeedepartmentcolleagues`($employeeid int)
-BEGIN
-		declare $departmentid int;
-		select departmentid into $departmentid
-		from `employeerecords` where `employeeid`=$employeeid;
-		
-		select * 
-		from `employeerecords`
-		where departmentid=$departmentid and `status`='active' and employeeid!=$employeeid
-		order by firstname,middlename,lastname;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getemployeedependantdetails` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getemployeedependantdetails` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getemployeedependantdetails`($dependantid int)
-BEGIN
-		select * from `employeedependants`
-		where `dependantid`=$dependantid;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getemployeedependants` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getemployeedependants` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getemployeedependants`($employeeid int)
-BEGIN
-		select d.*, concat(firstname,' ',middlename,' ',lastname) addedbyname,
-		description as relationship,`documenttypename` documentname
-		from `employeedependants` d
-		join `user` u on u.userid=d.addedby
-		join `relationships` r on r.relationshipid=d.relationshipid
-		join `registrationdocuments` i on i.`documentid`=d.`iddocumentid`
-		where d.deleted=0 and d.employeeid=$employeeid
-		order by `dependantname`;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getemployeedetails` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getemployeedetails` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getemployeedetails`($employeeid int)
-BEGIN
-		select e.*, departmentname,positionname,`documenttypename`, `termname`,br.bankid,
-		0 as leavedaysallocated, 0 as leavedaystaken
-		from `employeerecords` e
-		inner join `departments` d on d.`departmentid`=e.departmentid
-		inner join `jobpositions` p on p.positionid=e.positionid
-		inner join `registrationdocuments` r on r.`documentid`=e.`iddocumentid`
-		inner join `employmentterms` t on t.`termid`=e.`termid`
-		inner join `bankbranches` br on br.branchid=e.bankbranchid
-		inner join `banks` b on b.bankid=br.`bankid`
-		where `employeeid`=$employeeid;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getemployeedetailsbystaffno` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getemployeedetailsbystaffno` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getemployeedetailsbystaffno`($staffno varchar(50))
-BEGIN
-		select `supportemail`,`supportphone`,`essportalurl`,`companyname`
-		into @supportemail,@supportphone,@essportalurl,@companyname
-		from `institution`;
-		
-		select *, @supportemail supportemail,@supportphone supportphone,@essportalurl essportalurl,
-		@companyname companyname
-		from `employeerecords`
-		where staffno=$staffno;
-		
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getemployeedisciplinarydetails` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getemployeedisciplinarydetails` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getemployeedisciplinarydetails`($incidentid int)
-BEGIN
-		select * 
-		from `employeedisciplinarycases`
-		where incidentid=$incidentid;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getemployeedisciplinaryincidents` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getemployeedisciplinaryincidents` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getemployeedisciplinaryincidents`($employeeid int)
-BEGIN
-		select i.*, typename, categoryname, actionname, concat(firstname, ' ',middlename,' ',lastname) addedbyname
-		from `employeedisciplinarycases` i
-		join `disciplinarycategories` c on c.categoryid=i.categoryid
-		join `disciplinaryrequiredactions` a on a.actionid=i.actionid
-		join `disciplinarytypes` t on t.typeid=i.typeid
-		join `user` u on u.userid=i.addedby
-		where i.employeeid=$employeeid and i.deleted=0
-		order by i.incidentdate desc;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getemployeedocumentsattachable` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getemployeedocumentsattachable` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getemployeedocumentsattachable`()
-BEGIN
-		select * from `employeeattachabledocuments`;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getemployeeexternalexperiencedetails` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getemployeeexternalexperiencedetails` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getemployeeexternalexperiencedetails`($id int)
-BEGIN
-		select * 
-		from `employeeexternalworkingexperience`
-		where `id`=$id;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getemployeeexternalexperiences` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getemployeeexternalexperiences` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getemployeeexternalexperiences`($employeeid int)
-BEGIN
-		select `id`,`organization`,`position`,`startdate`,`enddate`,`duties`,e.`dateadded`,
-		concat(firstname, ' ',middlename,' ',lastname) addedbyname
-		from `employeeexternalworkingexperience` e
-		join `user` u on u.userid=e.addedby 
-		where e.employeeid=$employeeid and e.deleted=0
-		order by `startdate` desc;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getemployeegradepayrollitems` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getemployeegradepayrollitems` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getemployeegradepayrollitems`($employeeid int)
-BEGIN
-		declare $notchid int default 0;
-		declare $jobgroupid int default 0;
-		
-		select `jobgroupid`, `notchid`
-		into $jobgroupid, $notchid
-		from `employeerecords` 
-		where `employeeid`=$employeeid;
-		
-		select js.*,`itemname`
-		from `jobsalarystructures` js
-		inner join `payrollitems` p on p.`itemid`=js.`payrollitemid`
-		where `jobgroupid`=$jobgroupid and `notchid`=$notchid and js.`deleted`=0
-		and `payrollitemid`not in (select `payrollitemid` from `employeepayrollitems` where `employeeid`=$employeeid and `deleted`=0)
-		order by `itemname`;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getemployeeidfromstaffno` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getemployeeidfromstaffno` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getemployeeidfromstaffno`($staffno varchar(50))
-BEGIN
-		select employeeid 
-		from `employeerecords`
-		where `staffno`=$staffno;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getemployeeinternalexperience` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getemployeeinternalexperience` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getemployeeinternalexperience`($employeeid int)
-BEGIN
-		select x.id,departmentname,positionname, startdate,enddate, currentlyhere,x.dateadded,
-		concat(u.firstname,' ',u.middlename,' ',u.lastname) addedbyname
-		from `employeeinternalworkingexperience` x
-		join `departments` d on d.departmentid=x.departmentid
-		join `jobpositions` j on j.positionid=x.positionid
-		join `user` u on u.userid=x.addedby
-		where x.employeeid=$employeeid and x.deleted=0
-		order by startdate desc,enddate desc;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getemployeeinternalexperiencedetails` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getemployeeinternalexperiencedetails` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getemployeeinternalexperiencedetails`($id int)
-BEGIN
-		select * 
-		from `employeeinternalworkingexperience`
-		where `id`=$id;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getemployeeleaveapplications` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getemployeeleaveapplications` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getemployeeleaveapplications`($employeeid int,$leavetypeid int)
-BEGIN
-		if $leavetypeid=0 then			
-			select a.applicationid,`leavename`,a.`dateadded`,`startdate`,`enddate`,`daystaken`,`attachment`,`narration`,fn_getleaveapplicationstatus(a.applicationid) `status`,
-			concat(r.firstname,' ',r.middlename,' ',r.lastname) relievername,
-			concat(s.firstname, ' ',s.middlename, ' ',s.lastname) supervisorname
-			from `leaveapplications` a
-			join `employeerecords` r on r.`employeeid`=a.relieverid
-			JOIN `leavetypes` t ON t.leaveid=a.leavetypeid
-			join `employeerecords` s on s.`employeeid`=a.supervisorid
-			where a.`deleted`=0 and a.employeeid=$employeeid
-			order by a.dateadded;
-		else
-			SELECT a.applicationid,`leavename`,a.`dateadded`,`startdate`,`enddate`,`daystaken`,`attachment`,`narration`,fn_getleaveapplicationstatus(a.applicationid) `status`,
-			CONCAT(r.firstname,' ',r.middlename,' ',r.lastname) relievername,
-			CONCAT(s.firstname, ' ',s.middlename, ' ',s.lastname) supervisorname
-			FROM `leaveapplications` a
-			JOIN `employeerecords` r ON r.`employeeid`=a.relieverid
-			JOIN `employeerecords` s ON s.`employeeid`=a.supervisorid
-			join `leavetypes` t on t.leaveid=a.leavetypeid
-			WHERE a.`deleted`=0 AND a.employeeid=$employeeid and a.leavetypeid=$leavetypeid
-			ORDER BY a.dateadded;
-		end if;		
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getemployeeleavedetails` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getemployeeleavedetails` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getemployeeleavedetails`($employeeid int,$leavetypeid int)
-BEGIN
-		select `leavename`,`applywithoutallocation`,`requiresattachment`,`canbesplit`,`systemlabel`,`allocationdays` annualallocation,`skipsholidays`,
-		ifnull((select sum(`daystaken`) from `leaveapplications` where `employeeid`=$employeeid and `leavetypeid`=$leavetypeid AND `fn_getleaveapplicationstatus`(applicationid) NOT LIKE '%cancelled%'),0) daysutilized,
-		ifnull((select sum(`allocation`) from `employeeleaveallocation` where `employeeid`=$employeeid and `leavetypeid`=$leavetypeid and `deleted`=0),0) daysawarded
-		from `leavetypes` t
-		where `leaveid`=$leavetypeid and t.deleted=0;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getemployeename` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getemployeename` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getemployeename`($employeeid int)
-BEGIN
-		select concat(firstname, ' ',middlename,' ',lastname) employeename
-		from `employeerecords`
-		where `employeeid`=$employeeid;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getemployeepayrollitemdetails` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getemployeepayrollitemdetails` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getemployeepayrollitemdetails`($itemid int)
-BEGIN
-		select e.*,itemtype from `employeepayrollitems` e
-		inner join `payrollitems` p on p.itemid=e.payrollitemid
-		where e.`itemid`=$itemid;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getemployeepayrollitems` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getemployeepayrollitems` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getemployeepayrollitems`($employeeid int,$current int)
-BEGIN
-		IF $current = 1 THEN 
-			SELECT ep.*, case when `periodic`=1 then date_add(`startdate`, interval `duration` month) else now() end enddate,
-			`itemname`, `itemtype`, CONCAT(u.firstname, ' ', u.middlename, ' ', u.lastname) AS addedbyname
-			FROM `employeepayrollitems` ep
-			INNER JOIN `payrollitems` p ON p.itemid = ep.payrollitemid
-			INNER JOIN `user` u ON u.userid = ep.addedby
-			WHERE ep.employeeid = $employeeid 
-			    AND (ep.periodic = 0 OR 
-				(ep.periodic = 1 AND DATE_FORMAT(DATE_ADD(ep.startdate, INTERVAL ep.duration MONTH), '%Y-%m-%d') >= DATE_FORMAT(NOW(), '%Y-%m-%d')))
-			    AND ep.deleted = 0  	
-			ORDER BY p.itemtype, p.itemname;
-		 ELSE
-			SELECT ep.*, CASE WHEN `periodic`=1 THEN DATE_ADD(`startdate`, INTERVAL `duration` MONTH) ELSE NOW() END enddate,
-			`itemname`, `itemtype`, CONCAT(u.firstname, ' ', u.middlename, ' ', u.lastname) AS addedbyname
-			FROM `employeepayrollitems` ep
-			INNER JOIN `payrollitems` p ON p.itemid = ep.payrollitemid
-			INNER JOIN `user` u ON u.userid = ep.addedby
-			WHERE ep.employeeid = $employeeid 
-			    AND ((ep.periodic = 1 AND DATE_FORMAT(DATE_ADD(ep.startdate, INTERVAL ep.duration MONTH), '%Y-%m-%d') < DATE_FORMAT(NOW(), '%Y-%m-%d'))
-			    OR ep.deleted = 1)
-			ORDER BY p.itemtype, p.itemname;
-		 END IF;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getemployeepayslip` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getemployeepayslip` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getemployeepayslip`($payrollmonth varchar(50),$payrollyear int,$employeeid int)
-BEGIN
-		SELECT payrollid INTO @payrollid FROM `payrolldetails` WHERE `month`=$payrollmonth AND `year`=$payrollyear;
-
-		SELECT 
-		CASE  WHEN `itemtype`='relief' OR `itemtype`='benefit' THEN 'additional info' ELSE CONCAT(`itemtype`,'s') END itemtype, 
-		itemname,FORMAT(`amount`,2) amount,
-		CASE p.itemtype 
-			WHEN 'payment' THEN 1
-			WHEN 'deduction' THEN 2
-			WHEN 'benefit' THEN 3
-			ELSE 4 
-		END AS sortorder 
-		FROM  `payslipinformation` i
-		INNER JOIN `payrolldetails` pd ON pd.payrollid=i.`payrollid`
-		INNER JOIN `payrollitems` p ON p.itemid=i.`payrollitemid`
-		WHERE pd.payrollid=@payrollid AND i.employeeid=$employeeid AND i.deleted=0
-
-		UNION 
-
-		SELECT 'bank details' `itemtype`,CONCAT(`bankname`,', ',`branchname`,' Branch, Account Number ',`accountno`) `itemname`,
-		FORMAT(`amount`,2) amount,5 `sortorder`
-		FROM `payrollbankremittances` r
-		INNER JOIN `bankbranches` br ON br.`branchid`=r.`branchid`
-		INNER JOIN `banks` b ON b.bankid=br.bankid
-		WHERE r.payrollid=@payrollid AND r.employeeid=$employeeid AND r.deleted=0
-
-		ORDER BY sortorder, itemname;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getemployeepayslips` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getemployeepayslips` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getemployeepayslips`($employeeid int,$startmonth varchar(50),$startyear int,$endmonth varchar(50),$endyear int)
-BEGIN
-		declare $startdate date;
-		declare $enddate date;
-		declare $staffno varchar(50);
-		
-		select staffno into $staffno from `employeerecords` where `employeeid`=$employeeid;
-		
-		set $startdate=STR_TO_DATE(concat($startyear,'-',$startmonth,'-01'), '%Y-%m-%d');
-		set $enddate=STR_TO_DATE(concat($endyear,'-',$endmonth,'-01'), '%Y-%m-%d'); 
-
-		select $staffno staffno, p.`payrollid`,`month`,`year`,payrolldate,
-		sum(if(`itemtype`='payment',`amount`,0)) totalpayments,
-		SUM(IF(`itemtype`='deduction',`amount`,0)) totaldeductions, 
-		(select `amount` from `payrollbankremittances` where `payrollid`=p.payrollid and `employeeid`=$employeeid and deleted=0) netsalary,
-		(select concat(`bankname`,' ',`branchname`,' Acc #:',`accountno`) from `payrollbankremittances` r
-		join `bankbranches` br on br.`branchid`=r.branchid 
-		join `banks` b on b.bankid=br.`bankid` 
-		where r.`employeeid`=$employeeid and `payrollid`=p.payrollid and r.deleted=0) paymentcenter
-		from `payrolldetails` p
-		join `payslipinformation` i on i.payrollid=p.payrollid
-		join `payrollitems`  n on n.`itemid`=i.payrollitemid
-		where employeeid=$employeeid and payrolldate between $startdate and $enddate
-		and i.deleted=0
-		group by p.payrollid,`month`,`year`
-		order by payrolldate;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getemployeesleaveapplications` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getemployeesleaveapplications` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getemployeesleaveapplications`($leavetypeid int)
-BEGIN
-		if $leavetypeid=0 then			
-			select e.*,a.applicationid,`leavename`,a.`dateadded`,`startdate`,`enddate`,`daystaken`,`attachment`,`narration`,
-			fn_getleaveapplicationstatus(a.applicationid) `status`,
-			concat(r.firstname,' ',r.middlename,' ',r.lastname) relievername,
-			concat(s.firstname, ' ',s.middlename, ' ',s.lastname) supervisorname
-			from `leaveapplications` a
-			join `employeerecords` r on r.`employeeid`=a.relieverid
-			JOIN `leavetypes` t ON t.leaveid=a.leavetypeid
-			join `employeerecords` s on s.`employeeid`=a.supervisorid
-			join `employeerecords` e on e.employeeid=a.employeeid
-			where a.`deleted`=0 
-			order by a.dateadded;
-		else
-			SELECT e.*,a.applicationid,`leavename`,a.`dateadded`,`startdate`,`enddate`,`daystaken`,`attachment`,`narration`,
-			fn_getleaveapplicationstatus(a.applicationid) `status`,
-			CONCAT(r.firstname,' ',r.middlename,' ',r.lastname) relievername,
-			CONCAT(s.firstname, ' ',s.middlename, ' ',s.lastname) supervisorname
-			FROM `leaveapplications` a
-			JOIN `employeerecords` r ON r.`employeeid`=a.relieverid
-			JOIN `employeerecords` s ON s.`employeeid`=a.supervisorid
-			JOIN `employeerecords` e ON e.employeeid=a.employeeid
-			join `leavetypes` t on t.leaveid=a.leavetypeid
-			WHERE a.`deleted`=0  and a.leavetypeid=$leavetypeid
-			ORDER BY a.dateadded;
-		end if;		
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getemployeesupervisors` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getemployeesupervisors` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getemployeesupervisors`($employeeid int)
-BEGIN
-		declare $employeepositionid int;
-		declare $supervisorid int;
-		
-		select `positionid` 
-		into $employeepositionid 
-		from `employeerecords` where `employeeid`=$employeeid;
-		
-		select `reportsto` 
-		into $supervisorid
-		from `jobpositions` where `positionid`=$employeepositionid;
-		
-		select * 
-		from `employeerecords` 
-		where `positionid` =$supervisorid and `status`='active'
-		order by firstname,middlename,lastname;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getemployeetrainigdetails` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getemployeetrainigdetails` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getemployeetrainigdetails`($trainingid int)
-BEGIN
-		select * 
-		from `employeetraining`
-		where `trainingid`=$trainingid;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getemployeetraining` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getemployeetraining` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getemployeetraining`($employeeid int)
-BEGIN
-		select t.*,levelname,concat(firstname,' ',middlename,' ',lastname) addedbyname
-		from `employeetraining` t
-		join `user` u on u.userid=t.addedby
-		join `courselevels` c on c.levelid=t.levelid
-		where t.employeeid=$employeeid and t.deleted=0
-		order by startdate,enddate;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getemploymenttermdetails` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getemploymenttermdetails` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getemploymenttermdetails`($termid int)
-BEGIN
-		select * 
-		from `employmentterms`
-		where `termid`=$termid;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getemploymentterms` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getemploymentterms` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getemploymentterms`()
-BEGIN
-		select t.*,concat(`firstname`,' ',`middlename`,' ',`lastname`) as addedbyname,0 as employees
-		from `employmentterms` t
-		inner join `user` u on u.userid=t.addedby
-		where t.`deleted`=0
-		order by `termname`;
-	end */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getgrievancecategories` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getgrievancecategories` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getgrievancecategories`()
-BEGIN
-	
-		-- select c.*,concat(`firstname`, ' ', `middlename`, '',`lastname`,'',`description`)addedbyname, 0 as grievances
-		-- from `grievancecategory` c
-		-- inner join `user` u on u.`userid`=c.`cartegoryid`
-		-- where `cartegoryid`=$userid;
-		
-		select * from `grievancecategory`
-		where `deleted`=0
-		order by categoryname;
-		 
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getgrievancecategorytype` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getgrievancecategorytype` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getgrievancecategorytype`()
-BEGIN
-	
-	   select `description` from `grievancecategory`
-	   where `deleted`=0
-	   order by `categoryid`;
-	   
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getgrievanceremedies` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getgrievanceremedies` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getgrievanceremedies`()
-BEGIN
-	
-		SELECT * FROM `grievanceremedies`
-		WHERE `deleted` = 0
-		ORDER BY `remedyid`;
-		
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getgrievances` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getgrievances` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getgrievances`($grievanceid int)
-BEGIN
-		select g.*, concat(`firstname`,' ',`middlename`,' ',`lastname`) addedbyname, 0 as grievance
-		from `grievancesdetails` g
-		inner join `user` u on u.`userid`= g.`addedby`
-		where `grievanceid`=$grievanceid;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getgrievancetypes` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getgrievancetypes` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getgrievancetypes`($categoryid int)
-BEGIN
-		select * from `grievancetypes`
-		where `categoryid`=$categoryid
-		and `deleted`=0
-		order by `typename`;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getinbuiltsystemuser` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getinbuiltsystemuser` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getinbuiltsystemuser`()
-BEGIN
-		select * from `user`
-		where systemlabel='INBUILT SYSTEM ACCOUNT';
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getinstitutionaldetails` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getinstitutionaldetails` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getinstitutionaldetails`()
-BEGIN
-		select * from `institution`;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getjobcategories` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getjobcategories` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getjobcategories`()
-BEGIN
-		select c.*,concat(firstname,' ',middlename,' ',lastname) as addedbyname, 0 as employees
-		from `jobcategories` c
-		inner join `user` u on u.userid=c.addedby
-		where c.deleted=0
-		order by categoryname;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getjobcategorydetails` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getjobcategorydetails` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getjobcategorydetails`($categoryid int)
-BEGIN
-		select * 
-		from `jobcategories`
-		where `categoryid`=$categoryid;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getjobgroupdetails` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getjobgroupdetails` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getjobgroupdetails`($jobgroupid int)
-BEGIN
-		select * from `jobgroups`
-		where `jobgroupid`=$jobgroupid;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getjobgroups` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getjobgroups` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getjobgroups`()
-BEGIN
-		select j.*, concat(`firstname`,' ',`middlename`,' ',`lastname`) addedbyname
-		from `jobgroups` j
-		inner join `user` u on u.userid=j.addedby
-		where j.deleted=0;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getjobnotchdetails` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getjobnotchdetails` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getjobnotchdetails`($notchid int)
-BEGIN
-		select * from `jobnotches`
-		where `notchid`=$notchid;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getjobnotches` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getjobnotches` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getjobnotches`()
-BEGIN
-		select n.*, concat(`firstname`,' ',`middlename`,' ',`lastname`) addedbyname
-		from `jobnotches` n 
-		inner join `user` u on u.userid=n.addedby
-		where n.deleted=0;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getjobpositiondetails` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getjobpositiondetails` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getjobpositiondetails`($positionid int)
-BEGIN
-		select * from `jobpositions`
-		where `positionid`=$positionid;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getjobpositions` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getjobpositions` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getjobpositions`()
-BEGIN
-		select p.*, concat(`firstname`,' ',`middlename`,' ',`lastname`) addedbyname,
-		js.jobgroupname as startjobgroupname, je.jobgroupname as endjobgroupname,
-		sn.notchname as startnotchname, en.notchname as endnotchname,
-		ifnull(j.positionname,'<Top>') as reportstoname, 0 as strength
-		
-		from `jobpositions` p
-		
-		inner join `user` u on u.userid=p.addedby
-	
-		inner join `jobgroups` js on js.`jobgroupid`=p.`startjobgroupid`
-		inner join `jobgroups` je on je.`jobgroupid`=p.`endjobgroupid`
-		
-		inner join `jobnotches` sn on sn.`notchid`=p.`startnotchid`
-		inner join `jobnotches` en on en.notchid=p.`endnotchid`
-		
-		left outer join `jobpositions` j on j.positionid=p.reportsto
-		
-		where p.deleted=0
-		order by reportsto, positionname;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getleaveapplicationapprovalstatuses` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getleaveapplicationapprovalstatuses` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getleaveapplicationapprovalstatuses`($applicationid int)
-BEGIN
-		select l.id approvalid,p.applicationid, `approvallevel`,`hierarchy`, 
-		case when ap.status is not null then 1 else 0 end done, 
-		ifnull(ap.status,'pending') `status`,
-		ap.statusdate, ap.narration
-		from `leaveapprovalflows` f
-		join `leavetypes` t on  t.approvalflow=f.flowid
-		join `leaveapplications` p on p.`leavetypeid`=t.leaveid and p.approvalflowid=f.flowid
-		join `leaveapprovallevels` l on l.`flowid`=f.flowid 
-		left outer join `leaveapproval` ap on ap.`approvallevelid`=l.`id` and ap.`applicationid`=p.applicationid
-		where p.`applicationid`=$applicationid and l.deleted=0
-		order by `hierarchy`;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getleaveapplicationcurrentapprovallevel` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getleaveapplicationcurrentapprovallevel` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getleaveapplicationcurrentapprovallevel`($applicationid int)
-BEGIN
-		declare $leavetypeid int;
-		declare $supervisorid int;
-		declare $hrmanagerpositionid int;
-		declare $topmanagementpositionid int;
-		
-		select `leavetypeid`,supervisorid 
-		into $leavetypeid,$supervisorid 
-		from `leaveapplications` where `applicationid`=$applicationid;
-		
-		select positionid into $hrmanagerpositionid
-		from `jobpositions` where `systemlabel`='HR MANAGER';
-		
-		SELECT positionid INTO $topmanagementpositionid
-		FROM `jobpositions` WHERE `systemlabel`='SENIOR MANAGEMENT';
-		
-		select  `approvallevel`,`hierarchy`,
-		
-		case `approvallevel`  
-			when 'supervisor' then
-				(select concat(`firstname`,' ',`middlename`,' ',`lastname`,',',`mobile`,',',`emailaddress`) 
-				from `employeerecords` where `employeeid`=$supervisorid)
-			when 'hrmanager' then 
-				(SELECT group_concat(CONCAT(`firstname`,' ',`middlename`,' ',`lastname`,',',`mobile`,',',`emailaddress`))
-				FROM `employeerecords` WHERE `employeeid` in(select employeeid from `employeerecords` where `positionid`=$hrmanagerpositionid))
-			when 'topmanagement' then
-				(SELECT GROUP_CONCAT(CONCAT(`firstname`,' ',`middlename`,' ',`lastname`,',',`mobile`,',',`emailaddress`))
-				FROM `employeerecords` WHERE `employeeid` IN(SELECT employeeid FROM `employeerecords` WHERE `positionid`=$topmanagementpositionid))
-		end as approvaluser
-		
-		from `leavetypes` t
-		join `leaveapprovalflows` f on f.flowid=t.approvalflow
-		join `leaveapprovallevels` l on  l.flowid=f.flowid 
-		join `leaveapplications` p on p.approvalflowid=f.flowid
-		where t.`leaveid`=$leavetypeid 
-		and l.id not in(select `approvallevelid` from `leaveapproval` where `applicationid`=$applicationid and `status`='approved')
-		order by `hierarchy`
-		limit 1;
-		
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getleaveapplicationdetails` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getleaveapplicationdetails` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getleaveapplicationdetails`($applicationid int)
-BEGIN
-		select * 
-		from `leaveapplications`
-		where `applicationid`=$applicationid;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getleaveapplicationemployeedetails` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getleaveapplicationemployeedetails` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getleaveapplicationemployeedetails`($applicationid int)
-BEGIN
-		declare $companyname varchar(50);
-		
-		select companyname into $companyname from `institution`;
-		
-		select $companyname as companyname,concat(e.firstname,' ',e.middlename,' ',e.lastname) employeename,e.`emailaddress`,e.staffno,
-		leavename,date_format(startdate,'%d-%b-%Y') startdate,date_format(enddate,'%d-%b-%Y') enddate,daystaken,narration,
-		concat(r.firstname,' ',r.middlename,' ', r.lastname) relievername, r.emailaddress relieveremailaddress
-		from `leaveapplications` a
-		join `employeerecords` e on a.employeeid=e.employeeid
-		join  `employeerecords` r on r.employeeid=a.relieverid
-		join `leavetypes` t on t.leaveid=a.leavetypeid
-		where a.applicationid=$applicationid;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getleaveapplicationstatus` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getleaveapplicationstatus` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getleaveapplicationstatus`($applicationid int)
-BEGIN
-		select fn_getleaveapplicationstatus($applicationid) applicationstatus;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getleaveapplicationtimeline` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getleaveapplicationtimeline` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getleaveapplicationtimeline`($applicationid int)
-BEGIN
-		SELECT 0 hierarchy, 'Application' activity,DATE_FORMAT(a.`dateadded`,'%d-%b-%Y') `date`,
-		DATE_FORMAT(a.dateadded, '%h:%i %p') `time`,'approved' `status`,
-		CONCAT(u.firstname, ' ',u.middlename,' ',u.lastname) `user`,
-		-- CONCAT(leavename,', Dates: ',DATE_FORMAT(a.startdate,'%d-%b-%Y'),' - ',DATE_FORMAT(a.enddate,'%d-%b-%Y'),', Duration: ',daystaken) narration
-		a.narration
-		FROM `leaveapplications` a
-		JOIN `user` u ON u.`userid`=a.`addedby`
-		JOIN `leavetypes` t ON t.leaveid=a.`leavetypeid`
-		WHERE `applicationid`=$applicationid
-
-		UNION 
-		 
-		SELECT `hierarchy`, CONCAT(CASE `approvallevel` 
-			WHEN 'supervisor' THEN 'Supervisor'
-			WHEN 'hrmanager' THEN 'Human Resource Manager'
-			WHEN 'topmanagement' THEN 'Senior Management'
-		END, ' Approval') activity, DATE_FORMAT(`statusdate`,'%d-%b-%Y') `date`,
-		DATE_FORMAT(`statusdate`, '%h:%i %p')`time`, ifnull(p.`status`,'pending') `status`,
-		ifnull(CONCAT(u.firstname, ' ',u.middlename,' ',u.lastname),'') `user`,
-		ifnull(p.`narration`,'') narration
-		FROM `leaveapplications` a
-		JOIN `leaveapprovalflows` f ON f.flowid=a.`approvalflowid`
-		JOIN `leaveapprovallevels` l ON l.flowid=f.flowid
-		LEFT OUTER JOIN `leaveapproval` p ON p.`applicationid`=a.`applicationid` AND p.`approvallevelid`=l.`id`
-		left outer JOIN `user` u ON u.userid=p.`approvaluser`
-		WHERE a.`applicationid`=$applicationid
-		ORDER BY `hierarchy`;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getleaveapprovalflowdetails` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getleaveapprovalflowdetails` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getleaveapprovalflowdetails`($flowid int)
-BEGIN
-		select * 
-		from `leaveapprovalflows`
-		where `flowid`=$flowid;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getleaveapprovalflows` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getleaveapprovalflows` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getleaveapprovalflows`()
-BEGIN
-		select f.*, concat(`firstname`,' ',`middlename`,' ',`lastname`) as addedbyname,
-		ifnull((select count(*) from `leaveapprovallevels` where `flowid`=f.flowid and `deleted`=0),0) approvallevels
-		from `leaveapprovalflows`f
-		join `user` u on u.userid=f.addedby and f.deleted=0
-		order by flowname;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getleaveapprovallevels` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getleaveapprovallevels` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getleaveapprovallevels`($flowid int)
-BEGIN
-		select * 
-		from `leaveapprovallevels`
-		where `flowid`=$flowid and `deleted`=0
-		order by `hierarchy`;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getleavename` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getleavename` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getleavename`($leavetypeid int)
-BEGIN
-		select `leavename` from `leavetypes` where `leaveid`=$leavetypeid;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getleavetypedetails` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getleavetypedetails` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getleavetypedetails`($leaveid int)
-BEGIN
-		select * 
-		from `leavetypes`
-		where `leaveid`=$leaveid;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getleavetypes` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getleavetypes` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getleavetypes`()
-BEGIN
-		select l.*, concat(`firstname`,' ',`middlename`,' ',`lastname`) addedbyname
-		from `leavetypes` l
-		join `user` u on u.`userid`=l.addedby
-		where l.deleted=0
-		order by `leavename`;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getmaritalstatuses` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getmaritalstatuses` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getmaritalstatuses`()
-BEGIN
-		select * from `maritalstatuses`
-		where `deleted`=0
-		order by `id`;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getnhifremittanceadvise` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getnhifremittanceadvise` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getnhifremittanceadvise`($payrollmonth varchar(50),$payrollyear int,$payrollitemid int)
-BEGIN
-		select `staffno` `Staff Number`,`lastname` `Surname`, concat(`firstname`,' ',`middlename`)`Other Names`,
-		`nhifno` `NHIF Number`,`iddocreferenceno` `ID Number`,format(`amount`,2) `Amount`
-		from `employeerecords` e
-		inner join `payslipinformation` i on i.employeeid=e.employeeid
-		inner join `payrolldetails` pd on pd.payrollid=i.payrollid
-		where pd.`year`=$payrollyear and `month`=$payrollmonth and i.deleted=0 
-		and i.payrollitemid=$payrollitemid
-		order by staffno;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getnssfremittanceadvise` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getnssfremittanceadvise` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getnssfremittanceadvise`($payrollmonth varchar(60),$payrollyear int,$payrollitemid int)
-BEGIN
-		declare $voluntaryitemid int;
-		declare $payrollid int;
-		
-		select payrollid into $payrollid from `payrolldetails` where `month`=$payrollmonth and `year`=$payrollyear;
-		select itemid into $voluntaryitemid from  `payrollitems` where `description`='NSSF VOLUNTARY';
-		
-		select `staffno` `Staff Number`,`lastname` `Surname`,concat(`firstname`,' ',`middlename`) `Other Names`,`iddocreferenceno` `ID Number`,`pinno` `PIN Number`,`nssfno` `NSSF Number`,
-		format((select sum(amount) from `payslipinformation` i 
-			inner join `payrolldetails` pd on pd.payrollid=i.payrollid 
-			inner join `payrollitems` m on m.itemid=i.payrollitemid
-			where pd.payrollid=$payrollid and i.employeeid=e.employeeid
-			and m.itemtype='payment' and i.deleted=0),2)`Gross Salary`,
-		format(amount,2) `Employee`,format(amount,2) `Employer`,
-		format(ifnull((select amount from `payslipinformation` i 
-			inner join `payrolldetails` pd on pd.payrollid=i.payrollid
-			where i.payrollitemid=$voluntaryitemid and i.deleted=0
-			and pd.payrollid=$payrollid and i.employeeid=e.employeeid),0),2) as `Voluntary`
-		from `employeerecords` e
-		inner join `payslipinformation` ip on ip.employeeid=e.employeeid
-		inner join `payrolldetails` dp on dp.payrollid=ip.payrollid
-		where dp.payrollid=$payrollid and ip.deleted=0 and ip.payrollitemid=$payrollitemid
-		order by staffno;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getp10certificateemployeedata` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getp10certificateemployeedata` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getp10certificateemployeedata`($payrollmonth varchar(50),$payrollyear int)
-BEGIN
-		declare $payrollid int;
-
-		SELECT payrollid INTO $payrollid 
-		FROM `payrolldetails` 
-		WHERE `month`=$payrollmonth AND `year`=$payrollyear;
-
-		SELECT `pinno`,CONCAT(`firstname`,' ',`middlename`, ' ',`lastname`) `names`, disabled,
-		IFNULL(disabilitycertificateno,'') certificateno,
-		SUM(IF(description='BASIC', amount,0)) Basic,
-		SUM(IF(description='HOUSE', amount,0)) House,
-		SUM(IF(description='COMMUTER', amount,0)) Commuter,
-		SUM(IF(description='ARREARS', amount,0)) Arrears,
-		SUM(IF(description IN('NSSF','NSSF VOLUNTARY'), amount,0)) NSSF,
-		SUM(IF(description='PERSONAL RELIEF', amount,0)) `PersonalRelief`,
-		SUM(IF(description='PAYE', amount,0)) PAYE,
-		SUM(IF(description IS NULL, amount,0)) `OtherAllowance`
-		
-		FROM `payrollemployees` pe
-		JOIN `employeerecords` e ON e.employeeid=pe.employeeid
-		JOIN `payslipinformation` i ON i.payrollid=pe.payrollid AND i.employeeid=pe.employeeid
-		JOIN `payrollitems`m ON m.itemid=i.payrollitemid
-		WHERE i.payrollid=$payrollid  AND i.deleted=0 AND pe.deleted=0
-		AND (description IS NOT NULL OR itemtype IN('payment'))
-		GROUP BY pe.`employeeid`
-		ORDER BY pinno;
-
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getp9deductioncard` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getp9deductioncard` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getp9deductioncard`($deductionyear int,$employeeid int)
-BEGIN
-		SELECT `companyname`,`pinno` INTO @employername,@employerpin 
-		FROM `institution`;
-
-		SELECT `pensionmaxallowable`,`disabilityallowable` 
-		INTO @maxpension,@disabilityallowable 
-		FROM `payetaxtable`
-		WHERE `label`=$deductionyear ORDER BY `payeid` DESC LIMIT 1;
-
-		SELECT p.`payrollid`, @employerpin employerpin,@employername employer,`staffno`, `firstname` surname, CONCAT(`middlename`,' ',`lastname`) othernames,
-		s.`pinno` employeepin, `month`,`year`,
-		SUM(IF(`description`='BASIC',amount,0)) basic,
-		SUM(IF(`description`='OTHER BENEFIT',amount,0)) noncashbenefits,
-		SUM(IF(`description`='HOUSING BENEFIT',amount,0)) housingbenefit,
-		SUM(IF(m.itemtype IN('payment','benefit'),amount,0)) gross,
-		SUM(IF(`description`='BASIC',amount,0))*0.3 e1,
-		SUM(IF(`description` IN('PENSION','NSSF','NSSF VOLUNTARY'),amount,0)) e2,
-		@maxpension e3,
-		SUM(IF(`description`='MORTGAGE INTEREST',amount,0)) mortgageinterest,
-
-		-- Check whether pension contribution exceeds max
-		CASE WHEN SUM(IF(`description` IN('PENSION','NSSF','NSSF VOLUNTARY'),amount,0))<=@maxpension THEN
-			SUM(IF(`description` IN('PENSION','NSSF','NSSF VOLUNTARY'),amount,0))
-		ELSE
-			@maxpension
-		END + SUM(IF(`description`='MORTGAGE INTEREST',amount,0)) mortgagepension,
-
-		-- compute taxable income
-		SUM(IF(itemtype IN('payment','benefit'),amount,0))-
-		SUM(IF(`description` IN('PENSION','NSSF','NSSF VOLUNTARY'),amount,0))-
-		SUM(IF(`allowablededuction`=1,amount,0))-
-		CASE WHEN `hasdisability`=1 THEN @disabilityallowable ELSE 0 END `chargeablepay`,
-
-		SUM(IF(`description` IN('PAYE','PERSONAL RELIEF','INSURANCE RELIEF'),amount,0)) taxcharged,
-		SUM(IF(`description`='PERSONAL RELIEF',amount,0)) personalrelief,
-		SUM(IF(`description`='INSURANCE RELIEF',amount,0)) insurancerelief,
-		SUM(IF(`description`='PAYE',amount,0)) paye
-
-		FROM `employeerecords` s
-		JOIN `payslipinformation` i ON i.employeeid=s.employeeid AND i.deleted=0
-		JOIN `payrolldetails` p ON p.`payrollid`=i.`payrollid`
-		JOIN `payrollitems` m ON m.`itemid`=i.`payrollitemid`
-		JOIN `payrollemployees` pe ON pe.employeeid=s.employeeid AND pe.payrollid=p.payrollid AND pe.deleted=0 and i.deleted=0
-		WHERE p.`year`=$deductionyear AND s.`employeeid`=$employeeid
-		AND (
-			description IN('BASIC','PAYE','NSSF','NSSF VOLUNTARY','PERSONAL RELIEF','INSURANCE RELIEF','MORTGAGE INTEREST','PENSION','HOUSING BENEFIT','OTHER BENEFIT')
-			OR
-			m.`itemtype` IN('Payment','Benefit','Deduction')
-		)
-		GROUP BY p.payrollid
-		ORDER BY p.payrollid;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getp9deductionsummary` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getp9deductionsummary` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getp9deductionsummary`($deductionyear int)
-BEGIN
-		SELECT `pensionmaxallowable`,`disabilityallowable` 
-		INTO @maxpension,@disabilityallowable 
-		FROM `payetaxtable`
-		WHERE `label`=$deductionyear ORDER BY `payeid` DESC LIMIT 1;
-
-		SELECT s.employeeid, `staffno`, CONCAT(`firstname`,' ',`middlename`,' ',`lastname`) employeename,
-		s.`pinno` employeepin,
-		SUM(IF(m.itemtype IN('payment','benefit'),amount,0)) gross,
-		
-		-- compute taxable income
-		SUM(IF(itemtype IN('payment','benefit'),amount,0))-
-		SUM(IF(`description` IN('PENSION','NSSF','NSSF VOLUNTARY'),amount,0))-
-		SUM(IF(`allowablededuction`=1,amount,0))-
-		CASE WHEN `hasdisability`=1 THEN @disabilityallowable ELSE 0 END `chargeablepay`,
-
-		SUM(IF(`description` IN('PAYE','PERSONAL RELIEF','INSURANCE RELIEF'),amount,0)) taxcharged,
-		SUM(IF(`description`='PERSONAL RELIEF',amount,0)) +
-		SUM(IF(`description`='INSURANCE RELIEF',amount,0)) relief,
-		SUM(IF(`description`='PAYE',amount,0)) paye
-
-		FROM `employeerecords` s
-		JOIN `payslipinformation` i ON i.employeeid=s.employeeid
-		JOIN `payrolldetails` p ON p.`payrollid`=i.`payrollid`
-		JOIN `payrollitems` m ON m.`itemid`=i.`payrollitemid`
-		JOIN `payrollemployees` pe ON pe.employeeid=s.employeeid AND pe.payrollid=p.payrollid 
-		
-		WHERE p.`year`=$deductionyear
-		AND (
-			description IN('BASIC','PAYE','NSSF','NSSF VOLUNTARY','PERSONAL RELIEF','INSURANCE RELIEF','MORTGAGE INTEREST','PENSION','HOUSING BENEFIT','OTHER BENEFIT')
-			OR
-			m.`itemtype` IN('Payment','Benefit','Deduction')
-		)
-		and i.deleted=0 AND pe.deleted=0
-		GROUP BY staffno
-		ORDER BY staffno;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getpayeremittanceadvice` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getpayeremittanceadvice` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getpayeremittanceadvice`($payrollmonth varchar(50),$payrollyear int,$payrollitemid int)
-BEGIN
-		select staffno `Staff Number`, concat(firstname,' ',middlename,' ',lastname) `Full Name`,`pinno` `PIN Number`,
-		`iddocreferenceno` `ID Number`,format(amount,2) `Amount`
-		from `payrolldetails` d 
-		inner join `payslipinformation` p on p.payrollid=d.payrollid
-		inner join `employeerecords` e on e.employeeid=p.employeeid
-		where `month`=$payrollmonth and `year`=$payrollyear and  p.deleted=0
-		and p.payrollitemid=$payrollitemid
-		order by staffno;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getpayetaxlabels` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getpayetaxlabels` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getpayetaxlabels`()
-BEGIN
-		select * from `payetaxtable`
-		order by `startdate` desc;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getpaymentmethods` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getpaymentmethods` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getpaymentmethods`()
-BEGIN
-		select * from `paymentmodes`
-		where deleted=0
-		order by `paymentmodename`;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getpayrollchangesemployees` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getpayrollchangesemployees` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getpayrollchangesemployees`($payrollmonth varchar(50),$payrollyear int)
-BEGIN
-		
-		
-		select `payrollid` into @currentpayrollid 
-		from `payrolldetails`
-		where `month`=$payrollmonth and `year`=$payrollyear;
-		
-		select `payrollid` into @previouspayrollid
-		from `payrolldetails` where `payrollid`<@currentpayrollid
-		order by `payrollid` desc 
-		limit 1;
-		
-		/*
-		-- Previous amount not same as current amount
-		SELECT staffno, CONCAT(`firstname`,' ',`middlename`,' ',`lastname`) employeename,itemname, amount AS previousamount,
-		IFNULL((SELECT amount FROM `payslipinformation` WHERE `payrollid`=@currentpayrollid AND `employeeid`=e.employeeid AND deleted=0 AND `payrollitemid`=i.payrollitemid),0) currentamount
-		FROM payslipinformation i
-		JOIN employeerecords e ON e.employeeid=i.employeeid  
-		JOIN payrollitems p ON p.itemid=i.payrollitemid
-		WHERE i.payrollid=@previouspayrollid AND i.deleted=0
-		AND payrollitemid IN(SELECT itemid FROM `payrollitems` WHERE itemtype='payment')
-		AND i.amount!=IFNULL((SELECT amount FROM `payslipinformation` WHERE `payrollid`=@currentpayrollid AND `employeeid`=e.employeeid AND deleted=0 AND `payrollitemid`=i.payrollitemid),0) 
-
-		UNION
-		-- Current amount no same as previous
-		SELECT staffno, CONCAT(`firstname`,' ',`middlename`,' ',`lastname`) employeename,itemname,
-		IFNULL((SELECT amount FROM `payslipinformation` WHERE `payrollid`=@previouspayrollid AND `employeeid`=e.employeeid AND deleted=0 AND `payrollitemid`=i.payrollitemid),0)AS previousamount,
-		amount  currentamount
-		FROM payslipinformation i
-		JOIN employeerecords e ON e.employeeid=i.employeeid  
-		JOIN payrollitems p ON p.itemid=i.payrollitemid
-		WHERE i.payrollid=@currentpayrollid AND i.deleted=0
-		AND payrollitemid IN(SELECT itemid FROM `payrollitems` WHERE itemtype='payment')
-		AND i.amount!=IFNULL((SELECT amount FROM `payslipinformation` WHERE `payrollid`=@previouspayrollid AND `employeeid`=e.employeeid AND deleted=0 AND `payrollitemid`=i.payrollitemid),0) 
-		ORDER BY staffno,itemname;*/
-		
-		SELECT staffno, CONCAT(`firstname`,' ',`middlename`,' ',`lastname`) employeename,itemname, p.amount AS previousamount,c.`amount` currentamount
-		FROM employeerecords e,payrollitems i,payslipinformation c,payslipinformation p
-		WHERE i.itemid=c.payrollitemid AND i.itemid=p.`payrollitemid` AND c.employeeid=e.employeeid
-		AND c.`payrollitemid`= i.`itemid` AND c.`payrollid`=@currentpayrollid AND  p.employeeid=e.employeeid
-		AND  p.`payrollitemid`= i.`itemid` AND p.`payrollid`=@previouspayrollid AND i.itemtype='payment' 
-		AND c.`deleted`=0 AND p.deleted=0 AND p.amount!=c.`amount`
-		ORDER BY staffno,sortorder,itemname;
-
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getpayrollchangesitems` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getpayrollchangesitems` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getpayrollchangesitems`($payrollmonth varchar(50),$payrollyear int)
-BEGIN
-
-		SELECT `payrollid` INTO @currentpayrollid 
-		FROM `payrolldetails`
-		WHERE `month`=$payrollmonth AND `year`=$payrollyear;
-		
-		SELECT `payrollid` INTO @previouspayrollid
-		FROM `payrolldetails` WHERE `payrollid`<@currentpayrollid
-		ORDER BY `payrollid` DESC 
-		LIMIT 1;
-		
-
-		SELECT itemname
-		FROM employeerecords e,payrollitems i,payslipinformation c,payslipinformation p
-		WHERE i.itemid=c.payrollitemid AND i.itemid=p.`payrollitemid` AND c.employeeid=e.employeeid
-		AND c.`payrollitemid`= i.`itemid` AND c.`payrollid`=@currentpayrollid AND  p.employeeid=e.employeeid
-		AND  p.`payrollitemid`= i.`itemid` AND p.`payrollid`=@previouspayrollid AND i.itemtype='payment' 
-		AND c.`deleted`=0 AND p.deleted=0 AND p.amount!=c.`amount`
-		ORDER BY sortorder,itemname;
-
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getpayrollentrants` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getpayrollentrants` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getpayrollentrants`($payrollmonth varchar(50),$payrollyear int)
-BEGIN
-	
-		SET @currentpayrollid=0;
-		SET @previouspayrollid=0;
-
-		SELECT `payrollid` INTO @currentpayrollid FROM `payrolldetails` WHERE `month`=$payrollmonth AND `year`=$payrollyear ;
-
-		SELECT `payrollid` INTO @previouspayrollid FROM `payrolldetails` WHERE `payrollid`<@currentpayrollid
-		ORDER BY payrollid DESC LIMIT 1;
-
-		SET @previouspayrollid=IFNULL(@previouspayrollid,0);
-
-		SELECT  GROUP_CONCAT(DISTINCT CONCAT( 'FORMAT(SUM(IF(itemname=''',itemname,''',amount,0)),2) as `',itemname,'`') ORDER BY itemname) 
-		INTO @collumns
-		FROM `payrollitems` i 
-		JOIN `payslipinformation` p ON p.`payrollitemid`=i.`itemid` 
-		WHERE `itemtype`='payment' AND p.`payrollid`=@currentpayrollid;
-
-		-- Get Entrants
-		SET @sql=CONCAT('select staffno `Staff Number`, concat(`firstname`,'' '',`middlename`,'' '',`lastname`) `Employee Name`, ',
-		@collumns,', FORMAT(SUM(amount),2) `Gross Salary`
-		from `payslipinformation` i 
-		join `employeerecords` e on e.`employeeid`=i.`employeeid`
-		join `payrollitems` t on t.`itemid`=i.`payrollitemid`
-		where `payrollid`=',@currentpayrollid,' and e.`employeeid` not in(select `employeeid` from `payslipinformation` where `payrollid`=',@previouspayrollid,')
-		and itemtype=''payment''
-		group by staffno
-		order by staffno'); 
-
-		PREPARE stmt FROM @sql;
-		EXECUTE stmt;
-		DEALLOCATE PREPARE stmt;
-
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getpayrollexits` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getpayrollexits` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getpayrollexits`($payrollmonth varchar(50),$payrollyear int)
-BEGIN
-		SET @currentpayrollid=0;
-		SET @previouspayrollid=0;
-
-		SELECT `payrollid` INTO @currentpayrollid FROM `payrolldetails` WHERE `month`=$payrollmonth AND `year`=$payrollyear;
-
-		SELECT `payrollid` INTO @previouspayrollid FROM `payrolldetails` WHERE `payrollid`<@currentpayrollid
-		ORDER BY payrollid DESC LIMIT 1;
-
-		SET @previouspayrollid=IFNULL(@previouspayrollid,0);
-
-		-- select @currentpayrollid,@previouspayrollid;
-
-		SELECT  GROUP_CONCAT(DISTINCT CONCAT( 'FORMAT(SUM(IF(itemname=''',itemname,''',amount,0)),2) as `',itemname,'`') ORDER BY itemname) 
-		INTO @collumns
-		FROM `payrollitems` i 
-		JOIN `payslipinformation` p ON p.`payrollitemid`=i.`itemid` 
-		WHERE `itemtype`='payment' AND p.`payrollid`=@previouspayrollid;
-
-		SET @collumns=IFNULL(@collumns,'0 as `Amount`');
-		-- Get Exits
-		SET @sql=CONCAT('select staffno `Staff Number`, concat(`firstname`,'' '',`middlename`,'' '',`lastname`) `Employee Names`, ',
-		@collumns,', format(sum(amount),2) `Gross Salary` 
-		from `payslipinformation` i 
-		join `employeerecords` e on e.`employeeid`=i.`employeeid`
-		join `payrollitems` t on t.`itemid`=i.`payrollitemid`
-		where `payrollid`=',@previouspayrollid,' and e.`employeeid` not in(select `employeeid` from `payslipinformation` where `payrollid`=',@currentpayrollid,'
-		and deleted=0)
-		and itemtype=''payment''
-		group by staffno
-		order by staffno, payrollitemid'); 
-		
-		PREPARE stmt FROM @sql;
-		EXECUTE stmt;
-		DEALLOCATE PREPARE stmt;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getpayrollitemdetails` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getpayrollitemdetails` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getpayrollitemdetails`($itemid int)
-BEGIN
-		select * from `payrollitems`
-		where `itemid`=$itemid;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getpayrollitemgroupdetails` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getpayrollitemgroupdetails` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getpayrollitemgroupdetails`($groupid int)
-BEGIN
-		select * 
-		from `payrollitemgroups`
-		where `groupid`=$groupid;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getpayrollitemgroups` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getpayrollitemgroups` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getpayrollitemgroups`()
-BEGIN
-		select g.*, concat(`firstname`,' ',`middlename`,' ',`lastname`) addedbyname,
-		ifnull((select count(*) from `payrollitems` i where `itemgroupid`=g.groupid and i.deleted=0),0) items
-		from `payrollitemgroups` g
-		join `user` u on u.userid=g.addedby
-		where g.deleted=0
-		order by itemtype,groupname;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getpayrollitems` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getpayrollitems` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getpayrollitems`($category varchar(50))
-BEGIN
-		if $category='<all>' then
-			select p.*, concat(firstname, ' ',middlename,' ',lastname) as addedbyname,
-			ifnull(`creditorname`,'&lt;Not Applicable&gt;') creditorname
-			from `payrollitems` p
-			inner join `user` u on u.userid=p.addedby 
-			left outer join `creditors` c on c.`creditorid`=p.`creditorid`
-			where p.deleted=0
-			order by `itemname`;
-		else
-			select p.*, concat(firstname, ' ',middlename,' ',lastname) as addedbyname,
-			ifnull(`creditorname`,'&lt;Not Applicable&gt;') creditorname
-			from `payrollitems` p
-			inner join `user` u on u.userid=p.addedby 
-			left outer join `creditors` c on c.`creditorid`=p.`creditorid`
-			where p.deleted=0 and `itemtype`=$category
-			order by `itemname`;
-		end if;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getpayrollmonthcreditors` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getpayrollmonthcreditors` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getpayrollmonthcreditors`($payrollmonth varchar(50),$payrollyear int)
-BEGIN
-		SELECT DISTINCT cr.`creditorid`,cr.`shortname`
-		FROM `creditors` cr
-		INNER JOIN `payrollitems` ip ON ip.`creditorid`=cr.`creditorid`
-		INNER JOIN `payslipinformation` pf ON pf.`payrollitemid`=ip.`itemid`
-		INNER JOIN `payrolldetails` pd ON pd.`payrollid`=pf.`payrollid`
-		WHERE pd.`month`=$payrollmonth AND pd.`year`=$payrollyear AND pf.deleted=0
-		ORDER BY shortname;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getpayrollregisterdetailed` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getpayrollregisterdetailed` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getpayrollregisterdetailed`($payrollmonth varchar(50),$payrollyear int)
-BEGIN
-		Select`payrollid` 
-		into @payrollid 
-		from`payrolldetails` 
-		where `month`=$payrollmonth and `year`=$payrollyear;
-
-		SELECT GROUP_CONCAT(CONCAT( 'FORMAT(SUM(IF(shortname=''',shortname,''',amount,0)),2) as `',shortname,'`') ORDER BY sortorder,shortname) 
-		INTO @payments
-		FROM `payrollitems` WHERE `itemtype` =('payment') AND deleted=0
-		AND itemid IN(SELECT DISTINCT payrollitemid FROM `payslipinformation` WHERE `payrollid`=@payrollid AND `deleted`=0);
-
-		SELECT GROUP_CONCAT(CONCAT( 'FORMAT(SUM(IF(shortname=''',shortname,''',amount,0)),2) as `',shortname,'`') ORDER BY sortorder,shortname) 
-		INTO @deductions
-		FROM `payrollitems` WHERE `itemtype` =('deduction') AND deleted=0
-		AND itemid IN(SELECT DISTINCT payrollitemid FROM `payslipinformation` WHERE `payrollid`=@payrollid AND `deleted`=0);
-
-		SELECT 'SUM(IF(itemtype=''payment'',amount,0))'
-		INTO @gross;
-
-		SELECT 'SUM(IF(itemtype=''deduction'',amount,0))'
-		INTO @totaldeductions;
-
-
-
-		SET @sql=CONCAT('select staffno `Staff Number`,concat(firstname,'' '',middlename,'' '',lastname) `Full Name`,',
-		@payments,', FORMAT(',@gross,',2) as `Gross Salary`,',@deductions,',FORMAT(',@totaldeductions,',2) as `Total Deductions`, FORMAT(',@gross,'-',@totaldeductions,',2) as `Net Salary`'
-		' from `payrolldetails` i 
-		inner join `payslipinformation` p on p.`payrollid`=i.`payrollid`
-		inner join `payrollitems` m on m.`itemid`=p.`payrollitemid`
-		inner join `employeerecords` e on e.`employeeid`=p.employeeid
-		where i.`payrollid`=',@payrollid,' and m.`itemtype` in(''payment'',''deduction'')
-		and p.deleted=0
-		group by e.employeeid
-		order by e.staffno');
-
-		PREPARE stmt FROM @sql;
-		EXECUTE stmt;
-		DEALLOCATE PREPARE stmt;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getpayrollregistersummary` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getpayrollregistersummary` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getpayrollregistersummary`($payrollmonth varchar(50),$payrollyear int)
-BEGIN		
-		SELECT payrollid INTO @payrollid 
-		FROM `payrolldetails` 
-		WHERE `month`=$payrollmonth AND `year`=$payrollyear;
-
-		-- Get payments
-		SELECT  GROUP_CONCAT( DISTINCT CONCAT('format(sum(if(', 
-			CASE WHEN itemgroupid IS NULL THEN CONCAT('shortname=','''',shortname,'''')  ELSE  CONCAT ('groupname=','''',groupname,'''') END,',amount,0)),2) as `' ,IFNULL(groupname,shortname) ,'`')
-		ORDER BY i.itemtype DESC, sortorder, IFNULL(groupname,shortname))
-		INTO @payments
-		FROM `payrollitems` i
-		LEFT JOIN `payrollitemgroups` g ON g.`groupid`=i.`itemgroupid`
-		WHERE i.itemtype IN ('payment') AND i.deleted=0
-		AND itemid IN(SELECT payrollitemid FROM payslipinformation WHERE payrollid=@payrollid AND deleted=0);
-
-		-- Get Dediuctions
-		SELECT  GROUP_CONCAT( DISTINCT CONCAT('format(sum(if(', 
-			CASE WHEN itemgroupid IS NULL THEN CONCAT('shortname=','''',shortname,'''')  ELSE  CONCAT ('groupname=','''',groupname,'''') END,',amount,0)),2) as `' ,IFNULL(groupname,shortname) ,'`')
-		ORDER BY i.itemtype DESC, sortorder, IFNULL(groupname,shortname))
-		INTO @deductions
-		FROM `payrollitems` i
-		LEFT JOIN `payrollitemgroups` g ON g.`groupid`=i.`itemgroupid`
-		WHERE i.itemtype IN ('deduction') AND i.deleted=0
-		AND itemid IN(SELECT payrollitemid FROM payslipinformation WHERE payrollid=@payrollid AND deleted=0);
-
-
-		-- select @fields
-
-		SET @sql=CONCAT('select staffno `Staff Number`, concat(firstname,'' '',middlename,'' '',lastname) as `Employee Name`,',@payments,
-		',format(sum(if(i.itemtype=''payment'',amount,0)),2) as `Gross Salary`,',@deductions,',format(sum(if(i.itemtype=''deduction'',amount,0)),2) as `Total Deductions`,
-		format(sum(if(i.itemtype=''payment'',amount,0))-sum(if(i.itemtype=''deduction'',amount,0)),2) as `Net Salary`
-		from `payslipinformation` p
-		join `payrollitems` i on i.itemid=p.payrollitemid
-		join employeerecords e on e.employeeid=p.employeeid
-		left outer join `payrollitemgroups` g on g.`groupid`=i.`itemgroupid`
-		where p.deleted=0 and p.payrollid=',@payrollid,'
-		group by p.employeeid
-		order by staffno');
-
-		-- select @sql;
-		PREPARE stmt FROM @sql;
-		EXECUTE stmt;
-		DEALLOCATE PREPARE stmt;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getpayrollsummary` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getpayrollsummary` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getpayrollsummary`($summary varchar(50),$payrollmonth varchar(50),$payrollyear int)
-BEGIN
-		select itemname, count(employeeid) employees, sum(amount) total
-		from `payslipinformation` i
-		join `payrolldetails` p on .p.payrollid=i.payrollid
-		join `payrollitems` m on m.itemid=i.payrollitemid
-		where i.deleted=0 and p.`month`=$payrollmonth and p.`year`=$payrollyear
-		and m.itemtype=$summary
-		group by `itemname`
-		order by `itemname`;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getpayrollthirdpartremittanceadvise` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getpayrollthirdpartremittanceadvise` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getpayrollthirdpartremittanceadvise`($payrollmonth varchar(50),$payrollyear int, $creditorid int)
-BEGIN
-		
-		SELECT payrollid INTO @payrollid FROM `payrolldetails` p WHERE p.`month`=$payrollmonth AND p.`year`=$payrollyear;
-
-		SELECT GROUP_CONCAT(DISTINCT CONCAT('FORMAT(SUM(IF(itemname=''',`itemname`,''',amount,0)),2) `',itemname,'`')ORDER BY itemname) 
-		INTO @sql
-		FROM `payrollitems` r
-		INNER JOIN `creditors` c ON c.`creditorid`=r.`creditorid`
-		INNER JOIN `payslipinformation` i ON i.`payrollitemid`=r.`itemid`
-		INNER JOIN `payrolldetails` d ON d.`payrollid`=i.`payrollid`
-		WHERE i.deleted=0 
-		AND i.`payrollid`=@payrollid AND c.creditorid=$creditorid;
-
-		/**/
-
-		SET @sql=CONCAT('select staffno `Staff Number`,concat(firstname, '' '',middlename,'' '',lastname) `Full Name`, `iddocreferenceno` `ID Number`,',@sql,',
-		FORMAT(SUM(amount),2) `Total`
-		from `payrollitems` r
-		inner join `creditors` c on c.`creditorid`=r.`creditorid`
-		inner join `payslipinformation` i on i.`payrollitemid`=r.`itemid`
-		-- inner join `payrolldetails` d on d.`payrollid`=i.`payrollid`
-		inner join `employeerecords` e on e.`employeeid`=i.`employeeid`
-		where i.deleted=0 
-		and i.`payrollid`=',@payrollid,' and c.creditorid=',$creditorid,'
-		group by staffno');
-
-		PREPARE stmt FROM @sql;
-		EXECUTE stmt;
-		DEALLOCATE PREPARE stmt;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getpayslipverificationid` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getpayslipverificationid` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getpayslipverificationid`($payrollmonth varchar(50),$payrollyear int,$employeeid int)
-BEGIN
-		select verificationid 
-		from `payrollbankremittances` r
-		inner join `payrolldetails` pd on pd.payrollid=r.payrollid
-		where pd.`month`=$payrollmonth and pd.`year`=$payrollyear 
-		and r.deleted=0  and r.employeeid=$employeeid;
-		
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getpendingqueueemails` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getpendingqueueemails` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getpendingqueueemails`()
-BEGIN
-		select * from `emailqueue`
-		where `status`='pending'
-		order by `mailid`;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getprocessedpayrolls` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getprocessedpayrolls` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getprocessedpayrolls`()
-BEGIN
-		select pd.*,
-		ifnull((select count(*) from `payrollbankremittances` r where r.`payrollid`=pd.payrollid and r.deleted=0),0) employees,
-		ifnull((select sum(amount) from `payslipinformation` i inner join `payrollitems` p on p.itemid=i.payrollitemid
-			where i.payrollid=pd.payrollid and i.deleted=0 and p.itemtype='payment'),0) grosssalary,
-		ifnull((select sum(amount) from `payslipinformation` i inner join `payrollitems` p on p.itemid=i.payrollitemid
-			where i.payrollid=pd.payrollid and i.deleted=0 and p.itemtype='deduction'),0) deductions,	
-		concat(`firstname`,' ',`middlename`,' ',`lastname`) addedbyname
-		from `payrolldetails` pd
-		inner join `user` u on u.userid=pd.addedby
-		order by pd.payrollid desc;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getpublicholidaydetails` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getpublicholidaydetails` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getpublicholidaydetails`($id int)
-BEGIN
-		select * 
-		from `publicholidays`
-		where `id`=$id;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getpublicholidays` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getpublicholidays` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getpublicholidays`($holidaystatus varchar(50))
-BEGIN
-		if $holidaystatus='current' then
-			select h.*, concat(`firstname`,' ',`middlename`,' ',`lastname`) addedbyname
-			from `publicholidays` h
-			inner join `user` u on u.userid=h.addedby
-			where DATE_FORMAT(DATE,'%Y-%m-%d')>=DATE_FORMAT(NOW(),'%Y-%m-%d')
-			and h.deleted=0
-			order by `date`;
-		else
-			SELECT h.*, CONCAT(`firstname`,' ',`middlename`,' ',`lastname`) addedbyname
-			FROM `publicholidays` h
-			INNER JOIN `user` u ON u.userid=h.addedby
-			WHERE date_format(DATE,'%Y-%m-%d')<date_format(NOW(),'%Y-%m-%d')
-			AND h.deleted=0
-			ORDER BY `date`;
-		end if;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getpublicholidaysbetweendates` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getpublicholidaysbetweendates` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getpublicholidaysbetweendates`($startdate date,$enddate date)
-BEGIN
-		DECLARE $currentdate DATE;
-		DECLARE $totaldays INT;
-		DECLARE $day_of_week INT;
-		declare $publicholidays int;
-		declare $weekendcount int;
-		
-		SET $weekendcount = 0;
-		SET $currentdate = $startdate;
-		SET $totaldays = DATEDIFF($enddate, $startdate);
-
-		WHILE $totaldays >= 0 DO
-		    SET $day_of_week = DAYOFWEEK($currentdate);
-		    IF $day_of_week = 1 OR $day_of_week = 7 THEN
-		      SET $weekendcount = $weekendcount + 1;
-		    END IF;
-		    SET $currentdate = DATE_ADD($currentdate, INTERVAL 1 DAY);
-		    SET $totaldays = $totaldays - 1;
-		END WHILE;
-		
-		-- count public holidays in between
-		select count(*) into $publicholidays
-		from `publicholidays`
-		where `date` between $startdate and $enddate and `deleted`=0;
-		
-		-- add public holidays to weekends
-		set $totaldays=$totaldays+ifnull($publicholidays,0);
-		
-		-- return public holidays and weekend count
-		select $totaldays as weekendspublicholidays;
-		
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getregistrationdocuments` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getregistrationdocuments` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getregistrationdocuments`()
-BEGIN
-		select * from `registrationdocuments`
-		where `deleted`=0
-		order by `documenttypename`;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getrelationships` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getrelationships` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getrelationships`()
-BEGIN
-		select * from `relationships`
-		order by `description`;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getreligions` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getreligions` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getreligions`()
-BEGIN
-		select * from `religions`
-		where `deleted`=0
-		order by `religionname`;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getroledetails` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getroledetails` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getroledetails`(`$roleid` INT)
-BEGIN
-	select * from `roles` where `roleid`=$roleid;
-    END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getroleprivileges` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getroleprivileges` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getroleprivileges`(`$roleid` INT)
-BEGIN
-	select * from `roleprivileges` where `roleid`=$roleid;
-    END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getroles` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getroles` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getroles`()
-BEGIN
-	select * from `roles` where ifnull(`deleted`,0)=0
-	order by `rolename`;
-    END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getrolesforuserassignment` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getrolesforuserassignment` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getrolesforuserassignment`()
-BEGIN
-	select `roleid`,`rolename` from `roles` order by `rolename`;
-    END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getroleusers` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getroleusers` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getroleusers`(`$roleid` INT)
-BEGIN
-	select r.`userid`, `username`,`firstname`,`middlename`,`lastname` from `roleusers` r, `user` u
-	where r.`userid`=u.`id` and `roleid`=$roleid
-	order by `firstname`,`middlename`,`lastname`;
-    END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getsalarystructuredetails` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getsalarystructuredetails` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getsalarystructuredetails`($structureid int)
-BEGIN
-		select * from `jobsalarystructures`
-		where `structureid`=$structureid;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getsalarystructures` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getsalarystructures` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getsalarystructures`($jobgroupid int,$notchid int)
-BEGIN
-		if $jobgroupid=0 then
-			if $notchid=0 then
-				select structureid,jobgroupname, notchname,itemname,minimumvalue,maximumvalue,0 as employees,`annualincrement`,
-				s.dateadded, concat(`firstname`,' ',`middlename`,' ',`lastname`)addedbyname
-				from `jobsalarystructures` s
-				inner join `user` u on u.userid=s.addedby
-				inner join `payrollitems` p on p.itemid=s.payrollitemid
-				inner join `jobgroups` j on j.`jobgroupid`=s.jobgroupid
-				inner join `jobnotches` n on n.notchid=s.notchid
-				where s.deleted=0
-				order by `jobgroupname`, notchname, itemname;
-			else
-				select structureid,jobgroupname, notchname,itemname,minimumvalue,maximumvalue,0 as employees,`annualincrement`,
-				s.dateadded, concat(`firstname`,' ',`middlename`,' ',`lastname`)addedbyname
-				from `jobsalarystructures` s
-				inner join `user` u on u.userid=s.addedby
-				inner join `payrollitems` p on p.itemid=s.payrollitemid
-				inner join `jobgroups` j on j.`jobgroupid`=s.jobgroupid
-				inner join `jobnotches` n on n.notchid=s.notchid
-				where s.deleted=0 and s.notchid=$notchid
-				order by `jobgroupname`, notchname, itemname;	
-			end if;
-		else
-			IF $notchid=0 THEN
-				SELECT structureid,jobgroupname, notchname,itemname,minimumvalue,maximumvalue,0 AS employees,`annualincrement`,
-				s.dateadded, CONCAT(`firstname`,' ',`middlename`,' ',`lastname`)addedbyname
-				FROM `jobsalarystructures` s
-				INNER JOIN `user` u ON u.userid=s.addedby
-				INNER JOIN `payrollitems` p ON p.itemid=s.payrollitemid
-				INNER JOIN `jobgroups` j ON j.`jobgroupid`=s.jobgroupid
-				INNER JOIN `jobnotches` n ON n.notchid=s.notchid
-				WHERE s.deleted=0 and s.jobgroupid=$jobgroupid
-				ORDER BY `jobgroupname`, notchname, itemname;
-			ELSE
-				SELECT structureid,jobgroupname, notchname,itemname,minimumvalue,maximumvalue,0 AS employees,`annualincrement`,
-				s.dateadded, CONCAT(`firstname`,' ',`middlename`,' ',`lastname`)addedbyname
-				FROM `jobsalarystructures` s
-				INNER JOIN `user` u ON u.userid=s.addedby
-				INNER JOIN `payrollitems` p ON p.itemid=s.payrollitemid
-				INNER JOIN `jobgroups` j ON j.`jobgroupid`=s.jobgroupid
-				INNER JOIN `jobnotches` n ON n.notchid=s.notchid
-				WHERE s.deleted=0 AND s.jobgroupid=$jobgroupid AND s.notchid=$notchid
-				ORDER BY `jobgroupname`, notchname, itemname;	
-			END IF;
-		end if;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getsalutations` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getsalutations` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getsalutations`()
-BEGIN
-		select * from `salutations`
-		where `deleted`=0
-		order by `salutation`;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getserverdate` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getserverdate` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getserverdate`()
-BEGIN
-		select now() currentdate;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getshiftmaster` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getshiftmaster` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getshiftmaster`()
-BEGIN
-		select * from `shiftmaster`
-		where `deleted`=0
-		order by `shiftname`;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getshiftmasterdetails` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getshiftmasterdetails` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getshiftmasterdetails`($shiftid int)
-BEGIN
-		select * from `shiftdetails`
-		where `shiftid`=$shiftid;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getstaffinshift` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getstaffinshift` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getstaffinshift`($shiftid int,$shiftdate date)
-BEGIN
-		select * from `staffshifts`
-		where `shiftid`=$shiftid and format(`date`,'%Y-%m-%d')
-		and deleted=0;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getstatutorydeductionforemployee` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getstatutorydeductionforemployee` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getstatutorydeductionforemployee`($employeeid int)
-BEGIN
-		select *
-		from `payrollitems`
-		where `statutory`=1 
-		and `itemid` not in(select `payrollitemid` from `employeepayrollitems` 
-			where `employeeid`=$employeeid and deleted=0)
-		order by `itemname`;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getstatutorypayrollitems` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getstatutorypayrollitems` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getstatutorypayrollitems`()
-BEGIN
-		select * from `payrollitems`
-		where `statutory`=1 and `deleted`=0
-		order by `itemname`;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getstatutoryremittanceadvice` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getstatutoryremittanceadvice` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getstatutoryremittanceadvice`($payrollmonth varchar(50),$payrollyear int,$payrollitemid int)
-BEGIN
-		select staffno `Staff Number`, concat(firstname,' ',middlename,' ',lastname) `Full Names`, 
-		`iddocreferenceno` `ID Number`,`pinno` `PIN Number`,format(amount,2) Amount
-		from `employeerecords` e
-		inner join `payslipinformation` i on i.employeeid=e.employeeid
-		inner join `payrolldetails` d on d.payrollid=i.payrollid and i.deleted=0 
-		and i.payrollitemid=$payrollitemid and d.`month`=$payrollmonth and `year`=$payrollyear
-		order by staffno;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_gettabledata` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_gettabledata` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_gettabledata`($tablename VARCHAR(50),$idfieldname VARCHAR(50),$idvalue VARCHAR(50), OUT outputdata VARCHAR(10000))
-BEGIN
-	SET @tablename=$tablename;
-	SET @idfieldname=$idfieldname;
-	SET @idvalue=$idvalue;
-	
-	select database() into @db;
-	SET @v=CONCAT("SELECT GROUP_CONCAT(CONCAT('''',column_name,''',',' ',column_name)) 
-	FROM information_schema.columns 
-	WHERE table_name='",@tablename,"' AND table_schema='",@db,"'INTO @fields");
-	
-	-- select @v as `fields`;
-	
-	PREPARE stmt FROM @v;
-	EXECUTE stmt;
-	
-	-- SELECT @fields;
-	
-	DEALLOCATE PREPARE stmt;
-	SET @sql=CONCAT("SELECT JSON_OBJECT(",@fields,") as fields FROM ",@tablename," WHERE ",@idfieldname,"=",@idvalue," INTO @data");
-	
-	select @sql;
-	
-	PREPARE stmt FROM @sql;
-	EXECUTE stmt;
-	SET outputdata=@data;
-	DEALLOCATE PREPARE stmt;
-	-- set outputdata='';
-	SELECT outputdata;
-	
-    END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getuserbyid` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getuserbyid` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getuserbyid`(`$userid` INT)
-BEGIN
-	select * from `user` where `userid`=$userid;
-    END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getuserdetails` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getuserdetails` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getuserdetails`(`$username` VARCHAR(50))
-BEGIN
-	select `companyname`,`supportemail`,`supportphone` 
-	into @companyname,@supportemail,@supportphone from `institution`;
-	
-	select *,@companyname as companyname , @supportemail supportemail, @supportphone supportphone,
-	ifnull((select `employeeid` from `employeerecords` where `staffno`=u.username),0) employeeid
-	from `user` u WHERE `username`=$username;
-	
-    END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getusernamefromuserid` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getusernamefromuserid` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getusernamefromuserid`(`$userid` INT)
-BEGIN
-	select * from `user` where `userid`=$userid;
-    END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getuserprivileges` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getuserprivileges` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getuserprivileges`(`$userid` INT)
-BEGIN
-	select * from `userprivileges` where userid=$userid;
-    END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_getuserroles` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_getuserroles` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getuserroles`(`$userid` INT)
-BEGIN
-	select r.* from `roles` r, `roleusers` u
-	where r.`roleid`=u.`roleid` and `userid`=$userid
-	and ifnull(u.`deleted`,0)=0
-	order by `rolename`;
-    END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_maitenancehistory` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_maitenancehistory` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_maitenancehistory`($id int)
-BEGIN
-		select * from `inventorymaitainacehistory`
-		where itemid !=$id;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_processpayroll` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_processpayroll` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_processpayroll`($payrollmonth varchar(50),$payrollyear int,$payrolllabel varchar(50),$userid int,$platform varchar(1000))
-BEGIN
-		declare $payrollid int default 0;
-		declare $employeeid int;
-		declare $bankbranchid int;
-		declare $accountno varchar(50);
-		declare $hasdisability tinyint default 0;
-		declare $netsalary decimal(18,2);
-		declare $finished bool default 0;
-		declare $personalreliefitemid int;
-		declare $payeitemid int;
-		declare $insurancereliefitemid int;
-		declare $insurancereliefpercentage decimal(18,2);
-		DECLARE $insurancereliefmaxamount decimal(18,2);
-		DECLARE $insurancereliefamount decimal(18,2);
-		declare $insuranceamount decimal(18,2) default 0;
-		
-		-- Reprocess the payroll
-		DECLARE payroll_employees_cursor CURSOR FOR 
-		
-		SELECT `employeeid`,`bankbranchid`,`bankaccountnumber`,`disabled` from `employeerecords`
-		where `onpayroll`=1 and `status`='active' 
-		and date_format(`employmentdate`,'%Y-%m-%d')<=date_format(now(),'%Y-%m-%d');
-
-		DECLARE CONTINUE HANDLER FOR NOT FOUND SET $finished=1;
-		
-		-- Chekc if payroll details exist then create or update 
-		IF NOT EXISTS(SELECT * FROM `payrolldetails` WHERE `month`=$payrollmonth AND `year`=$payrollyear) THEN
-		
-			INSERT INTO `payrolldetails`(`month`,`year`,`status`,`dateadded`,`addedby`)
-			VALUES($payrollmonth,$payrollyear,'open',NOW(),$userid);
-			
-			SELECT MAX(`payrollid`) INTO $payrollid FROM `payrolldetails`;
-			
-			-- Add audit trail entry
-			SELECT CONCAT('Processed payroll for ',$payrollmonth,' ',$payrollyear,' id: ',$payrollid)
-			INTO @narration;
-			
-			CALL `sp_saveaudittrailentry`($userid,'insert',@narration,$platform,'','',NULL);
-		ELSE
-			SELECT `payrollid` INTO $payrollid 
-			FROM `payrolldetails` 
-			WHERE `month`=$payrollmonth AND `year`=$payrollyear;
-			
-			SELECT CONCAT('Reprocessed payroll for ',$payrollmonth,' ',$payrollyear,' id: ',$payrollid)
-			INTO @narration;
-			
-			CALL `sp_saveaudittrailentry`($userid,'update',@narration,$platform,'','',NULL);
-		END IF;
-		
-		-- remove existing payslip information and bank remittances
-		UPDATE`payslipinformation` SET  deleted=1,deletedby=$userid,datedeleted=NOW()
-		WHERE `payrollid`=$payrollid;
-		
-		-- remove existing payroll employees
-		update `payrollemployees` set `deleted`=1,deletedby=$userid,datedeleted=now()
-		where `payrollid`=$payrollid;
-		
-		-- remove bank remittance advises employees
-		UPDATE `payrollbankremittances` SET deleted=1,datedeleted=NOW(),deletedby=$userid
-		WHERE `payrollid`=$payrollid;
-		
-		-- get personal relief
-		SELECT `personalrelief` 
-		INTO @personalrelief 
-		FROM `payetaxtable` WHERE `label`=$payrolllabel;
-		
-		-- get personal relief payrollitem id
-		select `itemid` into $personalreliefitemid
-		from `payrollitems` where `description`='PERSONAL RELIEF';
-		
-		-- get PAYE payrollitem id
-		SELECT `itemid` INTO $payeitemid
-		FROM `payrollitems` WHERE `description`='PAYE';
-		
-		-- get insurance relief item
-		SELECT `itemid` INTO $insurancereliefitemid
-		FROM `payrollitems` WHERE `description`='INSURANCE RELIEF';
-		
-		-- get insurance relief parameters
-		select `insurancereliefrate`,`insurancereliefmaxamount`
-		into $insurancereliefpercentage,$insurancereliefmaxamount
-		from `payetaxtable` where `label`=$payrolllabel;
-				
-		OPEN payroll_employees_cursor;
-		get_employees: LOOP
-			FETCH payroll_employees_cursor INTO $employeeid,$bankbranchid,$accountno,$hasdisability;		
-			IF $finished=1 THEN 
-				LEAVE get_employees;
-			END IF;
-			
-			-- Generate unique id for each employee
-			SELECT sha1(UUID()) INTO @refno;
-			-- Add employee for payroll employees
-			INSERT INTO `payrollemployees`(`payrollid`,`employeeid`,`hasdisability`,`refno`)
-			VALUES($payrollid,$employeeid,$hasdisability,@refno);
-			
-			-- Add all payments and benefits
-			INSERT INTO `temppayslipinfo`
-			SELECT @refno,payrollitemid, 
-			CASE WHEN bracketed=1 THEN `fn_computebracketedvalue`(@refno,employeeid,payrollitemid) ELSE amount END
-			FROM `employeepayrollitems` ep
-			INNER JOIN `payrollitems` p ON p.itemid=ep.payrollitemid
-			WHERE employeeid=$employeeid AND ep.deleted=0  
-			AND DATE_FORMAT(startdate,'%Y-%m-%d')<=DATE_FORMAT(NOW(),'%Y-%m-%d')
-			AND (`periodic`=0 OR `periodic`=1 AND DATE_FORMAT(DATE_ADD(`startdate`, INTERVAL `duration` MONTH),'%Y-%m-%d')>=DATE_FORMAT(NOW(),'%Y-%m-%d'))
-			AND itemtype IN('payment','benefit');
-
-			-- Add deductions and reliefs
-			INSERT INTO `temppayslipinfo`
-			SELECT @refno,payrollitemid, 
-			CASE WHEN bracketed=1 THEN `fn_computebracketedvalue`(@refno,employeeid,payrollitemid) ELSE amount END
-			FROM `employeepayrollitems` ep
-			INNER JOIN `payrollitems` p ON p.itemid=ep.payrollitemid
-			WHERE employeeid=$employeeid AND ep.deleted=0  
-			AND DATE_FORMAT(startdate,'%Y-%m-%d')<=DATE_FORMAT(NOW(),'%Y-%m-%d')
-			AND (`periodic`=0 OR `periodic`=1 AND DATE_FORMAT(DATE_ADD(`startdate`, INTERVAL `duration` MONTH),'%Y-%m-%d')>=DATE_FORMAT(NOW(),'%Y-%m-%d'))
-			AND itemtype IN('deduction','relief');
-			
-			-- Compute insurance premium
-			set $insuranceamount=ifnull(`fn_computeemployeeinsuranceamount`($employeeid,@refno),0);
-			set $insurancereliefamount=($insurancereliefpercentage*$insuranceamount)/100;
-			if $insurancereliefamount>$insurancereliefmaxamount then
-				set $insurancereliefamount=insurancereliefmaxamount;
-			end if;
-
-			-- Add insurance premium if greater than 0
-			if $insurancereliefamount>0 then 
-				INSERT INTO `temppayslipinfo`(`refno`,`payrollitemid`,`amount`)
-				VALUES(@refno,$insurancereliefitemid,$insurancereliefamount);
-			end if;
-			
-			SELECT `fixedpaye` INTO @fixedpaye FROM `employeerecords`
-			WHERE `employeeid`=$employeeid;
-
-			-- compute paye
-			SET @paye=`fn_computepaye`(@refno,$payrolllabel,$hasdisability);
-			
-			if @fixedpaye=0 and @paye>0 then 
-				INSERT INTO `temppayslipinfo`(`refno`,`payrollitemid`,`amount`)
-				VALUES(@refno,$personalreliefitemid,@personalrelief);
-			end if;
-			
-			-- Apply applicable reliefs
-			
-			UPDATE `temppayslipinfo` SET amount=@paye WHERE `refno`=@refno AND `payrollitemid`=$payeitemid;
-
-			-- Move the data from temporary to payslip information
-			insert into `payslipinformation`(`payrollid`,`employeeid`,`payrollitemid`,`amount`)
-			select $payrollid,$employeeid,`payrollitemid`,`amount` from `temppayslipinfo`
-			where `refno`=@refno;
-			
-			-- compute Net Salary
-			SELECT SUM(IF(p.itemtype='payment',t.amount,0)), 
-				SUM(IF(p.itemtype='deduction',t.amount,0)) 
-			INTO @totalpayments,@totaldeductions
-			FROM temppayslipinfo t
-			INNER JOIN payrollitems p ON p.itemid=t.payrollitemid AND refno=@refno;
-
-			set $netsalary=@totalpayments-@totaldeductions;
-			
-			if $netsalary<0 then 
-				set $netsalary=0;
-			end if;
-			
-			insert into `payrollbankremittances`(`payrollid`,`employeeid`,`branchid`,`accountno`,`amount`,`verificationid`)
-			values($payrollid,$employeeid,$bankbranchid,$accountno,$netsalary,@refno);
-
-			-- Remove the temporary data
-			delete from `temppayslipinfo`  where refno=@refno;
-			
-		END LOOP get_employees;
-		CLOSE payroll_employees_cursor;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_saveaudittrailentry` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_saveaudittrailentry` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_saveaudittrailentry`($userid int,$operation varchar(100),$narration varchar(5000),$platform varchar(1000),
-$previousvalues varchar(5000),$currentvalues varchar(5000),$branchid int)
-BEGIN
-	insert into `audittrail`(`timestamp`,`userid`,`operation`,`narration`,`platform`,`originalvalues`,`updatedvalues`,`branchid`)
-	values(now(),$userid,$operation,$narration,$platform,$previousvalues,$currentvalues,$branchid);
-    END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_savebank` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_savebank` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_savebank`($bankid int,$bankcode varchar(50),$bankname varchar(50),$userid int,$platform varchar(1000))
-BEGIN
-		start transaction;
-			if $bankid=0 then 
-				-- save the bank
-				insert into `banks`(`bankcode`,`bankname`,`dateadded`,`addedby`)
-				values($bankcode,$bankname,now(),$userid);
-				
-				-- get inserted id
-				select max(`bankid`) into $bankid 
-				from `banks`;
-				
-				-- generate audit trail narration
-				select  concat('Created new bank id : ',$bankid,' bank name : ',$bankname)
-				into @narration;
-				
-				-- insert audit trail entry
-				CALL `sp_saveaudittrailentry`($userid,'insert',@narration,$platform,'','',null);
-				
-			else
-				-- get field values before edit
-				CALL `sp_gettabledata`('banks','bankid',$bankid,@originalvalues);
-				-- update fields
-				update `banks`
-				set `bankcode`=$bankcode, `bankname`=$bankname
-				where `bankid`=$bankid;
-				-- get values after edit
-				CALL `sp_gettabledata`('banks','bankid',$bankid,@currentvalues);
-				-- generate audit trail narrative
-				select concat('Updated bank details for bank id :',$bankid)
-				into @narration;
-				
-				-- add audut trail entry
-				IF @originalvalues!=@currentvalues THEN 
-					CALL `sp_saveaudittrailentry`($userid,'update',@narration,$platform,@originalvalues,@currentvalues,null);
-				END IF;
-			end if;
-		commit;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_savebankbranch` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_savebankbranch` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_savebankbranch`($branchid int,$bankid int,$branchcode varchar(50),$branchname varchar(50),$userid int,$platform varchar(50))
-BEGIN
-		start transaction;
-		
-			if $branchid=0 then 
-			
-				insert into `bankbranches`(`bankid`,`branchcode`,`branchname`,`dateadded`,`addedby`)
-				values($bankid,$branchcode,$branchname,now(),$userid);
-				
-				select max(`branchid`) into $branchid from `bankbranches`;
-				
-				select concat('Created new bank branch id : ',$branchid,' code: ',$branchcode,' name: ',$branchname)
-				into @narration;
-				
-				CALL `sp_saveaudittrailentry`($userid,'insert',@narration,$platform,'','',NULL);
-				
-			else
-				CALL `sp_gettabledata`('bankbranches','branchid',$branchid,@originalvalues);
-			
-				UPDATE `bankbranches` 
-				SET `bankid`=$bankid,`branchcode`=$branchcode,`branchname`=$branchname
-				WHERE `branchid`=$branchid;
-				
-				CALL `sp_gettabledata`('bankbranches','branchid',$branchid,@currentvalues);
-				
-				SELECT CONCAT('Updated bank branch details for branch id : ',$branchid) 
-				INTO @narration;
-					
-					
-				IF @originalvalues!=@currentvalues THEN 
-					CALL `sp_saveaudittrailentry`($userid,'update',@narration,$platform,@originalvalues,@currentvalues,NULL);
-				END IF;
-				
-			end if;	
-			
-		commit;	
-				
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_savechargeableitem` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_savechargeableitem` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_savechargeableitem`($itemid int,$itemname varchar(100),$recurring bool,
-	$amount decimal(18,2),$refundable bool,$percentage bool,$percentageitemid int, $userid int,$platform varchar(1000))
-BEGIN
-		start transaction;
-			if $itemid=0 then 
-				insert into `chargeableitems`(`itemname`,`recurring`,`amount`,`refundable`,`percentage`,`percentageitemid`,`dateadded`,`addedby`)
-				values($itemname,$recurring,$amount,$refundable,$percentage,$percentageitemid,now(),$userid);
-				select max(`itemid`) into $itemid from `chargeableitems`;
-				set @narration=concat('Created new chargeable item item id:',$itemid,' item name: ',$itemname);
-				CALL `sp_saveaudittrailentry`($userid,'insert',@narration,$platform,'','',null); 
-			else
-				CALL `sp_gettabledata`('chargeableitems','itemid',$itemid,@originalvalues);
-				
-				UPDATE `chargeableitems`
-				set `itemname`=$itemname,`recurring`=$recurring, `amount`=$amount, `refundable`=$refundable, 
-				`percentage`=$percentage,`percentageitemid`=$percentageitemid
-				where `itemid`=$itemid;
-				
-				CALL `sp_gettabledata`('chargeableitems','itemid',$itemid,@currentvalues);
-				
-				SELECT CONCAT('Updated chargeable item details for item id: ',$itemid) 
-				INTO @narration;
-				
-				IF @originalvalues!=@currentvalues THEN 
-					CALL `sp_saveaudittrailentry`($userid,'update',@narration,$platform,@originalvalues,@currentvalues,null);
-				END IF;
-			end if;
-		commit;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_savecreditor` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_savecreditor` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_savecreditor`($creditorid int,$reference varchar(50),$creditorname varchar(50),$physicaladdress varchar(100),
-	$postaladdress varchar(50),$town varchar(50),$telephone varchar(50),$emailaddress varchar(50),$payrollcreditor bool,$userid int,$platform varchar(1000))
-BEGIN
-		start transaction;
-			if $creditorid=0 then
-				insert into `creditors`(`referenceno`,`creditorname`,`physicaladdress`,`postaladdress`,`town`,`telephone`,
-				`emailaddress`,`payrollcreditor`,`dateadded`,`addedby`)
-				values($reference,$creditorname,$physicaladdress,$postaladdress,$town,$telephone,
-				$emailaddress,$payrollcreditor,now(),$userid);
-				
-				select max(`creditorid`) into $creditorid from `creditors`;
-				
-				select concat('Created new creditor id: ',$creditorid,' name: ',$creditorname)
-				into @narration;
-				
-				CALL `sp_saveaudittrailentry`($userid,'insert',@narration,$platform,'','',NULL);
-			else
-				-- get field values before edit
-				CALL `sp_gettabledata`('creditors','creditorid',$creditorid,@originalvalues);
-				
-				-- update fields
-				UPDATE `creditors`
-				SET `referenceno`=$reference,`creditorname`=$creditorname,`physicaladdress`=$physicaladdress,`postaladdress`=$postaladdress,
-				`town`=$town,`telephone`=$telephone, `emailaddress`=$emailaddress, `payrollcreditor`=$payrollcreditor
-				WHERE `creditorid`=$creditorid;
-				
-				-- get values after edit
-				CALL `sp_gettabledata`('creditors','creditorid',$creditorid,@currentvalues);
-				
-				-- generate audit trail narrative
-				SELECT CONCAT('Updated creditors details for id :',$creditorid)
-				INTO @narration;
-				
-				-- add audut trail entry
-				IF @originalvalues!=@currentvalues THEN 
-					CALL `sp_saveaudittrailentry`($userid,'update',@narration,$platform,@originalvalues,@currentvalues,NULL);
-				END IF;
-			
-			end if;
-		commit;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_savedepartment` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_savedepartment` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_savedepartment`($departmentid int,$departmentname varchar(50),$departmenthead int,
-	$extension varchar(50),$userid int,$platform varchar(1000))
-BEGIN
-		start transaction;
-			if $departmentid=0 then
-			
-				insert into `departments`(`departmentname`,`departmenthead`,`extension`,`addedby`,`dateadded`)
-				values($departmentname,$departmenthead,$extension,$userid,now());
-				
-				select max(`departmentid`) into $departmentid from `departments`;
-				
-				select concat('Created a new department id:',$departmentid,' name: ',$departmentname)
-				into @narration;
-				
-				CALL `sp_saveaudittrailentry`($userid,'Insert',@narration,$platform,NULL,NULL,NULL);
-			
-			else
-			
-				-- Get the table row before update 
-				CALL `sp_gettabledata`('departments','departmentid',$departmentid,@originalvalues);
-				
-				-- Update the data
-				UPDATE `departments`
-				SET `departmentname`=$departmentname,`departmenthead`=$departmenthead,`extension`=$extension
-				WHERE `departmentid`=$departmentid;
-				
-				-- Get the table data after update 
-				CALL `sp_gettabledata`('departments','departmentid',$departmentid,@currentvalues);
-				
-				-- Check if there was a change and add ausit trail entry
-				IF @currentvalues!=@originalvalues THEN
-					SELECT CONCAT('Updated job department id ',$departmentid) INTO @narration;
-					CALL `sp_saveaudittrailentry`($userid,'Update',@narration,$platform,@originalvalues,@currentvalues,NULL);
-				END IF;
-			end if;
-		commit;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_savedisciplinaryincidence` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_savedisciplinaryincidence` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_savedisciplinaryincidence`($incidentid int,$employeeid int,$typeid int,$categoryid int,$actionid INT,
-	$incidentdescription varchar(5000),$attachment varchar(1000),$incidentdate date,$actiondate date,$userid int,$platform varchar(1000))
-BEGIN
-		start transaction;
-			if $incidentid=0 then
-				insert into `employeedisciplinarycases`(`employeeid`,`typeid`,`categoryid`,`actionid`,`incidentdescription`,`attachment`,`incidentdate`,`actiondate`,`addedby`,`dateadded`)
-				values($employeeid,$typeid,$categoryid,$actionid,$incidentdescription,$attachment,$incidentdate,$actiondate,$userid,now());
-				
-				select max(`incidentid`) into $incidentid from `employeedisciplinarycases`;
-				
-				select concat('Created new disciplinary case id:',$incidentid,' for employee id:',$employeeid,' staff no',staffno,' names:', firstname,' ',middlename,' ',lastname,
-				' Incidence type ',typename, ' category ', categoryname)
-				into @narration
-				from `employeedisciplinarycases` d 
-				join `employeerecords` r on r.employeeid=d.employeeid
-				join `disciplinarycategories` c on c.categoryid=d.categoryid
-				join `disciplinarytypes` t on t.typeid=d.typeid
-				where d.incidentid=$incidentid;
-				
-				CALL `sp_saveaudittrailentry`($userid,'insert',@narration,$platform,'','',null);
-			else
-				-- get field values before edit
-				CALL `sp_gettabledata`('employeedisciplinarycases','incidentid',$incidentid,@originalvalues);
-				-- update fields
-				UPDATE `employeedisciplinarycases`
-				SET `employeeid`=$employeeid,`typeid`=$typeid,`categoryid`=$categoryid,`actionid`=$actionid,
-				`incidentdate`=$incidentdate,`actiondate`=$actiondate,`incidentdescription`=$incidencedescription
-				WHERE `incidentid`=$incidentid;
-				-- get values after edit
-				CALL `sp_gettabledata`('employeedisciplinarycases','incidentid',$incidentid,@currentvalues);
-				-- generate audit trail narrative
-				select concat('Updated disciplinary case id:',$incidentid,' for employee id:',$employeeid,' staff no',staffno,' names:', firstname,' ',middlename,' ',lastname,
-				' Incidence type ',typename, ' category ', categoryname)
-				into @narration
-				from `employeedisciplinarycases` d 
-				join `employeerecords` r on r.employeeid=d.employeeid
-				join `disciplinarycategories` c on c.categoryid=d.categoryid
-				join `disciplinarytypes` t on t.typeid=d.typeid
-				where d.incidentid=$incidentid;
-				
-				-- add audut trail entry
-				IF @originalvalues!=@currentvalues THEN 
-					CALL `sp_saveaudittrailentry`($userid,'update',@narration,$platform,@originalvalues,@currentvalues,NULL);
-				END IF;
-			end if;
-		commit;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_saveemailconfiguration` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_saveemailconfiguration` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_saveemailconfiguration`(`$emailaddress` VARCHAR(100), `$emailpassword` VARCHAR(50), `$smtpserver` VARCHAR(50), `$smtpport` INT, `$usessl` BOOLEAN)
-BEGIN
-	if not exists(select * from `emailconfiguration`) then
-		insert into `emailconfiguration`(`emailaddress`,`password`,`smtpserver`,`usessl`,`smtpport`)
-		values($emailaddress,$emailpassword,$smtpserver,$usessl,$smtpport);
-	else
-		update `emailconfiguration` 
-		set `emailaddress`=$emailaddress,`password`=$emailpassword,`smtpserver`=$smtpserver,`usessl`=$usessl,`smtpport`=$smtpport;
-	end if;
-    END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_saveemailinqueue` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_saveemailinqueue` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_saveemailinqueue`($fromemail varchar(1000),$toemail varchar(50),$emailsubject varchar(1000),
-	$message blob,$attachment blob,$userid int)
-BEGIN
-		insert into `emailqueue`(`from`,`to`,`subject`,`message`,`attachment`,`dateadded`,`addedby`)
-		values($fromemail,$toemail,$emailsubject,$message,$attachment,now(),$userid);
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_saveemployee` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_saveemployee` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_saveemployee`($employeeid int,$staffno varchar(50),$firstname varchar(50),$middlename varchar(50),
-	$lastname varchar(50),$termid int,$categoryid int,$departmentid int,$religionid int,$salutationid int,$iddocumentid int,
-	$iddocreferenceno varchar(50),$iddocexpirydate date,$dateofbirth date,$gender varchar(50),$pinno varchar(50),$nssfno varchar(50),
-	$nhifno varchar(50),$disabled bool,$disabilitytype varchar(50),$disabilitydescription varchar(1000),$onpayroll bool,$fixedpaye bool,
-	$employmentstatus varchar(50),$positionid int,$jobgroupid int,$notchid int,$bankbranchid int,$accountnumber varchar(50),$employmentdate date,
-	$separationdate date,$separationreason varchar(50),$physicaladdress varchar(100),$postaladdress varchar(100),$town varchar(100),
-	$postalcode varchar(50),$mobile varchar(100),$emailaddress varchar(100),$alternativemobile varchar(100),$alternativeemailaddress varchar(50),
-	$generatestaffno bool, $disabilitycertificateno varchar(50),$userid int,$platform varchar(1000))
-BEGIN
-		start transaction;
-		
-			if $employeeid=0 then 	
-				
-				if $generatestaffno=1 then
-					select `fn_generateemployeestaffno`($categoryid) into $staffno;
-					update `jobcategories` set `currentnumber`=`currentnumber`+1
-					where `categoryid`=$categoryid;
-				end if;
-				
-				insert into `employeerecords`(`staffno`,`firstname`,`middlename`,`lastname`,`termid`,`categoryid`,`departmentid`,
-				`religionid`,`salutationid`,`iddocumentid`,`iddocreferenceno`,`iddocexpirydate`,`dateofbirth`,`gender`,`pinno`,`nssfno`,
-				`nhifno`,`disabled`,`disabilitytype`,`disabilitydescription`,`disabilitycertificateno`,`onpayroll`,`fixedpaye`,`status`,`employeeid`,`positionid`,
-				`jobgroupid`,`notchid`,`bankbranchid`,`bankaccountnumber`,`employmentdate`,`physicaladdress`,`postaladdress`,`town`,`postalcode`,
-				`mobile`,`emailaddress`,`alternativemobile`,`alternativeemailaddress`,`dateadded`,`addedby`)
-				values($staffno,$firstname,$middlename,$lastname,$termid,$categoryid,$departmentid,
-				$religionid,$salutationid,$iddocumentid,$iddocreferenceno,$iddocexpirydate,$dateofbirth,$gender,$pinno,$nssfno,
-				$nhifno,$disabled,$disabilitytype,$disabilitydescription,$disabilitycertificateno,$onpayroll,$fixedpaye,$employmentstatus,$employeeid,$positionid,
-				$jobgroupid,$notchid,$bankbranchid,$accountnumber,$employmentdate,$physicaladdress,$postaladdress,$town,$postalcode,
-				$mobile,$emailaddress,$alternativemobile,$alternativeemailaddress,now(),$userid);
-				
-				
-				select max(`employeeid`) into $employeeid from `employeerecords`;
-				
-				select concat('Created new employee id:',$employeeid,' staff no:',$staffno,' names:',$firstname,' ',$middlename,' ',$lastname)
-				into @narration;
-				
-				-- Add default payroll items based on notch
-				CALL `sp_saveaudittrailentry`($userid,'insert',@narration,$platform,'','',NULL);
-				
-			else
-				-- get field values before edit
-				CALL `sp_gettabledata`('employeerecords','employeeid',$employeeid,@originalvalues);
-				-- update fields
-				UPDATE `employeerecords`
-				SET `firstname`=$firstname,`middlename`=$middlename,`lastname`=$lastname,`termid`=$termid,`categoryid`=$categoryid,
-				`departmentid`=$departmentid,`religionid`=$religionid,`salutationid`=$salutationid,`iddocumentid`=$iddocumentid,
-				`iddocreferenceno`=$iddocreferenceno,`iddocexpirydate`=$iddocexpirydate,`dateofbirth`=$dateofbirth,`gender`=$gender,
-				`pinno`=$pinno,`nssfno`=$nssfno,`nhifno`=$nhifno,`disabled`=$disabled,`disabilitytype`=$disabilitytype,
-				`disabilitydescription`=$disabilitydescription,`disabilitycertificateno`=$disabilitycertificateno,`onpayroll`=$onpayroll,
-				`fixedpaye`=$fixedpaye,`status`=$employmentstatus,`positionid`=$positionid,`jobgroupid`=$jobgroupid,`notchid`=$notchid,
-				`bankbranchid`=$bankbranchid,`bankaccountnumber`=$accountnumber,`employmentdate`=$employmentdate,`physicaladdress`=$physicaladdress,
-				`postaladdress`=$postaladdress,`town`=$town,`postalcode`=$postalcode,`mobile`=$mobile,`emailaddress`=$emailaddress,
-				`alternativemobile`=$alternativemobile,`alternativeemailaddress`=$alternativeemailaddress
-				WHERE `employeeid`=$employeeid;
-				-- get values after edit
-				CALL `sp_gettabledata`('employeerecords','employeeid',$employeeid,@currentvalues);
-				-- generate audit trail narrative
-				SELECT CONCAT('Updated employee details for id :',$employeeid,' staff no:',$staffno,' names:',$firstname,' ',$middlename,' ',$lastname)
-				INTO @narration;
-				
-				-- add audut trail entry
-				IF @originalvalues!=@currentvalues THEN 
-					CALL `sp_saveaudittrailentry`($userid,'update',@narration,$platform,@originalvalues,@currentvalues,NULL);
-				END IF;	
-			end if;
-		commit;
-		
-		select $staffno as staffno;
-		
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_saveemployeeannualleaveallocation` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_saveemployeeannualleaveallocation` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_saveemployeeannualleaveallocation`()
-BEGIN
-		SELECT CONCAT(YEAR(NOW()),'-01-01') INTO @startyeardate;
-
-		SELECT `leaveid`,`skipsholidays`,`allocationdays` 
-		INTO @leavetypeid,@skipsholidays,@allocationdays 
-		FROM `leavetypes` WHERE `systemlabel`='ANNUAL LEAVE';
-
-		SELECT userid INTO @userid 
-		FROM `user` WHERE systemlabel='INBUILT SYSTEM ACCOUNT';
-
-		SELECT ROUND(@allocationdays/12,2) INTO @monthlyrate;
-
-		INSERT INTO `employeeleaveallocation`(`employeeid`,`leavetypeid`,`year`,`addedby`,`dateadded`,`allocation`)
-		-- select @startyeardate;
-		SELECT r.employeeid,@leavetypeid,YEAR(NOW()),@userid,NOW(),
-		ROUND(CASE WHEN a.dateadded IS NULL THEN
-			CASE WHEN YEAR(employmentdate)<YEAR(NOW()) THEN 
-				TIMESTAMPDIFF(MONTH,@startyeardate,NOW())
-			ELSE
-				TIMESTAMPDIFF(MONTH,employmentdate,NOW())
-			END 
-		ELSE
-			TIMESTAMPDIFF(MONTH,a.dateadded,NOW())
-		END *@monthlyrate,2)
-		AS monthallocation
-		FROM employeerecords r
-		LEFT OUTER JOIN `employeeleaveallocation` a 
-		ON a.employeeid=r.employeeid AND `leavetypeid`=@leavetypeid AND `year`=YEAR(NOW())
-		WHERE `status`='active'  AND 
-		CASE WHEN a.dateadded IS NULL THEN
-			CASE WHEN YEAR(employmentdate)<YEAR(NOW()) THEN 
-				TIMESTAMPDIFF(MONTH,@startyeardate,NOW())
-			ELSE
-				TIMESTAMPDIFF(MONTH,employmentdate,NOW())
-			END 
-		ELSE
-			TIMESTAMPDIFF(MONTH,a.dateadded,NOW())
-		END > 0 ;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_saveemployeeattachmment` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_saveemployeeattachmment` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_saveemployeeattachmment`($id int,$employeeid int,$documentid int,$documentexpires bool,
-	$expirydate date,$attachment varchar(2000),$narration varchar(1000),$userid int, $platform varchar(1000))
-BEGIN
-		start transaction;
-			if $id = 0 then
-				insert into `employeeattachments`(`documentid`,`employeeid`,`documentexpires`,`expirydate`,`attachment`,`narration`,`dateadded`,`addedby`)
-				values($documentid,$employeeid,$documentexpires,$expirydate,$attachment,$narration,now(),$userid);
-
-				select max(`id`) into $id
-				from `employeeattachments`;
-
-				select concat('Added new  employee attachment documents id',$id,' document name:', documentname,
-				'staff details id;', e.employeeid,' staff no:',staffno,' names:',firstname,' ',middlename,' ',lastname)
-				into @narration
-				from `employeeattachments` e
-				join `employeeattachabledocuments` d on d.documentid=e.documentid
-				join `employeerecords` r on r.employeeid=e.employeeid
-				where e.`id`=$id;
-
-				-- calling the audit trail
-				CALL `sp_saveaudittrailentry`($userid,'insert',@narration,$platform,'','',NULL);
-			else 
-				-- getting before the update
-				CALL `sp_gettabledata`('employeeattachments','id',$id,@originalvalues);
-
-				-- update the payroll table
-
-				update `employeeattachments`
-				set employeeid=$employeeid, documentid=$documentid,`documentexpires`=$documentexpires,
-				`expirydate`=$expirydate,`attachment`=$attachment,`narration`=$narration
-				where `id` = $id;
-
-				-- getting fields after update
-
-				CALL `sp_gettabledata`('employeeattachments','id',$id,@currentvalues);
-
-				SELECT CONCAT('Updated employee attachment documents id',$id,' document name:', documentname,
-				'staff details id;', e.employeeid,' staff no:',staffno,' names:',firstname,' ',middlename,' ',lastname)
-				INTO @narration
-				FROM `employeeattachments` e
-				JOIN `employeeattachabledocuments` d ON d.documentid=e.documentid
-				JOIN `employeerecords` r ON r.employeeid=e.employeeid
-				WHERE e.`id`=$id;
-				-- check currentvaluse and original values
-
-				if @currentvalues!=@currentvalues then
-					CALL `sp_saveaudittrailentry`($userid,'update',@narration,$platform,@originalvalues,@currentvalues,NULL);
-				end if;
-			end if;
-		commit;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_saveemployeebeneficiary` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_saveemployeebeneficiary` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_saveemployeebeneficiary`($beneficiaryid int,$employeeid int,$fullname varchar(50),$idnumber varchar(50),
-	$mobilenumber varchar(50),$emailaddress varchar(50),$percentage decimal(18,2),$relationshipid int,$userid int,$platform varchar(50))
-BEGIN
-		if $beneficiaryid=0 then 
-		
-			insert into `employeebeneficiaries`(`employeeid`,`fullname`,`idnumber`,`mobilenumber`,`emailaddress`,`percentage`,`relationshipid`,`dateadded`,`addedby`)
-			values($employeeid,$fullname,$idnumber,$mobilenumber,$emailaddress,$percentage,$relationshipid,now(),$userid);
-			
-			select max(`beneficiaryid`) into $beneficiaryid from `employeebeneficiaries`;
-			
-			select concat('Created beneficiary id: ',$beneficiaryid,' name:',$fullname,' for employee id:',$employeeid,' staffno: ',staffno,
-			' names:',firstname, ' ',middlename,' ',lastname) 
-			into @narration
-			from `employeerecords` where `employeeid`=$employeeid;
-			
-			CALL `sp_saveaudittrailentry`($userid,'insert',@narration,$platform,'','',NULL);
-			
-		else
-			-- get field values before edit
-			CALL `sp_gettabledata`('employeebeneficiaries','beneficiaryid',$beneficiaryid,@originalvalues);
-			
-			-- update fields
-			UPDATE `employeebeneficiaries`
-			SET `fullname`=$fullname,`idnumber`=$idnumber,`mobilenumber`=$mobilenumber,`emailaddress`=$emailaddress,
-			`percentage`=$percentage,`employeeid`=$employeeid,`relationshipid`=$relationshipid
-			WHERE `beneficiaryid`=$beneficiaryid;
-			
-			-- get values after edit
-			CALL `sp_gettabledata`('employeebeneficiaries','beneficiaryid',$beneficiaryid,@currentvalues);
-			
-			-- generate audit trail narrative
-			SELECT CONCAT('Updated beneficiary details for id :',$beneficiaryid,' for  staff id:',$emplyeeid,' staff no:',staffno,' names:',
-			firstname,' ',middlename,' ',lastname) 
-			INTO @narration
-			from `employeerecords` WHERE `employeeid`=$employeeid;
-			
-			-- add audut trail entry
-			IF @originalvalues!=@currentvalues THEN 
-				CALL `sp_saveaudittrailentry`($userid,'update',@narration,$platform,@originalvalues,@currentvalues,NULL);
-			END IF;
-		end if;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_saveemployeedependant` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_saveemployeedependant` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_saveemployeedependant`($dependantid int,$employeeid int,$dependantname varchar(50),
-	$relationship int,$iddoc int,$iddocno varchar(50),$dob date,$gender varchar(50),$passportphoto varchar(1000),
-	$userid int,$platform varchar(1000))
-BEGIN
-	start transaction;
-		if $dependantid=0 then 
-			insert into `employeedependants`(`employeeid`,`dependantname`,`iddocumentid`,`iddocumentno`,`relationshipid`,
-				`gender`,`dateofbirth`,`passportphoto`,`dateadded`,`addedby`)
-			values($employeeid,$dependantname,$iddoc,$iddocno,$relationship,$gender,$dob,$passportphoto,now(),$userid);
-			
-			select max(`dependantid`) 
-			into $dependantid 
-			from `employeedependants`;
-			
-			select concat('Created dependant id:',$dependantid,' names: ',$dependantname,' for employee id:',$employeeid,' name:',firstname,' ',middlename, lastname)
-			into @narration
-			from `employeedependants` d join `employeerecords` r on r.employeeid=d.employeeid 
-			where r.employeeid=$employeeid and d.dependantid=$dependantid;
-			
-			CALL `sp_saveaudittrailentry`($userid,'insert',@narration,$platform,'','',NULL);
-		else
-			-- get field values before edit
-			CALL `sp_gettabledata`('employeedependants','dependantid',$dependantid,@originalvalues);
-			
-			-- update fields
-			UPDATE `employeedependants`
-			set `employeeid`=$employeeid,`dependantname`=$dependantname,`iddocumentid`=$iddoc,`iddocumentno`=$iddocno,
-			`relationshipid`=$relationship,`dateofbirth`=$dob,`gender`=$gender
-			WHERE `dependantid`=$dependantid;
-			
-			-- get values after edit
-			CALL `sp_gettabledata`('employeedependants','dependantid',$dependantid,@currentvalues);
-			
-			-- generate audit trail narrative
-			SELECT CONCAT('Updated employee dependant item details for id :',$dependantid)
-			INTO @narration;
-			
-			-- add audut trail entry
-			IF @originalvalues!=@currentvalues THEN 
-				CALL `sp_saveaudittrailentry`($userid,'update',@narration,$platform,@originalvalues,@currentvalues,NULL);
-			END IF;
-		end if;	
-	commit;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_saveemployeeexternalexperience` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_saveemployeeexternalexperience` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_saveemployeeexternalexperience`($id int,$employeeid int,$organization varchar(100),
-	$jobposition varchar(100),$startdate date,$enddate date,$duties varchar(5000),$userid int,$platform varchar(1000))
-BEGIN
-		start transaction;
-			if $id=0 then 		
-				insert into `employeeexternalworkingexperience`(`employeeid`,`organization`,`position`,
-				`startdate`,`enddate`,`duties`,`dateadded`,`addedby`)
-				values($employeeid,$organization,$jobposition,$startdate,$enddate,$duties,now(),$userid);
-				
-				select max(`id`) into $id from `employeeexternalworkingexperience`;
-				
-				select concat('Created external work experience id',$id,' for employee id:',$employeeid,' staff no:',staffno,
-				' for organization: ',$organization,' position:',$jobposition)
-				into @narration
-				from `employeerecords` where `employeeid`=$employeeid;
-				
-				CALL `sp_saveaudittrailentry`($userid,'insert',@narration,$platform,'','',NULL);
-			else
-				-- get field values before edit
-				CALL `sp_gettabledata`('employeeexternalworkingexperience','id',$id,@originalvalues);
-				
-				-- update fields
-				UPDATE `employeeexternalworkingexperience`
-				SET `employeeid`=$employeeid,`organization`=$organization,`position`=$posiiton,
-				`startdate`=$startdate,`enddate`=$enddate,`duties`=$duties
-				WHERE `id`=$id;
-				
-				-- get values after edit
-				CALL `sp_gettabledata`('employeeexternalworkingexperience','id',$id,@currentvalues);
-				
-				-- generate audit trail narrative
-				SELECT CONCAT('Updated external work experience id',$id,' for employee id:',$employeeid,' staff no:',staffno,
-				' for organization: ',$organization,' position:',$jobposition)
-				INTO @narration
-				FROM `employeerecords` WHERE `employeeid`=$employeeid;
-				
-				-- add audut trail entry
-				IF @originalvalues!=@currentvalues THEN 
-					CALL `sp_saveaudittrailentry`($userid,'update',@narration,$platform,@originalvalues,@currentvalues,NULL);
-				END IF;
-			end if;
-		commit;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_saveemployeegrievances` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_saveemployeegrievances` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_saveemployeegrievances`($employeeid int,$grievanceid int,$grievancetypeid int ,$grievanceremedyid int,
- $grievanceremedynarration varchar(1000),$userid int, $platform varchar(1000))
-BEGIN
-
-		start transaction;
-		
-			if $grievanceid = 0 then
-			    
-				insert into `employeegrievances`(`employeeid`,`grievancetypeid`,`grievanceremedyid`,`grievanceremedynarration`,`dateadded`,`addedby`)
-				values($employeeid,$grievancetypeid,$grievanceremedyid,$grievanceremedynarration,now(),$userid);
-				
-				
-				select max(`grievanceid`) into $grievanceid 
-				from `employeegrievances`;
-				
-				select concat('Added new employee grievances id: ',$grievanceid,' for employee id ',$employeeid,
-				' staff no ',staffno,' names ',firstname,' ',middlename,' ', lastname)
-				from employeerecords where employeeid=$employeeid
-				into @narration;
-				
-				-- calling audit trail,
-				
-				CALL `sp_saveaudittrailentry`($userid,'Insert',@narration,$platform,null,null,null);
-				
-			else 
-			
-				-- get table data befor updating
-				
-				CALL `sp_gettabledata`( 'employeegrievances','grievanceid',$grievanceid,@originalvalues);
-				
-				-- updating values
-				update `employeegrievances`
-				set`grievancecategorytype`=$grievancecategorytype,`grievanceremedy`=$grievanceremedy,`grievanceremedynarration`=$grievanceremedynarration
-				where `grievanceid`=$grievanceid;
-				
-				-- calling the table data after the updates
-				
-				CALL `sp_gettabledata`( 'employeegrievances','grievanceid',$grievanceid,@currentvalues);
-				
-				if @currentvalues != @originalvalues then 
-					
-					-- calling the save audit trail
-					SELECT CONCAT('grievances id ',$grievanceid) INTO @narration;
-					CALL `sp_saveaudittrailentry`($userid,'Update',@narration,$platform,@originalvalues,@currentvalues,NULL);
-				end if;
-			end if;
-		commit;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_saveemployeeinternalexperience` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_saveemployeeinternalexperience` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_saveemployeeinternalexperience`($id int,$employeeid int,$departmentid int,$positionid int, 
-	$startdate date,$enddate date,$currentlyhere bool,$duties varchar(5000),$userid int,$platform varchar(50))
-BEGIN
-		start transaction;
-			if $id=0  then 
-				insert into `employeeinternalworkingexperience`(`employeeid`,`departmentid`,`positionid`,`duties`,`startdate`,
-				`enddate`,`currentlyhere`,`dateadded`,`addedby`)
-				values($employeeid,$departmentid,$positionid,$duties,$startdate,
-				$enddate,$currentlyhere,now(),$userid);
-				
-				select max(`id`) into $id from `employeeinternalworkingexperience`;
-				
-				select concat('Created new internal experience id: ',$id,' for employee id:',
-				$employeeid,' staff no:',staffno,' names:', firstname,' ',middlename,' ',lastname,
-				' position:',positionname,' department:',departmentname)
-				into @narration
-				from `employeerecords` e
-				join `employeeinternalworkingexperience` x on x.employeeid=e.employeeid
-				join `jobpositions` j on j.`positionid`=x.`positionid` 
-				join `departments` d on d.departmentid=x.departmentid
-				where e.employeeid=$employeeid AND x.deleted=0 AND x.id=$id;
-				
-				CALL `sp_saveaudittrailentry`($userid,'insert',@narration,$platform,'','',NULL);
-			else
-				CALL `sp_gettabledata`('employeeinternalworkingexperience','id',$id,@originalvalues);
-				
-				UPDATE `employeeinternalworkingexperience` 
-				SET `employeeid`=$employeeid,`departmentid`=$departmentid,`positionid`=$positionid,`duties`=$duties,
-				`startdate`=$startdate,`enddate`=$enddate,`currentlyhere`=$currentlyhere
-				WHERE `id`=$id;
-				
-				CALL `sp_gettabledata`('employeeinternalworkingexperience','id',$id,@currentvalues);
-				
-				SELECT CONCAT('Updated employee internal work experience id : ',$id) 
-				INTO @narration;
-					
-					
-				IF @originalvalues!=@currentvalues THEN 
-					CALL `sp_saveaudittrailentry`($userid,'update',@narration,$platform,@originalvalues,@currentvalues,NULL);
-				END IF;
-			end if;
-			
-			-- Update all other currently working here to false based on start date of this current entry
-			if $currentlyhere=1 then 
-				update `employeeinternalworkingexperience` 
-				set `currentlyhere`=0,`enddate`=$startdate
-				where `employeeid`=$employeeid and `id`!=$id and `currentlyhere`=1;
-			end if;
-		commit;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_saveemployeepayrollitem` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_saveemployeepayrollitem` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_saveemployeepayrollitem`($itemid int,$employeeid int,$payrollitemid int,$amount decimal(18,2),$targetamount decimal(18,2),
-	$periodic bool,$startdate date,$duration int,$applyrelief bool,$attachment varchar(1000),$userid int,$platform varchar(50))
-BEGIN
-		if $itemid=0 then 
-		
-			-- delete if item existed previously
-			update `employeepayrollitems` 
-			set `deleted`=1,`deletedby`=$userid,`datedeleted`=now()
-			where `payrollitemid`=$payrollitemid and `employeeid`=$employeeid and `deleted`=0;
-			
-			
-			insert into `employeepayrollitems`(`payrollitemid`,`employeeid`,`startdate`,`duration`,`amount`,`targetamount`,`periodic`,`applyrelief`,
-			`attachment`,`dateadded`,`addedby`)
-			values($payrollitemid,$employeeid,$startdate,$duration,$amount,$targetamount,$periodic,$applyrelief,
-			$attachment,now(),$userid);
-			
-			select max(`itemid`) into $itemid from `employeepayrollitems`;
-			
-			select concat('Added employee payroll item id:',$itemid,' name:',`itemname`,' amount:',$amount)
-			into @narration
-			from `payrollitems` where `itemid`=$payrollitemid;
-			
-			CALL `sp_saveaudittrailentry`($userid,'insert',@narration,$platform,'','',NULL);
-			
-		else
-			-- get field values before edit
-			CALL `sp_gettabledata`('employeepayrollitems','itemid',$itemid,@originalvalues);
-			-- update fields
-			UPDATE `employeepayrollitems`
-			SET `payrollitemid`=$payrollitemid,`startdate`=$startdate,`duration`=$duration,`amount`=$amount,`periodic`=$periodic,
-			`applyrelief`=$applyrelief,`attachment`=$attachment,`targetamount`=$targetamount
-			WHERE `itemid`=$itemid;
-			-- get values after edit
-			CALL `sp_gettabledata`('employeepayrollitems','itemid',$itemid,@currentvalues);
-			-- generate audit trail narrative
-			SELECT CONCAT('Updated employee payroll item id :',$itemid)
-			INTO @narration;
-			
-			-- add audut trail entry
-			IF @originalvalues!=@currentvalues THEN 
-				CALL `sp_saveaudittrailentry`($userid,'update',@narration,$platform,@originalvalues,@currentvalues,NULL);
-			END IF;	
-		
-		end if;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_saveemployeetraining` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_saveemployeetraining` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_saveemployeetraining`($trainingid int,$employeeid int,$coursecategory varchar(50),$levelid int,
-$institutionname varchar(100),$coursename varchar(50), $coursemajor varchar(50),$gradeattained varchar(50),$startdate date,$enddate date, 
-$currentlyattending bool,$certificateexpires bool,$certificateexpirydate date,$certificatenumber varchar(50),$certificateattachment varchar(2000),
-$userid int,$platform varchar(1000))
-BEGIN
-		start transaction;
-			if $trainingid=0 then
-			
-				insert into `employeetraining`(`employeeid`,`category`,`coursename`,`levelid`,`coursemajor`,`gradeattained`,
-				`institutionname`,`startdate`,`enddate`,`currentlyattending`,`certificateno`,`certificateattachment`,
-				`certificateexpires`,`certificateexpirydate`,`dateadded`,`addedby`)
-				values($employeeid,$coursecategory,$coursename,$levelid,$coursemajor,$gradeattained,
-				$institutionname,$startdate,$enddate,$currentlyattending,$certificatenumber,$certificateattachment,
-				$certificateexpires,$certificateexpirydate,now(),$userid);
-				
-				select max(`trainingid`) into $trainingid from `employeetraining`;
-				
-				select concat('Created new employee training id:',$trainingid,' for employee id:',$employeeid,' staff no:',staffno,
-				' names: ', firstname,' ',middlename,' ',lastname,' course category: ',$coursecategory,' level name:',`levelname`)
-				into @narration
-				from `employeerecords` e
-				join `employeetraining` t on t.employeeid=e.employeeid
-				join `courselevels` l on l.levelid=t.levelid
-				where t.trainingid=$trainingid;
-				
-				CALL `sp_saveaudittrailentry`($userid,'insert',@narration,$platform,'','',NULL);
-			else
-				CALL `sp_gettabledata`('employeetraining','trainingid',$trainingid,@originalvalues);
-					
-				UPDATE `employeetraining`
-				SET `employeeid`=$employeeid,`category`=$coursecategory,`coursename`=$coursename,`levelid`=$levelid,
-				`coursemajor`=$soursemajor,`gradeattained`=$gradeattained,`institutionname`=$institutionname,
-				`startdate`=$startdate, `enddate`=$enddate, `currentlyattending`=$currentytattending,
-				`certificateno`=$certificatenumber,`certificateexpires`=$certificateexpires,
-				`certificateexpirydate`=$certificateexpirydate
-				WHERE `trainingid`=$trainingid;
-				
-				CALL `sp_gettabledata`('employeetraining','trainingid',$trainingid,@currentvalues);
-				
-				SELECT CONCAT('Updated employment term id: ',$trainingid)
-				INTO @narration;
-				
-				IF @originalvalues!=@currentvalues THEN
-					CALL `sp_saveaudittrailentry`($userid,'update',@narration,$platform,'','',NULL);
-				END IF;
-			
-			end if;
-		commit;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_saveemploymentterm` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_saveemploymentterm` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_saveemploymentterm`($termid int,$termname varchar(50),$userid int,$platform varchar(1000))
-BEGIN
-		start transaction;
-		
-			if $termid=0 then
-			
-				insert into `employmentterms`(`termname`,`dateadded`,`addedby`)
-				values($termname,now(),$userid);
-				
-				select max(`termid`) into $termid from `employmentterms`;
-				
-				select concat('Created new employment term id :',$termid, ' name: ',$termname)
-				into @narration;
-				
-			
-				CALL `sp_saveaudittrailentry`($userid,'insert',@narration,$platform,'','',NULL);
-				
-			else
-				
-				CALL `sp_gettabledata`('employmentterms','termid',$termid,@originalvalues);
-				
-				update `employmentterms`
-				set `termname`=$termname
-				where `termid`=$termid;
-				
-				CALL `sp_gettabledata`('employmentterms','termid',$termid,@currentvalues);
-				
-				select concat('Updated employment term id: ',$termid)
-				into @narration;
-				
-				if @originalvalues!=@currentvalues then
-					CALL `sp_saveaudittrailentry`($userid,'update',@narration,$platform,'','',NULL);
-				end if;
-			
-			end if;
-			
-		commit;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_savejobcategory` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_savejobcategory` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_savejobcategory`($categoryid int,$categoryname varchar(50),
-	$prefix varchar(50),$currentnumber int,$userid int,$platform varchar(1000))
-BEGIN
-		start transaction;
-			if $categoryid=0 then 
-			
-				insert into `jobcategories`(`categoryname`,`numberingprefix`,`currentnumber`,`dateadded`,`addedby`)
-				values($categoryname,$prefix,$currentnumber,now(),$userid);
-				
-				select max(`categoryid`) into $categoryid from `jobcategories`;
-				
-				select concat('Created new job category id:',$categoryid,' name:',$categoryname)
-				into @narration;
-				
-				CALL `sp_saveaudittrailentry`($userid,'Insert',@narration,$platform,NULL,NULL,NULL);
-		
-			else
-				-- Get the table row before update 
-				CALL `sp_gettabledata`('jobcategories','categoryid',$categoryid,@originalvalues);
-				
-				-- Update the data
-				UPDATE `jobcategories`
-				SET `categoryname`=$categoryname,`numberingprefix`=$prefix,`currentnumber`=$currentnumber
-				WHERE `categoryid`=$categoryid;
-				
-				-- Get the table data after update 
-				CALL `sp_gettabledata`('jobcategories','categoryid',$categoryid,@currentvalues);
-				
-				-- Check if there was a change and add ausit trail entry
-				IF @currentvalues!=@originalvalues THEN
-					SELECT CONCAT('Updated job category id ',$categoryid) INTO @narration;
-					CALL `sp_saveaudittrailentry`($userid,'Update',@narration,$platform,@originalvalues,@currentvalues,NULL);
-				END IF;
-		
-			end if;
-		commit;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_savejobgroup` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_savejobgroup` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_savejobgroup`($jobgroupid int,$jobgroupname varchar(50),$userid int,$platform varchar(1000))
-BEGIN
-		start transaction;
-			if $jobgroupid=0 then
-				insert into `jobgroups`(`jobgroupname`,`dateadded`,`addedby`)
-				values($jobgroupname,now(),$userid);
-				
-				select max(`jobgroupid`) into $jobgroupid from `jobgroups`;
-				
-				select concat('Created a new job group id :',$jobgroupid,', name: ',$jobgroupname)
-				into @narration;
-				
-				CALL `sp_saveaudittrailentry`($userid,'insert',@narration,$platform,'','',NULL);
-			else
-				-- get field values before edit
-				CALL `sp_gettabledata`('jobgroups','jobgroupid',$jobgroupid,@originalvalues);
-				-- update fields
-				UPDATE `jobgroups`
-				SET `jobgroupname`=$jobgroupname
-				WHERE `jobgroupid`=$jobgroupid;
-				-- get values after edit
-				CALL `sp_gettabledata`('jobgroups','jobgroupid',$jobgroupid,@currentvalues);
-				-- generate audit trail narrative
-				SELECT CONCAT('Updated job group details for id :',$jobgroupid)
-				INTO @narration;
-				
-				-- add audut trail entry
-				IF @originalvalues!=@currentvalues THEN 
-					CALL `sp_saveaudittrailentry`($userid,'update',@narration,$platform,@originalvalues,@currentvalues,NULL);
-				END IF;	
-			end if;
-		commit;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_savejobnotch` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_savejobnotch` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_savejobnotch`($notchid int,$notchname varchar(50),$userid int,$platform varchar(1000))
-BEGIN
-		start transaction;
-			if $notchid=0 then
-				insert into `jobnotches`(`notchname`,`dateadded`,`addedby`)
-				values($notchname,now(),$userid);
-				
-				select max(`notchid`) into $notchid 
-				from `jobnotches`;
-				
-				select concat('Created a new job notch id : ',$notchid,' name: ',$notchname)
-				into @narration;
-				
-				CALL `sp_saveaudittrailentry`($userid,'insert',@narration,$platform,'','',NULL);
-			else
-				-- get field values before edit
-				CALL `sp_gettabledata`('jobnotches','notchid',$notchid,@originalvalues);
-				
-				-- update fields
-				UPDATE `jobnotches`
-				SET `notchname`=$notchname
-				WHERE `notchid`=$notchid;
-				
-				-- get values after edit
-				CALL `sp_gettabledata`('jobnotches','notchid',$notchid,@currentvalues);
-				
-				-- generate audit trail narrative
-				SELECT CONCAT('Updated job notch details for id :',$notchid)
-				INTO @narration;
-				
-				-- add audut trail entry
-				IF @originalvalues!=@currentvalues THEN 
-					CALL `sp_saveaudittrailentry`($userid,'update',@narration,$platform,@originalvalues,@currentvalues,NULL);
-				END IF;
-			end if;
-		commit;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_savejobposition` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_savejobposition` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_savejobposition`($positionid int,$positionname varchar(50),$establishment int,$reportsto int,
-	$startjobgroupid int,$startnotchid int,$endjobgroupid int,$endnotchid int,$userid int,$platform varchar(1000))
-BEGIN
-		start transaction;
-		
-			if $positionid=0 then 
-			
-				insert into `jobpositions`(`positionname`,`establishment`,`reportsto`,`startjobgroupid`,`startnotchid`,`endjobgroupid`,`endnotchid`,`dateadded`,`addedby`)
-				values($positionname,$establishment,$reportsto,$startjobgroupid,$startnotchid,$endjobgroupid,$endnotchid,now(),$userid);
-				
-				select max(`positionid`) into $positionid from `jobpositions`;
-				
-				select concat('Created a new job position id: ',$positionid,' name: ',$positionname)
-				into @narration;
-				
-				CALL `sp_saveaudittrailentry`($userid,'insert',@narration,$platform,'','',NULL);
-				
-			else
-				-- get field values before edit
-				CALL `sp_gettabledata`('jobpositions','positionid',$positionid,@originalvalues);
-				
-				-- update fields
-				UPDATE `jobpositions`
-				SET `positionname`=$positionname,`establishment`=$establishment,`reportsto`=$reportsto,`startjobgroupid`=$startjobgroupid,
-				`startnotchid`=$startnotchid,`endjobgroupid`=$endjobgroupid,`endnotchid`=$endnotchid
-				WHERE `positionid`=$positionid;
-				
-				-- get values after edit
-				CALL `sp_gettabledata`('jobpositions','positionid',$positionid,@currentvalues);
-				
-				-- generate audit trail narrative
-				SELECT CONCAT('Updated job position details for id :',$positionid)
-				INTO @narration;
-				
-				-- add audut trail entry
-				IF @originalvalues!=@currentvalues THEN 
-					CALL `sp_saveaudittrailentry`($userid,'update',@narration,$platform,@originalvalues,@currentvalues,NULL);
-				END IF;
-			end if;
-		commit;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_saveleaveapplication` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_saveleaveapplication` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_saveleaveapplication`($applicationid int,$employeeid int,$leavetypeid int,$startdate date, $enddate date, $daystaken int,
-    $relieverid int,$supervisorid int,$narration varchar(1000),$attachment varchar(500),$userid int,$platform varchar(1000))
-BEGIN	
-		declare $approvalflowid int;
-		
-		select `approvalflow` into $approvalflowid 
-		from `leavetypes` where `leaveid`=$leavetypeid;
-		
-		SELECT CONCAT('Employee Id: ', $employeeid,' Staff #: ',`staffno`,' Names: ',`firstname`,' ',`middlename`,' ',`lastname`) 
-		INTO @employeename
-		FROM `employeerecords`
-		WHERE `employeeid`=$employeeid;
-		
-		SELECT CONCAT('Leave Id:',$leavetypeid,' name: ',`leavename`)
-		INTO @leavename
-		FROM `leavetypes` WHERE `leaveid`=$leavetypeid;
-		
-		start transaction;
-			if $applicationid=0 then 
-				insert into `leaveapplications`(`employeeid`,`leavetypeid`,`startdate`,`enddate`,`daystaken`,`narration`,`attachment`,
-				`relieverid`,`supervisorid`,`addedby`,`dateadded`,`approvalflowid`)
-				values($employeeid,$leavetypeid,$startdate,$enddate,$daystaken,$narration,$attachment,
-				$relieverid,$supervisorid,$userid,now(),$approvalflowid);
-				
-				select max(`applicationid`) into $applicationid from `leaveapplications`;
-
-				select concat('Created leave application  id:',$applicationid,' for ',@employeename,' ',@leavename)
-				into @narration;
-				
-				CALL `sp_saveaudittrailentry`($userid,'insert',@narration,$platform,'','',NULL);
-			else
-				-- get field values before edit
-				CALL `sp_gettabledata`('leaveapplications','applicationid',$applicationid,@originalvalues);
-				-- update fields
-				UPDATE `leaveapplications`
-				set `employeeid`=$employeeid,`leavetypeid`=$leavetypeid,`startdate`=$startdate,`enddate`=$enddate,
-				`daystaken`=$daystaken,`narration`=$narration,`relieverid`=$relieverid,`supervisorid`=$supervisorid,
-				`approvalflowid`=$approvalflowid
-				WHERE `applicationid`=$applicationid;
-				-- get values after edit
-				CALL `sp_gettabledata`('leaveapplications','applicationid',$applicationid,@currentvalues);
-				-- generate audit trail narrative
-				SELECT CONCAT('Updated leave details for id :',$applicationid,' for ',@employeename,' ',@leavename)
-				INTO @narration;
-				
-				-- add audut trail entry
-				IF @originalvalues!=@currentvalues THEN 
-					CALL `sp_saveaudittrailentry`($userid,'update',@narration,$platform,@originalvalues,@currentvalues,NULL);
-				END IF;
-			end if;
-		commit;
-		select $applicationid as applicationid;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_saveleaveapprovalflow` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_saveleaveapprovalflow` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_saveleaveapprovalflow`($flowid int,$refno varchar(50),$flowname varchar(50),$userid int,$platform varchar(1000))
-BEGIN
-		start transaction;
-			if $flowid=0 then 
-				insert into `leaveapprovalflows`(`flowname`,`dateadded`,`addedby`)
-				values($flowname,now(),$userid);
-				
-				select max(`flowid`) into $flowid from `leaveapprovalflows`;
-				
-				insert into `leaveapprovallevels`(`flowid`,`approvallevel`,`escalationduration`,`colourcode`,`hierarchy`)
-				select $flowid,`approvallevel`,`escallationduration`,`colourcode`,`hierarchy`
-				from `templleaveapprovallevel` where `refno`=$refno;
-				
-				select concat('Created leave approval flow id:',$flowid,' name:',$flowname) 
-				into @narration;
-				
-				CALL `sp_saveaudittrailentry`($userid,'insert',@narration,$platform,'','',NULL);
-				
-				delete from `templleaveapprovallevel` where `refno`=$refno;
-			else
-				update `leaveapprovallevels`
-				set `deleted`=1,`deletedby`=$userid,`datedelete`=now(),`reasondeleted`='details updated in the system'
-				where `flowid`=$flowid;
-				
-				-- get field values before edit
-				CALL `sp_gettabledata`('leaveapprovalflows','flowid',$flowid,@originalvalues);
-				
-				-- update fields
-				UPDATE `leaveapprovalflows`
-				SET `flowname`=$flowname
-				WHERE `flowid`=$flowid;
-				
-				INSERT INTO `leaveapprovallevels`(`flowid`,`approvallevel`,`escalationduration`,`colourcode`,`hierarchy`)
-				SELECT $flowid,`approvallevel`,`escallationduration`,`colourcode`,`hierarchy`
-				FROM `templleaveapprovallevel` WHERE `refno`=$refno;
-				
-				DELETE FROM `templleaveapprovallevel` WHERE `refno`=$refno;
-				
-				-- get values after edit
-				CALL `sp_gettabledata`('leaveapprovalflows','flowid',$flowid,@currentvalues);
-				
-				-- generate audit trail narrative
-				SELECT CONCAT('Updated leave approval flow details for id :',$flowid)
-				INTO @narration;
-				
-				-- add audut trail entry
-				IF @originalvalues!=@currentvalues THEN 
-					CALL `sp_saveaudittrailentry`($userid,'update',@narration,$platform,@originalvalues,@currentvalues,NULL);
-				END IF;
-			end if;
-		commit;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_saveleavetype` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_saveleavetype` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_saveleavetype`($leaveid int,$refno varchar(50),$leavename varchar(100),$allocationdays int,
-	$probationperiod int,$halfdayapplication int,$skipholidays int,$applywithoutallocation int,$requiresattachment int,$approvalflow int,$allowancepayable int,
-	$allowancepayrollitemid int,$canbesplit int,$userid int,$platform varchar(1000))
-BEGIN
-		start transaction;
-			if $leaveid=0 then
-			
-				insert into `leavetypes`(`leavename`,`allocationdays`,`probationperiod`,`halfdayapplication`,`skipsholidays`,
-				`applywithoutallocation`,`requiresattachment`,`approvalflow`,`allowancepayable`,`allowancepayrollitemid`,`canbesplit`,
-				`dateadded`,`addedby`)
-				values($leavename,$allocationdays,$probationperiod,$halfdayapplication,$skipholidays,
-				$applywithoutallocation,$requiresattachment,$approvalflow,$allowancepayable,$allowancepayrollitemid,$canbesplit,
-				now(),$userid);
-				
-				select max(`leaveid`) into $leaveid from `leavetypes`;
-				
-				select concat('Create leave type id:',$leaveid,' name;',$leavename)
-				into @narration;
-				
-				insert into `leaveallowableallocation`(`leaveid`,`allocation`,`percentagepayable`)
-				select $leaveid,`allocation`,`percentagepayable`
-				from `templleaveallowableallocation` where `refno`=$refno;
-				
-				CALL `sp_saveaudittrailentry`($userid,'insert',@narration,$platform,'','',NULL);
-				
-			else
-				update `leaveallowableallocation` 
-				set `deleted`=1,`datedeleted`=now(),`deletedby`=$userid,`reasondeleted`='Updating to new values'
-				where `leaveid`=$leaveid;
-				
-				-- values before update 
-				CALL `sp_gettabledata`('leavetypes','leaveid',$leaveid,@originalvalues);
-				
-				update `leavetypes`
-				set `leavename`=$leavename,`allocationdays`=$allocationdays,`probationperiod`=$probationperiod,
-				`halfdayapplication`=$halfdayapplication,`skipsholidays`=$skipholidays,`applywithoutallocation`=$applywithoutallocation,
-				`requiresattachment`=$requiresattachment,`approvalflow`=$approvalflow,`allowancepayrollitemid`=$allowancepayable,
-				`allowancepayrollitemid`=$allowancepayrollitemid, `canbesplit`=$canbesplit
-				where `leaveid`=$leaveid;
-				
-				-- values after update
-				CALL `sp_gettabledata`('leavetypes','leaveid',$leaveid,@currentvalues);
-				
-				INSERT INTO `leaveallowableallocation`(`leaveid`,`allocation`,`percentagepayable`)
-				SELECT $leaveid,`allocation`,`percentagepayable`
-				FROM `templleaveallowableallocation` WHERE `refno`=$refno;
-				
-				-- add audut trail entry
-				IF @originalvalues!=@currentvalues THEN 
-					CALL `sp_saveaudittrailentry`($userid,'update',@narration,$platform,@originalvalues,@currentvalues,NULL);
-				END IF;
-				
-			end if;
-			
-			delete from `templleaveallowableallocation` where `refno`=$refno;
-			
-		commit;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_saveoccupancy` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_saveoccupancy` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_saveoccupancy`($occupancyid int,$unitid int,$tenantid int,$leasestartdate date,$leaseenddate date,
-	$moveindate date,$moveoutdate date,$agreementsigned bool,$agreementsigndate date,$agreementcopy varchar(1000),$rentduedate int,$allowtopay int,
-	$allowinvoice int, $payableinadvance bool,$userid int,$platform varchar(1000),$branchid int)
-BEGIN
-	start transaction;
-		if $occupancyid =0 then 
-			
-			insert into `occupancy`(`tenantid`,`unitid`,`leasestartdate`,`leaseenddate`,`moveindate`,`moveoutdate`,`status`,`rentduedate`,
-				`agreementsigned`,`agreementsigndate`,`agreementcopy`,`allowtopay`,`allowinvoice`,`payableinadvance`)
-			values($tenantid,$unitid,$leasestartdate,$leaseenddate,$moveindate,$moveoutdate,'active',$rentduedate,
-				$agreementsigned,$agreementsigndate,$agreementcopy,$allowtopay,$allowinvoice,$payableinadvance);
-				
-			select max(`id`) into $occupancyid from `occupancy`;
-			
-			-- update tenant occupancy state
-			update `tenants` set `occupancyid`=$occupancyid where `tenantid`=$tenantid;
-			
-			select concat('Created a occupancy for tenant id:', t.tenantid,' names:',firstname,' ',lastname,' property id: ',p.propertyid,' name: ',propertyname,' unit id: ',u.unitid,' name:',unitname)
-			into @narration
-			from `occupancy` o 
-			inner join `propertyunits` u on u.unitid=o.unitid
-			inner join `blocks` b on b.blockid=u.blockid
-			inner join `properties` p on p.propertyid=b.propertyid
-			inner join `tenants` t on t.`tenantid`=o.tenantid
-			where t.tenantid=$tenantid and o.unitid=$unitid;
-			
-			CALL `sp_saveaudittrailentry`($userid,'Insert',@narration,$platform,'','',$branchid); 
-			
-		else
-			CALL `sp_gettabledata`('occupancy','id',$occupancyid,@originalvalues);
-		
-			update `occupancy`
-			set `tenantid`=$tenantid,`unitid`=$unitid,`leasestartdate`=$leasestartdate,`leaseenddate`=$leaseenddate,
-			`moveindate`=$moveindate,`moveoutdate`=$moveoutdate,`rentduedate`=$rentduedate,`agreementsigned`=$agreementsigned,
-			`agreementsigndate`=$agreementsigndate,`allowtopay`=$allowtopay,`allowinvoice`=$allowinvoice,`payableinadvance`=$payableinadvance
-			where `id`=$occupancyid;
-			
-			
-			CALL `sp_gettabledata`('occupancy','id',$occupancyid,@currentvalues);
-			
-			SELECT CONCAT('Updated occupancy details for occupancy id: ',$occupancyid) 
-			INTO @narration;
-			
-			IF @originalvalues!=@currentvalues THEN 
-				CALL `sp_saveaudittrailentry`($userid,'Update',@narration,$platform,@originalvalues,@currentvalues,$branchid);
-			END IF;
-		end if;
-	commit;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_savepayrollcategory` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_savepayrollcategory` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_savepayrollcategory`($categoryid INT,$categoryname VARCHAR(50),$numberprefix VARCHAR(50),$currentnumber INT,
-$userid INT, $platform VARCHAR(1000))
-BEGIN
-		START TRANSACTION ;
-			IF $categoryid = 0 THEN
-			     INSERT INTO payrollcategories(categoryname,numberprefix,currentnumber,dateadded,addedby)
-			     VALUES($categoryname,$numberprefix,$currentnumber,NOW(),$userid);
-			     
-			     SELECT MAX(categoryid)INTO $categoryid FROM payrollcategories;
-			     
-			     SELECT CONCAT('Created new category id:',$categoryid,'categoryname:',$categoryname) 
-			     INTO @narration;
-			     
-			     CALL sp_saveaudittrailentry($userid,'insert',@narration,$platform,'','',NULL);
-			
-			ELSE  
-	    
-				CALL sp_getpayrollcategory('payrollcategories','categoryid',$categoryid,@originalvalues);
-	        
-				UPDATE payrollcategories
-				SET categoryname=$categoryname,numberprefix =$numberprefix,currentnumber = $currentnumber
-				WHERE categoryid = $categoryid;
-	        
-				CALL sp_getpayrollcategory('payrollcategory:','categoryid',$categoryid,@currentlvalues);
-	        
-				SELECT CONCAT('Updated category id:',$categoryid, 'categoryname',$categoryname) INTO @narration;
-	        
-				 IF @orriginalvalues !=@currentvalues THEN
-					CALL sp_saveaudittrailentry($userid,'update',@narration,$platform,'','',NULL);
-				 END IF;
-			END IF;
-		COMMIT;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_savepayrollitem` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_savepayrollitem` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_savepayrollitem`($refno varchar(50),$itemid int,$itemname varchar(50),$shortname varchar(50),$itemtype varchar(50),$statutory bool,$display varchar(50),$showonpayroll bool,
-	$taxable bool,$isaloan bool,$defaultamount decimal(18,2),$allowablededuction bool,$allowabledeductionlowerlimit decimal(18,2),$allowabledeductionupperlimit decimal(18,2),
-	$allowabledeductionvalue decimal(18,2),$allowabledeductionperecentage bool,$bracketed bool,$bracketedongross bool,$bracketeditem int,$bracketisprecentage bool,$bracketlowerlimit decimal(18,2),
-	$bracketupperlimit decimal(18,2),$employertomatch bool,$employermatchfactor decimal(18,2),$applyrelief bool,$reliefitem int,$creditorid int,$itemgroupid int,$systemlabel varchar(50),$userid int,$platform varchar(1000)
-)
-BEGIN
-		if $systemlabel='' then 
-			set $systemlabel=NULL;
-		end if;
-		
-		if $itemgroupid=0 then
-			set $itemgroupid=NULL;
-		end if;
-		
-		start transaction;
-			if $itemid=0 then
-				-- Insert bracket value
-				insert into `payrollitems`(`itemname`,`shortname`,`itemtype`,`statutory`,`display`,`showonpayroll`,`taxable`,`isaloan`,`defaultamount`,`allowablededuction`,
-				`allowabledeductionlowerlimit`,`allowabledeductionupperlimit`,`allowabledeductionvalue`,`allowabledeductionpercentage`,`bracketed`,`bracketedongross`,`bracketeditem`,
-				`employertomatch`,`employermatchfactor`,`applyrelief`,`reliefitem`,`bracketispercentage`,`bracketlowerlimit`,`bracketupperlimit`,`creditorid`,`itemgroupid`,`description`,`dateadded`,`addedby`)
-				values($itemname,$shortname,$itemtype,$statutory,$display,$showonpayroll,$taxable,$isaloan,$defaultamount,$allowablededuction,
-				$allowabledeductionlowerlimit,$allowabledeductionupperlimit,$allowabledeductionvalue,$allowabledeductionperecentage,$bracketed,$bracketedongross,$bracketeditem,
-				$employertomatch,$employermatchfactor,$applyrelief,$reliefitem,$bracketisprecentage,$bracketlowerlimit,$bracketupperlimit,$creditorid,$itemgroupid,$systemlabel,now(),$userid);
-				
-				select max(`itemid`) into $itemid from `payrollitems`;
-				
-				-- Insert payroll bracket values if any
-				insert into `payrollitembracket`(`payrollitemid`,`lowerbracket`,`upperbracket`,`value`,`valid`)
-				select $itemid, `lowerbracket`,`upperbracket`,`value`,1 
-				from `temppayrollitembracket` where `refno`=$refno;
-				
-				-- Insert audit trail entry
-				select concat('Created a new payroll item  id: ',$itemid,' item name:',$itemname) 
-				into @narration;
-				
-				CALL `sp_saveaudittrailentry`($userid,'insert',@narration,$platform,'','',NULL);
-				
-				-- Remove temp bracket values
-				delete from `temppayrollitembracket` where `refno`=$refno;
-				
-			else
-				-- get field values before edit
-				CALL `sp_gettabledata`('payrollitems','itemid',$itemid,@originalvalues);
-				
-				-- update fields
-				UPDATE `payrollitems`
-				SET `itemname`=$itemname,`shortname`=$shortname,`itemtype`=$itemtype,`statutory`=$statutory,`creditorid`=$creditorid,`display`=$display,
-				`showonpayroll`=$showonpayroll,`taxable`=$taxable,`isaloan`=$isaloan,`defaultamount`=$defaultamount,`allowablededuction`=$allowablededuction,
-				`allowabledeductionlowerlimit`=$allowabledeductionlowerlimit,`allowabledeductionupperlimit`=$allowabledeductionupperlimit,
-				`allowabledeductionvalue`=$allowabledeductionvalue,`allowabledeductionpercentage`=$allowabledeductionperecentage,`bracketed`=$bracketed,
-				`bracketedongross`=$bracketedongross, `bracketeditem`=$bracketeditem,`employertomatch`=$employertomatch,`employermatchfactor`=$employermatchfactor,
-				`applyrelief`=$applyrelief, `reliefitem`=$reliefitem,`bracketispercentage`=$bracketisprecentage, `bracketlowerlimit`=$bracketlowerlimit,
-				`bracketupperlimit`=$bracketupperlimit,`itemgroupid`=$itemgroupid,`description`=$systemlabel
-				WHERE `itemid`=$itemid;
-				
-				-- get values after edit
-				CALL `sp_gettabledata`('payrollitems','itemid',$itemid,@currentvalues);
-				
-				-- generate audit trail narrative
-				SELECT CONCAT('Updated payrollitems details for id :',$itemid)
-				INTO @narration;
-				
-				-- add audut trail entry
-				IF @originalvalues!=@currentvalues THEN 
-					CALL `sp_saveaudittrailentry`($userid,'update',@narration,$platform,@originalvalues,@currentvalues,NULL);
-				END IF;
-			
-			end if;
-		commit;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_savepayrollitemgroup` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_savepayrollitemgroup` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_savepayrollitemgroup`($groupid int,$groupname varchar(50),$itemtype varchar(50),$userid int,$platform varchar(50))
-BEGIN
-		start transaction;
-			if $groupid=0 then
-				insert into `payrollitemgroups`(`groupname`,`itemtype`,`addedby`,`dateadded`)
-				values($groupname,$itemtype,$userid,now());
-				
-				select max(`groupid`) into $groupid from `payrollitemgroups`;
-				
-				select concat('Created new payroll item group id:',$groupid,' name:',$groupname)
-				into @narration;
-				
-				CALL `sp_saveaudittrailentry`($userid,'insert',@narration,$platform,'','',NULL);
-			else
-				-- get field values before edit
-				CALL `sp_gettabledata`('payrollitemgroups','groupid',$groupid,@originalvalues);
-				
-				-- update fields
-				UPDATE `payrollitemgroups`
-				SET `groupname`=$groupname,`itemtype`=$itemtype
-				WHERE `groupid`=$groupid;
-				
-				-- get values after edit
-				CALL `sp_gettabledata`('payrollitemgroups','groupid',$groupid,@currentvalues);
-				
-				-- generate audit trail narrative
-				SELECT CONCAT('Updated payroll item group details for id :',$groupid)
-				INTO @narration;
-				
-				-- add audut trail entry
-				IF @originalvalues!=@currentvalues THEN 
-					CALL `sp_saveaudittrailentry`($userid,'update',@narration,$platform,@originalvalues,@currentvalues,NULL);
-				END IF;
-			end if;
-		commit;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_saveprivileges` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_saveprivileges` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_saveprivileges`(`$id` INT, `$category` VARCHAR(50), `$refno` VARCHAR(50), `$userid` INT)
-BEGIN
-	start transaction;
-		if $category='user' then 
-			begin
-				-- delete all privileges
-				delete from `userprivileges` where `userid`=$id;
-				-- add the ones from the temp table
-				insert into `userprivileges` (`userid`,`objectid`,`allowed`,`addedby`,`lastupdatedby`,`lastdateupdated`)
-				select $id,`objectid`,`valid`,$userid,$userid,now() from `tempprivilege` where `refno`=$refno;
-			end;
-		else
-			begin
-				-- delete all role privileges
-				delete from `roleprivileges` where `roleid`=$id;
-				-- add new ones from the temp table
-				insert into `roleprivileges`(`roleid`,`objectid`,`allowed`,`dateadded`,`addedby`)
-				SELECT $id,`objectid`,`valid`,NOW(),$userid FROM `tempprivilege` WHERE `refno`=$refno; 
-			end;
-		end if;
-		-- Remove temporary data
-		delete from `tempprivilege` WHERE `refno`=$refno;
-	commit;
-    END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_savepublicholiday` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_savepublicholiday` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_savepublicholiday`($holidayid int,$holidayname varchar(50),$holidaydate date,
-	$repeatsannually bool, $skipweekends bool,$userid int,$platform varchar(1000))
-BEGIN
-		start transaction;
-			if $holidayid=0 then
-				insert into `publicholidays`(`holidayname`,`date`,`repeatsannually`,`skipweekends`,`dateadded`,`addedby`)
-				values($holidayname,$holidaydate,$repeatsannually,$skipweekends,now(),$userid);
-				
-				select max(`id`) into $holidayid from `publicholidays`;
-				
-				select concat('Created a new public holiday id: ',$holidayid,' name: ',$holidayname,' date: ',format($holidaydate,'%d-%b-%Y'))
-				into @narration;
-				
-				CALL `sp_saveaudittrailentry`($userid,'insert',@narration,$platform,'','',NULL);
-			else
-				-- get field values before edit
-				CALL `sp_gettabledata`('publicholidays','id',$holidayid,@originalvalues);
-				-- update fields
-				UPDATE `publicholidays`
-				SET `holidayname`=$holidayname,`date`=$holidaydate,`repeatsannually`=$repeatsannually,`skipweekends`=$skipweekends
-				WHERE `id`=$holidayid;
-				-- get values after edit
-				CALL `sp_gettabledata`('publicholidays','id',$holidayid,@currentvalues);
-				-- generate audit trail narrative
-				SELECT CONCAT('Updated holiday details for id :',$holidayid)
-				INTO @narration;
-				
-				-- add audut trail entry
-				IF @originalvalues!=@currentvalues THEN 
-					CALL `sp_saveaudittrailentry`($userid,'update',@narration,$platform,@originalvalues,@currentvalues,NULL);
-				END IF;
-			
-			end if;
-		commit;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_saverole` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_saverole` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_saverole`(`$roleid` INT, `$rolename` VARCHAR(50), `$roledescription` VARCHAR(50), `$userid` INT)
-BEGIN
-	if $roleid=0 then
-		insert into `roles` (`rolename`,`roledescription`,`deleted`,`addedby`,`dateadded`)
-		values($rolename,$roledescription,0,$userid,now());
-		set $roleid=(select max(`roleid`) `roleid` from `roles`);
-	else
-		update `roles` set `rolename`=$rolename,`roledescription`=$roledescription, `lastdatemodified`=now(), `lastmodifiedby`=$userid
-		where `roleid`=$roleid;
-	end if;
-	select $roleid as `roleid`;
-    END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_saveroleusers` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_saveroleusers` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_saveroleusers`(`$userid` INT, `$roleid` INT, `$addedby` INT)
-BEGIN
-	if not exists (select * from `roleusers` where `roleid`=$roleid and `userid`=$userid and ifnull(`deleted`,0)=0) then
-		insert into `roleusers`(`roleid`,`userid`,`dateadded`,`addedby`)
-		values($roleid,$userid,now(),$addedby);
-	end if;
-    END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_savesalarystructure` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_savesalarystructure` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_savesalarystructure`($structureid int,$jobgroupid int,$notchid int,$payrollitemid int,
-	$annualincrement decimal(18,2),$minvalue decimal(18,2),$maxvalue decimal(18,2),$userid int,$platform varchar(1000))
-BEGIN
-		if $structureid=0 then
-			insert into `jobsalarystructures`(`jobgroupid`,`notchid`,`payrollitemid`,`minimumvalue`,`maximumvalue`,
-			`annualincrement`,`dateadded`,`addedby`)
-			values($jobgroupid,$notchid,$payrollitemid,$minvalue,$maxvalue,$annualincrement,now(),$userid);
-			
-			select max(`structureid`) into $structureid from `jobsalarystructures`;
-			
-			select concat('Created new salary structure id:',$structureid)
-			into @narration;
-			
-			CALL `sp_saveaudittrailentry`($userid,'insert',@narration,$platform,'','',NULL);
-		else
-			-- get field values before edit
-			CALL `sp_gettabledata`('jobsalarystructures','structureid',$structureid,@originalvalues);
-			
-			-- update fields
-			UPDATE `jobsalarystructures`
-			SET `jobgroupid`=$jobgroupid,`notchid`=$notchid,`payrollitemid`=$payrollitemid,`minimumvalue`=$minvalue,
-			`maximumvalue`=$maxvalue,`annualincrement`=$annualincrement
-			WHERE `structureid`=$structureid;
-			
-			-- get values after edit
-			CALL `sp_gettabledata`('jobsalarystructures','structureid',$structureid,@currentvalues);
-			
-			-- generate audit trail narrative
-			SELECT CONCAT('Updated job salary structure details for id :',$structureid)
-			INTO @narration;
-			
-			-- add audut trail entry
-			IF @originalvalues!=@currentvalues THEN 
-				CALL `sp_saveaudittrailentry`($userid,'update',@narration,$platform,@originalvalues,@currentvalues,NULL);
-			END IF;
-		end if;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_saveshiftdetails` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_saveshiftdetails` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_saveshiftdetails`($shiftdetailid int,$shiftid int,$dayweek varchar(50),$starttime time,$endtime time,
-	$workingstatus varchar(50),$break float,$userid int,$platform varchar(1000))
-BEGIN
-		if $shiftdetailid=0 then 
-			insert into `shiftdetails`(`shiftid`,`dayofweek`,`starts`,`ends`,`status`,`break`)
-			values($shiftid,$dayweek,$starttime,$endtime,$workingstatus,$break);
-			select max(`shiftdetailid`) into $shiftdetailid from `shiftdetails`;
-			select concat('Created shift detail for ',$shiftid,' - ',shiftname, ', shift type ',shifttype,' for weekday ',$dayweek)
-			into @narration
-			from `shiftmaster` where `shiftid`=$shiftid;
-			CALL `sp_saveaudittrailentry`($userid,'insert',@narration,$platform,'','',NULL);
-		else
-			CALL `sp_gettabledata`('shiftdetails','shiftdetailid',$shiftid,@originalvalues);
-			
-			UPDATE `shiftdetails`
-			SET `dayofweek`=$dayweek,`starts`=$starttime,`ends`=$endtime
-			WHERE `shiftdetailid`=$shiftdetailid;
-			
-			CALL `sp_gettabledata`('shiftdetails','shiftdetailid',$shiftdetailid,@currentvalues);
-			
-			SELECT CONCAT('Updated shift details for  detailid:',$shiftdetailid) INTO @narration;
-			
-			IF @originalvalues!=@currentvalues THEN 
-				CALL `sp_saveaudittrailentry`($userid,'update',@narration,$platform,@originalvalues,@currentvalues,NULL);
-			END IF;
-		
-		end if;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_saveshiftmaster` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_saveshiftmaster` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_saveshiftmaster`($shiftid int,$shiftname varchar(50),$shifttype varchar(50),$userid int,$platform varchar(1000))
-BEGIN
-		if $shiftid=0 then 
-			insert into `shiftmaster`(`shiftname`,`shifttype`,`dateadded`,`addedby`)
-			values($shiftname,$shifttype,now(),$userid);
-			select max(`shiftid`) into $shiftid from `shiftmaster`;
-			select concat('Created new shift id:',$shiftid,' name:',$shiftname,' type:',$shifttype) into @narration;
-			CALL `sp_saveaudittrailentry`($userid,'insert',@narration,$platform,'','',NULL);	
-		else
-			-- get field values before edit
-			CALL `sp_gettabledata`('shiftmaster','shiftid',$shiftid,@originalvalues);
-			
-			update `shiftmaster`
-			set `shiftname`=$shiftname, `shifttype`=$shifttype
-			where `shiftid`=$shiftid;
-			
-			CALL `sp_gettabledata`('shiftmaster','shiftid',$shiftid,@currentvalues);
-			
-			select concat('Updated shift master details of id:',$shiftid) into @narration;
-			
-			IF @originalvalues!=@currentvalues THEN 
-				CALL `sp_saveaudittrailentry`($userid,'update',@narration,$platform,@originalvalues,@currentvalues,NULL);
-			END IF;
-		end if;
-		
-		select $shiftid as shiftid;
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_savestaffshift` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_savestaffshift` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_savestaffshift`($refno varchar(50),$shiftid int,$shiftdate date,$workingstatus varchar(50),
-	$overwrite bool,$userid int,$platform varchar(1000))
-BEGIN
-		if $overwrite=1 then 
-			update `staffshifts` 
-			set `deleted`=1,`datedeleted`=now(),`deletedby`=$userid, `deletedreason`='Overwritten with new values'
-			where `employeeid` in(select `employeeid` from `tempstaffshifts` where `refno`=$refno)
-			and `shiftid`=$shiftid and format(`date`,'%Y-%m-%d')=$shiftdate and `shiftid`=$shiftid and `deleted`=0;
-		end if;
-		
-		insert into `staffshifts`(`employeeid`,`shiftid`,`date`,`status`,`addedby`,`dateadded`)	
-		select `employeeid`,$shiftid,$shiftdate,$workingstatus, $userid,now() 
-		from `tempstaffshifts`
-		where `refno`=$refno;
-		
-		delete from `tempstaffshifts` where refno=$refno;
-		
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_savetempleaveallowableallocation` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_savetempleaveallowableallocation` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_savetempleaveallowableallocation`($refno varchar(50),$allocation int,$percentagepayable decimal(3,2))
-BEGIN
-		insert into `templleaveallowableallocation`(`refno`,`allocation`,`percentagepayable`)
-		values($refno,$allocation,$percentagepayable);
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_savetemplleaveapprovallevel` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_savetemplleaveapprovallevel` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_savetemplleaveapprovallevel`($refno varchar(50),$approvallevel varchar(50),$hierarchy int,$escallation varchar(50),$colourcode varchar(50))
-BEGIN
-		insert into `templleaveapprovallevel`(`refno`,`approvallevel`,`escallationduration`,`colourcode`,`hierarchy`)
-		values($refno,$approvallevel,$escallation,$colourcode,$hierarchy);
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_savetemppayrollitembracketvalues` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_savetemppayrollitembracketvalues` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_savetemppayrollitembracketvalues`($refno varchar(50),$lowerbracket decimal(18,2),$upperbracket decimal(18,2),$bracketvalue decimal(18,2))
-BEGIN
-		insert into `temppayrollitembracket`(`refno`,`lowerbracket`,`upperbracket`,`value`)
-		values($refno,$lowerbracket,$upperbracket,$bracketvalue);
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_savetempprivilege` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_savetempprivilege` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_savetempprivilege`(`$refno` VARCHAR(50), `$id` INT, `$objectid` INT, `$valid` BIT)
-BEGIN
-	insert into `tempprivilege`(`refno`,`id`,`objectid`,`valid`)
-	values($refno,$id,$objectid,$valid);
-    END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_savetempstaffshift` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_savetempstaffshift` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_savetempstaffshift`($refno varchar(50),$employeeid int)
-BEGIN
-		insert into `tempstaffshifts`(`refno`,`employeeid`)
-		values($refno,$employeeid);
-	END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_saveuser` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_saveuser` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_saveuser`(`$userid` INT, `$userpassword` VARCHAR(50),$salt varchar(50),`$systemadmin` BIT, `$username` VARCHAR(50), `$firstname` VARCHAR(50), `$middlename` VARCHAR(50), `$lastname` VARCHAR(50), `$email` VARCHAR(50), `$mobile` VARCHAR(50), 
-`$changepasswordonlogon` BIT, `$accountactive` BIT, `$addedby` INT,$institutionid int,$platform varchar(1000))
-BEGIN
-	select `name` into @institutionname from `institution` where `id`=$institutionid;
-	
-	if $userid=0 then 
-		-- begin
-			insert into `user`(`username`,`password`,`firstname`,`middlename`,`lastname`,`email`,`mobile`,`changepasswordonlogon`,`accountactive`,`addedby`,`dateadded`,systemadmin,`institutionid`,`salt`)
-			values($username,$userpassword,$firstname,$middlename,$lastname,$email,$mobile,$changepasswordonlogon,$accountactive,$addedby,now(),$systemadmin,$institutionid,$salt);
-			set $userid=(select max(`id`) from `user`);
-			
-			-- Add audit trail entry
-			SET @narration=CONCAT('Added system admin account user for ',@institutionname,' id ',$institutionid); 
-			CALL `sp__saveaudittrailentry`($userid,'Insert',@narration,$platform,'','');
-		-- end
-	else
-		CALL `sp__gettabledata`('user','id',$userid,@originalvalues);
-		
-		update `user` set `username`=$username,`firstname`=$firstname,`middlename`=$middlename,`lastname`=$lastname,`email`=email,`mobile`=$mobile,
-		`changepasswordonlogon`=$changepasswordonlogon,/*`accountactive`=$accountactive,*/`systemadmin`=$systemadmin,`lastmodifiedby`=$addedby,
-		`lastmodifiedon`=NOW(), `salt`=$salt
-		WHERE `id`=$userid;
-		
-		CALL `sp__gettabledata`('user','id',$userid,@currentvalues);
-		
-		if @originalvalues<>@currentvalues then
-			SET @narration=CONCAT('Updated details of user id ',$userid); 
-			CALL `sp__saveaudittrailentry`($addedby,'Update',@narration,$platform,@originalvalues,@currentvalues);
-		end if;
-	END IF;
-	
-	SELECT $userid AS `userid`;
-	
-    END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_saveuserprivilege` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_saveuserprivilege` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_saveuserprivilege`(`$userid` INT, `$objectid` INT, `$allowed` BIT, `$useradding` INT)
-BEGIN
-	if not exists(select * from `userprivileges` where `objectid`=$objectid and `userid`=$userid) then
-		insert into `userprivileges`(`objectid`,`userid`,`allowed`,`dateadded`,`addedby`)
-		values($objectid,$userid,$allowed,now(),$useradding);
-	else
-		update `userprivileges` set `allowed`=$allowed, `lastdateupdated`=now(),`lastupdatedby`=$useradding 
-		WHERE `objectid`=$objectid AND `userid`=$userid;
-	end if ;
-		
-    END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `sp_updatequeueemailstatus` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `sp_updatequeueemailstatus` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_updatequeueemailstatus`($mailid int,$sent bool, $errormessage varchar(5000))
-BEGIN
-		if $sent=1 then 
-			update `emailqueue`
-			set `datesent`=now(),`status`='sent'
-			where `mailid`=$mailid;
-		else
-			update `emailqueue`
-			set `status`='not sent',`errormessage`=$errormessage
-			where `mailid`=$mailid;
-		end if;
-	END */$$
-DELIMITER ;
-
 /* Procedure structure for procedure `sp_validateuserprivilege` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `sp_validateuserprivilege` */;
 
 DELIMITER $$
 
-/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_validateuserprivilege`(`$userid` INT, `$objectid` INT)
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_validateuserprivilege`(`$userid` INT, `$objectcode` varchar(50))
 BEGIN
 	declare $admin int;
 	declare $valid int default 0;
-	set $admin=(select systemadmin from `user` where `id`=$userid);
+	
+	set $admin=(select systemadmin from `user` where `userid`=$userid);
 	if $admin=1 then
 		set $valid=1;
+	elseif exists(select * from `roleusers` ru 
+		join `roles` r on r.`roleid`=ru.`roleid` 
+		join `roleprivileges` p on r.roleid=p.roleid
+		join `objects` o on o.`id`=p.objectid 
+		where `code`=$objectcode and ru.userid=$userid and ru.deleted=0 and allowed=1) then
+		set $valid=1;
+	
 	else
-		set $valid=ifnull((select `allowed` from `userprivileges` where `userid`=$userid and `objectid`=$objectid),0);
+		set $valid=ifnull((select `allowed` from `userprivileges` up join objects o on o.id=up.objectid 
+		where `userid`=$userid and `code`=$objectcode),0);
 	end if;
 	
 	select $valid as `allowed`;

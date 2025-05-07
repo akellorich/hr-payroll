@@ -3,7 +3,7 @@
 <head>
    
     <?php  require_once("header.txt")?>
-    <title>HR-Payroll - Reports</title>
+    <title>Rentwise - Admin Dashboard</title>
 </head>
 <body>
     <input type="checkbox" name="nav-toggle" id="nav-toggle">
@@ -14,7 +14,7 @@
                 <label for="nav-toggle">
                     <i class="fas fa-bars"></i>
                 </label>
-                Reports
+                Contracts
             </h2>
 
             <div class="search-wrapper">
@@ -31,12 +31,13 @@
             </div>
         </div>
 
-        <main id="reportsdetails"> 
+        <main id="dashboard">
+           
         </main>
     </div>
     <!-- End of Template -->
 </body>
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js" integrity="sha256-qSIshlknROr4J8GMHRlW3fGKrPki733tLq+qeMCR05Q=" crossorigin="anonymous"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js" integrity="sha256-qSIshlknROr4J8GMHRlW3fGKrPki733tLq+qeMCR05Q=" crossorigin="anonymous"></script>
 <?php require_once("footer.txt")?>
-<script src="../js/reports.js"></script> 
+<script src="../js/contracts.js"></script> 
 </html>

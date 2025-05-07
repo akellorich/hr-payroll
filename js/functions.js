@@ -33,27 +33,45 @@ const patterns={
 }
 
 validationanchor.on("click",function(e){
-    const id=$(this).attr("data-id") 
-    let pagetonavigate=$(this).attr("href")
+    const objectcode=$(this).attr("data-id"), 
+        pagetonavigate=$(this).attr("href")
     e.preventDefault()
-    $.post(
-      "../controllers/useroperations.php",
-      {
-        getuserprivilege:true,
-        objectid: id
-      },
-      function(data){
-        const allowed=parseInt($.trim(data.toString()))
-        if(allowed==0){
-          bootbox.alert({
-            message: "Sorry. Your are not authorized to perform this operation.",
-          })
+    validateuserprivilege(objectcode).done(function(data){
+        if(data==0){
+            bootbox.alert({
+                message: `<i class="fal fa-exclamation-triangle fa-3x fa-fw text-danger"></i>Sorry. Your are not authorized to perform this operation.`,
+            })
         }else{
-          window.location.href=pagetonavigate
+            window.location.href=pagetonavigate
         }
-      }
+    })
+    // $.post(
+    //   "../controllers/useroperations.php",
+    //   {
+    //     getuserprivilege:true,
+    //     objectcode
+    //   },
+    //   function(data){
+    //     const allowed=parseInt($.trim(data.toString()))
+        
+    //   }
+    // )
+})
+
+function validateuserprivilege(objectcode){
+    const dfd=$.Deferred();
+    $.post(
+        "../controllers/useroperations.php",
+        {
+          getuserprivilege:true,
+          objectcode
+        },
+        function(data){
+          dfd.resolve(data)
+        }
     )
-   })
+    return dfd.promise()
+}
 
 function validatefielddata(validatevalue,format){
     return patterns[format].test(validatevalue)?true:false
@@ -1359,4 +1377,58 @@ function getshifts(obj,option='choose'){
     ) 
 }
 
+function getFirstDayOfMonth(monthName, year) {
+    const monthIndex = new Date(`${monthName} 1, ${year}`).getMonth();
+    const firstDay = new Date(year, monthIndex, 1);
+    return formatDate(firstDay);
+}
 
+function getLastDayOfMonth(monthName, year) {
+    const monthIndex = new Date(`${monthName} 1, ${year}`).getMonth();
+    const lastDay = new Date(year, monthIndex + 1, 0);
+    return formatDate(lastDay);
+}
+
+function isValidTime(time) {
+  // Regular expression to match the 24-hour format (HH:mm)
+  const regex = /^([01]?[0-9]|2[0-3]):([0-5]?[0-9])$/
+  return regex.test(time)
+}
+
+function getunits(obj,option='choose'){
+    $.getJSON(
+        "../controllers/settingsoperations.php",
+        {
+            getunits:true
+        },
+        (data)=>{
+            let results=option=='all'?"<option value='0'>&lt;All&gt;</option>":"<option value=''>&lt;Choose&gt;</option>"
+            // sort the 
+            data.forEach((unit)=>{
+                results+=`<option value='${unit.unitid}'>${unit.unitname}</option>`
+            })
+            obj.html(results)
+        }
+    ) 
+}
+
+function getsections(obj,departmentid,option='choose'){
+    dfd=$.Deferred()
+    $.getJSON(
+        "../controllers/settingsoperations.php",
+        {
+            getsections:true,
+            departmentid
+        },
+        (data)=>{
+            let results=option=='all'?"<option value='0'>&lt;All&gt;</option>":"<option value=''>&lt;Choose&gt;</option>"
+            // sort the 
+            data.forEach((section)=>{
+                results+=`<option value='${section.sectionid}'>${section.sectionname}</option>`
+            })
+            obj.html(results)
+            dfd.resolve()
+        }
+    ) 
+    return dfd.promise()
+}

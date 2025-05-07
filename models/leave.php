@@ -99,14 +99,16 @@
         }
 
         function saveleaveapplication($applicationid,$employeeid,$leavetypeid,$startdate,$enddate,$daystaken,
-        $relieverid,$supervisorid,$narration,$attachment){
+        $relieverid,$supervisorid,$narration,$attachment,$halfdayapplication,$shifthalf,$starttime,$endtime,$addtoattendance=0){
             $startdate=$this->mySQLDate($startdate);
             $enddate=$this->mySQLDate($enddate);
             if($this->checkemployeeleaveapplication($applicationid,$employeeid,$startdate,$enddate)){
                 return ["status"=>"exists","message"=>"another leave exists"];
             }else{
                 $sql="CALL `sp_saveleaveapplication`({$applicationid},{$employeeid},{$leavetypeid},'{$startdate}','{$enddate}',{$daystaken},
-                {$relieverid},{$supervisorid},'{$narration}','{$attachment}',{$this->userid},'{$this->platform}')";
+                {$relieverid},{$supervisorid},'{$narration}','{$attachment}',{$halfdayapplication},{$shifthalf},'{$starttime}','{$endtime}',
+                {$addtoattendance},{$this->userid},'{$this->platform}')";
+                // echo $sql;
                 $rst=$this->getData($sql);
                 // could return multiple values retrun one with application id 
                 do{
@@ -183,7 +185,10 @@
 
                 // the requestors email
                 $email=$rst[0]['emailaddress'];
-                $response=$GLOBALS['mail']->sendEmail($email,"Leave Application Receipt Status Notification",$emailmessage,$_SESSION['username']);
+                $emailfrom=$_SESSION['username'];
+                $subject="Leave Application Receipt Status Notification";
+                $GLOBALS['mail']->queueemail('HR',$emailfrom,$email,$subject,$emailmessage);
+                // $response=$GLOBALS['mail']->sendEmail($email,"Leave Application Receipt Status Notification",$emailmessage,$_SESSION['username']);
                 // echo $response;
                 return ["status"=>"success","message"=>"employee email receipt notification sent successfully"];
 
@@ -202,9 +207,7 @@
                 $emailmessage=file_get_contents($template_file);
                 // email employee
                 $rst=json_decode($this->getleaveapplicationemployeedetails($applicationid),true);
-                // print_r($rst).PHP_EOL;
-                // swap variables with actual content
-                // echo $approvallevel.PHP_EOL;
+
                 if($approvallevel=="supervisor"){
                      $approvallevelname="Supervisor Level";
                 }else if($approvallevel=="hrmanager"){
@@ -236,7 +239,12 @@
                     }
                 }
 
-                $response=$GLOBALS['mail']->sendEmail($approveremail,"Leave Application Approval Request for $approvallevelname ",$emailmessage,$_SESSION['username']);  
+                // $email=$rst[0]['emailaddress'];
+                $emailfrom=$_SESSION['username'];
+                $subject="Leave Application Approval Request for $approvallevelname ";
+                $GLOBALS['mail']->queueemail('HR',$emailfrom,$approveremail,$subject,$emailmessage);
+
+                // $response=$GLOBALS['mail']->sendEmail($approveremail,"Leave Application Approval Request for $approvallevelname ",$emailmessage,$_SESSION['username']);  
                 // echo $response;
                 return ["status"=>"success","message"=>"employee email receipt notification sent successfully"];
             }
@@ -247,7 +255,7 @@
             return $this->getJSON($sql);
         }
 
-        function approveleave($applicationid,$approvallevelid,$approvalstatus,$narration){
+        function approveleave($applicationid,$approvallevelid,$approvalstatus,$narration,$emailnextapprover=1,$emailreliever=1){
             $sql="CALL `sp_approveleave`({$applicationid},{$approvallevelid},'{$approvalstatus}','{$narration}',{$this->userid},'{$this->platform}')";
             $this->getData($sql);
             // email next authorising officer if any
@@ -255,17 +263,21 @@
             // print_r($response); 
             if($approvalstatus=="approved"){
                 if(count($response)>0){
-                    $approvallevel=$response[0]['approvallevel'];
-                    $approvaluser=explode(",",$response[0]['approvaluser']);
-                    $approvername=$approvaluser[0];
-                    $approvalusermobile=$approvaluser[1];
-                    $approveremail=$approvaluser[2];
-                    $this->approvaluseremailapprovalrequest($applicationid,$approvername,$approvallevel,$approveremail);
+                    if($emailnextapprover==1){
+                        $approvallevel=$response[0]['approvallevel'];
+                        $approvaluser=explode(",",$response[0]['approvaluser']);
+                        $approvername=$approvaluser[0];
+                        $approvalusermobile=$approvaluser[1];
+                        $approveremail=$approvaluser[2];
+                        $this->approvaluseremailapprovalrequest($applicationid,$approvername,$approvallevel,$approveremail);
+                    }  
                 }else{
                     // confirm for the employee if this is the last level
                     $this->employeeleavefullapprovalnotification($applicationid);
                     // also notify the reliever
-                    $this->leaverelieverapprovalnotification($applicationid);
+                    if($emailreliever==1){
+                        $this->leaverelieverapprovalnotification($applicationid);
+                    } 
                 }
             }else{
                 // notify the applicant of the cancellation
@@ -292,7 +304,7 @@
                     "{{enddate}}"=>$rst[0]['enddate'],
                     "{{daystaken}}"=>$rst[0]['daystaken'],
                     "{{narration}}"=>$rst[0]['narration'],
-                    "{{documenttitle}}"=>"Leave Application Receipt Status Notification",
+                    "{{documenttitle}}"=>"Leave Application Approval Completion Notification",
                     "{{username}}"=>$_SESSION['username'],
                     "{{year}}"=>date("Y"),
                 );
@@ -306,7 +318,10 @@
 
                 // the requestors email
                 $email=$rst[0]['emailaddress'];
-                $response=$GLOBALS['mail']->sendEmail($email,"Leave Application Full Approval Notification",$emailmessage,$_SESSION['username']);
+                $emailfrom=$_SESSION['username'];
+                $subject="Leave Application Approval Completion Notification";
+                $GLOBALS['mail']->queueemail('HR',$emailfrom,$email,$subject,$emailmessage);
+                // $response=$GLOBALS['mail']->sendEmail($email,"Leave Application Full Approval Notification",$emailmessage,$_SESSION['username']);
                 // echo $response;
                 return ["status"=>"success","message"=>"employee full approval notification email sent successfully"];
             }  
@@ -344,7 +359,11 @@
 
                 // the relievers email
                 $email=$rst[0]['relieveremailaddress'];
-                $response=$GLOBALS['mail']->sendEmail($email,"Leave Application Full Approval Notification",$emailmessage,$_SESSION['username']);
+                $emailfrom=$_SESSION['username'];
+                $subject="Reliever Leave Application Full Approval Notification";
+                $GLOBALS['mail']->queueemail('HR',$emailfrom,$email,$subject,$emailmessage);
+                
+                // $response=$GLOBALS['mail']->sendEmail($email,"Leave Application Full Approval Notification",$emailmessage,$_SESSION['username']);
                 // echo $response;
                 return ["status"=>"success","message"=>"reliever leave full approval notification email sent successfully"];
             }  
@@ -390,9 +409,13 @@
                     }
                 }
 
+                // echo $emailmessage;
                 // the requestors email
                 $email=$rst[0]['emailaddress'];
-                $response=$GLOBALS['mail']->sendEmail($email,"Leave Application Decline Status Notification",$emailmessage,$_SESSION['username']);
+                $emailfrom=$_SESSION['username'];
+                $subject="Leave Application Decline Status Notification";
+                $GLOBALS['mail']->queueemail('HR',$emailfrom,$email,$subject,$emailmessage);
+                // $response=$GLOBALS['mail']->sendEmail($email,"Leave Application Decline Status Notification",$emailmessage,$_SESSION['username']);
                 // echo $response;
                 return ["status"=>"success","message"=>"employee email approval decline notification sent successfully"];
             }

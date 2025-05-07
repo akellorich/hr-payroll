@@ -3,6 +3,18 @@
     $sql='';
     require_once("browser.php");
 
+    
+    function generate_random_no($length=20){
+        if (function_exists("random_bytes")) {
+            $bytes = random_bytes(ceil($length / 2));
+        } elseif (function_exists("openssl_random_pseudo_bytes")) {
+            $bytes = openssl_random_pseudo_bytes(ceil($length / 2));
+        } else {
+            throw new Exception("no cryptographically secure random function available");
+        }
+        return substr(bin2hex($bytes), 0, $length);
+    }
+
     class db{
         private $servername;
         private $username;
@@ -80,5 +92,30 @@
             $s = preg_replace('/(\w+):/i', '"\1":', $s);                   
             return json_decode($s);                                        
         } 
+
+        function connectmssqlserver(){
+            $serverName = "richard-pc"; // or "hostname\SQLEXPRESS" or IP address
+            $database = "attendance";
+            $username = "sa";
+            $password = "k@r1bu";
+
+            try {
+                $conn = new PDO("sqlsrv:Server=$serverName;Database=$database", $username, $password);
+                $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                return $conn;
+                echo "Connected successfully!";
+            } catch (PDOException $e) {
+                echo "Connection failed: " . $e->getMessage();
+            }
+        }
+
+        function getmssqldata($sql){
+            return $this->connectmssqlserver()->query($sql);
+        }
+
+        function getmssqljson($sql){
+            $rst= $this->getmssqldata($sql);
+            return json_encode($rst->fetchAll(PDO::FETCH_ASSOC));
+        }
     }
 ?>

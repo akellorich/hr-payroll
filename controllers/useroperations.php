@@ -3,40 +3,32 @@
     $user=new user();
 
     if(isset($_POST['loginuser'])){
+        // $database=$_GET['company'];
         $username=$_POST['username'];
         $password=$_POST['password'];
-        $response= $user->logUserIn($username,$password);
-        echo json_encode($response);
+        // $_SESSION['dbname']=$database;
+        echo json_encode($user->logUserIn($username,$password));
+        //echo json_encode($result);
     }
-
     if(isset($_GET['getuserdetails'])){
         $userid=$_GET['userid'];
-        echo $user->getUserDetails($userid);
+        $user->getUserDetails($userid);
     }
-
     if(isset($_POST['deleteuser'])){
         $userid=$_POST['userid'];
-        $response=$user->deleteUser($userid);
-        echo json_encode($response);
+        $user->deleteUser($userid);
     }
-
     if(isset($_GET['getloggedinusername'])){
         echo $user->getLoggedInUserName();
     }
-
     if(isset($_GET['getloggedinuserid'])){
         echo $user->getloggedinUserId();
     }
-
-    if(isset($_GET['getloggedinuser'])){
-        echo $user->getUserDetails($_SESSION['userid']);
-    }
-
     if(isset($_GET['logout'])){
+        //redirect to the login page
         session_destroy();
-        header('Location: ../index.php'); 
+        header('Location: ../index.html'); 
     }
-
     if(isset($_POST['saveuserprivileges'])){
         $pattern='::';
         $userid=$_POST['userid'];
@@ -50,14 +42,13 @@
                 $valid=$privilegedetail[1];
                 $user-> saveUserPrivilege($userid,$objectid,$valid);
             }
-            echo json_encode(["status"=>"success","message"=>"user privilege saved successfully"]);
+            echo "Success";
         }
     }
 
     if(isset($_POST['getuserprivilege'])){
-        $objectid=$_POST['objectid'];
-        $status=["allowed"=>$user->checkUserPrivilege($objectid)];
-        echo json_encode($status);
+        $objectcode=$_POST['objectcode'];
+        echo $user->checkUserPrivilege($objectcode);
     }
 
     if(isset($_GET['getuserslist'])){
@@ -84,7 +75,7 @@
  
     if(isset($_GET['getroleusers'])){
         $roleid=$_GET['roleid'];
-        echo $user->getRoleUsers($roleid);
+        $user->getRoleUsers($roleid);
     }
  
     if(isset($_POST['saverole'])){
@@ -92,7 +83,7 @@
         $roleid=$_POST['roleid'];
         $rolename=$_POST['rolename'];
         $roledescription=$_POST['roledescription'];
-        $refno=mt_rand(1000,9999);
+        $refno=$user->generateid();
         $tableData = stripcslashes($_POST['TableData']);
         // Decode the JSON array
         $tableData = json_decode($tableData,TRUE);
@@ -104,8 +95,7 @@
                  $valid=$roleprivilege['valid'];
                  $user->saveTempPrivileges($refno,$roleid,$objectid,$valid);
              }
-             $response= $user->savePrivileges($refno,$roleid,$category);
-             echo json_encode($response);
+             echo $user->savePrivileges($refno,$roleid,$category);
         }else{
             echo $roleid;
         }
@@ -113,40 +103,39 @@
  
     if(isset($_GET['getroledetails'])){
         $roleid=$_GET['roleid'];
-        echo $user->getRoleDetails($roleid);
+        $user->getRoleDetails($roleid);
     }
  
     if(isset($_GET['getroleprivileges'])){
         $roleid=$_GET['roleid'];
-        echo $user-> getRolePrivileges($roleid);
+        $user-> getRolePrivileges($roleid);
     }
 
     if(isset($_GET['getrolesforassignment'])){
-        echo $user->getRolesForAssignment();
+        $user->getRolesForAssignment();
     }
 
     if(isset($_GET['getusernonroles'])){
         $userid=$_GET['userid'];
-        echo $user->getUserNonRoles($userid);
+        $user->getUserNonRoles($userid);
     }
 
     if(isset($_POST['saveuserroles'])){
-     $userid=$_POST['userid'];
-     $tableData = stripcslashes($_POST['TableData']);
-     // Decode the JSON array
-     $tableData = json_decode($tableData,TRUE);
-     foreach($tableData as $userrole){
-         $roleid=$userrole['roleid'];
-         $user->addUserToRole($userid,$roleid);
-     }
-     echo json_encode(["status"=>"success","message"=>"user added to roles successfully"]);
+        $userid=$_POST['userid'];
+        $tableData = stripcslashes($_POST['TableData']);
+        // Decode the JSON array
+        $tableData = json_decode($tableData,TRUE);
+        foreach($tableData as $userrole){
+            $roleid=$userrole['roleid'];
+            $user->addUserToRole($userid,$roleid);
+        }
+        echo "success";
     }
 
     if(isset($_POST['removeuserrole'])){
         $userid=$_POST['userid'];
         $roleid=$_POST['roleid'];
-        $response=$user->removeUserRole($userid,$roleid);
-        echo json_encode($response);
+        $user->removeUserRole($userid,$roleid);
     }
 
     if(isset($_GET['getusersdetails'])){
@@ -163,7 +152,8 @@
     if(isset($_POST['saveuser'])){
         $userid=$_POST['userid'];
         $username=$_POST['username'];
-        $password=hash('SHA256',$_POST['password']);
+        $password=$_POST['password'];
+        $passwordsalt=generate_random_no(20);
         $email=$_POST['email'];
         $mobile=$_POST['mobile'];
         $firstname=$_POST['firstname'];
@@ -172,86 +162,137 @@
         $systemadmin=$_POST['systemadmin'];
         $changepasswordonlogon=$_POST['changepasswordonlogon'];
         $accountactive=1;#$_POST['accountactive'];
-        $refno=mt_rand(1000,9999);
+        $refno=generate_random_no(10);
         $category='user';
-        $salt=$user->uniqidReal(40);
+        // $pin=$_POST['pin'];
+        // $pinsalt=generate_random_no(20);
+
         $tableData = stripcslashes($_POST['TableData']);
         // Decode the JSON array
         $tableData = json_decode($tableData,TRUE);
         // save the user and return user id
-        $institutionid=isset($_POST['institutionid'])?$_POST['institutionid']:1;
-        $userid= $user->saveUser($userid,$username,$password,$salt,$firstname,$middlename,$lastname,$mobile,$email,$systemadmin,$accountactive,$changepasswordonlogon,$institutionid);
+        $response= $user->saveUser($userid,$username,$password,$passwordsalt,$firstname,$middlename,$lastname,$mobile,
+        $email,$systemadmin,$accountactive,$changepasswordonlogon);
     
-        if(is_numeric($userid)){
+        if($response['status']=="success"){
+            $userid=$response['userid'];
             foreach($tableData as $userprivilege){
                 $objectid=$userprivilege['id'];
                 $valid=$userprivilege['valid'];
                 $user->saveTempPrivileges($refno,$userid,$objectid,$valid);
             }
-            $response=$user->savePrivileges($refno,$userid,$category);
-            echo json_encode($response);
-        }else{
-            echo $userid;
-        } 
+            $user->savePrivileges($refno,$userid,$category);
+        }
+        echo json_encode($response);
     }
-
+   
     if(isset($_POST['changeaccountstatus'])){
         $activity=$_POST['activity'];
         $id=$_POST['id'];
         $reason=$_POST['reason'];
         if($activity=="disable"){
-            $response= $user->disableUserAccount($id,$reason);
+            echo $user->disableUserAccount($id,$reason);
         }else{
-            $response= $user->enableUserAccount($id);
+            echo $user->enableUserAccount($id);
         }
-
-        echo json_encode($response);
     }
 
     if(isset($_POST['resetuserpassword'])){
         $id=$_POST['id'];
         $password=$_POST['password'];
-        $response= $user->resetUserPassword($id,$password);
-        echo json_encode($response);
+        echo $user->resetUserPassword($id,$password);
     }
 
-    if(isset($_POST['recoveruserpassword'])){
-        $username=$_POST['username'];
-        $userid=$user->getuseridfromname($username);
-        if($userid!==''){
-            $user->resetUserPassword($userid,'');
-            return ["status"=>"success","message"=>"user password reset successfully"];
+    if(isset($_GET['getloggedinuserdetails'])){
+        if(isset($_SESSION['username'])){
+            echo json_encode(array(
+                "status"=>"success",
+                "username"=>$_SESSION['username'],
+                "userimage"=>$_SESSION['userimage']
+            ));
         }else{
-            return ["status"=>"not exists","message"=>"user not found"] ;
+            echo json_encode(array(
+                "status"=>"error",
+                "message"=>'User not logged in'
+            ));
         }
-        
     }
 
-    // if(isset($_GET['getuserassignedcompanies'])){
-    //         $userid=$_GET['userid'];
-    //         echo $user->getuserassignedcompanies($userid);
-    // }
+    if(isset($_GET['logoutmobiuser'])){
+        $user->logUserOut();
+        header('Location: ../mobi/index.php'); 
+    }
 
-    // if(isset($_GET['getuserunassignedcompanies'])){
-    //     $userid=$_GET['userid'];
-    //     echo $user->getuserunassignedcompanies($userid);
-    // }
+    if(isset($_POST['saverequisitionprivilege'])){
+        // save requisition privileges
+            $userid=$_POST['userid'];
+            $privileges=json_decode(stripcslashes($_POST['privileges']),TRUE);
+            foreach($privileges as $privilege){
+                $departmentid=$privilege['departmentid'];
+                $approvallevelid=$privilege['approvallevelid'];
+                $valid=$privilege['valid'];
+                $user->saverequisitionprivilege($userid,$approvallevelid,$departmentid,$valid);
+            }
+            // save purchase order privileges
+            $poprivileges=json_decode(stripcslashes($_POST['poprivileges']),TRUE);
+            foreach($poprivileges as $privilege){
+                $departmentid=$privilege['departmentid'];
+                $approvallevelid=$privilege['approvallevelid'];
+                $valid=$privilege['valid'];
+                $user->savepurchaseorderprivilege($userid,$approvallevelid,$departmentid,$valid);
+            }
+            echo "success";
+    }
 
-    // if(isset($_POST['saveusercompany'])){
-    //     $companies=json_decode(stripcslashes($_POST['companies']),true);
-    //     $userid=$_POST['userid'];
-    //     foreach($companies as $company){
-    //         $companyid=$company['companyid'];
-    //         $user->saveusercompany($userid,$companyid);
-    //     }
-    //     echo "success";
-    // }
+    if(isset($_GET['getuserrequisitionapprovalprivileges'])){
+        $userid=$_GET['userid'];
+        echo $user->getuserrequisitionapprovalprivileges($userid);
+    }
 
-    if(isset($_POST['changeuserpassword'])){
+    if(isset($_GET['getuserpurchaseorderapprovalprivileges'])){
+        $userid=$_GET['userid'];
+        echo $user->getuserpurchaseorderapprovalprivileges($userid);
+    }
+
+    if(isset($_POST['uploadsignature'])){      
+        $userid=isset($_POST['userid'])?$_POST['userid']:$_SESSION['userid'];
+        $documentname="../images/signatures/".$user->generateid(20).'_'.$_FILES['file']['name'];
+        $tempname=$_FILES['file']['tmp_name'];
+        if(move_uploaded_file($tempname,$documentname)){
+            echo $user->saveusersignature($userid,$documentname);
+        }else{
+            echo "File was not uploaded. Please try again";
+        }
+    }
+
+    if(isset($_POST['uploadprofilephoto'])){
+        $userid=isset($_POST['userid'])?$_POST['userid']:$_SESSION['userid'];
+        $documentname="../images/user_profiles/".$user->generateid(20).'_'.$_FILES['file']['name'];
+        $tempname=$_FILES['file']['tmp_name'];
+        if(move_uploaded_file($tempname,$documentname)){
+            echo $user->saveuserprofilephoto($userid,$documentname);
+        }else{
+            echo "File was not uploaded. Please try again";
+        }
+    }
+
+    if(isset($_POST['resetuserpin'])){
         $userid=$_POST['userid'];
-        $oldpassword=$_POST['oldpassword'];
-        $newpassword=$_POST['newpassword'];
-        $response= $user->changeUserPassword($userid,$oldpassword,$newpassword,0);
-        echo json_encode($response);
+        $pin=$_POST['pin'];
+        $pinsalt=generate_random_no(20);
+        echo json_encode($user->resetuserpin($userid,$pin,$pinsalt));
+    }
+
+    if(isset($_GET['loginuserbypin'])){
+        $username=$_GET['username'];
+        $pin=$_GET['pin'];
+        $database=$_GET['company'];
+        $_SESSION['dbname']=$database;
+        echo json_encode($user->loginuserbypin($username,$pin));
+    }
+
+    if(isset($_GET['checkuserprivilegewithcode'])){
+        $code=$_GET['code'];
+        echo json_encode($user->checkuserprivilegewithcode($code));
     }
 ?>

@@ -46,6 +46,9 @@
         $alternativemobile=$_POST['alternativemobile'];
         $alternativeemailaddress=$_POST['alternativeemailaddress'];
         $positionid=$_POST['positionid'];
+        $unitid=$_POST['unitid'];
+        $sectionid=$_POST['sectionid'];
+        $shiftid=$_POST['shiftid'];
 
         if($separationdate==""){
             $separationdate="31-Dec-2100";
@@ -59,7 +62,8 @@
             $religionid,$salutationid,$iddocumentid,$iddocreferenceno,$iddocexpirydate,$dateofbirth,$gender,$pinno,$nssfno,
             $nhifno,$disabled,$disabilitytype,$disabilitydescription,$onpayroll,$fixedpaye,$status,$positionid,$jobgroupid,$notchid,
             $bankbranchid,$accountnumber,$employmentdate,$separationdate,$separationreason,$physicaladdress,$postaladdress,$town,
-            $postalcode,$mobile,$emailaddress,$alternativemobile,$alternativeemailaddress,$generatestaffno,$disabilitycertificateno);
+            $postalcode,$mobile,$emailaddress,$alternativemobile,$alternativeemailaddress,$generatestaffno,$disabilitycertificateno,
+            $unitid,$sectionid,$shiftid);
 
         echo json_encode($response);
     }
@@ -83,6 +87,9 @@
         $salutation=$_GET['salutation'];
         $religion=$_GET['religion'];
         $registrationdocument=$_GET['registrationdocument'];
+        // $unitid=$_GET['unitid'];
+        // $sectionid=$_GET['sectionid'];
+        // $shiftid=$_GET['shiftid'];
         echo $employee->filteremployees($staffno,$staffname,$regdocno,$pinno,$nssfno,$nhifno,$status,$gender,$disability,$onpayroll,
         $category,$terms,$position,$jobgroup,$notch,$salutation,$religion,$registrationdocument);
     }
@@ -529,5 +536,22 @@
     if(isset($_GET['getdepartmentactiveemployees'])){
         $departmentid=$_GET['departmentid'];
         echo $employee->getdepartmentactiveemployees($departmentid);
+    }
+
+    if(isset($_GET['filterstaffbyunitdepartmentsection'])){
+        $unitid=$_GET['unitid'];
+        $departmentid=$_GET['departmentid'];
+        $sectionid=$_GET['sectionid'];
+        echo $employee->filterstaffbyunitdepartmentsection($unitid,$departmentid,$sectionid);
+    }
+
+    if(isset($_POST['changestaffshift'])){
+        $employees=json_decode(stripcslashes($_POST['employees']),true);
+        $shiftid=$_POST['shiftid'];
+        foreach($employees as $employeeid){
+            $employee->savestaffshift($employeeid,$shiftid);
+        }
+        $response=["status"=>"success","message"=>"staff shifts changed successfully"];
+        echo json_encode($response);
     }
 ?>

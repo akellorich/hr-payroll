@@ -9,35 +9,56 @@
     <div class="sidebar-menu">
         <ul>
             <li>
-                <a href="dashboard.php" class='validation' data-id=48 id="dashboard">
+                <a href="dashboard.php" class='validation' data-id='1x001' id="dashboard">
                     <span><i class="fal fa-tachometer"></i></span>
                     <span>Dashboard</span>
                 </a>
             </li>
 
-             <li>
-                <a href="payroll.php" class='validation' data-id=2 id="payroll">
-                    <span><i class="fal fa-house-user"></i></span>
+            <li>
+                <a href="employees.php" class='validation' data-id='2x001' id="employees">
+                    <span><i class="fal fa-users"></i></span>
+                    <span>Employees</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="payroll.php" class='validation' data-id='3x001' id="payroll">
+                    <span><i class="fal fa-envelope-open-dollar"></i></span>
                     <span>Payroll</span>
                 </a>
             </li> 
 
             <li>
-                <a href="attendance.php" class='validation' data-id=2 id="attendance">
-                    <span><i class="fal fa-users"></i></span>
+                <a href="attendance.php" class='validation' data-id='8x001' id="attendance">
+                    <span><i class="fal fa-clock"></i></span>
                     <span>Attendance</span>
                 </a>
             </li>
 
+             <li>
+                <a href="leave.php" class='validation' data-id='4x001' id="leave">
+                    <span><i class="fal fa-umbrella-beach"></i></span>
+                    <span>Leaves</span>
+                </a>
+            </li>
+
             <li>
-                <a href="recruitment.php" class='validation' data-id=2 id="recruitment">
-                    <span><i class="fal fa-house-user"></i></span>
+                <a href="recruitment.php" class='validation' data-id='5x001' id="recruitment">
+                    <span><i class="fal fa-users"></i></span>
                     <span>Recruitment</span>
                 </a>
             </li> 
 
             <li>
-                <a href="settings.php" id="settings" class='validation' data-id=14>
+                <a href="contracts.php" class='validation' data-id='6x001' id="contracts">
+                    <span><i class="fal fa-file-contract"></i></span>
+                    <span>Contracts</span>
+                </a>
+            </li> 
+
+            <li>
+                <a href="settings.php" id="settings" class='validation' data-id='7x001'>
                     <span><i class="fal fa-cog"></i></span>
                     <span>Settings</span>
                 </a>
@@ -45,14 +66,14 @@
 
 
             <li>
-                <a href="reports.php" id="reports" class='validation' data-id=56>
+                <a href="reports.php" id="reports" class='validation' data-id='9x001'>
                     <span><i class="fal fa-chart-line"></i></span>
                     <span>Reports</span>
                 </a>
             </li>
 
             <li>
-                <a href="users.php" id="users" class='validation' data-id=6>
+                <a href="users.php" id="users" class='validation' data-id='1x002'>
                     <span><i class="fal fa-users-cog"></i></span>
                     <span>Users</span>
                 </a>

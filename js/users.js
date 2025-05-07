@@ -1,6 +1,7 @@
-$(document).ready(()=>{
+$(document).ready(function(){
     const currentmenu=$("#users")
     setactivemenu(currentmenu)
+    getloggedinuser()
 
     const userdetailstab=$("#userdetails"),
         roledetailstab=$("#roledetails"),
@@ -41,19 +42,34 @@ $(document).ready(()=>{
         selectalluserprivileges=$("#selectalluserprivileges"),
         selectallroleprivileges=$("#selectallroleprivileges"),
         resetpasswordbutton=$("#changepasswordbutton"),
-        specialpermissionsmodal=$("#specialpermissionsmodal"),
-        specialpermissionsbutton=$("#specialpermissions"),
-        requisitionprivilegestable=$("#requisitionprivilegestable"),
-        purchaseorderprivilegestable=$("#purchaseorderprivilegestable"),
-        saveuserspecialprivileges=$("#saveuserspecialprivileges"),
-        loadsignaturebutton=$("#signaturedocument"),
-        signaturepreview=$("#signaturepreview"),
-        attachmenterror=$("#attachmenterror")
-       
+        nonuseroutlets=$("#usernonoutlets"),
+        saveuseroutlet=$("#saveuseroutlet"),
+        useroutleterror=$("#useroutleterrors"),
+        userouletlist=$("#useroutletslist"),
+        pinfield=$("#pin"),
+        confirmpinfield=$("#confirmpin"),
+        resetuserpinbutton=$("#resetpinbutton"),
+        pinresetmodal=$("#pinresetmodal"),
+        saveresetuserpinbutton=$("#saveresetuserpin"),
+        resetpinnotifications=$("#resetpinnotifications"),
+        newpinfield=$("#userresetpin"),
+        inputfield=$("input"),
+        selectfield=$("select")
+
+    inputfield.on("input",()=>{
+        errordiv.html("")
+        resetpinnotifications.html("")
+        localusernotifications.html("")
+    })
+
+    selectfield.on("change",()=>{
+        inputfield.trigger("input")
+    })
+
     // get system modules
     getSystemModules()
     // set logged in user
-    getloggedinuser()
+    // setLoggedInUserName()
     // hide roles tab details by default
     roledetailstab.hide()
     //get all users
@@ -96,8 +112,8 @@ $(document).ready(()=>{
         $.getJSON(
             "../controllers/useroperations.php",
             {
-                getuserdetails:true,
-                userid
+                getusersdetails:true,
+                userid:userid
             },
             function(data){
                 useridfield.val(data[0].id)
@@ -109,16 +125,19 @@ $(document).ready(()=>{
                 emailfield.val(data[0].email)
                 passwordfield.prop("disabled",true)
                 confirmpasswordfiel.prop("disabled",true)
-                // load users signature if set
+                pinfield.prop("disabled",true)
+                confirmpinfield.prop("disabled",true)
+                
+                // load signature preview 
                 if(data[0].signature!=""){
                     signaturepreview.prop("src",data[0].signature)
                 }
                 // check status and change the caption od change status button as approriate
                 if(data[0].accountactive==1){
-                    changestatusbutton.html( `<i class="fal fa-user-slash fa-lg fa-fw"></i> Disable` )
+                    changestatusbutton.html( "Disable User" )
                     accountactivefield.val(1)
                 }else{
-                    changestatusbutton.html( `<i class="fal fa-user-check fa-lg fa-fw"></i> Enable` )
+                    changestatusbutton.html( "Enable User" )
                     accountactivefield.val(0)
                 }
                 if(data[0].systemadmin==1){
@@ -147,7 +166,7 @@ $(document).ready(()=>{
                         for(var i=0;i<data.length;i++){
                             userroles+="<tr class='clickable-row' id='"+data[i].roleid+"'>"
                             userroles+="<td>"+data[i].rolename+"</td>"
-                            userroles+="<td class='text-align-right'><a href='javascript void(0)' class='deleteuserrole text-danger' data-id='"+data[i].roleid+"'><span><i class='fal fa-minus-circle fa-lg fa-fw'></i></span></a></td></tr>"
+                            userroles+="<td class='text-align-right'><a href='javascript void(0)' class='deleteuserrole text-danger' data-id='"+data[i].roleid+"'><span><i class='fas fa-trash-alt fa-lg'></i></span></a></td></tr>"
                         }
                         userroles+="<table>"
                     }else{
@@ -157,6 +176,28 @@ $(document).ready(()=>{
                 userroleslist.html(userroles)
                 }
             )
+        }
+        // get user non-outlets
+        if(userid!=""){
+            $.getJSON(
+                "../controllers/posoperations.php",
+                {
+                    getnonuseroutlets:true,
+                    userid:userid
+                },
+                function(data){
+                    var results=''
+                    for(var i=0;i<data.length;i++){
+                        results+="<input type='checkbox' class='"+data[i].id+" useroutlettoadd' id='"+data[i].id+"'>&nbsp;"+data[i].posname+"<br/>"
+                    }
+                    nonuseroutlets.html(results)
+                }
+            )
+        }
+        
+        // get user outlets 
+        if(userid!=""){
+            getuseroutlets(userid)
         }
        
         // get users privileges
@@ -187,20 +228,22 @@ $(document).ready(()=>{
 
     saveuserbutton.on("click",function(){
         // check for blank fields
-        var userid=useridfield.val(),
-            username=usernamefield.val(),
-            password=passwordfield.val(),
-            confirmpassword=confirmpasswordfiel.val()
-            firstname=firstnamefield.val(),
-            middlename=middlenamefield.val(),
-            lastname=lastnamefield.val(),
-            mobile=mobilefield.val(),
-            email=emailfield.val()
+        const userid=useridfield.val(),
+            username=sanitizestring(usernamefield.val()),
+            password=passwordfield.val().replace("'","''"),
+            // pin=pinfield.val().replace("'","''"),
+            // confirmpin=confirmpinfield.val().replace("'","''"),
+            confirmpassword=confirmpasswordfiel.val().replace("'","''"),
+            firstname=sanitizestring(titleCase(firstnamefield.val())),
+            middlename=sanitizestring(titleCase(middlenamefield.val())),
+            lastname=sanitizestring(titleCase(lastnamefield.val())),
+            mobile=sanitizestring(mobilefield.val()),
+            email=sanitizestring(emailfield.val().toLowerCase()),
             systemadmin=systemadminbutton.prop("checked")?1:0,
             accountactive=accountactivefield.val()==1?1:0,
-            changepasswordonlogon=changepasswordonlogonbutton.prop("checked")?1:0,
-            errors='',
-            data=[]
+            changepasswordonlogon=changepasswordonlogonbutton.prop("checked")?1:0
+
+        let errors='',data=[]
         if(username==""){
             errors="Please provide a <strong>USERNAME</strong>"
             usernamefield.focus()
@@ -213,6 +256,9 @@ $(document).ready(()=>{
         }else if (password=="" && !passwordfield.prop("disabled")){
             errors="Please provide a <strong>PASSWORD</strong></p>"
             passwordfield.focus()
+        // }else if(pin=="" && !pinfield.prop("disabled")){
+        //     errors="Please provide <strong> PIN</strong>"
+        //     pinfield.focus()
         }else if(email==""){
             errors="Please provide <strong>EMAIL ADDRESS</strong></p>"
             emailfield.focus()
@@ -222,6 +268,8 @@ $(document).ready(()=>{
         }else if(password!=confirmpassword && !passwordfield.prop("disabled")){ 
             // check if password entries match
             errors="<strong>PASSWORD</strong> entries do not match</p>"
+        // }else if(pin!==confirmpin && !pinfield.prop("disabled")){
+        //     errors="<strong>PIN</strong> entries do not match"
         }
 
         /* get the privileges set */
@@ -231,13 +279,14 @@ $(document).ready(()=>{
                 data.push({id: id, valid:1})
             }
         })
+        
         userroleerrors
         TableData=JSON.stringify(data)
 
         if(errors==""){ 
             // save the user  
-            errordiv.html("<p class='alert alert-info'>Processing...</p>")
-           $.post(
+            errordiv.html(showAlert("processing","Processing. Please wait ...",1))
+            $.post(
                "../controllers/useroperations.php",
                {
                    saveuser:true,
@@ -252,26 +301,40 @@ $(document).ready(()=>{
                    systemadmin:systemadmin,
                    changepasswordonlogon: changepasswordonlogon,
                    accountactive:accountactive,
+                //    pin:pin,
                    TableData:TableData
                },
                function(data){
-                   data=$.trim(data)
-                   if(data=="success"){
-                    errors="<div class='alert alert-success font-weight-bold' role='alert'><i class='far fa-check-circle fa-lg'></i> User has been saved sucessfully.</div>"
-                        //errors="<p class='alert alert-success'>The User has been saved successfully.</p>"
-                        // clear the form
-                        clearUserForm()
-                        // refresh the list
-                        getUsers()
-                   }else{
-                    errors="<div class='alert alert-danger font-weight-bold' role='alert'><i class='far fa-times-circle fa-lg'></i> "+data+"</div>"
-                   }
-                   errordiv.html(errors)
-               }
-           )
+                    if(isJSON(data)){
+                        data=JSON.parse(data)
+                        if(data.status=="success"){
+                            errordiv.html(showAlert("success","User has been saved successfully."))
+                            // errors="<div class='alert alert-success font-weight-bold' role='alert'><i class='far fa-check-circle fa-lg'></i> User has been saved sucessfully.</div>"
+                            //errors="<p class='alert alert-success'>The User has been saved successfully.</p>"
+                            // clear the form
+                            clearUserForm()
+                            // refresh the list
+                            getUsers()
+                        }else if(data.status=="exists"){
+                            if(data.category=="username"){
+                                errordiv.html(showAlert("info","Username already in use in the system."))
+                                usernamefield.focus()
+                            }else if(data.category=="email"){
+                                errordiv.html(showAlert("info","Email address already in use in the system."))
+                                emailfield.focus()
+                            }else if(data.category=="mobile"){
+                                errordiv.html(showAlert("info","Mobile number already in use in the system."))
+                                mobilefield.focus()
+                            }
+                        }
+                    }else{
+                        errordiv.html(showAlert("danger",`Sorry an error occured ${data}`))
+                    }
+                }
+            )
         }else{
-            errors="<div class='alert alert-info' role='alert'><i class='fas fa-info-circle fa-lg'></i> "+errors+"</div>"
-            errordiv.html(errors)
+            // errors="<div class='alert alert-info' role='alert'><i class='fas fa-info-circle fa-lg'></i> "+errors+"</div>"
+            errordiv.html(showAlert("info",errors))
         }
     })
     
@@ -302,7 +365,7 @@ $(document).ready(()=>{
         $.getJSON(
             "../controllers/useroperations.php",
             {
-                getusers:true
+                getuserslist:true
             },
             function(data){
                 var results="<option value=''>&lt;Choose One&gt;</option>"
@@ -527,14 +590,14 @@ $(document).ready(()=>{
             buttons: {
                 success: {
                     label: "No, Keep",
-                    className: "btn-success btn-sm",
+                    className: "btn-success",
                     callback: function() {
                         $('.bootbox').modal('hide');
                     }
                 },
                 danger: {
                     label: "Yes, Remove",
-                    className: "btn-danger btn-sm",
+                    className: "btn-danger",
                     callback: function() {
                         //console.log(parent)
                         $.post(
@@ -559,7 +622,7 @@ $(document).ready(()=>{
     function getSystemModules(){
         var results="<label class='btn btn-secondary btn-sm active  privilegefilter' data-id='all'><input type='radio' name='options'>All Privileges</label>"
         $.getJSON(
-            "../controllers/useroperations.php",
+            "../controllers/settingsoperations.php",
             {
                 getsystemmodules:true
             },
@@ -724,27 +787,626 @@ $(document).ready(()=>{
             centerVertical: true,
             inputType: 'password',
             callback: function(result){ 
-                //console.log(result); 
-                $.post(
+                if(result){
+                    if(result==""){
+                        errordiv.html(showAlert("info","Please provide a password"))
+                    }else{
+                        $.post(
+                            "../controllers/useroperations.php",
+                            {
+                                resetuserpassword:true,
+                                password:result,
+                                id:userid
+                            },
+                            function(data){
+                                data=$.trim(data)
+                                if(data=="success"){
+                                    results="User's password has been <strong>RESET</strong> successfully."
+                                    errordiv.html(showAlert("success",results))
+                                }else{
+                                    errordiv.html(showAlert("danger",`Sorry an error occured ${data}`))
+                                }
+                                // clear the form
+                                clearUserForm()
+                                userslist.val("")
+                            }
+                        )
+                    }
+                }
+            }
+        })
+    })
+
+    saveuseroutlet.on("click",function(){
+        var outlets=[]
+        $(".useroutlettoadd").each(function(){
+            if($(this).prop("checked")){
+                outlets.push({id:$(this).attr("id")})
+            }
+        })
+        if(outlets.length==0){
+            errors="<div class='alert alert-info' role='alert'><i class='fas fa-info-circle fa-lg'></i> Please select at least an Outlet.</div>"
+            useroutleterror.html(errors)
+        }else{
+            // save the outlets
+            var ouletsadded=JSON.stringify(outlets),
+            userid=useridfield.val()
+            // update the outlets list
+            $.post(
+                "../controllers/posoperations.php",
+                {
+                    saveuseroutlet:true,
+                    userid:userid,
+                    outletid:ouletsadded
+                },
+                function(data){
+                    data=$.trim(data)
+                    if(data=="success"){
+                        results="<div class='alert alert-success' role='alert'><i class='fas fa-check-circle fa-lg'></i> Outlet successfully assigend to the user.</div>"
+                    }else{
+                        results="<div class='alert alert-danger' role='alert'><i class='fas fa-times-circle fa-lg'></i> "+data+"</div>"
+                    }
+                    useroutleterror.html(results)
+                }
+            )
+        }
+    })
+
+    function getuseroutlets(userid){
+        $.getJSON(
+            "../controllers/posoperations.php",
+            {
+                getuseroutlets:true,
+                userid:userid
+            },
+            function(data){
+                var results=""  
+                if(data.length>0){
+                    var results="<table class='table table-sm'>"
+                    for(var i=0;i<data.length;i++){
+                        results+="<tr><td id='"+data[i].id+"'>"+data[i].posname+"</td>"
+                        results+="<td class='text-align-right'><a href='javascript void(0)' class='deleteuseroutlet text-danger' data-id="+data[i].id+"><span><i class='fas fa-trash-alt fa-lg'></i></span></a></td></tr>"
+                    }
+                    results+="</table>"
+                }else{
+                    results="<div class='alert alert-info' role='alert'><i class='fas fa-info-circle fa-lg'></i>&nbsp;&nbsp;Currently no outlets assigned.</div>"
+                }
+                userouletlist.html(results)
+            }
+        )
+    }
+
+    userouletlist.on("click",".deleteuseroutlet",function(e){
+        e.preventDefault();
+        var id = $(this).attr('data-id')
+        var parent = $(this).parent("td").parent("tr")
+        var itemname=parent.find("td").eq(0).text()
+        //var userid=useridfield.val()
+        bootbox.dialog({
+            title: "Confirm Outlet Removal!",
+            message: "Remove <strong>"+itemname+"</strong> outlet from the user?",
+            buttons: {
+                success: {
+                    label: "No, Keep",
+                    className: "btn-success",
+                    callback: function() {
+                        $('.bootbox').modal('hide');
+                    }
+                },
+                danger: {
+                    label: "Yes, Remove",
+                    className: "btn-danger",
+                    callback: function() {
+                        //console.log(parent)
+                        $.post(
+                            "../controllers/posoperations.php",
+                            {
+                                id:id,
+                                deleteuseroutlet:true
+                            },
+                            function(data){
+                                data=$.trim(data)
+                                // refresh users outlets
+                                if(data=="success"){
+                                    results="<div class='alert alert-success' role='alert'><i class='fas fa-check-circle fa-lg'></i> Outlet <strong>"+itemname+"</strong> has been removed from the user successfully.</div>"
+                                }else{
+                                    results="<div class='alert alert-danger' role='alert'><i class='fas fa-times-circle fa-lg'></i> "+data+"</div>"
+                                }
+                                errordiv.html(results)
+                                userid=useridfield.val()
+                                getuseroutlets(userid)
+                            }
+                        )
+                        parent.remove()
+                        $('.bootbox').modal('hide');
+
+                    }
+                }
+            }
+        })
+    })
+
+    const specialpermissionsmodal=$("#specialpermissionsmodal"),
+        specialpermissionsbutton=$("#specialpermissions"),
+        requisitionprivilegestable=$("#requisitionprivilegestable"),
+        purchaseorderprivilegestable=$("#purchaseorderprivilegestable"),
+        saveuserspecialprivileges=$("#saveuserspecialprivileges"),
+        loadsignaturebutton=$("#signaturedocument"),
+        signaturepreview=$("#signaturepreview"),
+        attachmenterror=$("#attachmenterror")
+
+    // show special permissions
+    specialpermissionsbutton.on("click",function(){
+        // get requisition privileges
+        userid=userslist.val()
+        if(userid!=0){
+            populaterequsitionprivileges()
+            populatepurchaseorderprivileges()
+            specialpermissionsmodal.modal("show")
+            errordiv.html("")
+        }else{
+            // display errors
+            errordiv.html(showAlert("info","Please select a user first"))
+            userslist.focus()
+        } 
+    })
+
+    function populaterequsitionprivileges(){ 
+        var results="<thead><th>&nbsp;</th>",
+        // Array to hold requisition privileges that will be iterated through each department 
+        columns=[],
+        userid=userslist.val()
+        // get the requisition privileges
+        $.getJSON(
+            "../controllers/rawmaterialsoperations.php",
+            {
+                getrequisitionapprovallevel:true
+            },
+            function(data){
+               for(var i=0;i<data.length;i++){
+                   results+=`<th data-id='${data[i].id}' class='text-center'>${data[i].description}</th>`
+                   columns.push(data[i].id)
+               }
+               results+='</thead>'
+            }
+        ).then( function(){
+            // get departments
+            results+='<tbody><tr><td>&nbsp;</td>'
+            
+            // add check boxes that select approval level for all departments below it
+            for(i=0;i<columns.length;i++){
+                results+=`<td align="center"><input type='checkbox' class='selectalldepartments' data-id=${columns[i]}>` 
+            }
+            results+='</tr>'
+
+            $.getJSON(
+                "../controllers/departmentoperations.php",
+                {
+                    getdepartments:true
+                },
+                function(data){
+                    for(var i=0;i<data.length;i++){
+                        results+=  `<tr><td data-id='${data[i].id}'>${data[i].departmentname}</td>`
+                        // add checkboxes for all requisition privileges 
+                        for(j=0;j<columns.length;j++){
+                            results+=`<td  align="center"><input type='checkbox' class='requisitionprivilege' data-departmentid=${data[i].id} data-approvallevelid=${columns[j]}></td>`
+                        }
+                        results+=`</tr>`
+                    }
+                    results+=`</tbody>`
+                    requisitionprivilegestable.html(results)
+                }
+            ).then( function(){
+                // get set user privileges
+                $.getJSON(
                     "../controllers/useroperations.php",
                     {
-                        resetuserpassword:true,
-                        password:result,
-                        id:userid
+                        getuserrequisitionapprovalprivileges:true,
+                        userid
                     },
                     function(data){
-                        data=$.trim(data)
-                        if(data=="success"){
-                            results="<div class='alert alert-success' role='alert'><i class='fas fa-check-circle fa-lg'></i> User's password has been <strong>RESET</strong> successfully.</div>"
-                        }else{
-                            results="<div class='alert alert-danger' role='alert'><i class='fas fa-times-circle fa-lg'></i> "+data+"</div>"
+                        for(var i=0;i<data.length;i++){
+                            // loop through checkboxes and match department and privilegeid to check the box if privilege is applicable
+                            requisitionprivilegestable.find("input.requisitionprivilege").each(function(){
+                                var $this=$(this),
+                                    departmentid=$this.attr("data-departmentid"),
+                                    approvallevelid=$this.attr("data-approvallevelid")
+                                if(departmentid==data[i].departmentid && approvallevelid==data[i].approvallevelid){
+                                    $this.prop("checked",true)
+                                }
+                            })
                         }
-                        errordiv.html(results)
-                        // clear the form
-                        clearUserForm()
-                        userslist.val("")
                     }
                 )
+            })
+        })
+    }
+
+    // check and uncheck all departments when a select all checkbox for a privilege is clicked
+    requisitionprivilegestable.on("click",".selectalldepartments",function(){
+        var $this=$(this),
+            id=$this.attr("data-id")
+        if($this.prop("checked")){
+            requisitionprivilegestable.find("input").each(function(){
+                if($(this).attr("data-approvallevelid")==id){
+                    $(this).prop("checked",true)
+                }
+            })
+        }else{
+            requisitionprivilegestable.find("input").each(function(){
+                if($(this).attr("data-approvallevelid")==id){
+                    $(this).prop("checked",false)
+                }
+            })  
+        }
+    })
+
+    // save user requisition privileges
+    saveuserspecialprivileges.on("click",function(){
+        userid=userslist.val()
+        // check active tab
+        var id=$("#specialprivileges-tab .active").prop("id")
+        if(id=="pop1-requisitions" || id=="pop2-purchaseorders") {
+            privileges=[],
+            poprivileges=[],
+            notifications="",
+            requisitionprivilegestable.find("input.requisitionprivilege").each(function(){
+                var $this=$(this),
+                    departmentid=$this.attr("data-departmentid"),
+                    approvallevelid=$this.attr("data-approvallevelid"),
+                    valid=$(this).prop("checked")?1:0
+                privileges.push({"departmentid":departmentid,"approvallevelid":approvallevelid,"valid":valid})
+            })
+
+            purchaseorderprivilegestable.find("input.purchaseorderprivilege").each(function(){
+                var $this=$(this),
+                    departmentid=$this.attr("data-departmentid"),
+                    approvallevelid=$this.attr("data-approvallevelid"),
+                    valid=$(this).prop("checked")?1:0
+                poprivileges.push({"departmentid":departmentid,"approvallevelid":approvallevelid,"valid":valid})
+            })
+
+            privileges=JSON.stringify(privileges)
+            poprivileges=JSON.stringify(poprivileges)
+
+            $.post(
+                "../controllers/useroperations.php",
+                {
+                    saverequisitionprivilege:true,
+                    userid,
+                    privileges,
+                    poprivileges
+                },
+                function(data){
+                    data=$.trim(data)
+                    if(data=="success"){
+                        notifications="The privileges have been saved successfully."
+                        errordiv.html(showAlert("success",notifications))
+                        // hide this modal
+                        specialpermissionsmodal.modal("hide")
+                    }else{
+                        notifications=`Sorry an error occured. ${data}`
+                        errordiv.html(showAlert("danger",notifications,1))
+                    }
+                }
+            )
+        }else{
+            // upload signature
+            var fd = new FormData(),
+                files = $('#signaturedocument')[0].files[0],
+                userid=useridfield.val(),
+                errors="",
+                results=""
+            if(typeof files === 'undefined'){
+                errors="Please select signature file to upload first"
+            }
+            if(errors==""){
+                fd.append('userid',userid)
+                fd.append('file',files);
+                fd.append('uploadsignature','true');
+
+                attachmenterror.html(showAlert("processing", "Uploading Signature. Please Wait ...",1))
+                $.ajax({
+                    url:  "../controllers/useroperations.php",
+                    type: 'post',
+                    data: fd,
+                    contentType: false,
+                    processData: false,
+                    success: function(response){
+                        if(response =="success"){
+                            attachmenterror.html(showAlert("success","Signature uploaded successfully"))
+                            // refresh the attachments list
+                            $('#signaturefile').val("")
+                        }else{
+                            results=`Sorry an error occured. ${response}`
+                            attachmenterror.html(showAlert("danger",results))
+                        }
+                    }
+                })
+            }else{
+                attachmenterror.html(showAlert("info",errors))
+            }
+        }
+    })
+
+    // Purchase Order Special Permissions 
+
+    function populatepurchaseorderprivileges(){ 
+        var results="<thead><th>&nbsp;</th>",
+        // Array to hold requisition privileges that will be iterated through each department 
+        columns=[],
+        userid=userslist.val()
+        // get the purchaseorder privileges
+        $.getJSON(
+            "../controllers/rawmaterialsoperations.php",
+            {
+                getpurchaseorderapprovallevel:true
+            },
+            function(data){
+               for(var i=0;i<data.length;i++){
+                   results+=`<th data-id='${data[i].id}' class='text-center'>${data[i].description}</th>`
+                   columns.push(data[i].id)
+               }
+               results+='</thead>'
+            }
+        ).then( function(){
+            // get departments
+            results+='<tbody><tr><td>&nbsp;</td>'
+            
+            // add check boxes that select approval level for all departments below it
+            for(i=0;i<columns.length;i++){
+                results+=`<td align="center"><input type='checkbox' class='selectalldepartments' data-id=${columns[i]}>` 
+            }
+            results+='</tr>'
+
+            $.getJSON(
+                "../controllers/departmentoperations.php",
+                {
+                    getdepartments:true
+                },
+                function(data){
+                    for(var i=0;i<data.length;i++){
+                        results+=  `<tr><td data-id='${data[i].id}'>${data[i].departmentname}</td>`
+                        // add checkboxes for all purchaseorder privileges 
+                        for(j=0;j<columns.length;j++){
+                            results+=`<td  align="center"><input type='checkbox' class='purchaseorderprivilege' data-departmentid=${data[i].id} data-approvallevelid=${columns[j]}></td>`
+                        }
+                        results+=`</tr>`
+                    }
+                    results+=`</tbody>`
+                    purchaseorderprivilegestable.html(results)
+                }
+            ).then( function(){
+                // get set user privileges
+                $.getJSON(
+                    "../controllers/useroperations.php",
+                    {
+                        getuserpurchaseorderapprovalprivileges:true,
+                        userid
+                    },
+                    function(data){
+                        for(var i=0;i<data.length;i++){
+                            // loop through checkboxes and match department and privilegeid to check the box if privilege is applicable
+                            purchaseorderprivilegestable.find("input.purchaseorderprivilege").each(function(){
+                                var $this=$(this),
+                                    departmentid=$this.attr("data-departmentid"),
+                                    approvallevelid=$this.attr("data-approvallevelid")
+                                if(departmentid==data[i].departmentid && approvallevelid==data[i].approvallevelid){
+                                    $this.prop("checked",true)
+                                }
+                            })
+                        }
+                    }
+                )
+            })
+        })
+    }
+
+    // check and uncheck all departments when a select all checkbox for a privilege is clicked
+    purchaseorderprivilegestable.on("click",".selectalldepartments",function(){
+        var $this=$(this),
+            id=$this.attr("data-id")
+        if($this.prop("checked")){
+            purchaseorderprivilegestable.find("input").each(function(){
+                if($(this).attr("data-approvallevelid")==id){
+                    $(this).prop("checked",true)
+                }
+            })
+        }else{
+            purchaseorderprivilegestable.find("input").each(function(){
+                if($(this).attr("data-approvallevelid")==id){
+                    $(this).prop("checked",false)
+                }
+            })  
+        }
+    })
+
+     // preview the signature when a new file is selected
+     loadsignaturebutton.on("change",function(){
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                signaturepreview.attr('src', e.target.result);
+            }
+            reader.readAsDataURL(this.files[0]);
+        }
+    })
+
+    // reset user pin
+    resetuserpinbutton.on("click",()=>{
+        const userid=userslist.val()
+        if(userid==""){
+            errordiv.html(showAlert("info","Please select a user first"))
+            userslist.focus()
+        }else{
+            pinresetmodal.modal("show")
+        }
+    })
+
+    saveresetuserpinbutton.on("click",function(){
+        const pin=sanitizestring(newpinfield.val()),
+            userid=userslist.val()
+        let errors=""
+
+        if(pin==""){
+            errors="Please provide New PIN"
+            newpinfield.focus()
+            resetpinnotifications.html(showAlert("info",errors))
+        }else{
+            resetpinnotifications.html(showAlert("processing","Resetting PIN. Please wait ...",1))
+            $.post(
+                "../controllers/useroperations.php",
+                {
+                    resetuserpin:true,
+                    userid,
+                    pin
+                },
+                (data)=>{
+                    if(isJSON(data)){
+                        data=JSON.parse(data)
+                        if(data.status=="success"){
+                            pinresetmodal.modal("hide")
+                            errordiv.html(showAlert("success",`User's PIN reset successfully`))
+                        }
+                    }else{
+                        resetpinnotifications.html(showAlert("danger",`Sorry an error occured ${data}`))
+                    }
+                }
+            )
+        }
+    })
+
+    // Manage Local users
+    const localuserdetailsmodal=$("#localuserdetailsmodal"),
+        addlocaluserbutton=$("#addlocaluser"),
+        selectlocaluserfield=$("#localusername"),
+        selectlocaluserdatabase=$("#defaultdatabase"),
+        localusernotifications=$("#localusernotifications"),
+        savelocaluserbutton=$("#savelocaluser"),
+        localuserslist=$("#localuserslist")
+
+    // get existing local users
+    getlocalusers()
+
+    addlocaluserbutton.on("click",()=>{
+
+        localusernotifications.html("")
+        localuserdetailsmodal.modal("show")
+        getdatabases(selectlocaluserdatabase)
+
+        // get system users
+        $.getJSON(
+            "../controllers/useroperations.php",
+        {
+            getuserslist:true
+        },
+        function(data){
+            let results
+            results="<option value=''>&lt;Choose&gt;</option>"
+            data.forEach((data)=>{
+                results+=`<option value='${data.username}'>${data.firstname} ${data.middlename} ${data.lastname}</option>`
+            })
+            selectlocaluserfield.html(results)
+        })
+    })
+
+    function getdatabases(obj,option='choose'){
+        const databases = JSON.parse(localStorage.getItem('databases')) || []   
+        let  results="<option value=''>&lt;Choose&gt;</option >"
+        databases.forEach(({outletname,database})=>{
+            results+=`<option value='${database}'>${outletname}</option>`
+        })
+        obj.html(results)
+
+    }
+
+    // Save local user
+    savelocaluserbutton.on("click",()=>{
+        const username=selectlocaluserfield.val(),
+            defaultdatabase=selectlocaluserdatabase.val()
+        let errors=""
+        if(username==""){
+            errors="Please select a user from the list first"
+        }else if(defaultdatabase==""){
+            errors="Please select user branch first"
+        }
+
+        if(errors==""){            
+            const user={"username":username,"company":defaultdatabase}
+            //  get locally stored users
+            const users = JSON.parse(localStorage.getItem('users')) || []            
+            if(users.length==0){
+                // add user to the list
+                users.push(user)
+                localStorage.setItem('users', JSON.stringify(users));
+            }else{
+                // check if user exits
+                const user1=users.find((user)=>user.username==username)
+                // add user to the list
+                if(user1==undefined || user1.length==0 ){
+                    users.push(user)
+                    // Save the updated array back to local storage
+                    localStorage.setItem('users', JSON.stringify(users));
+                }
+            }
+            localusernotifications.html(showAlert("success",`User saved successfully in the local machine`))
+            // refresh list
+            getlocalusers()
+        }else{
+            localusernotifications.html(showAlert("info",errors))
+        }
+    })
+
+    function getlocalusers(){
+        const users=JSON.parse(localStorage.getItem('users')) || []  
+        let results="<table class='table table-sm'>"
+        if(users.length>0){
+            users.forEach((user)=>{
+                results+=`<tr id='${user.username}'><td >${titleCase(user.username)}</td>`
+                results+=`<td>${user.company}</td>`
+                results+=`<td class='text-align-right'><a href='#' class='deletelocaluser text-danger'><i class='fas fa-trash-alt fa-lg'></i></a></td></tr>`
+            })
+            results+="</table>"
+            localuserslist.html(results)
+        }else{
+            results=showAlert("info",`No users currently saved locally`)
+        }
+    }
+
+    localuserslist.on("click",".deletelocaluser",function(){
+        const row=$(this).closest("tr"),
+            userid=row.attr("id"),
+            username=row.find("td").eq(0).text()
+        // confirm with bootbox
+        bootbox.dialog({
+            title: "Confirm user deletion!",
+            message: `Permanently delete user <strong>${username}</strong> from local storage?`,
+            buttons: {
+                success: {
+                    label: "No, Keep",
+                    className: "btn-success btn-sm",
+                    callback: function() {
+                        $('.bootbox').modal('hide');
+                    }
+                },
+                danger: {
+                    label: "Yes, Remove",
+                    className: "btn-danger btn-sm",
+                    callback: function() {
+                        //console.log(parent)
+                        const users=JSON.parse(localStorage.getItem('users')),
+                        newusers=users.filter(user=>user.username!==userid),
+                        undeletedusers=[]
+                        newusers.forEach(({username,company})=>{
+                            undeletedusers.push({"username":username,"company":company})
+                        })
+                        // update the local storage
+                        localStorage.setItem('users',JSON.stringify(undeletedusers))
+                        // refresh the list
+                        getlocalusers()
+                        $('.bootbox').modal('hide');
+                    }
+                }
             }
         })
     })

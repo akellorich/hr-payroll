@@ -79,6 +79,79 @@
             $sql="CALL `sp_getpaymentmethods`()";
             return $this->getJSON($sql);
         }
+
+        function checkunitdetails($unitid,$checkfield,$checkvalue){
+            $sql="CALL `sp_checkunitdetails`({$unitid},'{$checkfield}','{$checkvalue}')";
+            return $this->getData($sql)->rowCount();
+        }
+
+        function saveunit($unitid,$unitcode,$unitname){
+            // check unit code
+            if($this->checkunitdetails($unitid,'unitcode',$unitcode)){
+                return["status"=>"exists","category"=>"unitcode","message"=>"unit code already exists"];
+            }if($this->checkunitdetails($unitid,'unitname',$unitname)){
+                return["status"=>"exists","category"=>"unitname","message"=>"unit name already exists"];
+            }else{
+                $sql="CALL `sp_saveunit`({$unitid},'{$unitcode}','{$unitname}','{$this->platform}',{$this->userid})";
+                $this->getData($sql);
+                return ["status"=>"success","message"=>"unit saved successfully"];
+            }
+        }
+
+        function getunits(){
+            $sql="CALL `sp_getunits`()";
+            return $this->getJSON($sql);
+        }
+
+        function getunitdetails($unitid){
+            $sql="CALL `sp_getunitdetails`({$unitid})";
+            return $this->getJSON($sql);
+        }
+
+        function deleteunit($unitid){
+            $sql="CALL `sp_deleteunit`({$unitid},'{$this->platform}',{$this->userid})";
+            $this->getData($sql);
+            return ["status"=>"success","message"=>"unit deleted successfully"];
+        }
+
+        function checksection($sectionid,$checkfield,$checkvalue){
+            $sql="CALL `sp_checksection`({$sectionid},'{$checkfield}','{$checkvalue}')";
+            return $this->getData($sql)->rowCount();
+        }
+
+        function savesection($sectionid,$departmentid,$sectioncode, $sectionname){
+            if($this->checksection($sectionid,'sectioncode',$sectioncode)){
+                return['status'=>'exists',"message">"section code exists","category"=>"sectioncode"];
+            }else if($this->checksection($sectionid,'sectionname',$sectionname)){
+                return['status'=>'exists',"message">"section name exists","category"=>"sectionname"];
+            }else{
+                $sql="CALL `sp_savesection`({$sectionid},{$departmentid},'{$sectioncode}',
+                '{$sectionname}','{$this->platform}',{$this->userid})";
+                $this->getData($sql);
+                return ["status"=>"success","message"=>"section saved succesfuly"];
+            }
+        }
+
+        function getsections($departmentid){
+            $sql="CALL `sp_getsections`({$departmentid})";
+            return $this->getJSON($sql);
+        }
+
+        function getsectiondetails($sectionid){
+            $sql="CALL `sp_getsectiondetails`({$sectionid})";
+            return $this->getJSON($sql);
+        }
+
+        function deletesection($sectionid){
+            $sql="CALL `sp_deletesection`({$sectionid},'{$this->platform}',{$this->userid})";
+            $this->getData($sql);
+            return ["status"=>"success","message"=>"section deleted successfully"];
+        }
+
+        function getSystemModules(){
+            $sql="CALL spgetsystemmodules()";
+            return $this->getJSON($sql);
+        }
     
     }
 
