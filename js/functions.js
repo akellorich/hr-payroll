@@ -226,6 +226,27 @@ function setDatePicker(controlname,maxdate=true, mindate=false){
             changeYear:true
         })
     }
+
+    // Add Icon showing its a date field
+    const $icon = $('<i>').addClass('fal fa-calendar-alt');
+  
+    // Wrap the input with a container and add the icon
+    controlname.wrap('<div class="input-icon-container w-100"></div>')
+        .css('padding-left', '30px');
+    
+    // Style the container and add the icon
+    $('.input-icon-container')
+        .css({
+        'position': 'relative',
+        'display': 'inline-block'
+        })
+        .append($icon.css({
+        'position': 'absolute',
+        'left': '10px',
+        'top': '50%',
+        'transform': 'translateY(-50%)',
+        'color': '#999'
+        }));
 }
 
 function titleCase(str) {

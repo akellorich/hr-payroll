@@ -656,12 +656,8 @@
                             <nav class="nav-justified ">
                                 <!-- Navigation -->
                                 <div class="nav nav-tabs " id="leavesettings-tab" role="tablist">
-                                    <!-- <a class="nav-item nav-link" id="leaveapplications-tab" data-toggle="tab" href="#leaveapplications" role="tab" aria-controls="pop1" aria-selected="true">Applications</a>
-                                    <a class="nav-item nav-link " id="leavecalendar-tab" data-toggle="tab" href="#leavedashboard" role="tab" aria-controls="pop1" aria-selected="true">Calendar</a> -->
                                     <a class="nav-item nav-link active" id="pop2-tab" data-toggle="tab" href="#leavetypes" role="tab" aria-controls="pop2" aria-selected="false">Leave Types</a>
-                                    <!-- <a class="nav-item nav-link" id="pop2-tab" data-toggle="tab" href="#leaveallocations" role="tab" aria-controls="pop2" aria-selected="false">Allocations</a> -->
                                     <a class="nav-item nav-link" id="pop2-tab" data-toggle="tab" href="#holidays" role="tab" aria-controls="pop2" aria-selected="false">Holidays</a>
-                                    <!-- <a class="nav-item nav-link" id="pop2-tab" data-toggle="tab" href="#workschedules" role="tab" aria-controls="pop2" aria-selected="false">Work Schedules</a> -->
                                     <a class="nav-item nav-link" id="pop2-tab" data-toggle="tab" href="#leaveapprovalflows" role="tab" aria-controls="pop2" aria-selected="false">Approval Flows</a>
                                 </div>
                             </nav>

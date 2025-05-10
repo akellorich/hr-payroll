@@ -40,7 +40,7 @@ $(document).ready(()=>{
     selectfield.on("change",()=>{
         inputfields.trigger("input")
     })
-
+    
     watchguidebutton.on("click",function(){
         formbox.css('max-width','960px')
         playtutorialdiv.show()
@@ -56,6 +56,21 @@ $(document).ready(()=>{
         mainform.show()
     })
 
+    usernamefield.focus()
+
+    usernamefield.on("keydown",function(e){
+        // console.log(e.which)
+        if(e.keyCode==13){
+            passwordfield.focus()
+        }
+    })
+
+    passwordfield.on("keypress",function(e){
+        // console.log(e.which)
+        if(e.keyCode==13){
+            signinbutton.trigger("click")
+        }
+    })
 
     titlefield.html("System Login")
     signupbutton.addClass("disabled")

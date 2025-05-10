@@ -42,25 +42,15 @@
         </div>
 
         <main id="dashboard">
-            <div class="card card-body">
-                <nav class="nav-justified ">
-                    <!-- Navigation -->
-                    <div class="nav nav-tabs " id="employees-tab" role="tablist">
-                        <!-- <a class="nav-item nav-link active" id="employees-tab" data-toggle="tab" href="#employees" role="tab" aria-controls="pop1" aria-selected="true">Employees</a> -->
-                        <a class="nav-item nav-link" id="processing-tab" data-toggle="tab" href="#processing" role="tab" aria-controls="pop2" aria-selected="false">Processing</a>
-                        <!-- <a class="nav-item nav-link" id="jobgroups-tab" data-toggle="tab" href="#jobgroups" role="tab" aria-controls="pop2" aria-selected="false">Grades</a>
-                        <a class="nav-item nav-link" id="positions-tab" data-toggle="tab" href="#positions" role="tab" aria-controls="pop2" aria-selected="false">Positions</a>
-                        <a class="nav-item nav-link" id="salarystructure-tab" data-toggle="tab" href="#salarystructures" role="tab" aria-controls="pop2" aria-selected="false">Scales</a>
-                        <a class="nav-item nav-link" id="banks-tab" data-toggle="tab" href="#banks" role="tab" aria-controls="pop2" aria-selected="false">Banks</a>
-                        <a class="nav-item nav-link" id="payrollitems-tab" data-toggle="tab" href="#payrollitems" role="tab" aria-controls="pop2" aria-selected="false">Items</a>
-                        <a class="nav-item nav-link" id="creditors-tab" data-toggle="tab" href="#creditors" role="tab" aria-controls="pop2" aria-selected="false">Creditors</a> -->
-                        <!-- <a class="nav-item nav-link" id="leavesettings-tab" data-toggle="tab" href="#leavesettings" role="tab" aria-controls="pop2" aria-selected="false">Leaves</a> -->
-                        <!-- <a class="nav-item nav-link" id="categories-tab" data-toggle="tab" href="#categories" role="tab" aria-controls="pop2" aria-selected="false">Categories</a>
-                        <a class="nav-item nav-link" id="units-tab" data-toggle="tab" href="#unitsmenu" role="tab" aria-controls="pop2" aria-selected="false">Units</a>
-                        <a class="nav-item nav-link" id="departments-tab" data-toggle="tab" href="#departments" role="tab" aria-controls="pop2" aria-selected="false">Departments</a>
-                        <a class="nav-item nav-link" id="emplymentterms-tab" data-toggle="tab" href="#employmentterms" role="tab" aria-controls="pop2" aria-selected="false">Terms</a> -->
-                        <a class="nav-item nav-link" id="reportsmenu-tab" data-toggle="tab" href="#reportsmenu" role="tab" aria-controls="pop2" aria-selected="false">Reports</a>
-                    </div>
+            <div class="card containergroup">
+                <div class="card-body">
+                    <nav class="nav-justified ">
+                        <!-- Navigation -->
+                        <div class="nav nav-tabs " id="employees-tab" role="tablist">
+                            <a class="nav-item nav-link active" id="processing-tab" data-toggle="tab" href="#processing" role="tab" aria-controls="pop2" aria-selected="false">Processing</a>
+                            <a class="nav-item nav-link" id="reportsmenu-tab" data-toggle="tab" href="#reportsmenu" role="tab" aria-controls="pop2" aria-selected="false">Reports</a>
+                        </div>
+                    </nav>
                     <!-- Pages -->
                     <div class="tab-content text-left" id="nav-tabContent">
                         <!-- Processing Page -->
@@ -318,7 +308,7 @@
                                                         <thead>
                                                             <th>PIN Number</th>
                                                             <th>Names</th>
-                                                             <th>Month</th>
+                                                                <th>Month</th>
                                                             <th>Year</th>
                                                             <th>Resident</th>
                                                             <th>Primary/Secondary</th> 
@@ -363,15 +353,15 @@
                                             </div>
                                         </div>
                                     </div>
-                                   
+                                    
                                 </div>
                             </div>  
                         </div>
-
+                        
                     </div>
-                </nav>
+                </div>
+
             </div>
-           
         </main>
 
     </div>
@@ -645,7 +635,7 @@
             </div>
         </div>
     </div>
-    
+
 </body>
 <?php require_once("footer.txt")?>
 <script src="../plugins/fullcalendar-6.1.14/index.global.js"></script>
